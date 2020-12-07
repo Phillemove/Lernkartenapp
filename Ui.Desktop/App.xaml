@@ -1,0 +1,12 @@
+﻿<Application x:Class="De.HsFlensburg.ClientApp101.Ui.Desktop.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:De.HsFlensburg.ClientApp101.Ui.Desktop"
+             xmlns:viewModel="clr-namespace:De.HsFlensburg.ClientApp101.Logic.Ui;assembly=Logic.Ui"
+             xmlns:desktop="clr-namespace:De.HsFlensburg.ClientApp101.Ui.Desktop.MessageBusLogic"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <viewModel:ViewModelLocator x:Key="VMLocator"></viewModel:ViewModelLocator>
+        <desktop:MessageListener x:Key="MessageListener"></desktop:MessageListener>
+    </Application.Resources>
+</Application>

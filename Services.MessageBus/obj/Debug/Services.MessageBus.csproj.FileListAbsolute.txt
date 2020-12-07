@@ -1,0 +1,12 @@
+C:\Users\Philipp Theis\source\repos\ClientApp101\Services.MessageBus\bin\Debug\Services.MessageBus.dll
+C:\Users\Philipp Theis\source\repos\ClientApp101\Services.MessageBus\bin\Debug\Services.MessageBus.pdb
+C:\Users\Philipp Theis\source\repos\ClientApp101\Services.MessageBus\obj\Debug\Services.MessageBus.csprojAssemblyReference.cache
+C:\Users\Philipp Theis\source\repos\ClientApp101\Services.MessageBus\obj\Debug\Services.MessageBus.csproj.CoreCompileInputs.cache
+C:\Users\Philipp Theis\source\repos\ClientApp101\Services.MessageBus\obj\Debug\Services.MessageBus.dll
+C:\Users\Philipp Theis\source\repos\ClientApp101\Services.MessageBus\obj\Debug\Services.MessageBus.pdb
+C:\Users\Philipp Theis\source\repos\ClientApp007\ClientApp101\Services.MessageBus\bin\Debug\Services.MessageBus.dll
+C:\Users\Philipp Theis\source\repos\ClientApp007\ClientApp101\Services.MessageBus\bin\Debug\Services.MessageBus.pdb
+C:\Users\Philipp Theis\source\repos\ClientApp007\ClientApp101\Services.MessageBus\obj\Debug\Services.MessageBus.csprojAssemblyReference.cache
+C:\Users\Philipp Theis\source\repos\ClientApp007\ClientApp101\Services.MessageBus\obj\Debug\Services.MessageBus.csproj.CoreCompileInputs.cache
+C:\Users\Philipp Theis\source\repos\ClientApp007\ClientApp101\Services.MessageBus\obj\Debug\Services.MessageBus.dll
+C:\Users\Philipp Theis\source\repos\ClientApp007\ClientApp101\Services.MessageBus\obj\Debug\Services.MessageBus.pdb

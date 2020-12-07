@@ -1,0 +1,12 @@
+C:\Users\Philipp Theis\source\repos\ClientApp101\Business.Model\bin\Debug\Business.Model.dll
+C:\Users\Philipp Theis\source\repos\ClientApp101\Business.Model\bin\Debug\Business.Model.pdb
+C:\Users\Philipp Theis\source\repos\ClientApp101\Business.Model\obj\Debug\Business.Model.csprojAssemblyReference.cache
+C:\Users\Philipp Theis\source\repos\ClientApp101\Business.Model\obj\Debug\Business.Model.csproj.CoreCompileInputs.cache
+C:\Users\Philipp Theis\source\repos\ClientApp101\Business.Model\obj\Debug\Business.Model.dll
+C:\Users\Philipp Theis\source\repos\ClientApp101\Business.Model\obj\Debug\Business.Model.pdb
+C:\Users\Philipp Theis\source\repos\ClientApp007\ClientApp101\Business.Model\obj\Debug\Business.Model.csprojAssemblyReference.cache
+C:\Users\Philipp Theis\source\repos\ClientApp007\ClientApp101\Business.Model\obj\Debug\Business.Model.csproj.CoreCompileInputs.cache
+C:\Users\Philipp Theis\source\repos\ClientApp007\ClientApp101\Business.Model\obj\Debug\Business.Model.dll
+C:\Users\Philipp Theis\source\repos\ClientApp007\ClientApp101\Business.Model\obj\Debug\Business.Model.pdb
+C:\Users\Philipp Theis\source\repos\ClientApp007\ClientApp101\Business.Model\bin\Debug\Business.Model.dll
+C:\Users\Philipp Theis\source\repos\ClientApp007\ClientApp101\Business.Model\bin\Debug\Business.Model.pdb
