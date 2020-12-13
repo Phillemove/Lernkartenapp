@@ -41,3 +41,5 @@ C:\Users\Philipp Theis\source\repos\ClientApp007\ClientApp101\Ui.Desktop\obj\Deb
 C:\Users\Philipp Theis\source\repos\ClientApp007\ClientApp101\Ui.Desktop\obj\Debug\Ui.Desktop.csproj.CoreCompileInputs.cache
 C:\Users\Philipp Theis\source\repos\ClientApp007\ClientApp101\Ui.Desktop\obj\Debug\Ui.Desktop.csproj.CopyComplete
 C:\Users\Philipp Theis\source\repos\ClientApp007\ClientApp101\Ui.Desktop\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\Philipp Theis\source\repos\ClientApp007\ClientApp101\Ui.Desktop\obj\Debug\Statistic.g.cs
+C:\Users\Philipp Theis\source\repos\ClientApp007\ClientApp101\Ui.Desktop\obj\Debug\Statistic.baml
