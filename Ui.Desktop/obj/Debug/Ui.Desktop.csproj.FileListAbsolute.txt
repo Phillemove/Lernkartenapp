@@ -43,3 +43,29 @@ C:\Users\Philipp Theis\source\repos\ClientApp007\ClientApp101\Ui.Desktop\obj\Deb
 C:\Users\Philipp Theis\source\repos\ClientApp007\ClientApp101\Ui.Desktop\obj\Debug\GeneratedInternalTypeHelper.g.cs
 C:\Users\Philipp Theis\source\repos\ClientApp007\ClientApp101\Ui.Desktop\obj\Debug\Statistic.g.cs
 C:\Users\Philipp Theis\source\repos\ClientApp007\ClientApp101\Ui.Desktop\obj\Debug\Statistic.baml
+C:\Users\hauke\source\repos\Lernkartenapp\Ui.Desktop\obj\Debug\Ui.Desktop.csprojAssemblyReference.cache
+C:\Users\hauke\source\repos\Lernkartenapp\Ui.Desktop\obj\Debug\Export.g.cs
+C:\Users\hauke\source\repos\Lernkartenapp\Ui.Desktop\obj\Debug\Import.g.cs
+C:\Users\hauke\source\repos\Lernkartenapp\Ui.Desktop\obj\Debug\MainWindow.g.cs
+C:\Users\hauke\source\repos\Lernkartenapp\Ui.Desktop\obj\Debug\Statistic.g.cs
+C:\Users\hauke\source\repos\Lernkartenapp\Ui.Desktop\obj\Debug\App.g.cs
+C:\Users\hauke\source\repos\Lernkartenapp\Ui.Desktop\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\hauke\source\repos\Lernkartenapp\Ui.Desktop\obj\Debug\Ui.Desktop_MarkupCompile.cache
+C:\Users\hauke\source\repos\Lernkartenapp\Ui.Desktop\obj\Debug\Ui.Desktop_MarkupCompile.lref
+C:\Users\hauke\source\repos\Lernkartenapp\Ui.Desktop\obj\Debug\Ui.Desktop.exe
+C:\Users\hauke\source\repos\Lernkartenapp\Ui.Desktop\obj\Debug\Ui.Desktop.pdb
+C:\Users\hauke\source\repos\Lernkartenapp\Ui.Desktop\bin\Debug\Ui.Desktop.exe.config
+C:\Users\hauke\source\repos\Lernkartenapp\Ui.Desktop\bin\Debug\Ui.Desktop.exe
+C:\Users\hauke\source\repos\Lernkartenapp\Ui.Desktop\bin\Debug\Ui.Desktop.pdb
+C:\Users\hauke\source\repos\Lernkartenapp\Ui.Desktop\bin\Debug\Logic.Ui.dll
+C:\Users\hauke\source\repos\Lernkartenapp\Ui.Desktop\bin\Debug\Logic.Ui.pdb
+C:\Users\hauke\source\repos\Lernkartenapp\Ui.Desktop\obj\Debug\App.baml
+C:\Users\hauke\source\repos\Lernkartenapp\Ui.Desktop\obj\Debug\Export.baml
+C:\Users\hauke\source\repos\Lernkartenapp\Ui.Desktop\obj\Debug\Import.baml
+C:\Users\hauke\source\repos\Lernkartenapp\Ui.Desktop\obj\Debug\MainWindow.baml
+C:\Users\hauke\source\repos\Lernkartenapp\Ui.Desktop\obj\Debug\Statistic.baml
+C:\Users\hauke\source\repos\Lernkartenapp\Ui.Desktop\obj\Debug\Ui.Desktop.g.resources
+C:\Users\hauke\source\repos\Lernkartenapp\Ui.Desktop\obj\Debug\De.HsFlensburg.ClientApp101.Ui.Desktop.Properties.Resources.resources
+C:\Users\hauke\source\repos\Lernkartenapp\Ui.Desktop\obj\Debug\Ui.Desktop.csproj.GenerateResource.cache
+C:\Users\hauke\source\repos\Lernkartenapp\Ui.Desktop\obj\Debug\Ui.Desktop.csproj.CoreCompileInputs.cache
+C:\Users\hauke\source\repos\Lernkartenapp\Ui.Desktop\obj\Debug\Ui.Desktop.csproj.CopyComplete

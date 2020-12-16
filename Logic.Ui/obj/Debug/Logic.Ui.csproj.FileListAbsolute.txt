@@ -16,3 +16,12 @@ C:\Users\Philipp Theis\source\repos\ClientApp007\ClientApp101\Logic.Ui\obj\Debug
 C:\Users\Philipp Theis\source\repos\ClientApp007\ClientApp101\Logic.Ui\obj\Debug\Logic.Ui.csproj.CopyComplete
 C:\Users\Philipp Theis\source\repos\ClientApp007\ClientApp101\Logic.Ui\obj\Debug\Logic.Ui.dll
 C:\Users\Philipp Theis\source\repos\ClientApp007\ClientApp101\Logic.Ui\obj\Debug\Logic.Ui.pdb
+C:\Users\hauke\source\repos\Lernkartenapp\Logic.Ui\bin\Debug\Logic.Ui.dll
+C:\Users\hauke\source\repos\Lernkartenapp\Logic.Ui\bin\Debug\Logic.Ui.pdb
+C:\Users\hauke\source\repos\Lernkartenapp\Logic.Ui\bin\Debug\Business.Model.dll
+C:\Users\hauke\source\repos\Lernkartenapp\Logic.Ui\bin\Debug\Business.Model.pdb
+C:\Users\hauke\source\repos\Lernkartenapp\Logic.Ui\obj\Debug\Logic.Ui.csprojAssemblyReference.cache
+C:\Users\hauke\source\repos\Lernkartenapp\Logic.Ui\obj\Debug\Logic.Ui.csproj.CoreCompileInputs.cache
+C:\Users\hauke\source\repos\Lernkartenapp\Logic.Ui\obj\Debug\Logic.Ui.csproj.CopyComplete
+C:\Users\hauke\source\repos\Lernkartenapp\Logic.Ui\obj\Debug\Logic.Ui.dll
+C:\Users\hauke\source\repos\Lernkartenapp\Logic.Ui\obj\Debug\Logic.Ui.pdb

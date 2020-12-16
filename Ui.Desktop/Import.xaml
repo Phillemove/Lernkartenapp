@@ -12,22 +12,27 @@
                 <UniformGrid Columns="1" Height="50px" VerticalAlignment="Top">
                     <Label Content="Import von Karteikarten" HorizontalAlignment="Center" VerticalAlignment="Top"/>
                 </UniformGrid>
-                <UniformGrid Grid.Column="0" Columns="2">
+                <UniformGrid Columns="2">
                     <Label Content="Bitte die Datei mit den Lernkarten auswählen:" HorizontalAlignment="Right" VerticalAlignment="Top"/>
-                    <Button Content="Datei" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+                    <Button Content="Datei" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75"/>
                 </UniformGrid>
+
             </UniformGrid>
-            <UniformGrid Grid.Column="1" Columns="1">
-                <DataGrid Height="200px" Width="600">
+            <UniformGrid Grid.Column="1" Columns="1" Margin="40,100,40,30">
+                <DataGrid >
                 </DataGrid>
+                <UniformGrid Columns="3">
+                    <RadioButton HorizontalAlignment="Right" Margin="0,7,0,0"/>
+                    <Label Content="Vorgeschlagener neuer Kategoriename: " VerticalAlignment="Top"></Label>
+                    <Label Content="Dateiname" HorizontalAlignment="Left"></Label>
+                    <RadioButton HorizontalAlignment="Right" Margin="0,7,0,0"/>
+                    <Label Content="Vorhandene Kategorie verwenden: " VerticalAlignment="Top"></Label>
+                    <ComboBox Width="200px" Height="20px" VerticalAlignment="Top" HorizontalAlignment="Left"></ComboBox>
+                </UniformGrid>
             </UniformGrid>
             <UniformGrid Grid.Column="2" Columns="1">
                 <Button Content="Importieren" Height="20px" Width="80px" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="10px"/>
-
             </UniformGrid>
-
         </Grid>
-
-
     </Grid>
 </Window>
