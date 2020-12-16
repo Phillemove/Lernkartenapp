@@ -11,6 +11,8 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
     {
 
         public StatisticViewModel StatisticViewModel { get; }
+        public ImportViewModel ImportViewModel { get; }
+        public ExportViewModel ExportViewMode { get; }
         public ViewModelLocator()
         {
 
