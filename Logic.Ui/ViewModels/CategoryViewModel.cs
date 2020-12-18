@@ -8,5 +8,6 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
 {
     class CategoryViewModel
     {
+        //Christian
     }
 }
