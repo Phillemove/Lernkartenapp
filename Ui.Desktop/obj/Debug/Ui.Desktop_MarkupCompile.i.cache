@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\LernKartenApp\Lernkartenapp\Ui.Desktop\App.xaml
-6-1904766174
+9-1560265671
 
-12-21405327
+152081947243
 14523388284
-CardAdd.xaml;Export.xaml;Import.xaml;MainWindow.xaml;ManageCard.xaml;Statistic.xaml;
+CardAdd.xaml;CatagoryAdd.xaml;CategoryManage.xaml;Export.xaml;Import.xaml;ImportForeignFormat.xaml;MainWindow.xaml;ManageCard.xaml;Statistic.xaml;
 
-True
+False
 
