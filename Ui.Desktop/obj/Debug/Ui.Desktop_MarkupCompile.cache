@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\hauke\source\repos\Lernkartenapp\Ui.Desktop\obj\Debug\
+C:\LernKartenApp\Lernkartenapp\Ui.Desktop\obj\Debug\
 De.HsFlensburg.ClientApp101.Ui.Desktop
 none
 false
 DEBUG;TRACE
-C:\Users\hauke\source\repos\Lernkartenapp\Ui.Desktop\App.xaml
-4-423054589
+C:\LernKartenApp\Lernkartenapp\Ui.Desktop\App.xaml
+6-1904766174
 
-9713226415
-14815602705
-Export.xaml;Import.xaml;MainWindow.xaml;Statistic.xaml;
+11820954040
+14523388284
+CardAdd.xaml;Export.xaml;Import.xaml;MainWindow.xaml;ManageCard.xaml;Statistic.xaml;
 
 False
 

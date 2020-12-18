@@ -16,3 +16,9 @@ C:\Users\hauke\source\repos\Lernkartenapp\Services.MessageBus\obj\Debug\Services
 C:\Users\hauke\source\repos\Lernkartenapp\Services.MessageBus\obj\Debug\Services.MessageBus.csproj.CoreCompileInputs.cache
 C:\Users\hauke\source\repos\Lernkartenapp\Services.MessageBus\obj\Debug\Services.MessageBus.dll
 C:\Users\hauke\source\repos\Lernkartenapp\Services.MessageBus\obj\Debug\Services.MessageBus.pdb
+C:\LernKartenApp\Lernkartenapp\Services.MessageBus\bin\Debug\Services.MessageBus.dll
+C:\LernKartenApp\Lernkartenapp\Services.MessageBus\bin\Debug\Services.MessageBus.pdb
+C:\LernKartenApp\Lernkartenapp\Services.MessageBus\obj\Debug\Services.MessageBus.csprojAssemblyReference.cache
+C:\LernKartenApp\Lernkartenapp\Services.MessageBus\obj\Debug\Services.MessageBus.csproj.CoreCompileInputs.cache
+C:\LernKartenApp\Lernkartenapp\Services.MessageBus\obj\Debug\Services.MessageBus.dll
+C:\LernKartenApp\Lernkartenapp\Services.MessageBus\obj\Debug\Services.MessageBus.pdb

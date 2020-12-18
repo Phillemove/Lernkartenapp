@@ -17,11 +17,31 @@ namespace De.HsFlensburg.ClientApp101.Business.Model.BusinessObjects
 
         public Card()
         {
-
+            Question = null;
+            Answer = null;
+            QuestionPic = null;
+            AnswerPic = null;
+            Category = null;
+            StatisticCollection = null;
+        }
+        public Card(String question, String answer, String questionPic, String answerPic,
+                                     Category category,StatisticCollection statisticCollectio)
+        {
+            Question = question;
+            Answer=answer;
+            QuestionPic = questionPic;
+            AnswerPic = answerPic;
+            Category = category;
+            StatisticCollection = statisticCollectio;
         }
         public Card(Category category)
         {
+            Question = null;
+            Answer = null;
+            QuestionPic = null;
+            AnswerPic = null;
             Category = category;
+            StatisticCollection = null;
         }
     }
 }

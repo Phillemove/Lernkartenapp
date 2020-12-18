@@ -55,15 +55,25 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CardAdd.xaml.cs">
+      <DependentUpon>CardAdd.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Export.xaml.cs">
       <DependentUpon>Export.xaml</DependentUpon>
     </Compile>
     <Compile Include="Import.xaml.cs">
       <DependentUpon>Import.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ManageCard.xaml.cs">
+      <DependentUpon>ManageCard.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Statistic.xaml.cs">
       <DependentUpon>Statistic.xaml</DependentUpon>
     </Compile>
+    <Page Include="CardAdd.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Export.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -84,6 +94,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ManageCard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Statistic.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
