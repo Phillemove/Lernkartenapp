@@ -8,7 +8,22 @@
         Title="MainWindow" Height="200" Width="600">
     <Window.Resources>
     </Window.Resources>
+    <Window.IsEnabled>
+        <Binding Source="{StaticResource MessageListener}" Path="BindableProperty"></Binding>
+    </Window.IsEnabled>
+    <Window.DataContext>
+        <Binding Source="{StaticResource VMLocator}" Path="MainWindowViewModel"></Binding>
+    </Window.DataContext>
     <Grid>
-
+        <UniformGrid>
+            <Button Command="{Binding OpenCardAddWindow, Mode=OneWay}">Karte anlegen</Button>
+            <Button Command="{Binding OpenManageCardsWindow, Mode=OneWay}">Karte bearbeiten</Button>
+            <Button Command="{Binding OpenImportWindow, Mode=OneWay}">Import</Button>
+            <Button Command="{Binding OpenExportWindow, Mode=OneWay}">Export</Button>
+            <Button Command="{Binding OpenStatisticsWindow, Mode=OneWay}">Statistik</Button>
+            <Button Command="{Binding OpenCategoryWindow, Mode=OneWay}">Kategorien verwalten</Button>
+            <Button Command="{Binding OpenImportForeignFormatWindow, Mode=OneWay}">Import Fremdformat</Button>
+            <Button Command="{Binding OpenCardLearningWindow, Mode=OneWay}">Karten lernen</Button>
+        </UniformGrid>
     </Grid>
 </Window>

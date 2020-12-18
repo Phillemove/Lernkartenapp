@@ -58,6 +58,9 @@
     <Compile Include="CardAdd.xaml.cs">
       <DependentUpon>CardAdd.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CardLearning.xaml.cs">
+      <DependentUpon>CardLearning.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CategoryAdd.xaml.cs">
       <DependentUpon>CategoryAdd.xaml</DependentUpon>
     </Compile>
@@ -70,13 +73,20 @@
     <Compile Include="Import.xaml.cs">
       <DependentUpon>Import.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ImportForeignFormat.xaml.cs">
+      <DependentUpon>ImportForeignFormat.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ManageCard.xaml.cs">
       <DependentUpon>ManageCard.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Statistic.xaml.cs">
-      <DependentUpon>Statistic.xaml</DependentUpon>
+    <Compile Include="Statistics.xaml.cs">
+      <DependentUpon>Statistics.xaml</DependentUpon>
     </Compile>
     <Page Include="CardAdd.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CardLearning.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -96,6 +106,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ImportForeignFormat.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -112,7 +126,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Statistic.xaml">
+    <Page Include="Statistics.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -148,6 +162,10 @@
     <ProjectReference Include="..\Logic.Ui\Logic.Ui.csproj">
       <Project>{0bb2efc0-398f-4bbd-a704-12bd7d1f2a54}</Project>
       <Name>Logic.Ui</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Services.MessageBus\Services.MessageBus.csproj">
+      <Project>{da2a706e-d85e-4571-aeaa-ceef7e5dcc73}</Project>
+      <Name>Services.MessageBus</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace De.HsFlensburg.ClientApp101.Ui.Desktop
 {
     /// <summary>
-    /// Interaction logic for statistic.xaml
+    /// Interaction logic for CardLearning.xaml
     /// </summary>
-    public partial class statistic : Window
+    public partial class CardLearning : Window
     {
-        public statistic()
+        public CardLearning()
         {
             InitializeComponent();
         }

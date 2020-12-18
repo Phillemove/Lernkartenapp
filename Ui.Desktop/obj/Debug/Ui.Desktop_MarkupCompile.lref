@@ -1,9 +1,13 @@
-﻿C:\LernKartenApp\Lernkartenapp\Ui.Desktop\obj\Debug\GeneratedInternalTypeHelper.g.cs
-FC:\LernKartenApp\Lernkartenapp\Ui.Desktop\App.xaml;;
-FC:\LernKartenApp\Lernkartenapp\Ui.Desktop\CardAdd.xaml;;
-FC:\LernKartenApp\Lernkartenapp\Ui.Desktop\Export.xaml;;
-FC:\LernKartenApp\Lernkartenapp\Ui.Desktop\Import.xaml;;
-FC:\LernKartenApp\Lernkartenapp\Ui.Desktop\MainWindow.xaml;;
-FC:\LernKartenApp\Lernkartenapp\Ui.Desktop\ManageCard.xaml;;
-FC:\LernKartenApp\Lernkartenapp\Ui.Desktop\Statistic.xaml;;
+﻿C:\Users\hauke\source\repos\Lernkartenapp\Ui.Desktop\obj\Debug\GeneratedInternalTypeHelper.g.cs
+FC:\Users\hauke\source\repos\Lernkartenapp\Ui.Desktop\App.xaml;;
+FC:\Users\hauke\source\repos\Lernkartenapp\Ui.Desktop\CardAdd.xaml;;
+FC:\Users\hauke\source\repos\Lernkartenapp\Ui.Desktop\CardLearning.xaml;;
+FC:\Users\hauke\source\repos\Lernkartenapp\Ui.Desktop\CategoryAdd.xaml;;
+FC:\Users\hauke\source\repos\Lernkartenapp\Ui.Desktop\CategoryManage.xaml;;
+FC:\Users\hauke\source\repos\Lernkartenapp\Ui.Desktop\Export.xaml;;
+FC:\Users\hauke\source\repos\Lernkartenapp\Ui.Desktop\Import.xaml;;
+FC:\Users\hauke\source\repos\Lernkartenapp\Ui.Desktop\ImportForeignFormat.xaml;;
+FC:\Users\hauke\source\repos\Lernkartenapp\Ui.Desktop\MainWindow.xaml;;
+FC:\Users\hauke\source\repos\Lernkartenapp\Ui.Desktop\ManageCard.xaml;;
+FC:\Users\hauke\source\repos\Lernkartenapp\Ui.Desktop\Statistics.xaml;;
 
