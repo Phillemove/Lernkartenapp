@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\LernKartenApp\Lernkartenapp\Ui.Desktop\obj\Debug\
+Z:\Gitclone\Lernkartenapp\Ui.Desktop\obj\Debug\
 De.HsFlensburg.ClientApp101.Ui.Desktop
 none
 false
 DEBUG;TRACE
-C:\LernKartenApp\Lernkartenapp\Ui.Desktop\App.xaml
-9-1560265671
+Z:\Gitclone\Lernkartenapp\Ui.Desktop\App.xaml
+8-591639058
 
-152081947243
-14523388284
-CardAdd.xaml;CatagoryAdd.xaml;CategoryManage.xaml;Export.xaml;Import.xaml;ImportForeignFormat.xaml;MainWindow.xaml;ManageCard.xaml;Statistic.xaml;
+141688888430
+14-2012108945
+CardAdd.xaml;CategoryAdd.xaml;CategoryManage.xaml;Export.xaml;Import.xaml;MainWindow.xaml;ManageCard.xaml;Statistic.xaml;
 
-False
+True
 

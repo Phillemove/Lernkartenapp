@@ -58,6 +58,12 @@
     <Compile Include="CardAdd.xaml.cs">
       <DependentUpon>CardAdd.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CategoryAdd.xaml.cs">
+      <DependentUpon>CategoryAdd.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CategoryManage.xaml.cs">
+      <DependentUpon>CategoryManage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Export.xaml.cs">
       <DependentUpon>Export.xaml</DependentUpon>
     </Compile>
@@ -71,6 +77,14 @@
       <DependentUpon>Statistic.xaml</DependentUpon>
     </Compile>
     <Page Include="CardAdd.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CategoryAdd.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CategoryManage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
