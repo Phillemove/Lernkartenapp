@@ -29,6 +29,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                 MessageBox.Show(fbd.SelectedPath);
             string klassenname = "Klassenname"; //Muss noch in den echten Klassenname geändert werden, wenn ich drauf zugreifen kann
             string filename = fbd.SelectedPath + @"\" + klassenname + ".xml";
+            int picCount = 1;
             System.IO.Directory.CreateDirectory(fbd.SelectedPath + @"\Export");
             XmlTextWriter xmlWriter = new XmlTextWriter(filename, System.Text.Encoding.UTF8);
 
@@ -38,8 +39,30 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             xmlWriter.WriteStartElement("Cards");
             foreach(BoxViewModel box in bcvm)
             {
+                foreach(CardViewModel card in box)
+                {
+                    if (card.category.equals(klassenname))
+                    {
+                        xmlWriter.WriteStartElement("Karte");
+                        xmlWriter.WriteElementString("Question",card.Question);
+                        xmlWriter.WriteElementString("Answer", card.Answer);
+                        if(card.AnswerPic != "")
+                        {
+                            xmlWriter.WriteElementString("AnswerPic",@"\src\" + klassenname + "_img_" + picCount++);
+                        }
+                        if (card.QuestionPic != "")
+                        {
+                            xmlWriter.WriteElementString("QuestionPic", @"\src\" + klassenname + "_img_" + picCount++);
+                        }
+                        xmlWriter.WriteEndElement();
 
+                    }
+                }
             }
+            xmlWriter.WriteEndElement();
+            xmlWriter.WriteEndDocument();
+            xmlWriter.Flush(); // Muss noch mal genau gelesen und beschrieben werden
+            xmlWriter.Close();
 
         }
     }
