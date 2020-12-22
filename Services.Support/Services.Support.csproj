@@ -52,6 +52,10 @@
       <Project>{9c35fc74-2772-4345-98c7-f3b438501ec8}</Project>
       <Name>Business.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Logic.Ui\Logic.Ui.csproj">
+      <Project>{0bb2efc0-398f-4bbd-a704-12bd7d1f2a54}</Project>
+      <Name>Logic.Ui</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
