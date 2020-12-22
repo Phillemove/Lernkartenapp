@@ -1,0 +1,2 @@
+C:\Users\hauke\source\repos\Lernkartenapp\Services.Support\obj\Debug\Services.Support.csprojAssemblyReference.cache
+C:\Users\hauke\source\repos\Lernkartenapp\Services.Support\obj\Debug\Services.Support.csproj.CoreCompileInputs.cache

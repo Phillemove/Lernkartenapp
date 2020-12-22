@@ -33,6 +33,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             string filename = fbd.SelectedPath + @"\" + klassenname + ".xml";
             //int picCount = 1;
             System.IO.Directory.CreateDirectory(fbd.SelectedPath + @"\Export");
+            System.IO.Directory.CreateDirectory(fbd.SelectedPath + @"\Export\content");
             XmlTextWriter xmlWriter = new XmlTextWriter(filename, System.Text.Encoding.UTF8);
 
             xmlWriter.Formatting = Formatting.Indented; //Noch mal nachforschen, was es tut
@@ -52,13 +53,13 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                         xmlWriter.WriteElementString("Answer", card.Answer);
                         if(card.AnswerPic != "")
                         {
-                            string picNew = @"\src\" + klassenname + "_img_" + picCount++;
+                            string picNew = @"\content\" + klassenname + "_img_" + picCount++;
                             xmlWriter.WriteElementString("AnswerPic",picNew);
                             File.Copy(card.AnswerPic, picNew);
                         }
                         if (card.QuestionPic != "")
                         {
-                            string picNew = @"\src\" + klassenname + "_img_" + picCount++;
+                            string picNew = @"\content\" + klassenname + "_img_" + picCount++;
                             xmlWriter.WriteElementString("QuestionPic", picNew);
                             File.Copy(card.QuestionPic, picNew);
                         }

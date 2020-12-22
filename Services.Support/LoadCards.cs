@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace Services.Support
 {
-    public class Class1
+    class LoadCards
     {
+
+        static LoadCards()
+        {
+
+        }
     }
 }
