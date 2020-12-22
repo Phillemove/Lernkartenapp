@@ -12,6 +12,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
 {
     public class ExportViewModel
     {
+        public string Class { get; set; }
 
         public RelayCommand ExportData { get; }
 
@@ -28,9 +29,9 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             fbd.Description = "Bitte den Ort wählen, an dem der Export-Ordner erstellt werden soll";
             if(fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 MessageBox.Show(fbd.SelectedPath);
-            string klassenname = "Klassenname"; //Muss noch in den echten Klassenname geändert werden, wenn ich drauf zugreifen kann
+            string klassenname = Class; //Muss noch in den echten Klassenname geändert werden, wenn ich drauf zugreifen kann
             string filename = fbd.SelectedPath + @"\" + klassenname + ".xml";
-            int picCount = 1;
+            //int picCount = 1;
             System.IO.Directory.CreateDirectory(fbd.SelectedPath + @"\Export");
             XmlTextWriter xmlWriter = new XmlTextWriter(filename, System.Text.Encoding.UTF8);
 

@@ -17,7 +17,12 @@
                 </UniformGrid>
                 <UniformGrid Grid.Column="0" Columns="2">
                     <Label Content="Welche Kategorie soll exportiert werden?" HorizontalAlignment="Right" VerticalAlignment="Top"/>
-                    <ComboBox Width="200px" Height="30px" VerticalAlignment="Top" HorizontalAlignment="Left"></ComboBox>
+                    <ComboBox 
+                        Width="200px" 
+                        Height="30px" 
+                        VerticalAlignment="Top" 
+                        HorizontalAlignment="Left"
+                        SelectedValue="{Binding Path=Class}"></ComboBox>
                 </UniformGrid>
             </UniformGrid>
             <UniformGrid Grid.Column="1" Columns="1">
