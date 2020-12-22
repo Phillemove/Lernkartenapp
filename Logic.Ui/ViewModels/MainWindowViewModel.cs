@@ -29,10 +29,5 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             OpenImportForeignFormatWindow = new RelayCommand(() => ServiceBus.Instance.Send(new OpenImportForeignFormatMessage()));
             OpenManageCardsWindow = new RelayCommand(() => ServiceBus.Instance.Send(new OpenManageCardMessage()));
         }
-
-        private void OpenCardAddWindowMethod()
-        {
-            ServiceBus.Instance.Send(new OpenCardAddMessage());
-        }
     }
 }

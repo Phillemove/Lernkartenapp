@@ -1,6 +1,7 @@
 ﻿using De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,7 +23,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         private void ExportDataMethod()
         {
 
-            BoxCollectionViewModel bcvm = new BoxCollectionViewModel();
+            BoxCollectionViewModel bcvm = new BoxCollectionViewModel(); //Darf hier nicht erstellt werden, sondern muss irgendwo zentral erstellt und abgegriffen werden
             FolderBrowserDialog fbd = new FolderBrowserDialog();
             fbd.Description = "Bitte den Ort wählen, an dem der Export-Ordner erstellt werden soll";
             if(fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
@@ -35,30 +36,37 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
 
             xmlWriter.Formatting = Formatting.Indented; //Noch mal nachforschen, was es tut
             xmlWriter.WriteStartDocument();
-            xmlWriter.WriteComment("Hier sind alle exportierten Karten der Klasse " + klassenname);
+            xmlWriter.WriteComment(klassenname);
             xmlWriter.WriteStartElement("Cards");
+            // Kann nur auskommentiert werden, wenn auch alles andere steht
+            /*
             foreach(BoxViewModel box in bcvm)
             {
                 foreach(CardViewModel card in box)
                 {
-                    if (card.category.equals(klassenname))
+                    if (card.Category.equals(klassenname))
                     {
                         xmlWriter.WriteStartElement("Karte");
                         xmlWriter.WriteElementString("Question",card.Question);
                         xmlWriter.WriteElementString("Answer", card.Answer);
                         if(card.AnswerPic != "")
                         {
-                            xmlWriter.WriteElementString("AnswerPic",@"\src\" + klassenname + "_img_" + picCount++);
+                            string picNew = @"\src\" + klassenname + "_img_" + picCount++;
+                            xmlWriter.WriteElementString("AnswerPic",picNew);
+                            File.Copy(card.AnswerPic, picNew);
                         }
                         if (card.QuestionPic != "")
                         {
-                            xmlWriter.WriteElementString("QuestionPic", @"\src\" + klassenname + "_img_" + picCount++);
+                            string picNew = @"\src\" + klassenname + "_img_" + picCount++;
+                            xmlWriter.WriteElementString("QuestionPic", picNew);
+                            File.Copy(card.QuestionPic, picNew);
                         }
                         xmlWriter.WriteEndElement();
 
                     }
                 }
             }
+            */
             xmlWriter.WriteEndElement();
             xmlWriter.WriteEndDocument();
             xmlWriter.Flush(); // Muss noch mal genau gelesen und beschrieben werden

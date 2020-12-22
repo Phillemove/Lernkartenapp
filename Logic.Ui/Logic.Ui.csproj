@@ -63,6 +63,7 @@
     <Compile Include="ViewModels\StatisticViewModel.cs" />
     <Compile Include="Wrapper\BoxCollectionViewModel.cs" />
     <Compile Include="Wrapper\BoxViewModel.cs" />
+    <Compile Include="Wrapper\CardViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Business.Model\Business.Model.csproj">

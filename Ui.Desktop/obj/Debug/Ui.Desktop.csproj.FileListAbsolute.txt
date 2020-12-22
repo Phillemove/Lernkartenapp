@@ -113,3 +113,5 @@ C:\Users\hauke\source\repos\Lernkartenapp\Ui.Desktop\obj\Debug\CategoryManage.ba
 C:\Users\hauke\source\repos\Lernkartenapp\Ui.Desktop\obj\Debug\ImportForeignFormat.baml
 C:\Users\hauke\source\repos\Lernkartenapp\Ui.Desktop\obj\Debug\ManageCard.baml
 C:\Users\hauke\source\repos\Lernkartenapp\Ui.Desktop\obj\Debug\Statistics.baml
+C:\Users\hauke\source\repos\Lernkartenapp\Ui.Desktop\bin\Debug\Business.Model.dll
+C:\Users\hauke\source\repos\Lernkartenapp\Ui.Desktop\bin\Debug\Business.Model.pdb

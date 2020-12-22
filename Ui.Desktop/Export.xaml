@@ -25,7 +25,14 @@
                 </DataGrid>
             </UniformGrid>
             <UniformGrid Grid.Column="2" Columns="1">
-                <Button Content="Exportieren" Height="20px" Width="80px" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="10px"/>
+                <Button 
+                    Content="Exportieren" 
+                    Height="20px" 
+                    Width="80px" 
+                    VerticalAlignment="Bottom" 
+                    HorizontalAlignment="Right" 
+                    Margin="10px"
+                    Command="{Binding ExportData, Mode=OneWay}"/>
 
             </UniformGrid>
 
