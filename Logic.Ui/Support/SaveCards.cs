@@ -14,6 +14,36 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
 {
     class SaveCards
     {
+
+        static CardViewModel CreateCardFromFile(CardViewModel card, XmlNode node)
+        {
+            foreach (XmlNode child in node)
+            {
+                switch (child.Name) // Muss noch ausdetailliert werden im Bereich Category und StasticCollection
+                {
+                    case "Question":
+                        card.Question = child.InnerText;
+                        break;
+                    case "Answer":
+                        card.Answer = child.InnerText;
+                        break;
+                    case "QuestionPic":
+                        card.QuestionPic = child.InnerText;
+                        break;
+                    case "AnswerPic":
+                        card.AnswerPic = child.InnerText;
+                        break;
+                    case "Category":
+                        card.Category = new Category(child.InnerText); // Ich glaube nicht ganz korrekt. Immer eine Neue? Oder kann ich eine vorhandene verwenden? Muss das noch abgefragt werden?
+                        break;
+                        /*case "StatisticCollection":   //Statistic Collection muss dann immer passend dafür angelegt werden? Ja! Und auch tiefergehend mit allen folgenden Nodes.... Viel Aufwand
+                            card.StatisticCollection = child.Name;
+                            break;*/
+                }
+            };
+            return card;
+        }
+
         static void SaveCardsToFile(BoxViewModel box)
         {
 
@@ -38,13 +68,14 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
                 }
                 if (categorys.Contains(card.Category))
                 {
-                    bc.Where(cat => cat.Peek().Category == card.Category).Add(card); // Muss in der BoxViewModel noch behoben werden
+                    BoxViewModel current = (BoxViewModel)bc.Where(cat => cat.Peek().Category == card.Category);
+                    current.Enqueue(card); // Muss in der BoxViewModel noch behoben werden
                 }
                 else
                 {
                     categorys.Add(card.Category);
                     BoxViewModel newBox = new BoxViewModel();
-                    newBox.Add(card); // Muss in der BoxViewModel noch behoben werden
+                    newBox.Enqueue(card); // Muss in der BoxViewModel noch behoben werden
                     bc.Add(newBox);
                 }
             }
@@ -58,6 +89,9 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
                     foreach (XmlNode node in doc.DocumentElement)
                     {
                         CardViewModel card = new CardViewModel();
+                        card = CreateCardFromFile(card, node);
+                        // Erfolgt nun in CreateCardFromFile
+                        /*
                         foreach (XmlNode child in node)
                         {
                             switch (child.Name) // Muss noch ausdetailliert werden im Bereich Category und StasticCollection
@@ -77,12 +111,13 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
                                 case "Category":
                                     card.Category = new Category(child.InnerText); // Ich glaube nicht ganz korrekt. Immer eine Neue? Oder kann ich eine vorhandene verwenden? Muss das noch abgefragt werden?
                                     break;
-                                    /*case "StatisticCollection":   //Statistic Collection muss dann immer passend dafür angelegt werden? Ja! Und auch tiefergehend mit allen folgenden Nodes.... Viel Aufwand
+                                    case "StatisticCollection":   //Statistic Collection muss dann immer passend dafür angelegt werden? Ja! Und auch tiefergehend mit allen folgenden Nodes.... Viel Aufwand
                                         card.StatisticCollection = child.Name;
-                                        break;*/
+                                        break;
                             }
-                        };
-                        current.Add(card);
+                        }
+                        */
+                        current.Enqueue(card);
 
                     }
                 }
@@ -108,7 +143,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
             {
                 foreach(CardViewModel card in box)
                 {
-                    current.Add(card);
+                    current.Enqueue(card);
                 }
             }
             SaveCardsToFile(current);
@@ -139,7 +174,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
                     {
                         writer.WriteStartAttribute("Statistic");
                         writer.WriteElementString("Timestamp", stat.Timestamp != null ? stat.Timestamp.ToString() : null);
-                        writer.WriteElementString("SuccessfullAnswer", stat.SuccessfullAnswer != null ? stat.SuccessfullAnswer.ToString() : null);
+                        writer.WriteElementString("SuccessfullAnswer", stat.SuccessfullAnswer ? stat.SuccessfullAnswer.ToString() : null);
                         //writer.WriteElementString("CurrentBoxNumber",stat.CurrentBoxNumber != null ? stat.CurrentBoxNumber.ToString() : null);    //Derzeit aufgrund der Enum Problematik nicht möglich
                         writer.WriteEndAttribute();
                     }

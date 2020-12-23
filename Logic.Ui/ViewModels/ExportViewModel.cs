@@ -31,7 +31,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                 MessageBox.Show(fbd.SelectedPath);
             string klassenname = Class; //Muss noch in den echten Klassenname geändert werden, wenn ich drauf zugreifen kann
             string filename = fbd.SelectedPath + @"\" + klassenname + ".xml";
-            //int picCount = 1;
+            int picCount = 1;
             System.IO.Directory.CreateDirectory(fbd.SelectedPath + @"\Export");
             System.IO.Directory.CreateDirectory(fbd.SelectedPath + @"\Export\content");
             XmlTextWriter xmlWriter = new XmlTextWriter(filename, System.Text.Encoding.UTF8);
@@ -40,26 +40,24 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             xmlWriter.WriteStartDocument();
             xmlWriter.WriteComment(klassenname);
             xmlWriter.WriteStartElement("Cards");
-            // Kann nur auskommentiert werden, wenn auch alles andere steht
-            /*
-            foreach(BoxViewModel box in bcvm)
+            foreach (BoxViewModel box in bcvm)
             {
-                foreach(CardViewModel card in box)
+                foreach (Wrapper.CardViewModel card in box)
                 {
-                    if (card.Category.equals(klassenname))
+                    if (card.Category.Equals(klassenname))
                     {
                         xmlWriter.WriteStartElement("Karte");
                         xmlWriter.WriteElementString("Question",card.Question);
                         xmlWriter.WriteElementString("Answer", card.Answer);
                         if(card.AnswerPic != "")
                         {
-                            string picNew = @"\content\" + klassenname + "_img_" + picCount++;
+                            string picNew = @"\content\" + klassenname + "_img_" + picCount++; //Name der Bilder wird noch allgemein festgelegt
                             xmlWriter.WriteElementString("AnswerPic",picNew);
                             File.Copy(card.AnswerPic, picNew);
                         }
                         if (card.QuestionPic != "")
                         {
-                            string picNew = @"\content\" + klassenname + "_img_" + picCount++;
+                            string picNew = @"\content\" + klassenname + "_img_" + picCount++; //Name der Bilder wird noch allgemein festgelegt
                             xmlWriter.WriteElementString("QuestionPic", picNew);
                             File.Copy(card.QuestionPic, picNew);
                         }
@@ -68,7 +66,6 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                     }
                 }
             }
-            */
             xmlWriter.WriteEndElement();
             xmlWriter.WriteEndDocument();
             xmlWriter.Flush(); // Muss noch mal genau gelesen und beschrieben werden

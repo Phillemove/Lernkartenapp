@@ -22,7 +22,8 @@
                         Height="30px" 
                         VerticalAlignment="Top" 
                         HorizontalAlignment="Left"
-                        SelectedValue="{Binding Path=Class}"></ComboBox>
+                        SelectedValue="{Binding Path=Class}"
+                       ></ComboBox> <!--Der Comobobox muss noch die Verbinung zu den Categorys sowie dann die entsprechende Box hergestellt werden-->
                 </UniformGrid>
             </UniformGrid>
             <UniformGrid Grid.Column="1" Columns="1">

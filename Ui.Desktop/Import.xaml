@@ -17,7 +17,12 @@
                 </UniformGrid>
                 <UniformGrid Columns="2">
                     <Label Content="Bitte die Datei mit den Lernkarten auswählen:" HorizontalAlignment="Right" VerticalAlignment="Top"/>
-                    <Button Content="Datei" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75"/>
+                    <Button 
+                        Content="Datei" 
+                        HorizontalAlignment="Left" 
+                        VerticalAlignment="Top" 
+                        Width="75"
+                        Command="{Binding ImportMethod, Mode=OneWay}"/>
                 </UniformGrid>
 
             </UniformGrid>
@@ -27,7 +32,9 @@
                 <UniformGrid Columns="3">
                     <RadioButton HorizontalAlignment="Right" Margin="0,7,0,0"/>
                     <Label Content="Vorgeschlagener neuer Kategoriename: " VerticalAlignment="Top"></Label>
-                    <Label Content="Dateiname" HorizontalAlignment="Left"></Label>
+                    <Label 
+                        Content="Klassenname" 
+                        HorizontalAlignment="Left"></Label>
                     <RadioButton HorizontalAlignment="Right" Margin="0,7,0,0"/>
                     <Label Content="Vorhandene Kategorie verwenden: " VerticalAlignment="Top"></Label>
                     <ComboBox Width="200px" Height="20px" VerticalAlignment="Top" HorizontalAlignment="Left"></ComboBox>
