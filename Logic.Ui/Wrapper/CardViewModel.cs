@@ -71,5 +71,17 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper
                 card.AnswerPic = value;
             }
         }
+
+        public StatisticCollection StatisticCollection
+        {
+            get
+            {
+                return card.StatisticCollection;
+            }
+            set
+            {
+                card.StatisticCollection = value;
+            }
+        }
     }
 }

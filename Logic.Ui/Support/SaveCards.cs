@@ -63,19 +63,19 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
                             switch (child.Name) // Muss noch ausdetailliert werden im Bereich Category und StasticCollection
                             {
                                 case "Question":
-                                    card.Question = child.Name;
+                                    card.Question = child.InnerText;
                                     break;
                                 case "Answer":
-                                    card.Answer = child.Name;
+                                    card.Answer = child.InnerText;
                                     break;
                                 case "QuestionPic":
-                                    card.QuestionPic = child.Name;
+                                    card.QuestionPic = child.InnerText;
                                     break;
                                 case "AnswerPic":
-                                    card.AnswerPic = child.Name;
+                                    card.AnswerPic = child.InnerText;
                                     break;
                                 case "Category":
-                                    card.Category = new Category(child.Name); // Ich glaube nicht ganz korrekt. Immer eine Neue? Oder kann ich eine vorhandene verwenden? Muss das noch abgefragt werden?
+                                    card.Category = new Category(child.InnerText); // Ich glaube nicht ganz korrekt. Immer eine Neue? Oder kann ich eine vorhandene verwenden? Muss das noch abgefragt werden?
                                     break;
                                     /*case "StatisticCollection":   //Statistic Collection muss dann immer passend dafür angelegt werden? Ja! Und auch tiefergehend mit allen folgenden Nodes.... Viel Aufwand
                                         card.StatisticCollection = child.Name;
@@ -103,6 +103,15 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
         static void SaveCardsToFile(BoxCollectionViewModel bcvm)
         {
 
+            BoxViewModel current = new BoxViewModel();
+            foreach(BoxViewModel box in bcvm)
+            {
+                foreach(CardViewModel card in box)
+                {
+                    current.Add(card);
+                }
+            }
+            SaveCardsToFile(current);
         }
 
 
@@ -113,6 +122,8 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
             XmlTextWriter writer = new XmlTextWriter(saveDirectory + @"\" + filename + ".xml", System.Text.Encoding.UTF8);
             writer.Formatting = Formatting.Indented;
             writer.WriteComment(filename);
+            writer.WriteName(filename);
+            writer.WriteStartDocument();
             writer.WriteStartElement("Cards");
             foreach(CardViewModel card in box)
             {
@@ -121,18 +132,24 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
                 writer.WriteElementString("Answer", card.Answer != null ? card.Answer : null);
                 writer.WriteElementString("Category", filename);
                 writer.WriteElementString("QuestionPic", card.QuestionPic != null ? card.QuestionPic : null);
-                //Fotos müssen ggf. kopiert werden
                 writer.WriteElementString("AnswerPic", card.AnswerPic != null ? card.AnswerPic : null);
-                //Fotos müssen ggf. kopiert werden
                 if(card.StatisticCollection != null)
                 {
                     foreach(Statistic stat in card.StatisticCollection)
                     {
-
+                        writer.WriteStartAttribute("Statistic");
+                        writer.WriteElementString("Timestamp", stat.Timestamp != null ? stat.Timestamp.ToString() : null);
+                        writer.WriteElementString("SuccessfullAnswer", stat.SuccessfullAnswer != null ? stat.SuccessfullAnswer.ToString() : null);
+                        //writer.WriteElementString("CurrentBoxNumber",stat.CurrentBoxNumber != null ? stat.CurrentBoxNumber.ToString() : null);    //Derzeit aufgrund der Enum Problematik nicht möglich
+                        writer.WriteEndAttribute();
                     }
                 }
-
+                writer.WriteEndAttribute();
             }
+            writer.WriteEndAttribute();
+            writer.WriteEndDocument();
+            writer.Flush();
+            writer.Close();
         }
     }
 }
