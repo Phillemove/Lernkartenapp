@@ -1,4 +1,5 @@
 ﻿using De.HsFlensburg.ClientApp101.Business.Model.BusinessObjects;
+using De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels;
 using De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper;
 using System;
 using System.Collections;
@@ -15,36 +16,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
     class SaveCards
     {
 
-        static CardViewModel CreateCardFromFile(CardViewModel card, XmlNode node)
-        {
-            foreach (XmlNode child in node)
-            {
-                switch (child.Name) // Muss noch ausdetailliert werden im Bereich Category und StasticCollection
-                {
-                    case "Question":
-                        card.Question = child.InnerText;
-                        break;
-                    case "Answer":
-                        card.Answer = child.InnerText;
-                        break;
-                    case "QuestionPic":
-                        card.QuestionPic = child.InnerText;
-                        break;
-                    case "AnswerPic":
-                        card.AnswerPic = child.InnerText;
-                        break;
-                    case "Category":
-                        card.Category = new Category(child.InnerText); // Ich glaube nicht ganz korrekt. Immer eine Neue? Oder kann ich eine vorhandene verwenden? Muss das noch abgefragt werden?
-                        break;
-                        /*case "StatisticCollection":   //Statistic Collection muss dann immer passend dafür angelegt werden? Ja! Und auch tiefergehend mit allen folgenden Nodes.... Viel Aufwand
-                            card.StatisticCollection = child.Name;
-                            break;*/
-                }
-            };
-            return card;
-        }
-
-        static void SaveCardsToFile(BoxViewModel box)
+        public static void SaveCardsToFile(BoxViewModel box)
         {
 
             System.IO.Directory.CreateDirectory(Environment.SpecialFolder.MyDocuments + @"\Lernkarten-App");
@@ -56,7 +28,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
             //BoxViewModel loadedBVM = new BoxViewModel();
             //BoxViewModel newBVM = new BoxViewModel();
 
-            foreach (CardViewModel card in box)
+            foreach (Wrapper.CardViewModel card in box)
             {
                 if(card.QuestionPic != null && !card.QuestionPic.Contains(pictureDirectory))
                 {
@@ -88,37 +60,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
                     doc.Load(saveDirectory + @"\" + item + ".xml");
                     foreach (XmlNode node in doc.DocumentElement)
                     {
-                        CardViewModel card = new CardViewModel();
-                        card = CreateCardFromFile(card, node);
-                        // Erfolgt nun in CreateCardFromFile
-                        /*
-                        foreach (XmlNode child in node)
-                        {
-                            switch (child.Name) // Muss noch ausdetailliert werden im Bereich Category und StasticCollection
-                            {
-                                case "Question":
-                                    card.Question = child.InnerText;
-                                    break;
-                                case "Answer":
-                                    card.Answer = child.InnerText;
-                                    break;
-                                case "QuestionPic":
-                                    card.QuestionPic = child.InnerText;
-                                    break;
-                                case "AnswerPic":
-                                    card.AnswerPic = child.InnerText;
-                                    break;
-                                case "Category":
-                                    card.Category = new Category(child.InnerText); // Ich glaube nicht ganz korrekt. Immer eine Neue? Oder kann ich eine vorhandene verwenden? Muss das noch abgefragt werden?
-                                    break;
-                                    case "StatisticCollection":   //Statistic Collection muss dann immer passend dafür angelegt werden? Ja! Und auch tiefergehend mit allen folgenden Nodes.... Viel Aufwand
-                                        card.StatisticCollection = child.Name;
-                                        break;
-                            }
-                        }
-                        */
-                        current.Enqueue(card);
-
+                        current.Enqueue(ImportViewModel.readOwnFormatNode(node));
                     }
                 }
                 catch
@@ -141,7 +83,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
             BoxViewModel current = new BoxViewModel();
             foreach(BoxViewModel box in bcvm)
             {
-                foreach(CardViewModel card in box)
+                foreach(Wrapper.CardViewModel card in box)
                 {
                     current.Enqueue(card);
                 }
@@ -150,7 +92,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
         }
 
 
-        private static void hardSave(BoxViewModel box)
+        public static void hardSave(BoxViewModel box)
         {
             string saveDirectory = Environment.SpecialFolder.MyDocuments + @"\Lernkarten-App";
             string filename = box.Peek().Category.Name;
@@ -160,7 +102,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
             writer.WriteName(filename);
             writer.WriteStartDocument();
             writer.WriteStartElement("Cards");
-            foreach(CardViewModel card in box)
+            foreach(Wrapper.CardViewModel card in box)
             {
                 writer.WriteStartAttribute("Card");
                 writer.WriteElementString("Question", card.Question != null ? card.Question : null);

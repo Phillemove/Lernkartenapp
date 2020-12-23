@@ -22,7 +22,7 @@
                         HorizontalAlignment="Left" 
                         VerticalAlignment="Top" 
                         Width="75"
-                        Command="{Binding ImportMethod, Mode=OneWay}"/>
+                        Command="{Binding chooseData, Mode=OneWay}"/>
                 </UniformGrid>
 
             </UniformGrid>
@@ -30,12 +30,20 @@
                 <DataGrid >
                 </DataGrid>
                 <UniformGrid Columns="3">
-                    <RadioButton HorizontalAlignment="Right" Margin="0,7,0,0"/>
+                    <RadioButton 
+                        HorizontalAlignment="Right" 
+                        Margin="0,7,0,0"
+                        GroupName="1"
+                        IsChecked="{Binding Path=RadioButton1IsChecked}"/>
                     <Label Content="Vorgeschlagener neuer Kategoriename: " VerticalAlignment="Top"></Label>
                     <Label 
                         Content="Klassenname" 
                         HorizontalAlignment="Left"></Label>
-                    <RadioButton HorizontalAlignment="Right" Margin="0,7,0,0"/>
+                    <RadioButton 
+                        HorizontalAlignment="Right" 
+                        Margin="0,7,0,0"
+                        GroupName="1"
+                        IsChecked="{Binding Path=RadioButton2IsChecked}"/>
                     <Label Content="Vorhandene Kategorie verwenden: " VerticalAlignment="Top"></Label>
                     <ComboBox Width="200px" Height="20px" VerticalAlignment="Top" HorizontalAlignment="Left"></ComboBox>
                 </UniformGrid>
