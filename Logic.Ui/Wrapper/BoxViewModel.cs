@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper
 {
-    public class BoxViewModel
+    public class BoxViewModel : Queue<CardViewModel>
     {
         public Box box;
 

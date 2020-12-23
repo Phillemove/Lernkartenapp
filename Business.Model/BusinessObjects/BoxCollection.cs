@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace De.HsFlensburg.ClientApp101.Business.Model.BusinessObjects
 {
-    public class BoxCollection: ObservableCollection<Box>
+    public class BoxCollection : ObservableCollection<Box>
     {
         // Übergabe Parameter enum Boxnumber erstmal weg gelassen, 
         // da er so zu Fehlermeldungen führt. Muss noch implementiert werden

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace De.HsFlensburg.ClientApp101.Business.Model.BusinessObjects
 {
-    public class Box: Queue<Card>
+    public class Box : Queue<Card>
     {
         enum Boxnumber { }
 

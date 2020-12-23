@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper
 {
-    class CardViewModel
+    public class CardViewModel
     {
         public Card card;
         public CardViewModel()
@@ -35,6 +35,40 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper
             set
             {
                 card.Answer = value;
+            }
+        }
+        public Category Category
+        {
+            get
+            {
+                return card.Category;
+            }
+            set
+            {
+                card.Category = value;
+            }
+        }
+
+        public string QuestionPic
+        {
+            get
+            {
+                return card.QuestionPic;
+            }
+            set
+            {
+                card.QuestionPic = value;
+            }
+        }
+        public string AnswerPic
+        {
+            get
+            {
+                return card.AnswerPic;
+            }
+            set
+            {
+                card.AnswerPic = value;
             }
         }
     }
