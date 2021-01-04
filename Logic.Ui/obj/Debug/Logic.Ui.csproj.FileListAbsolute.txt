@@ -47,3 +47,14 @@ Z:\Gitclone\Lernkartenapp\Logic.Ui\obj\Debug\Logic.Ui.csproj.CoreCompileInputs.c
 Z:\Gitclone\Lernkartenapp\Logic.Ui\obj\Debug\Logic.Ui.csproj.CopyComplete
 Z:\Gitclone\Lernkartenapp\Logic.Ui\obj\Debug\Logic.Ui.dll
 Z:\Gitclone\Lernkartenapp\Logic.Ui\obj\Debug\Logic.Ui.pdb
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Logic.Ui\bin\Debug\Logic.Ui.dll
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Logic.Ui\bin\Debug\Logic.Ui.pdb
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Logic.Ui\bin\Debug\Business.Model.dll
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Logic.Ui\bin\Debug\Services.MessageBus.dll
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Logic.Ui\bin\Debug\Business.Model.pdb
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Logic.Ui\bin\Debug\Services.MessageBus.pdb
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Logic.Ui\obj\Debug\Logic.Ui.csprojAssemblyReference.cache
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Logic.Ui\obj\Debug\Logic.Ui.csproj.CoreCompileInputs.cache
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Logic.Ui\obj\Debug\Logic.Ui.csproj.CopyComplete
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Logic.Ui\obj\Debug\Logic.Ui.dll
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Logic.Ui\obj\Debug\Logic.Ui.pdb

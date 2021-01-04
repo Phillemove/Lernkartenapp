@@ -11,7 +11,23 @@
     </Window.DataContext >
 
     <Grid>
-        <Label x:Name = "Statistic" Content = "Statistic" />
-        <TextBlock HorizontalAlignment = "Left" Margin = "239,193,0,0" TextWrapping = "Wrap" Text = "This window is going to show some statistics" VerticalAlignment = "Top" Height = "20" Width = "250" />
+        <Button Content="Karten Statistik" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="120"/>
+        <Button Content="Allgemeine Statistik" HorizontalAlignment="Left" Margin="146,10,0,0" VerticalAlignment="Top" Width="120"/>
+        <GridSplitter HorizontalAlignment="Left" Height="3" Margin="0,41,0,0" VerticalAlignment="Top" Width="792"/>
+        <Button Content="Text" HorizontalAlignment="Left" Margin="10,49,0,0" VerticalAlignment="Top" Width="60"/>
+        <Button Content="Verlauf" HorizontalAlignment="Left" Margin="87,49,0,0" VerticalAlignment="Top" Width="60"/>
+        <GridSplitter HorizontalAlignment="Left" Height="3" Margin="0,74,0,0" VerticalAlignment="Top" Width="792"/>
+        <DataGrid HorizontalAlignment="Left" Height="295" Margin="9,85,0,0" VerticalAlignment="Top" Width="773" RenderTransformOrigin="0.5,0.5">
+            <DataGrid.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-0.046"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </DataGrid.RenderTransform>
+        </DataGrid>
+        <Slider HorizontalAlignment="Left" Margin="10,391,0,0" VerticalAlignment="Top" Width="173"/>
+
     </Grid>
 </Window>

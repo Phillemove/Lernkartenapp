@@ -16,3 +16,9 @@ C:\Users\hauke\source\repos\Lernkartenapp\Business.Model\obj\Debug\Business.Mode
 C:\Users\hauke\source\repos\Lernkartenapp\Business.Model\obj\Debug\Business.Model.csproj.CoreCompileInputs.cache
 C:\Users\hauke\source\repos\Lernkartenapp\Business.Model\obj\Debug\Business.Model.dll
 C:\Users\hauke\source\repos\Lernkartenapp\Business.Model\obj\Debug\Business.Model.pdb
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Business.Model\bin\Debug\Business.Model.dll
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Business.Model\bin\Debug\Business.Model.pdb
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Business.Model\obj\Debug\Business.Model.csprojAssemblyReference.cache
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Business.Model\obj\Debug\Business.Model.csproj.CoreCompileInputs.cache
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Business.Model\obj\Debug\Business.Model.dll
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Business.Model\obj\Debug\Business.Model.pdb

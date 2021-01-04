@@ -157,3 +157,45 @@ Z:\Gitclone\Lernkartenapp\Ui.Desktop\obj\Debug\Ui.Desktop.csproj.CoreCompileInpu
 Z:\Gitclone\Lernkartenapp\Ui.Desktop\obj\Debug\Ui.Desktop.csproj.CopyComplete
 Z:\Gitclone\Lernkartenapp\Ui.Desktop\obj\Debug\Ui.Desktop.exe
 Z:\Gitclone\Lernkartenapp\Ui.Desktop\obj\Debug\Ui.Desktop.pdb
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Ui.Desktop\bin\Debug\Ui.Desktop.exe.config
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Ui.Desktop\bin\Debug\Ui.Desktop.exe
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Ui.Desktop\bin\Debug\Ui.Desktop.pdb
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Ui.Desktop\bin\Debug\Logic.Ui.dll
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Ui.Desktop\bin\Debug\Services.MessageBus.dll
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Ui.Desktop\bin\Debug\Business.Model.dll
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Ui.Desktop\bin\Debug\Logic.Ui.pdb
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Ui.Desktop\bin\Debug\Services.MessageBus.pdb
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Ui.Desktop\bin\Debug\Business.Model.pdb
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Ui.Desktop\obj\Debug\Ui.Desktop.csprojAssemblyReference.cache
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Ui.Desktop\obj\Debug\CardAdd.g.cs
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Ui.Desktop\obj\Debug\CardLearning.g.cs
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Ui.Desktop\obj\Debug\CategoryAdd.g.cs
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Ui.Desktop\obj\Debug\CategoryManage.g.cs
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Ui.Desktop\obj\Debug\Export.g.cs
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Ui.Desktop\obj\Debug\Import.g.cs
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Ui.Desktop\obj\Debug\ImportForeignFormat.g.cs
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Ui.Desktop\obj\Debug\MainWindow.g.cs
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Ui.Desktop\obj\Debug\ManageCard.g.cs
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Ui.Desktop\obj\Debug\Statistics.g.cs
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Ui.Desktop\obj\Debug\App.g.cs
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Ui.Desktop\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Ui.Desktop\obj\Debug\Ui.Desktop_MarkupCompile.cache
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Ui.Desktop\obj\Debug\Ui.Desktop_MarkupCompile.lref
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Ui.Desktop\obj\Debug\App.baml
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Ui.Desktop\obj\Debug\CardAdd.baml
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Ui.Desktop\obj\Debug\CardLearning.baml
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Ui.Desktop\obj\Debug\CategoryAdd.baml
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Ui.Desktop\obj\Debug\CategoryManage.baml
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Ui.Desktop\obj\Debug\Export.baml
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Ui.Desktop\obj\Debug\Import.baml
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Ui.Desktop\obj\Debug\ImportForeignFormat.baml
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Ui.Desktop\obj\Debug\MainWindow.baml
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Ui.Desktop\obj\Debug\ManageCard.baml
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Ui.Desktop\obj\Debug\Statistics.baml
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Ui.Desktop\obj\Debug\Ui.Desktop.g.resources
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Ui.Desktop\obj\Debug\De.HsFlensburg.ClientApp101.Ui.Desktop.Properties.Resources.resources
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Ui.Desktop\obj\Debug\Ui.Desktop.csproj.GenerateResource.cache
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Ui.Desktop\obj\Debug\Ui.Desktop.csproj.CoreCompileInputs.cache
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Ui.Desktop\obj\Debug\Ui.Desktop.csproj.CopyComplete
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Ui.Desktop\obj\Debug\Ui.Desktop.exe
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Ui.Desktop\obj\Debug\Ui.Desktop.pdb
