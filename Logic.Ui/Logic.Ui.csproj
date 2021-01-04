@@ -45,7 +45,8 @@
   <ItemGroup>
     <Compile Include="MessageBusMessages\OpenCardAddMessage.cs" />
     <Compile Include="MessageBusMessages\OpenCardLearningMessage.cs" />
-    <Compile Include="MessageBusMessages\OpenCategorieMessage.cs" />
+    <Compile Include="MessageBusMessages\OpenCategoryAddMessage.cs" />
+    <Compile Include="MessageBusMessages\OpenCategoryMessage.cs" />
     <Compile Include="MessageBusMessages\OpenExportMessage.cs" />
     <Compile Include="MessageBusMessages\OpenImportForeignFormatMessage.cs" />
     <Compile Include="MessageBusMessages\OpenImportMessage.cs" />

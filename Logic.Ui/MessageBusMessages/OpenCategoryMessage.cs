@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace De.HsFlensburg.ClientApp101.Logic.Ui.MessageBusMessages
 {
-    public class OpenCategorieMessage
+    public class OpenCategoryMessage
     {
     }
 }

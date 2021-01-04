@@ -16,6 +16,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         public RelayCommand OpenExportWindow { get; }
         public RelayCommand OpenStatisticsWindow { get; }
         public RelayCommand OpenCategoryWindow { get; }
+        public RelayCommand OpenCategoryAddWindow { get; }
         public RelayCommand OpenImportForeignFormatWindow { get; }
         public RelayCommand OpenManageCardsWindow { get; }
         public MainWindowViewModel()
@@ -25,7 +26,8 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             OpenImportWindow = new RelayCommand(() => ServiceBus.Instance.Send(new OpenImportMessage()));
             OpenExportWindow = new RelayCommand(() => ServiceBus.Instance.Send(new OpenExportMessage()));
             OpenStatisticsWindow = new RelayCommand(() => ServiceBus.Instance.Send(new OpenStatisticMessage()));
-            OpenCategoryWindow = new RelayCommand(() => ServiceBus.Instance.Send(new OpenCategorieMessage()));
+            OpenCategoryWindow = new RelayCommand(() => ServiceBus.Instance.Send(new OpenCategoryMessage()));
+            OpenCategoryAddWindow = new RelayCommand(() => ServiceBus.Instance.Send(new OpenCategoryAddMessage()));
             OpenImportForeignFormatWindow = new RelayCommand(() => ServiceBus.Instance.Send(new OpenImportForeignFormatMessage()));
             OpenManageCardsWindow = new RelayCommand(() => ServiceBus.Instance.Send(new OpenManageCardMessage()));
         }

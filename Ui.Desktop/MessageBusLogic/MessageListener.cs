@@ -40,10 +40,15 @@ namespace De.HsFlensburg.ClientApp101.Ui.Desktop.MessageBusLogic
                 Statistics statistic = new Statistics();
                 statistic.ShowDialog();
             });
-            ServiceBus.Instance.Register<OpenCategorieMessage>(this, delegate ()
+            ServiceBus.Instance.Register<OpenCategoryMessage>(this, delegate ()
             {
                 CategoryManage catManage = new CategoryManage();
                 catManage.ShowDialog();
+            });
+            ServiceBus.Instance.Register<OpenCategoryAddMessage>(this, delegate ()
+            {
+                CategoryAdd catAdd = new CategoryAdd();
+                catAdd.ShowDialog();
             });
             ServiceBus.Instance.Register<OpenExportMessage>(this, delegate ()
             {

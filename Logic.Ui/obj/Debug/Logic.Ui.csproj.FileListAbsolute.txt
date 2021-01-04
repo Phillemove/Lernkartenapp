@@ -36,3 +36,14 @@ C:\LernKartenApp\Lernkartenapp\Logic.Ui\obj\Debug\Logic.Ui.dll
 C:\LernKartenApp\Lernkartenapp\Logic.Ui\obj\Debug\Logic.Ui.pdb
 C:\Users\hauke\source\repos\Lernkartenapp\Logic.Ui\bin\Debug\Services.MessageBus.dll
 C:\Users\hauke\source\repos\Lernkartenapp\Logic.Ui\bin\Debug\Services.MessageBus.pdb
+Z:\Gitclone\Lernkartenapp\Logic.Ui\bin\Debug\Logic.Ui.dll
+Z:\Gitclone\Lernkartenapp\Logic.Ui\bin\Debug\Logic.Ui.pdb
+Z:\Gitclone\Lernkartenapp\Logic.Ui\bin\Debug\Business.Model.dll
+Z:\Gitclone\Lernkartenapp\Logic.Ui\bin\Debug\Services.MessageBus.dll
+Z:\Gitclone\Lernkartenapp\Logic.Ui\bin\Debug\Business.Model.pdb
+Z:\Gitclone\Lernkartenapp\Logic.Ui\bin\Debug\Services.MessageBus.pdb
+Z:\Gitclone\Lernkartenapp\Logic.Ui\obj\Debug\Logic.Ui.csprojAssemblyReference.cache
+Z:\Gitclone\Lernkartenapp\Logic.Ui\obj\Debug\Logic.Ui.csproj.CoreCompileInputs.cache
+Z:\Gitclone\Lernkartenapp\Logic.Ui\obj\Debug\Logic.Ui.csproj.CopyComplete
+Z:\Gitclone\Lernkartenapp\Logic.Ui\obj\Debug\Logic.Ui.dll
+Z:\Gitclone\Lernkartenapp\Logic.Ui\obj\Debug\Logic.Ui.pdb
