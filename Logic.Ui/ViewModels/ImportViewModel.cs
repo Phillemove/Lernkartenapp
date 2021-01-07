@@ -61,6 +61,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             {
                 MessageBox.Show(ofd.FileName);  // Anzeigen des Dateinamen (Nur erst mal Intern zur Kontrolle)
             }
+            string filepath = Path.GetDirectoryName(ofd.FileName);
             XmlDocument doc = new XmlDocument();    // Ein neues XmlDocument wird erstellt, in das dann die zu importierende Datei geladen wird.
             doc.Load(ofd.FileName);
             this.bvm = new BoxViewModel();  // Ein BoxViewModel, in das die zu importierenden Karten geladen werden sollen
@@ -75,7 +76,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                 {
                     string picName = "Test" + ".jpg"; // Name muss noch definiert werden + Überprüfen auf vorhandensein?
                     //File.Copy(card.AnswerPic, Environment.SpecialFolder.MyDocuments + @"\Lernkarten-App\content\" + picName);
-                    File.Copy(card.AnswerPic, pictureDirectory + picName);
+                    File.Copy(filepath + @"\content\" + card.AnswerPic, pictureDirectory + picName);
                     //card.AnswerPic = Environment.SpecialFolder.MyDocuments + @"\Lernkarten-App\content\" + picName;
                     card.AnswerPic = pictureDirectory + picName;
                 }
@@ -83,7 +84,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                 {
                     string picName = "Test2" + ".jpg"; // Name muss noch definiert werden + Überprüfen auf vorhandensein?
                     //File.Copy(card.QuestionPic, Environment.SpecialFolder.MyDocuments + @"\Lernkarten-App\content\" + picName);
-                    File.Copy(card.QuestionPic, pictureDirectory + picName);
+                    File.Copy(filepath + @"\content\" + card.QuestionPic, pictureDirectory + picName);
                     //card.QuestionPic = Environment.SpecialFolder.MyDocuments + @"\Lernkarten-App\content\" + picName;
                     card.QuestionPic = pictureDirectory + picName;
                 }
