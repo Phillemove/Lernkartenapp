@@ -18,7 +18,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         public RelayCommand importData { get; }
         public string FileName { get; set; }
         private BoxViewModel bvm;
-        private readonly string saveDirectory = @"..\..\..\Lernkarten\";
+        //private readonly string saveDirectory = @"..\..\..\Lernkarten\";  // Soweit derzeit nicht nötig. Nur für ggf. zu erstellenden Ordnern, wobei die grundlegend vorhanden sein sollten
         private readonly string pictureDirectory = @"..\..\..\Lernkarten\content\";
         public Boolean RadioButtonNewCatIsChecked { get; set; }
         public Boolean RadioButtonExistentCatIsChecked { get; set; }
