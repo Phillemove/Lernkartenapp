@@ -18,8 +18,10 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         public RelayCommand importData { get; }
         public string FileName { get; set; }
         private BoxViewModel bvm;
-        public Boolean RadioButton1IsChecked { get; set; }
-        public Boolean RadioButton2IsChecked { get; set; }
+        private readonly string saveDirectory = @"..\..\..\Lernkarten\";
+        private readonly string pictureDirectory = @"..\..\..\Lernkarten\content\";
+        public Boolean RadioButtonNewCatIsChecked { get; set; }
+        public Boolean RadioButtonExistentCatIsChecked { get; set; }
         public ImportViewModel()
         {
             chooseData = new RelayCommand(() => chooseDataMethod());
@@ -27,65 +29,79 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
 
         }
 
+        /*
+         * Diese Methode speichert die Dateien entweder unter einem neuen Kategorienamen ab oder fügt diese zu einer
+         * bestehenden Kategorie hinzu
+         */
         private void importDataMethod()
         {
-            if (RadioButton1IsChecked)
+            if (RadioButtonNewCatIsChecked)
             {
-                SaveCards.hardSave(this.bvm);
+                MessageBox.Show("Also eine neue Kategorie soll angelegt werden, soso");
+                //SaveCards.hardSave(this.bvm);   // Wichtig! Überprüfen, ob es schon solch eine Kategorie gibt. Wenn ja, werden die Karten der anderen Kategorie hinzugefügt.
             }
-            else if (RadioButton2IsChecked)
+            else if (RadioButtonExistentCatIsChecked)
             {
-                SaveCards.SaveCardsToFile(this.bvm);
+                MessageBox.Show("Ja da sollten wohl noch ein paar Karten zur Kategorie dazu.");
+                //SaveCards.SaveCardsToFile(this.bvm);
             }
             else
             {
                 MessageBox.Show("Leider nichts ausgewählt, somit kein Import möglich"); // Vielleicht etwas eleganter mit Auswahl oder so. 
             }
         }
-
+        /*
+         * Diese Methode ist zum auswählen der Datei da. Damit kann man aus seiner Dateistruktur eine .xml Datei auswählen, welche dann eingelesen und importiert werden soll.
+         */
         private void chooseDataMethod()
         {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "XML-Files|*.xml";
-            if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            OpenFileDialog ofd = new OpenFileDialog();  // Ein OpenFileDialog wird erstellt, durch das die Datei ausgewählt weden kann
+            ofd.Filter = "XML-Files|*.xml";     // Begrenzung der angezeigten Dateien auf .xml Dateien
+            if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK) // Wenn die Auswahl ohne Problme von statten ging
             {
-                MessageBox.Show(ofd.FileName);
+                MessageBox.Show(ofd.FileName);  // Anzeigen des Dateinamen (Nur erst mal Intern zur Kontrolle)
             }
-            XmlDocument doc = new XmlDocument();
+            XmlDocument doc = new XmlDocument();    // Ein neues XmlDocument wird erstellt, in das dann die zu importierende Datei geladen wird.
             doc.Load(ofd.FileName);
-            this.bvm = new BoxViewModel();
+            this.bvm = new BoxViewModel();  // Ein BoxViewModel, in das die zu importierenden Karten geladen werden sollen
             foreach(XmlNode node in doc.DocumentElement)
             {
-                Wrapper.CardViewModel card = readOwnFormatNode(node);
+                CardViewModel card = readOwnFormatNode(node);
                 this.bvm.Enqueue(card);
             }
-            foreach(Wrapper.CardViewModel card in this.bvm)
+            foreach(CardViewModel card in this.bvm) // DIese Schleife kopiert ggf. die Bilder an den neuen Ort und speichert den neuen Dateipfad
             {
                 if(card.AnswerPic != null)
                 {
                     string picName = "Test" + ".jpg"; // Name muss noch definiert werden + Überprüfen auf vorhandensein?
-                    File.Copy(card.AnswerPic, Environment.SpecialFolder.MyDocuments + @"\Lernkarten-App\content\" + picName);
-                    card.AnswerPic = Environment.SpecialFolder.MyDocuments + @"\Lernkarten-App\content\" + picName;
+                    //File.Copy(card.AnswerPic, Environment.SpecialFolder.MyDocuments + @"\Lernkarten-App\content\" + picName);
+                    File.Copy(card.AnswerPic, pictureDirectory + picName);
+                    //card.AnswerPic = Environment.SpecialFolder.MyDocuments + @"\Lernkarten-App\content\" + picName;
+                    card.AnswerPic = pictureDirectory + picName;
                 }
                 if (card.QuestionPic != null)
                 {
-                    string picName = "Test" + ".jpg"; // Name muss noch definiert werden + Überprüfen auf vorhandensein?
-                    File.Copy(card.QuestionPic, Environment.SpecialFolder.MyDocuments + @"\Lernkarten-App\content\" + picName);
-                    card.QuestionPic = Environment.SpecialFolder.MyDocuments + @"\Lernkarten-App\content\" + picName;
+                    string picName = "Test2" + ".jpg"; // Name muss noch definiert werden + Überprüfen auf vorhandensein?
+                    //File.Copy(card.QuestionPic, Environment.SpecialFolder.MyDocuments + @"\Lernkarten-App\content\" + picName);
+                    File.Copy(card.QuestionPic, pictureDirectory + picName);
+                    //card.QuestionPic = Environment.SpecialFolder.MyDocuments + @"\Lernkarten-App\content\" + picName;
+                    card.QuestionPic = pictureDirectory + picName;
                 }
-
-            }
-
-            
-            
+            } 
         }
-
-        public static Wrapper.CardViewModel readOwnFormatNode(XmlNode node)
+        /*
+         * Diese Methode kann unser eigenes Xml-Schema lesen und aufgrund dessen neue Karten erstellen.
+         * Übergeben werden muss hier eine XmlNode und Rückgabe wird durch eine Karte realisiert.
+         */
+        public static CardViewModel readOwnFormatNode(XmlNode node)
         {
-            Wrapper.CardViewModel card = new Wrapper.CardViewModel();
+            CardViewModel card = new CardViewModel();   // Erstellung der Karte, welche zurückgegeben wird.
 
             foreach (XmlNode child in node)
             {
+                /*
+                 * In diesem Switch-Case wird immer geschaut, welche Node gerade vorhanden ist und der dementsprechende Wert dann der passenden Kartenstelle zugeschrieben.
+                 */
                 switch (child.Name) // Muss noch ausdetailliert werden im Bereich Category und StasticCollection
                 {
                     case "Question":
@@ -105,9 +121,16 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                         break;
                     case "StatisticCollection":   //Statistic Collection muss dann immer passend dafür angelegt werden? Ja! Und auch tiefergehend mit allen folgenden Nodes.... Viel Aufwand
                         card.StatisticCollection = new StatisticCollection();
-                        foreach(XmlNode statNode in node)
+                        /*
+                         * Durch diese Schleife wird jedes Statistic Object einzeln durchgegangen.
+                         */
+                        foreach(XmlNode statNode in node) 
                         {
-                            Statistic stat = new Statistic();
+                            Statistic stat = new Statistic(); // Es wird eine neue Statistik angelegt
+                            /*
+                             * Durch diese Schleife wird jede Node innerhalb einer Statistik-Node durchgegangen.
+                             * Hier verbergen sich die dementsprechenden Werte, welche zum erstellen der Statistik anlagen.
+                             */
                             foreach(XmlNode statDet in statNode) //Wie die Erstellung einzelner Statisticobjekte?
                             {
                                 switch (statDet.Name)
@@ -123,6 +146,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                                         break;
                                 }
                             }
+                            card.StatisticCollection.Add(stat); // Das gerade erzeugte Statistic-Objekt wird der Collection hinzugefügt.
                         }
                         break;
                 }

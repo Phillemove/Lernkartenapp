@@ -34,7 +34,7 @@
                         HorizontalAlignment="Right" 
                         Margin="0,7,0,0"
                         GroupName="1"
-                        IsChecked="{Binding Path=RadioButton1IsChecked}"/>
+                        IsChecked="{Binding Path=RadioButtonNewCatIsChecked}"/>
                     <Label Content="Vorgeschlagener neuer Kategoriename: " VerticalAlignment="Top"></Label>
                     <Label 
                         Content="Klassenname" 
@@ -43,13 +43,19 @@
                         HorizontalAlignment="Right" 
                         Margin="0,7,0,0"
                         GroupName="1"
-                        IsChecked="{Binding Path=RadioButton2IsChecked}"/>
+                        IsChecked="{Binding Path=RadioButtonExistentCatIsChecked}"/>
                     <Label Content="Vorhandene Kategorie verwenden: " VerticalAlignment="Top"></Label>
                     <ComboBox Width="200px" Height="20px" VerticalAlignment="Top" HorizontalAlignment="Left"></ComboBox>
                 </UniformGrid>
             </UniformGrid>
             <UniformGrid Grid.Column="2" Columns="1">
-                <Button Content="Importieren" Height="20px" Width="80px" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="10px"/>
+                <Button 
+                    Content="Importieren" 
+                    Height="20px" Width="80px" 
+                    VerticalAlignment="Bottom" 
+                    HorizontalAlignment="Right" 
+                    Margin="10px"
+                    Command="{Binding importData, Mode=OneWay}"/>
             </UniformGrid>
         </Grid>
     </Grid>

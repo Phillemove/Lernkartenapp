@@ -119,7 +119,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
                         writer.WriteElementString("Category", filename);    // Kategorie wird auf jeden Fall geschrieben
                         writer.WriteElementString("QuestionPic", card.QuestionPic != null ? card.QuestionPic : null);// Wenn kein FragenBild vorhanden ist, wird nichts geschrieben
                         writer.WriteElementString("AnswerPic", card.AnswerPic != null ? card.AnswerPic : null);// Wenn kein AntwortBild vorhanden ist, wird nichts geschrieben
-                        writer.WriteStartAttribute("Statistics");
+                        writer.WriteStartAttribute("StatisticCollection");
                             if (card.StatisticCollection != null)   // Wenn es an dieser Stelle noch keine StatisticCollection gibt, wird hier auch nichts rein geschrieben
                             {
                                 foreach(Statistic stat in card.StatisticCollection)
