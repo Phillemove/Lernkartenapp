@@ -57,13 +57,13 @@
     <Compile Include="Support\SaveCards.cs" />
     <Compile Include="ViewModelLocator.cs" />
     <Compile Include="ViewModels\CardLearningViewModel.cs" />
-    <Compile Include="ViewModels\CardViewModel.cs" />
+    <Compile Include="ViewModels\CardWindowViewModel.cs" />
     <Compile Include="ViewModels\CategoryViewModel.cs" />
     <Compile Include="ViewModels\ExportViewModel.cs" />
     <Compile Include="ViewModels\ImportViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="Wrapper\ModelViewModel.cs" />
-    <Compile Include="ViewModels\StatisticViewModel.cs" />
+    <Compile Include="ViewModels\StatisticWindowViewModel.cs" />
     <Compile Include="Wrapper\BoxCollectionViewModel.cs" />
     <Compile Include="Wrapper\BoxViewModel.cs" />
     <Compile Include="Wrapper\CardViewModel.cs" />

@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Statistics" Height="450" Width="800">
     <Window.DataContext >
-        <Binding Source = "{StaticResource VMLocator}" Path = "StatisticViewModel" ></Binding >
+        <Binding Source = "{StaticResource VMLocator}" Path = "StatisticWindowViewModel" ></Binding >
     </Window.DataContext >
 
     <Grid>
@@ -17,15 +17,8 @@
         <Button Content="Text" HorizontalAlignment="Left" Margin="10,49,0,0" VerticalAlignment="Top" Width="60"/>
         <Button Content="Verlauf" HorizontalAlignment="Left" Margin="87,49,0,0" VerticalAlignment="Top" Width="60"/>
         <GridSplitter HorizontalAlignment="Left" Height="3" Margin="0,74,0,0" VerticalAlignment="Top" Width="792"/>
-        <DataGrid HorizontalAlignment="Left" Height="295" Margin="9,85,0,0" VerticalAlignment="Top" Width="773" RenderTransformOrigin="0.5,0.5">
-            <DataGrid.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="-0.046"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </DataGrid.RenderTransform>
+        <DataGrid ItemsSource="{Binding Path=StatisticCollectionVM}" HorizontalAlignment="Left" Height="295" Margin="9,85,0,0" VerticalAlignment="Top" Width="773" RenderTransformOrigin="0.5,0.5">
+
         </DataGrid>
         <Slider HorizontalAlignment="Left" Margin="10,391,0,0" VerticalAlignment="Top" Width="173"/>
 

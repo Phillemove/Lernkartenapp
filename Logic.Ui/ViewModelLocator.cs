@@ -1,4 +1,5 @@
 ﻿using De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels;
+using De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,22 +11,26 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
     public class ViewModelLocator
     {
 
-        public StatisticViewModel StatisticViewModel { get; }
+        public StatisticWindowViewModel StatisticWindowViewModel { get; }
         public ExportViewModel ExportViewModel { get; }
         public ImportViewModel ImportViewModel { get; }
         public MainWindowViewModel MainWindowViewModel { get; }
         public CardLearningViewModel CardLearningViewModel { get; }
-        public CardViewModel CardViewModel { get; }
+        public CardWindowViewModel CardWindowViewModel { get; }
         public CategoryViewModel CategoryViewModel { get; }
+
+        private StatisticCollectionViewModel statisticCollectionVM;
 
         public ViewModelLocator()
         {
+            statisticCollectionVM = new StatisticCollectionViewModel();
+
             MainWindowViewModel = new MainWindowViewModel();
-            StatisticViewModel = new StatisticViewModel();
+            StatisticWindowViewModel = new StatisticWindowViewModel(statisticCollectionVM);
             ExportViewModel = new ExportViewModel();
             ImportViewModel = new ImportViewModel();
             CardLearningViewModel = new CardLearningViewModel();
-            CardViewModel = new CardViewModel();
+            CardWindowViewModel = new CardWindowViewModel();
             CategoryViewModel = new CategoryViewModel();
 
         }

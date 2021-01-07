@@ -11,3 +11,16 @@ C:\Users\hauke\source\repos\Lernkartenapp\Services.Support\bin\Debug\Services.Me
 C:\Users\hauke\source\repos\Lernkartenapp\Services.Support\obj\Debug\Services.Support.csproj.CopyComplete
 C:\Users\hauke\source\repos\Lernkartenapp\Services.Support\obj\Debug\Services.Support.dll
 C:\Users\hauke\source\repos\Lernkartenapp\Services.Support\obj\Debug\Services.Support.pdb
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Services.Support\bin\Debug\Services.Support.dll
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Services.Support\bin\Debug\Services.Support.pdb
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Services.Support\bin\Debug\Business.Model.dll
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Services.Support\bin\Debug\Logic.Ui.dll
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Services.Support\bin\Debug\Services.MessageBus.dll
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Services.Support\bin\Debug\Business.Model.pdb
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Services.Support\bin\Debug\Logic.Ui.pdb
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Services.Support\bin\Debug\Services.MessageBus.pdb
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Services.Support\obj\Debug\Services.Support.csprojAssemblyReference.cache
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Services.Support\obj\Debug\Services.Support.csproj.CoreCompileInputs.cache
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Services.Support\obj\Debug\Services.Support.csproj.CopyComplete
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Services.Support\obj\Debug\Services.Support.dll
+C:\Users\Philipp Theis\source\repos\ClientApp007\Lernkartenapp\Services.Support\obj\Debug\Services.Support.pdb
