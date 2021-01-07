@@ -16,6 +16,11 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper
             this.statistic = new Statistic();
         }
 
+        public StatisticViewModel(Statistic statistic)
+        {
+            this.statistic = statistic;
+        }
+
         public DateTime Timestamp
         {
             get
