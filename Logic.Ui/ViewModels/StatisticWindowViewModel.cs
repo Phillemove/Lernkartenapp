@@ -22,7 +22,8 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         {
             
             ShowHide = new RelayCommand(() => ShowHideMethod());
-            StatisticCollectionVM = statisticCollectionVM; 
+            StatisticCollectionVM = statisticCollectionVM;
+            RightAnswer = 0;
             _showDataGrid = true;
         }
 

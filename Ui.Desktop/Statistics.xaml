@@ -23,7 +23,10 @@
 
         </DataGrid>
         <Slider HorizontalAlignment="Left" Margin="10,391,0,0" VerticalAlignment="Top" Width="173"/>
-        <DataGrid ItemsSource="{Binding Path=RightAnswer}" IsReadOnly="True" HorizontalAlignment="Left" Height="151" Margin="10,218,0,0" VerticalAlignment="Top" Width="772"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,221,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="18" Width="222">
+            <Run Text="Anzahl Richtig beantworteter Fragen:"/>
+            <Run Text="{Binding Path=RightAnswer}"/>
+        </TextBlock>
 
     </Grid>
 </Window>
