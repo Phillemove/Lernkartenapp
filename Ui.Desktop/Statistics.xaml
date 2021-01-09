@@ -9,18 +9,21 @@
     <Window.DataContext >
         <Binding Source = "{StaticResource VMLocator}" Path = "StatisticWindowViewModel" ></Binding >
     </Window.DataContext >
-
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="Converter"></BooleanToVisibilityConverter>
+    </Window.Resources>
     <Grid>
         <Button Content="Karten Statistik" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="120"/>
         <Button Content="Allgemeine Statistik" HorizontalAlignment="Left" Margin="146,10,0,0" VerticalAlignment="Top" Width="120"/>
         <GridSplitter HorizontalAlignment="Left" Height="3" Margin="0,41,0,0" VerticalAlignment="Top" Width="792"/>
-        <Button Content="Text" HorizontalAlignment="Left" Margin="10,49,0,0" VerticalAlignment="Top" Width="60"/>
+        <Button Content="Text" Command="{Binding ShowHide, Mode=OneWay}" HorizontalAlignment="Left" Margin="10,49,0,0" VerticalAlignment="Top" Width="60"/>
         <Button Content="Verlauf" HorizontalAlignment="Left" Margin="87,49,0,0" VerticalAlignment="Top" Width="60"/>
         <GridSplitter HorizontalAlignment="Left" Height="3" Margin="0,74,0,0" VerticalAlignment="Top" Width="792"/>
-        <DataGrid ItemsSource="{Binding Path=StatisticCollectionVM}" IsReadOnly="True" HorizontalAlignment="Left" Height="295" Margin="9,85,0,0" VerticalAlignment="Top" Width="773" RenderTransformOrigin="0.5,0.5">
+        <DataGrid ItemsSource="{Binding Path=StatisticCollectionVM}" IsReadOnly="True" Visibility="{Binding Path=ShowDataGrid, Converter={StaticResource Converter}}" HorizontalAlignment="Left" Height="115" Margin="9,85,0,0" VerticalAlignment="Top" Width="773" RenderTransformOrigin="0.5,0.5">
 
         </DataGrid>
         <Slider HorizontalAlignment="Left" Margin="10,391,0,0" VerticalAlignment="Top" Width="173"/>
+        <DataGrid ItemsSource="{Binding Path=RightAnswer}" IsReadOnly="True" HorizontalAlignment="Left" Height="151" Margin="10,218,0,0" VerticalAlignment="Top" Width="772"/>
 
     </Grid>
 </Window>

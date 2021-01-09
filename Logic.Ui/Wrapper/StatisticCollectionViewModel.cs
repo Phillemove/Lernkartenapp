@@ -1,4 +1,5 @@
 ﻿using De.HsFlensburg.ClientApp101.Business.Model.BusinessObjects;
+using De.HsFlensburg.ClientApp101.Logic.Ui.Support;
 using De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -40,7 +41,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper
                     statisticCollection.Clear();
                     break;
             }
-            syncDisabled = false;
+            syncDisabled = false;  
         }
 
         private void ModelCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
