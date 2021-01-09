@@ -12,7 +12,6 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
     {
         private bool _showDataGrid;
         public RelayCommand ShowHide { get; }
-        //private StatisticAlgorithms algorithms;
         public StatisticCollectionViewModel StatisticCollectionVM { get; set; }
         public int RightAnswer { get; set; }
         public bool ShowDataGrid
