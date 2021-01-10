@@ -33,8 +33,6 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
 
             MainWindowViewModel = new MainWindowViewModel();
             StatisticWindowViewModel = new StatisticWindowViewModel(statisticCollectionVM);
-            //StatisticWindowViewModel = new StatisticWindowViewModel(statisticCollectionCard1);
-            //StatisticWindowViewModel = new StatisticWindowViewModel(statisticCollectionCard2);
             ExportViewModel = new ExportViewModel();
             ImportViewModel = new ImportViewModel();
             CardLearningViewModel = new CardLearningViewModel();
@@ -50,10 +48,9 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
 
             Statistic statistic1 = new Statistic();
             statistic1.Timestamp = new DateTime(2020, 12, 12, 7, 30, 32);
-            statistic1.SuccessfullAnswer = false;
+            statistic1.SuccessfullAnswer = true;
             statisticCollectionVM.Add(new StatisticViewModel(statistic1));
-            statisticCollectionCard1.Add(new StatisticViewModel(statistic1));
-            statisticCollectionCard2.Add(new StatisticViewModel(statistic1));
+
             
 
 
@@ -61,12 +58,8 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
             statistic2.Timestamp = DateTime.Now;
             statistic2.SuccessfullAnswer = true;
             statisticCollectionVM.Add(new StatisticViewModel(statistic2));
-            statisticCollectionCard2.Add(new StatisticViewModel(statistic2));
 
-            StatisticWindowViewModel.RightAnswer = StatisticAlgorithms.rightAnswer(statisticCollectionVM);
-            StatisticWindowViewModel.LearnedCard = StatisticAlgorithms.learnedCard(statisticCollectionVM);
-            StatisticWindowViewModel.LastSucessfullAnswer = StatisticAlgorithms.lastSucessfullAnswer(statisticCollectionVM);
-            StatisticWindowViewModel.LearningSucess = StatisticAlgorithms.learningSucess(statisticCollectionVM);
+            StatisticWindowViewModel.makeStatistic(statisticCollectionVM);
         }
     }
 }
