@@ -43,14 +43,14 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
 
             // Statistic DummyDaten
             Statistic statistic = new Statistic();
-            statistic.Timestamp = DateTime.Now;
+            statistic.Timestamp = DateTime.UtcNow;
             statistic.SuccessfullAnswer = true;
             statisticCollectionVM.Add(new StatisticViewModel(statistic));
            
 
             Statistic statistic1 = new Statistic();
-            statistic1.Timestamp = DateTime.UtcNow;
-            statistic1.SuccessfullAnswer = true;
+            statistic1.Timestamp = new DateTime(2020, 12, 12, 7, 30, 32);
+            statistic1.SuccessfullAnswer = false;
             statisticCollectionVM.Add(new StatisticViewModel(statistic1));
             statisticCollectionCard1.Add(new StatisticViewModel(statistic1));
             statisticCollectionCard2.Add(new StatisticViewModel(statistic1));
@@ -64,9 +64,9 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
             statisticCollectionCard2.Add(new StatisticViewModel(statistic2));
 
             StatisticWindowViewModel.RightAnswer = StatisticAlgorithms.rightAnswer(statisticCollectionVM);
-            //StatisticWindowViewModel.RightAnswer = StatisticAlgorithms.rightAnswer(statisticCollectionCard1);
-            //StatisticWindowViewModel.RightAnswer = StatisticAlgorithms.rightAnswer(statisticCollectionCard2);
-
+            StatisticWindowViewModel.LearnedCard = StatisticAlgorithms.learnedCard(statisticCollectionVM);
+            StatisticWindowViewModel.LastSucessfullAnswer = StatisticAlgorithms.lastSucessfullAnswer(statisticCollectionVM);
+            StatisticWindowViewModel.LearningSucess = StatisticAlgorithms.learningSucess(statisticCollectionVM);
         }
     }
 }

@@ -13,7 +13,10 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         private bool _showDataGrid;
         public RelayCommand ShowHide { get; }
         public StatisticCollectionViewModel StatisticCollectionVM { get; set; }
+        public int LearnedCard { get; set; }
         public int RightAnswer { get; set; }
+        public DateTime LastSucessfullAnswer { get; set; }
+        public int LearningSucess { get; set; }
         public bool ShowDataGrid
         {
             get { return _showDataGrid; }
@@ -23,7 +26,6 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             
             ShowHide = new RelayCommand(() => ShowHideMethod());
             StatisticCollectionVM = statisticCollectionVM;
-            RightAnswer = 0;
             _showDataGrid = true;
         }
 
