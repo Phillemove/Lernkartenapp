@@ -10,8 +10,8 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
 {
     public class StatisticAlgorithms
     {
-        // Anzahl aller richtig beantworteter Fragen
-        public static int rightAnswer(StatisticCollectionViewModel collection)
+        // How often ist this card learned successfull
+        public static int RightAnswer(StatisticCollectionViewModel collection)
         {
             int counter = 0;
             foreach (StatisticViewModel statistic in collection)
@@ -25,8 +25,8 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
             return counter;
         }
 
-        // Anzahl wie oft die Karte überhaupt gelernt wurde
-        public static int learnedCard(StatisticCollectionViewModel collection)
+        // How often ist this card learned
+        public static int LearnedCard(StatisticCollectionViewModel collection)
         {
             int counter = 0;
             foreach (StatisticViewModel statistic in collection)
@@ -36,8 +36,8 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
             return counter;
         }
 
-        // Wann wurde sie zuletzt richtig Beantwortet
-        public static DateTime lastSucessfullAnswer(StatisticCollectionViewModel collection)
+        // On whitch Date ist a Card learned correct the last time
+        public static DateTime LastSucessfullAnswer(StatisticCollectionViewModel collection)
         {
             DateTime time = new DateTime();
             foreach(StatisticViewModel statistic in collection)
@@ -54,8 +54,8 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
             return time;
         }
 
-        // Wir oft hintereinander richtig gelernt
-        public static int learningSucess(StatisticCollectionViewModel collection)
+        // How often in a row is a Card learned successfull
+        public static int LearningSucess(StatisticCollectionViewModel collection)
         {
             int counter = 0;
            

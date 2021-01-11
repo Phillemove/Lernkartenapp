@@ -40,27 +40,25 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
             CardWindowViewModel = new CardWindowViewModel();
             CategoryViewModel = new CategoryViewModel();
 
+
             // Statistic DummyDaten
             Statistic statistic = new Statistic();
             statistic.Timestamp = DateTime.UtcNow;
             statistic.SuccessfullAnswer = true;
             statisticCollectionVM.Add(new StatisticViewModel(statistic));
-           
-
+          
             Statistic statistic1 = new Statistic();
             statistic1.Timestamp = new DateTime(2020, 12, 12, 7, 30, 32);
             statistic1.SuccessfullAnswer = true;
             statisticCollectionVM.Add(new StatisticViewModel(statistic1));
 
-            
-
-
             Statistic statistic2 = new Statistic();
             statistic2.Timestamp = DateTime.Now;
-            statistic2.SuccessfullAnswer = true;
+            statistic2.SuccessfullAnswer = false;
             statisticCollectionVM.Add(new StatisticViewModel(statistic2));
 
-            StatisticWindowViewModel.makeStatistic(statisticCollectionVM);
+<<<<<<< HEAD
+            
             // maha
             myBoxCollectionViewModel = new BoxCollectionViewModel();
             // myModelViewModel = new ModelViewModel();
@@ -88,6 +86,9 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
             //   myModelViewModel.BoxCollection.storeCard(cvm3, Boxnumber.Box2);
             //  myModelViewModel.BoxCollection.storeCard(cvm1, Boxnumber.Box3);
 
+=======
+            StatisticWindowViewModel.MakeStatistic();
+>>>>>>> 6250b20bd63753913f4771f08e4cf1cb88e5363b
         }
     }
 }
