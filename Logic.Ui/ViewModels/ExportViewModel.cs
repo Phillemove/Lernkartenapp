@@ -16,7 +16,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
 
         public readonly string saveDirectory = @"..\..\..\Lernkarten";
 
-        public Boolean inclStat { get; set }
+        public Boolean inclStat { get; set; }
 
         public Category Class { get; set; }   // Class ist die ausgewählte Kategory, oder ist es ein CategoryVM Objekt? Muss noch in ein VM geändert werden....
 

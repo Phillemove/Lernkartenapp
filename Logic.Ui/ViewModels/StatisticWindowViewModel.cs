@@ -42,12 +42,12 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             }
         }
 
-        public void makeStatistic(StatisticCollectionViewModel collection)
+        public void MakeStatistic()
         {
-            LearnedCard = StatisticAlgorithms.learnedCard(collection);
-            RightAnswer = StatisticAlgorithms.rightAnswer(collection);
-            LastSucessfullAnswer = StatisticAlgorithms.lastSucessfullAnswer(collection);
-            LearningSucess = StatisticAlgorithms.learningSucess(collection);
+            LearnedCard = StatisticAlgorithms.LearnedCard(StatisticCollectionVM);
+            RightAnswer = StatisticAlgorithms.RightAnswer(StatisticCollectionVM);
+            LastSucessfullAnswer = StatisticAlgorithms.LastSucessfullAnswer(StatisticCollectionVM);
+            LearningSucess = StatisticAlgorithms.LearningSucess(StatisticCollectionVM);
         }
 
     }

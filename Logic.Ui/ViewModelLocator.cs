@@ -39,27 +39,24 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
             CardWindowViewModel = new CardWindowViewModel();
             CategoryViewModel = new CategoryViewModel();
 
+
             // Statistic DummyDaten
             Statistic statistic = new Statistic();
             statistic.Timestamp = DateTime.UtcNow;
             statistic.SuccessfullAnswer = true;
             statisticCollectionVM.Add(new StatisticViewModel(statistic));
-           
-
+          
             Statistic statistic1 = new Statistic();
             statistic1.Timestamp = new DateTime(2020, 12, 12, 7, 30, 32);
             statistic1.SuccessfullAnswer = true;
             statisticCollectionVM.Add(new StatisticViewModel(statistic1));
 
-            
-
-
             Statistic statistic2 = new Statistic();
             statistic2.Timestamp = DateTime.Now;
-            statistic2.SuccessfullAnswer = true;
+            statistic2.SuccessfullAnswer = false;
             statisticCollectionVM.Add(new StatisticViewModel(statistic2));
 
-            StatisticWindowViewModel.makeStatistic(statisticCollectionVM);
+            StatisticWindowViewModel.MakeStatistic();
         }
     }
 }
