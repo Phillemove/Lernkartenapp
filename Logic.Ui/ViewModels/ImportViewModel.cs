@@ -121,7 +121,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                         card.Category = new Category(child.InnerText); // Ich glaube nicht ganz korrekt. Immer eine Neue? Oder kann ich eine vorhandene verwenden? Muss das noch abgefragt werden?
                         break;
                     case "StatisticCollection":   //Statistic Collection muss dann immer passend dafür angelegt werden? Ja! Und auch tiefergehend mit allen folgenden Nodes.... Viel Aufwand
-                        card.StatisticCollection = new StatisticCollection();
+                        card.StatisticCollection = new StatisticCollection();   // Wird noch zu einer StatisticCollectionViewModel
                         /*
                          * Durch diese Schleife wird jedes Statistic Object einzeln durchgegangen.
                          */

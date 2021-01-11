@@ -31,7 +31,14 @@
                 </DataGrid>
             </UniformGrid>
             <UniformGrid Grid.Column="2" Columns="1">
-                <Button 
+                <UniformGrid Grid.Column="0" Columns="2">
+                    <CheckBox
+                    Content="inclusive Statistiken"
+                    VerticalAlignment="Bottom"    
+                    Margin="10px"
+                    HorizontalAlignment="Right"
+                    IsChecked="{Binding Path=inclStat}"></CheckBox>
+                    <Button 
                     Content="Exportieren" 
                     Height="20px" 
                     Width="80px" 
@@ -39,11 +46,9 @@
                     HorizontalAlignment="Right" 
                     Margin="10px"
                     Command="{Binding ExportData, Mode=OneWay}"/>
+                </UniformGrid>
 
             </UniformGrid>
-
         </Grid>
-
-
     </Grid>
 </Window>
