@@ -18,6 +18,7 @@ namespace De.HsFlensburg.ClientApp101.Business.Model.BusinessObjects
         {
             // Load Category Collection
             LoadCategorys();
+            BoxCollection = new BoxCollection();
         }
 
         private void LoadCategorys()

@@ -9,11 +9,28 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper
 {
     public class ModelViewModel
     {
-        
+        public Model model;
+        private BoxCollectionViewModel bcvm;
+
+
         public ModelViewModel()
         {
-            // Model erzeugen - damit Konstruktor für CategoryCollection undso aufrufen - auch Box - Enum
-        }
+            this.model = new Model();
+            bcvm = new BoxCollectionViewModel(this.model.BoxCollection);
 
+        }
+        public ModelViewModel(Model model)
+        {
+            this.model = model;
+            bcvm = new BoxCollectionViewModel(this.model.BoxCollection);
+
+        }
+        public BoxCollectionViewModel BoxCollection
+        {
+            get
+            {
+                return bcvm;
+            }
+        }
     }
 }

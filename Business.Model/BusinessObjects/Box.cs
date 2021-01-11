@@ -1,22 +1,53 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace De.HsFlensburg.ClientApp101.Business.Model.BusinessObjects
 {
+    public enum Boxnumber
+    {
+        None,
+        Box1,
+        Box2,
+        Box3,
+        Box4,
+        Box5
+    }
     public class Box : Queue<Card>
     {
-        enum Boxnumber { }
+
+        Boxnumber bn;
+        public Box()
+        {
+            this.bn = Boxnumber.None;
+        }
+        public Box(Boxnumber bn)
+        {
+            this.bn = bn;
+        }
+        public Boxnumber Bn
+        {
+            get
+            {
+                return bn;
+            }
+            set
+            {
+                bn = value;
+            }
+        }
 
         public void add(Card card)
         {
-
+            this.Enqueue(card);
         }
-        public Card remove(Card card)
+        public Card remove()
         {
-            return card;
+            return this.Dequeue();
         }
     }
 }
+

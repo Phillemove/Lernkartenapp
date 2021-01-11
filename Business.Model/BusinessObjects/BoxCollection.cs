@@ -11,13 +11,27 @@ namespace De.HsFlensburg.ClientApp101.Business.Model.BusinessObjects
     {
         // Übergabe Parameter enum Boxnumber erstmal weg gelassen, 
         // da er so zu Fehlermeldungen führt. Muss noch implementiert werden
-        public void giveCard()
+        public Card giveCard(Boxnumber bn)
         {
-
+            foreach (Box box in this)
+            {
+                if (box.Bn == bn)
+                {
+                    return box.remove();
+                }
+            }
+            return null;
         }
-        public void storeCard(Card card)
+        public void storeCard(Card card, Boxnumber bn)
         {
-
+            foreach (Box box in this)
+            {
+                if (box.Bn == bn)
+                {
+                    box.add(card);
+                }
+            }
         }
     }
 }
+

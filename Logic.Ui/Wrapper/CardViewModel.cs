@@ -14,7 +14,11 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper
         {
             this.card = new Card();
         }
-
+        public CardViewModel(Card c)
+        {
+            this.card = c;
+        
+        }
         public string Question
         {
             get

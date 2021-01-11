@@ -60,6 +60,33 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
             statisticCollectionVM.Add(new StatisticViewModel(statistic2));
 
             StatisticWindowViewModel.makeStatistic(statisticCollectionVM);
+            // maha
+            //myBoxCollectionViewModel = new BoxCollectionViewModel();
+            // myModelViewModel = new ModelViewModel();
+            //myBoxCollectionViewModel = new BoxCollectionViewModel(myModelViewModel.BoxCollection);
+            //myCategoryCollectionViewModel = new CategoryCollectionViewModel(myModelViewModel.CategoryCollection);
+            //
+            // BoxViewModel bvm1 = new BoxViewModel(new Box(Boxnumber.Box1));
+            //  BoxViewModel bvm2 = new BoxViewModel(new Box(Boxnumber.Box2));
+            //  BoxViewModel bvm3 = new BoxViewModel(new Box(Boxnumber.Box3));
+            //  BoxViewModel bvm4 = new BoxViewModel(new Box(Boxnumber.Box4));
+            // BoxViewModel bvm5 = new BoxViewModel(new Box(Boxnumber.Box5));
+
+            // CardViewModel cvm1 = new CardViewModel(new Card(new Category("Math")));
+            //  CardViewModel cvm2 = new CardViewModel(new Card(new Category("computer")));
+            //  CardViewModel cvm3 = new CardViewModel(new Card(new Category("IT")));
+
+            //  myModelViewModel.BoxCollection.Add(bvm1);
+            //  myModelViewModel.BoxCollection.Add(bvm2);
+            //   myModelViewModel.BoxCollection.Add(bvm3);
+            // myModelViewModel.BoxCollection.Add(bvm4);
+            //  myModelViewModel.BoxCollection.Add(bvm5);
+
+            //  myModelViewModel.BoxCollection.storeCard(cvm1, Boxnumber.Box1);
+            //  myModelViewModel.BoxCollection.storeCard(cvm2, Boxnumber.Box2);
+            //   myModelViewModel.BoxCollection.storeCard(cvm3, Boxnumber.Box2);
+            //  myModelViewModel.BoxCollection.storeCard(cvm1, Boxnumber.Box3);
+
         }
     }
 }

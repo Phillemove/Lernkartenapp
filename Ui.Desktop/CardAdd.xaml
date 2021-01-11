@@ -6,7 +6,63 @@
         xmlns:local="clr-namespace:De.HsFlensburg.ClientApp101.Ui.Desktop"
         mc:Ignorable="d"
         Title="CardAdd" Height="450" Width="800">
-    <Grid>
-        <Label Content="Karte anlegen"></Label>
+    <Window.DataContext>
+        <Binding Source="{StaticResource VMLocator}" Path="CardWindowViewModel"></Binding>
+    </Window.DataContext>
+
+    <Grid Background="#ffffff" Margin="0,0,0,0.333">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Border x:Name="header" BorderThickness="3" HorizontalAlignment="Left"
+                Height="40" VerticalAlignment="Top" Width="1092" Background="#901aff"
+                Margin="0,0,0,0"/>
+        <Label Grid.Column="0" x:Name="AddCard" Content="AddCard" HorizontalAlignment="Left"
+               VerticalAlignment="Top" Margin="3,0,0,0" Height="40" Width="241"
+               FontFamily="Verdana" FontSize="20" FontWeight="Bold" Foreground="#FFFAFAFA" />
+        <Label Grid.Column="0" x:Name="Question" Content="Question" HorizontalAlignment="Left"
+               VerticalAlignment="Top" Background="#901aff"  FontFamily="Verdana" FontSize="10"
+               FontWeight="Bold" Foreground="#FFFAFAFA" Margin="17,45,0,0" Height="22" Width="82"/>
+        <TextBox Grid.Column="0" Text="{Binding Path=Question}" BorderBrush="#dab3ff"
+                 Background="#e6ccff" VerticalAlignment="Center" HorizontalAlignment="Right"
+                 Margin="0,40,241.2,388.067" Width="197" Height="42"></TextBox>
+        <Label Grid.Column="0" x:Name="Answer" Content="Answer" HorizontalAlignment="Left"
+               VerticalAlignment="Top" Background="#901aff"  FontFamily="Verdana" FontSize="10"
+               FontWeight="Bold" Foreground="#FFFAFAFA" Margin="17,110,0,0" Height="22" Width="82"/>
+        <TextBox Grid.Column="0" Text="{Binding Path=Answer}" BorderBrush="#dab3ff"
+                 Background="#e6ccff" VerticalAlignment="Center" HorizontalAlignment="Right"
+                 Margin="0,110,241.2,313.067" Width="197" Height="47" ></TextBox>
+        <Button Grid.Column="0" HorizontalAlignment="Left"  Width="149"
+                Command="{Binding AddQuestionPic,Mode=OneWay}" Margin="67,174,0,255.067"
+                RenderTransformOrigin="0.22,-1.215">
+            Add Question Picture</Button>
+        <Button Grid.Column="0"   Width="149" HorizontalAlignment="Left" 
+                Command="{Binding AddAnswerPic,Mode=OneWay}"
+                RenderTransformOrigin="0.22,-1.215" Margin="284,174,0,254.067">
+            Add Answer Picture</Button>
+        <Label Grid.Column="0" BorderBrush="#dab3ff" x:Name="Category" Content="Category"
+               HorizontalAlignment="Left" VerticalAlignment="Top" Background="#901aff"
+               FontFamily="Verdana" FontSize="10" FontWeight="Bold" Foreground="#FFFAFAFA"
+               Margin="10,261,0,0" Height="30" Width="89"/>
+        <ComboBox Grid.Column="0" HorizontalAlignment="Left"
+                  Margin="121,261,0,0"  DisplayMemberPath="Name"    
+                  VerticalAlignment="Top" Width="197" Height="47" >
+        </ComboBox>
+        <ComboBox Grid.Column="0" HorizontalAlignment="Left"
+                  Margin="121,331,0,95.067" DisplayMemberPath="Bn"
+                  SelectedItem="{Binding BoxNum}"
+                  ItemsSource="{Binding myBoxCollectionViewModel}"
+                  Width="197" >
+        </ComboBox>
+        <Button Grid.Column="0" HorizontalAlignment="Left" Margin="178,402,0,20.067" Width="111"
+                Command="{Binding AddCard,Mode=OneWay}" Click="Button_Click">Add Card</Button>
+        <DataGrid Grid.Column="1" ItemsSource="{Binding  Path= myBoxCollectionViewModel}">
+        </DataGrid>
+        <Label Grid.Column="0" BorderBrush="#dab3ff" x:Name="BoxNumber" Content="BoxNumber"
+            HorizontalAlignment="Left" VerticalAlignment="Top" Background="#901aff"
+            FontFamily="Verdana" FontSize="10" FontWeight="Bold" Foreground="#FFFAFAFA"
+            Margin="10,331,0,0" Height="30" Width="89"/>
+
     </Grid>
 </Window>
