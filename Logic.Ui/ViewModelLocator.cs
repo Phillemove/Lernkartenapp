@@ -57,7 +57,6 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
             statistic2.SuccessfullAnswer = false;
             statisticCollectionVM.Add(new StatisticViewModel(statistic2));
 
-<<<<<<< HEAD
             
             // maha
             myBoxCollectionViewModel = new BoxCollectionViewModel();
@@ -86,9 +85,9 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
             //   myModelViewModel.BoxCollection.storeCard(cvm3, Boxnumber.Box2);
             //  myModelViewModel.BoxCollection.storeCard(cvm1, Boxnumber.Box3);
 
-=======
+
             StatisticWindowViewModel.MakeStatistic();
->>>>>>> 6250b20bd63753913f4771f08e4cf1cb88e5363b
+
         }
     }
 }
