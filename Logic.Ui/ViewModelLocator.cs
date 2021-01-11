@@ -24,6 +24,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
         private StatisticCollectionViewModel statisticCollectionVM;
         private StatisticCollectionViewModel statisticCollectionCard1;
         private StatisticCollectionViewModel statisticCollectionCard2;
+        private BoxCollectionViewModel myBoxCollectionViewModel;
 
         public ViewModelLocator()
         {
@@ -61,9 +62,9 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
 
             StatisticWindowViewModel.makeStatistic(statisticCollectionVM);
             // maha
-            //myBoxCollectionViewModel = new BoxCollectionViewModel();
+            myBoxCollectionViewModel = new BoxCollectionViewModel();
             // myModelViewModel = new ModelViewModel();
-            //myBoxCollectionViewModel = new BoxCollectionViewModel(myModelViewModel.BoxCollection);
+           // myBoxCollectionViewModel = new BoxCollectionViewModel(myModelViewModel.BoxCollection);
             //myCategoryCollectionViewModel = new CategoryCollectionViewModel(myModelViewModel.CategoryCollection);
             //
             // BoxViewModel bvm1 = new BoxViewModel(new Box(Boxnumber.Box1));
