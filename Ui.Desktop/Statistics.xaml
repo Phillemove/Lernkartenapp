@@ -5,22 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:De.HsFlensburg.ClientApp101.Ui.Desktop"
         mc:Ignorable="d"
-        Title="Statistics" Height="450" Width="800">
+        Title="Card Statistics" Height="450" Width="800">
     <Window.DataContext >
         <Binding Source = "{StaticResource VMLocator}" Path = "StatisticWindowViewModel" ></Binding >
     </Window.DataContext >
-    <Window.Resources>
-        <BooleanToVisibilityConverter x:Key="Converter"></BooleanToVisibilityConverter>
-    </Window.Resources>
     <Grid>
-        <Button Content="Karten Statistik" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="120"/>
-        <Button Content="Allgemeine Statistik" HorizontalAlignment="Left" Margin="146,10,0,0" VerticalAlignment="Top" Width="120"/>
+        <Button Content="Grafik" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="120"/>
         <GridSplitter HorizontalAlignment="Left" Height="3" Margin="0,41,0,0" VerticalAlignment="Top" Width="792"/>
-        <Button Content="Text" Command="{Binding ShowHide, Mode=OneWay}" HorizontalAlignment="Left" Margin="10,49,0,0" VerticalAlignment="Top" Width="60"/>
-        <Button Content="Verlauf" HorizontalAlignment="Left" Margin="87,49,0,0" VerticalAlignment="Top" Width="60"/>
-        <GridSplitter HorizontalAlignment="Left" Height="3" Margin="0,74,0,0" VerticalAlignment="Top" Width="792"/>
-        <DataGrid ItemsSource="{Binding Path=StatisticCollectionVM}" IsReadOnly="True" Visibility="{Binding Path=ShowDataGrid, Converter={StaticResource Converter}}" 
-                  HorizontalAlignment="Left" Height="86" Margin="10,323,0,0" 
+        <DataGrid ItemsSource="{Binding Path=StatisticCollectionVM}" IsReadOnly="True"  
+                  HorizontalAlignment="Left" Height="119" Margin="10,290,0,0" 
                   VerticalAlignment="Top" Width="773" 
                   RenderTransformOrigin="0.5,0.5"
                   ScrollViewer.CanContentScroll="True"
@@ -28,15 +21,26 @@
                   ScrollViewer.VerticalScrollBarVisibility="Auto">
 
         </DataGrid>
-        <TextBlock HorizontalAlignment="Left" Margin="10,82,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="236" Width="772">
+        <TextBlock HorizontalAlignment="Left" Margin="10,49,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="236" Width="772">
             <Run Text="Karte gelernt:"/>
             <Run Text="{Binding Path=LearnedCard}"/><LineBreak/>
-            <Run Text="Anzahl Richtig beantworteter Fragen:"/>
+            <Run Text="Wann wurde die Karte zuletzt gelernt:"/>
+            <Run Text="{Binding Path=LastLearned}"/><LineBreak/>
+            <Run Text="Wie wurde die Karte zuletzt beantwortet:"/>
+            <Run Text="{Binding Path=LastAnswer}"/><LineBreak/>
+            <Run Text="Wie oft wurde die Karte richtig beantwortet:"/>
             <Run Text="{Binding Path=RightAnswer}"/><LineBreak/>
-            <Run Text="Zuletzt richtig beantwortet:"/>
+            <Run Text="Zuletzt richtig beantwortet am:"/>
             <Run Text="{Binding Path=LastSucessfullAnswer}"/><LineBreak/>
-            <Run Text="Wie oft hintereinander richtig gelernt:"/>
+            <Run Text="Wie oft wurde die Karte hintereinander richtig beantwortet:"/>
             <Run Text="{Binding Path=LearningSucess}"/><LineBreak/>
+            <Run Text="Wie oft wurde die Karte falsch beantwortet:"/>
+            <Run Text="{Binding Path=WrongAnswer}"/><LineBreak/>
+            <Run Text="Zuletzt falsch beantwortet am:"/>
+            <Run Text="{Binding Path=LastWrongAnswer}"/><LineBreak/>
+            <Run Text="Wie oft wurde die Karte hintereinander falsch beantwortet:"/>
+            <Run Text="{Binding Path=LearningWrong}"/><LineBreak/>
+
         </TextBlock>
 
     </Grid>
