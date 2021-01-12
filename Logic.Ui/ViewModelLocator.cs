@@ -45,16 +45,19 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
             Statistic statistic = new Statistic();
             statistic.Timestamp = DateTime.UtcNow;
             statistic.SuccessfullAnswer = true;
+            statistic.CBN = CurrentBoxNumber.Box1;
             statisticCollectionVM.Add(new StatisticViewModel(statistic));
           
             Statistic statistic1 = new Statistic();
             statistic1.Timestamp = new DateTime(2020, 12, 12, 7, 30, 32);
             statistic1.SuccessfullAnswer = true;
+            statistic1.CBN = CurrentBoxNumber.Box2;
             statisticCollectionVM.Add(new StatisticViewModel(statistic1));
 
             Statistic statistic2 = new Statistic();
             statistic2.Timestamp = DateTime.Now;
             statistic2.SuccessfullAnswer = false;
+            statistic2.CBN = CurrentBoxNumber.Box1;
             statisticCollectionVM.Add(new StatisticViewModel(statistic2));
 
             

@@ -47,6 +47,16 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper
             }
         }
 
-        public enum CurrentBoxNumber { }
+        public CurrentBoxNumber CBN
+        {
+            get
+            {
+                return statistic.CBN;
+            }
+            set
+            {
+                statistic.CBN = value;
+            }
+        }
     }
 }

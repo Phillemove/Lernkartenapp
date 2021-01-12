@@ -6,22 +6,34 @@ using System.Threading.Tasks;
 
 namespace De.HsFlensburg.ClientApp101.Business.Model.BusinessObjects
 {
+    public enum CurrentBoxNumber
+    {
+        None,
+        Box1,
+        Box2,
+        Box3,
+        Box4,
+        Box5
+    }
     public class Statistic
     {
-
+        
         public DateTime Timestamp { get; set; }
         public bool SuccessfullAnswer { get; set; }
-        public enum CurrentBoxNumber { }
+        public CurrentBoxNumber CBN { get; set; }
+
+       
         
         public Statistic()
         {
-
+            CBN = CurrentBoxNumber.None;
         }
 
-        public Statistic(DateTime timestamp, bool successfullanswer)
+        public Statistic(DateTime timestamp, bool successfullanswer, CurrentBoxNumber cbn)
         {
             Timestamp = timestamp;
             SuccessfullAnswer = successfullanswer;
+            CBN = cbn;
         }
     }
 }
