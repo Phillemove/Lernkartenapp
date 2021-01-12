@@ -28,6 +28,10 @@
             <Run Text="{Binding Path=LastLearned}"/><LineBreak/>
             <Run Text="Wie wurde die Karte zuletzt beantwortet:"/>
             <Run Text="{Binding Path=LastAnswer}"/><LineBreak/>
+            <Run Text="In welcher Box befindet sich die Karte gerade:"/>
+            <Run Text="{Binding Path=CurrentBoxNumber}"/><LineBreak/>
+            <Run Text="Wie oft war die Karte in dieser Box:"/>
+            <Run Text="{Binding Path=ActualBoxPassed}"/><LineBreak/>
             <Run Text="Wie oft wurde die Karte richtig beantwortet:"/>
             <Run Text="{Binding Path=RightAnswer}"/><LineBreak/>
             <Run Text="Zuletzt richtig beantwortet am:"/>
@@ -40,6 +44,8 @@
             <Run Text="{Binding Path=LastWrongAnswer}"/><LineBreak/>
             <Run Text="Wie oft wurde die Karte hintereinander falsch beantwortet:"/>
             <Run Text="{Binding Path=LearningWrong}"/><LineBreak/>
+            <Run Text="Wie oft wurde die Karte in andere Boxen verschoben:"/>
+            <Run Text="{Binding Path=BoxShift}"/><LineBreak/>
 
         </TextBlock>
 

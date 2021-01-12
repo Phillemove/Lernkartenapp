@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using De.HsFlensburg.ClientApp101.Business.Model.BusinessObjects;
 
 namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
 {
@@ -170,6 +171,58 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
                 }
             }
             return counter;
+        }
+
+        // Current Box
+        public static int CurrentBoxNumber(StatisticCollectionViewModel collection)
+        {
+            int currentBoxNumber = 0;
+            DateTime time = new DateTime();
+            foreach (StatisticViewModel statistic in collection)
+            {
+                if (DateTime.Compare(time, statistic.Timestamp) < 0)
+                {
+                    time = statistic.Timestamp;
+                    currentBoxNumber = (int)statistic.CurrentBoxNumber;
+                }
+            }
+            return currentBoxNumber;
+        }
+
+        // How often was a Card in a Box
+        public static int ActualBoxPassed(StatisticCollectionViewModel collection, int currentBoxNumber)
+        {
+            int counter = 0;
+
+            foreach(StatisticViewModel statistic in collection)
+            {
+                if((int)statistic.CurrentBoxNumber == currentBoxNumber)
+                {
+                    counter++;
+                }
+            }
+            return counter;
+        }
+
+        // How many Box shifts has the Card
+        public static int BoxShift(StatisticCollectionViewModel collection, int currentBoxNumber)
+        {
+            int counter = 0;
+            foreach(StatisticViewModel statistic in collection)
+            {   
+                if((int)statistic.CurrentBoxNumber != currentBoxNumber)
+                {
+                    counter++;
+                    currentBoxNumber = (int)statistic.CurrentBoxNumber;  
+                }
+            }
+            /* currentBoxNumber can be from an Statistic Object somwhere in the Collection.
+               This caused, that the currentBox is counted twice here. 
+               To handle this, it is nessescary to decrease counter with 1 
+               at the return statement.
+             */
+         
+            return counter-1;
         }
 
     }

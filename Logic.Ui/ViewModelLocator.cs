@@ -45,7 +45,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
             Statistic statistic = new Statistic();
             statistic.Timestamp = DateTime.UtcNow;
             statistic.SuccessfullAnswer = true;
-            statistic.CurrentBoxNumber = CurrentBoxNumber.Box1;
+            statistic.CurrentBoxNumber = CurrentBoxNumber.Box3;
             statisticCollectionVM.Add(new StatisticViewModel(statistic));
           
             Statistic statistic1 = new Statistic();
@@ -57,7 +57,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
             Statistic statistic2 = new Statistic();
             statistic2.Timestamp = DateTime.Now;
             statistic2.SuccessfullAnswer = false;
-            statistic2.CurrentBoxNumber = CurrentBoxNumber.Box1;
+            statistic2.CurrentBoxNumber = CurrentBoxNumber.Box2;
             statisticCollectionVM.Add(new StatisticViewModel(statistic2));
 
             

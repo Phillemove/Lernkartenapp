@@ -20,6 +20,9 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         public int WrongAnswer { get; set; }
         public DateTime LastWrongAnswer { get; set; }
         public int LearningWrong { get; set; }
+        public int CurrentBoxNumber { get; set; }
+        public int ActualBoxPassed { get; set; }
+        public int BoxShift { get; set; }
 
         public StatisticWindowViewModel(StatisticCollectionViewModel statisticCollectionVM)
         {
@@ -38,6 +41,9 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             WrongAnswer = StatisticAlgorithms.WrongAnswer(StatisticCollectionVM);
             LastWrongAnswer = StatisticAlgorithms.LastWrongAnswer(StatisticCollectionVM);
             LearningWrong = StatisticAlgorithms.LearningWrong(StatisticCollectionVM);
+            CurrentBoxNumber = StatisticAlgorithms.CurrentBoxNumber(StatisticCollectionVM);
+            ActualBoxPassed = StatisticAlgorithms.ActualBoxPassed(StatisticCollectionVM,CurrentBoxNumber);
+            BoxShift = StatisticAlgorithms.BoxShift(StatisticCollectionVM, CurrentBoxNumber);
         }
 
     }
