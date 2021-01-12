@@ -47,15 +47,15 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper
             }
         }
 
-        public CurrentBoxNumber CBN
+        public CurrentBoxNumber CurrentBoxNumber
         {
             get
             {
-                return statistic.CBN;
+                return statistic.CurrentBoxNumber;
             }
             set
             {
-                statistic.CBN = value;
+                statistic.CurrentBoxNumber = value;
             }
         }
     }

@@ -20,20 +20,20 @@ namespace De.HsFlensburg.ClientApp101.Business.Model.BusinessObjects
         
         public DateTime Timestamp { get; set; }
         public bool SuccessfullAnswer { get; set; }
-        public CurrentBoxNumber CBN { get; set; }
+        public CurrentBoxNumber CurrentBoxNumber { get; set; }
 
        
         
         public Statistic()
         {
-            CBN = CurrentBoxNumber.None;
+            CurrentBoxNumber = CurrentBoxNumber.None;
         }
 
         public Statistic(DateTime timestamp, bool successfullanswer, CurrentBoxNumber cbn)
         {
             Timestamp = timestamp;
             SuccessfullAnswer = successfullanswer;
-            CBN = cbn;
+            CurrentBoxNumber = cbn;
         }
     }
 }
