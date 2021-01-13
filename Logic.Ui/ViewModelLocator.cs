@@ -18,14 +18,17 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
         public ImportViewModel ImportViewModel { get; }
         public MainWindowViewModel MainWindowViewModel { get; }
         public CardLearningViewModel CardLearningViewModel { get; }
-        public CardWindowViewModel CardWindowViewModel { get; }
+        
         public CategoryViewModel CategoryViewModel { get; }
 
         private StatisticCollectionViewModel statisticCollectionVM;
         private StatisticCollectionViewModel statisticCollectionCard1;
         private StatisticCollectionViewModel statisticCollectionCard2;
-        private BoxCollectionViewModel myBoxCollectionViewModel;
 
+        //<maha>
+        public CardWindowViewModel CardWindowViewModel { get; }
+        ModelViewModel myModelViewModel;
+        //</maha>
         public ViewModelLocator()
         {
             statisticCollectionVM = new StatisticCollectionViewModel();
@@ -37,7 +40,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
             ExportViewModel = new ExportViewModel();
             ImportViewModel = new ImportViewModel();
             CardLearningViewModel = new CardLearningViewModel();
-            CardWindowViewModel = new CardWindowViewModel();
+            //CardWindowViewModel = new CardWindowViewModel();
             CategoryViewModel = new CategoryViewModel();
 
 
@@ -60,34 +63,36 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
             statistic2.CurrentBoxNumber = CurrentBoxNumber.Box2;
             statisticCollectionVM.Add(new StatisticViewModel(statistic2));
 
-            
-            // maha
-            myBoxCollectionViewModel = new BoxCollectionViewModel();
-            // myModelViewModel = new ModelViewModel();
-           // myBoxCollectionViewModel = new BoxCollectionViewModel(myModelViewModel.BoxCollection);
+
+            //<maha>
+            //myBoxCollectionViewModel = new BoxCollectionViewModel();
+            myModelViewModel = new ModelViewModel();
+            //myBoxCollectionViewModel = new BoxCollectionViewModel(myModelViewModel.BoxCollection);
             //myCategoryCollectionViewModel = new CategoryCollectionViewModel(myModelViewModel.CategoryCollection);
-            //
-            // BoxViewModel bvm1 = new BoxViewModel(new Box(Boxnumber.Box1));
-            //  BoxViewModel bvm2 = new BoxViewModel(new Box(Boxnumber.Box2));
-            //  BoxViewModel bvm3 = new BoxViewModel(new Box(Boxnumber.Box3));
-            //  BoxViewModel bvm4 = new BoxViewModel(new Box(Boxnumber.Box4));
-            // BoxViewModel bvm5 = new BoxViewModel(new Box(Boxnumber.Box5));
 
-            // CardViewModel cvm1 = new CardViewModel(new Card(new Category("Math")));
-            //  CardViewModel cvm2 = new CardViewModel(new Card(new Category("computer")));
-            //  CardViewModel cvm3 = new CardViewModel(new Card(new Category("IT")));
+            BoxViewModel bvm1 = new BoxViewModel(new Box(Boxnumber.Box1));
+            BoxViewModel bvm2 = new BoxViewModel(new Box(Boxnumber.Box2));
+            BoxViewModel bvm3 = new BoxViewModel(new Box(Boxnumber.Box3));
+            BoxViewModel bvm4 = new BoxViewModel(new Box(Boxnumber.Box4));
+            BoxViewModel bvm5 = new BoxViewModel(new Box(Boxnumber.Box5));
 
-            //  myModelViewModel.BoxCollection.Add(bvm1);
-            //  myModelViewModel.BoxCollection.Add(bvm2);
-            //   myModelViewModel.BoxCollection.Add(bvm3);
-            // myModelViewModel.BoxCollection.Add(bvm4);
-            //  myModelViewModel.BoxCollection.Add(bvm5);
+            CardViewModel cvm1 = new CardViewModel(new Card(new Category("Math")));
+            CardViewModel cvm2 = new CardViewModel(new Card(new Category("computer")));
+            CardViewModel cvm3 = new CardViewModel(new Card(new Category("IT")));
 
-            //  myModelViewModel.BoxCollection.storeCard(cvm1, Boxnumber.Box1);
-            //  myModelViewModel.BoxCollection.storeCard(cvm2, Boxnumber.Box2);
-            //   myModelViewModel.BoxCollection.storeCard(cvm3, Boxnumber.Box2);
-            //  myModelViewModel.BoxCollection.storeCard(cvm1, Boxnumber.Box3);
+            myModelViewModel.BoxCollection.Add(bvm1);
+            myModelViewModel.BoxCollection.Add(bvm2);
+            myModelViewModel.BoxCollection.Add(bvm3);
+            myModelViewModel.BoxCollection.Add(bvm4);
+            myModelViewModel.BoxCollection.Add(bvm5);
 
+            myModelViewModel.BoxCollection.storeCard(cvm1, Boxnumber.Box1);
+            myModelViewModel.BoxCollection.storeCard(cvm2, Boxnumber.Box2);
+            myModelViewModel.BoxCollection.storeCard(cvm3, Boxnumber.Box2);
+            myModelViewModel.BoxCollection.storeCard(cvm1, Boxnumber.Box3);
+
+            CardWindowViewModel = new CardWindowViewModel(myModelViewModel.BoxCollection);
+            //</maha>
 
             StatisticWindowViewModel.MakeStatistic();
 
