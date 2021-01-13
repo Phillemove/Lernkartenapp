@@ -47,7 +47,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper
             }
         }
 
-        public CurrentBoxNumber CurrentBoxNumber
+        public Boxnumber CurrentBoxNumber
         {
             get
             {
