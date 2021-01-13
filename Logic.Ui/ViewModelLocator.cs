@@ -59,7 +59,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
 
             Statistic statistic2 = new Statistic();
             statistic2.Timestamp = DateTime.Now;
-            statistic2.SuccessfullAnswer = false;
+            statistic2.SuccessfullAnswer = true;
             statistic2.CurrentBoxNumber = Boxnumber.Box2;
             statisticCollectionVM.Add(new StatisticViewModel(statistic2));
 

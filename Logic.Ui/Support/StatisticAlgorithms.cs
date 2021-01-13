@@ -96,7 +96,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
         }
 
         // Last Answer
-        public static bool LastAnswer(StatisticCollectionViewModel collection)
+        public static String LastAnswer(StatisticCollectionViewModel collection)
         {
             bool lastanswer = false;
             DateTime time = new DateTime();
@@ -108,7 +108,14 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
                     lastanswer = statistic.SuccessfulAnswer;
                 }
             }
-            return lastanswer;
+            if (lastanswer)
+            {
+                return "Richtig";
+            } else
+            {
+                return "Falsch";
+            }
+            
         }
 
         // How often ist this card learned unsuccessfull

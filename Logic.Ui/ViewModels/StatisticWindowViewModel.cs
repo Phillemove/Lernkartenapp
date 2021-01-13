@@ -16,7 +16,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         public DateTime LastSucessfullAnswer { get; set; }
         public int LearningSucess { get; set; }
         public DateTime LastLearned { get; set; }
-        public bool LastAnswer { get; set; }
+        public String LastAnswer { get; set; }
         public int WrongAnswer { get; set; }
         public DateTime LastWrongAnswer { get; set; }
         public int LearningWrong { get; set; }

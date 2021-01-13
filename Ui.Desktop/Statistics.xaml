@@ -10,7 +10,7 @@
         <Binding Source = "{StaticResource VMLocator}" Path = "StatisticWindowViewModel" ></Binding >
     </Window.DataContext >
     <Grid>
-        <Button Content="Grafik" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="54"/>
+        <Button Content="Karte" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="54"/>
         <GridSplitter HorizontalAlignment="Left" Height="3" Margin="0,41,0,0" VerticalAlignment="Top" Width="792"/>
         <DataGrid ItemsSource="{Binding Path=StatisticCollectionVM}" IsReadOnly="True"  
                   HorizontalAlignment="Left" Height="119" Margin="10,290,0,0" 
@@ -30,15 +30,17 @@
             <Run Text="{Binding Path=LastAnswer}"/><LineBreak/>
             <Run Text="In welcher Box befindet sich die Karte gerade:"/>
             <Run Text="{Binding Path=CurrentBoxNumber}"/><LineBreak/>
+            <Run Text="Wann wurde die Karte in die aktuelle Box verschoben:"/>
+            <Run Text="{Binding Path=DropintoCurrentBox}"/><LineBreak/>
             <Run Text="Wie oft war die Karte in dieser Box:"/>
             <Run Text="{Binding Path=ActualBoxPassed}"/><LineBreak/>
-            <Run Text="Wie oft wurde die Karte richtig beantwortet:"/>
+            <Run Text="Wie oft wurde die Karte insgesamt richtig beantwortet:"/>
             <Run Text="{Binding Path=RightAnswer}"/><LineBreak/>
             <Run Text="Wann wurde die Karte zuletzt richtig beantwortet:"/>
             <Run Text="{Binding Path=LastSucessfullAnswer}"/><LineBreak/>
             <Run Text="Wie oft wurde die Karte hintereinander richtig beantwortet:"/>
             <Run Text="{Binding Path=LearningSucess}"/><LineBreak/>
-            <Run Text="Wie oft wurde die Karte falsch beantwortet:"/>
+            <Run Text="Wie oft wurde die Karte insgesamt falsch beantwortet:"/>
             <Run Text="{Binding Path=WrongAnswer}"/><LineBreak/>
             <Run Text="Wann wurde die Karte zuletzt Falsch beantwortet:"/>
             <Run Text="{Binding Path=LastWrongAnswer}"/><LineBreak/>
@@ -46,9 +48,6 @@
             <Run Text="{Binding Path=LearningWrong}"/><LineBreak/>
             <Run Text="Wie oft wurde die Karte in andere Boxen verschoben:"/>
             <Run Text="{Binding Path=BoxShift}"/><LineBreak/>
-            <Run Text="Wann wurde die Karte in die aktuelle Box verschoben:"/>
-            <Run Text="{Binding Path=DropintoCurrentBox}"/><LineBreak/>
-
         </TextBlock>
 
     </Grid>
