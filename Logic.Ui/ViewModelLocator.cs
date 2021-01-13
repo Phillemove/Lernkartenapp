@@ -48,7 +48,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
             Statistic statistic = new Statistic();
             statistic.Timestamp = DateTime.UtcNow;
             statistic.SuccessfullAnswer = true;
-            statistic.CurrentBoxNumber = CurrentBoxNumber.Box3;
+            statistic.CurrentBoxNumber = CurrentBoxNumber.Box2;
             statisticCollectionVM.Add(new StatisticViewModel(statistic));
           
             Statistic statistic1 = new Statistic();
@@ -91,7 +91,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
             myModelViewModel.BoxCollection.storeCard(cvm3, Boxnumber.Box2);
             myModelViewModel.BoxCollection.storeCard(cvm1, Boxnumber.Box3);
 
-            CardWindowViewModel = new CardWindowViewModel(myModelViewModel.BoxCollection);
+            //CardWindowViewModel = new CardWindowViewModel(myModelViewModel.BoxCollection);
             //</maha>
 
             StatisticWindowViewModel.MakeStatistic();

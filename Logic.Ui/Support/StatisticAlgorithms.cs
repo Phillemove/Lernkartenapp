@@ -219,10 +219,32 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
             /* currentBoxNumber can be from an Statistic Object somwhere in the Collection.
                This caused, that the currentBox is counted twice here. 
                To handle this, it is nessescary to decrease counter with 1 
-               at the return statement.
+               at the return statement. If counter is 0 this caused to return a -1, the return
+               Statement will be 0
              */
-         
-            return counter-1;
+            if (counter == 0)
+            {
+                return 0;
+            } else
+            {
+                return counter - 1;
+            }
+            
+        }
+
+        // When was the Card dropped into the current Box
+        public static DateTime DropintoCurrentBox(StatisticCollectionViewModel collection, int currentBoxNumber, DateTime currentTimestamp)
+        {
+            DateTime time = currentTimestamp;
+            foreach (StatisticViewModel statistic in collection)
+            {
+                if ((int)statistic.CurrentBoxNumber == currentBoxNumber && DateTime.Compare(time, statistic.Timestamp) > 0)
+                {
+                    time = statistic.Timestamp;
+                }
+
+            }
+            return time;
         }
 
     }

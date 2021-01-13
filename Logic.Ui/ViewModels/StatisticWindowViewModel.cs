@@ -23,6 +23,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         public int CurrentBoxNumber { get; set; }
         public int ActualBoxPassed { get; set; }
         public int BoxShift { get; set; }
+        public DateTime DropintoCurrentBox { get; set; }
 
         public StatisticWindowViewModel(StatisticCollectionViewModel statisticCollectionVM)
         {
@@ -44,6 +45,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             CurrentBoxNumber = StatisticAlgorithms.CurrentBoxNumber(StatisticCollectionVM);
             ActualBoxPassed = StatisticAlgorithms.ActualBoxPassed(StatisticCollectionVM,CurrentBoxNumber);
             BoxShift = StatisticAlgorithms.BoxShift(StatisticCollectionVM, CurrentBoxNumber);
+            DropintoCurrentBox = StatisticAlgorithms.DropintoCurrentBox(StatisticCollectionVM, CurrentBoxNumber, LastLearned);
         }
 
     }
