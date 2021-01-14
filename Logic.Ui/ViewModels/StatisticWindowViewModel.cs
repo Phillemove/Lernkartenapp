@@ -18,7 +18,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         public DateTime LastLearned { get; set; }
         public String LastAnswer { get; set; }
         public int WrongAnswer { get; set; }
-        public DateTime LastWrongAnswer { get; set; }
+        public String LastWrongAnswer { get; set; }
         public int LearningWrong { get; set; }
         public int CurrentBoxNumber { get; set; }
         public int ActualBoxPassed { get; set; }

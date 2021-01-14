@@ -133,7 +133,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
         }
 
         // On which Date is a Card learned wrong the last time
-        public static DateTime LastWrongAnswer(StatisticCollectionViewModel collection)
+        public static String LastWrongAnswer(StatisticCollectionViewModel collection)
         {
             DateTime time = new DateTime();
             foreach (StatisticViewModel statistic in collection)
@@ -147,7 +147,14 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
 
                 }
             }
-            return time;
+            if (time == default(DateTime))
+            {
+                return "Nie";
+            } else
+            {
+                return time.ToString();
+            }
+                  
         }
 
         // How often in a row is a Card learned Wrong
