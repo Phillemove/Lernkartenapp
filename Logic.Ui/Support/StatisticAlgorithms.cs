@@ -37,7 +37,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
         }
 
         // On which Date is a Card learned correct the last time
-        public static DateTime LastSucessfullAnswer(StatisticCollectionViewModel collection)
+        public static String LastSucessfullAnswer(StatisticCollectionViewModel collection)
         {
             DateTime time = new DateTime();
             foreach(StatisticViewModel statistic in collection)
@@ -51,7 +51,14 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
                     
                 }
             }
-            return time;
+            if (time == default(DateTime))
+            {
+                return "Nie";
+            }
+            else
+            {
+                return time.ToString();
+            }
         }
 
         // How often in a row is a Card learned successfull
@@ -82,7 +89,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
         }
 
         // When is the Card learned last
-        public static DateTime LearnedLast(StatisticCollectionViewModel collection)
+        public static String LearnedLast(StatisticCollectionViewModel collection)
         {
             DateTime time = new DateTime();
             foreach(StatisticViewModel statistic in collection)
@@ -92,7 +99,14 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
                     time = statistic.Timestamp;
                 }
             }
-            return time;
+            if (time == default(DateTime))
+            {
+                return "Nie";
+            }
+            else
+            {
+                return time.ToString();
+            }
         }
 
         // Last Answer

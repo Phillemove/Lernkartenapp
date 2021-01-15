@@ -13,9 +13,9 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         public StatisticCollectionViewModel StatisticCollectionVM { get; set; }
         public int LearnedCard { get; set; }
         public int RightAnswer { get; set; }
-        public DateTime LastSucessfullAnswer { get; set; }
+        public String LastSucessfullAnswer { get; set; }
         public int LearningSucess { get; set; }
-        public DateTime LastLearned { get; set; }
+        public String LastLearned { get; set; }
         public String LastAnswer { get; set; }
         public int WrongAnswer { get; set; }
         public String LastWrongAnswer { get; set; }
@@ -45,7 +45,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             CurrentBoxNumber = StatisticAlgorithms.CurrentBoxNumber(StatisticCollectionVM);
             ActualBoxPassed = StatisticAlgorithms.ActualBoxPassed(StatisticCollectionVM,CurrentBoxNumber);
             BoxShift = StatisticAlgorithms.BoxShift(StatisticCollectionVM, CurrentBoxNumber);
-            DropintoCurrentBox = StatisticAlgorithms.DropintoCurrentBox(StatisticCollectionVM, CurrentBoxNumber, LastLearned);
+            DropintoCurrentBox = StatisticAlgorithms.DropintoCurrentBox(StatisticCollectionVM, CurrentBoxNumber, DateTime.Parse(LastLearned));
         }
 
     }
