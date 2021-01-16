@@ -19,6 +19,8 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
         public MainWindowViewModel MainWindowViewModel { get; }
         public CardLearningViewModel CardLearningViewModel { get; }
         
+        public CategoryManageViewModel CategoryManageViewModel { get; }
+
         public CategoryViewModel CategoryViewModel { get; }
 
         private StatisticCollectionViewModel statisticCollectionVM;
@@ -27,7 +29,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
 
         //<maha>
         public CardWindowViewModel CardWindowViewModel { get; }
-        ModelViewModel myModelViewModel;
+        public ModelViewModel myModelViewModel { get; }
         //</maha>
         public ViewModelLocator()
         {
@@ -67,6 +69,8 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
             //<maha>
             //myBoxCollectionViewModel = new BoxCollectionViewModel();
             myModelViewModel = new ModelViewModel();
+
+            CategoryManageViewModel = new CategoryManageViewModel(myModelViewModel.myCategoryCollection);
             //myBoxCollectionViewModel = new BoxCollectionViewModel(myModelViewModel.BoxCollection);
             //myCategoryCollectionViewModel = new CategoryCollectionViewModel(myModelViewModel.CategoryCollection);
 

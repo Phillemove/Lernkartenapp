@@ -10,10 +10,7 @@ namespace De.HsFlensburg.ClientApp101.Business.Model.BusinessObjects
     {
         public String Name { get; set; }
 
-        public Category()
-        {
 
-        }
         public Category(String name)
         {
             Name = name;

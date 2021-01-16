@@ -30,12 +30,12 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    foreach (var client in e.NewItems.OfType<StatisticViewModel>().Select(v => v.statistic).OfType<Statistic>())
-                        statisticCollection.Add(client);
+                    foreach (var statistic in e.NewItems.OfType<StatisticViewModel>().Select(v => v.statistic).OfType<Statistic>())
+                        statisticCollection.Add(statistic);
                     break;
                 case NotifyCollectionChangedAction.Remove:
-                    foreach (var client in e.OldItems.OfType<StatisticViewModel>().Select(v => v.statistic).OfType<Statistic>())
-                        statisticCollection.Remove(client);
+                    foreach (var statistic in e.OldItems.OfType<StatisticViewModel>().Select(v => v.statistic).OfType<Statistic>())
+                        statisticCollection.Remove(statistic);
                     break;
                 case NotifyCollectionChangedAction.Reset:
                     statisticCollection.Clear();
