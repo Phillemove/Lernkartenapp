@@ -60,35 +60,36 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK) // Wenn die Auswahl ohne Problme von statten ging
             {
                 MessageBox.Show(ofd.FileName);  // Anzeigen des Dateinamen (Nur erst mal Intern zur Kontrolle)
-            }
-            string filepath = Path.GetDirectoryName(ofd.FileName);
-            XmlDocument doc = new XmlDocument();    // Ein neues XmlDocument wird erstellt, in das dann die zu importierende Datei geladen wird.
-            doc.Load(ofd.FileName);
-            this.bvm = new BoxViewModel();  // Ein BoxViewModel, in das die zu importierenden Karten geladen werden sollen
-            foreach(XmlNode node in doc.DocumentElement)
-            {
-                CardViewModel card = readOwnFormatNode(node);
-                this.bvm.Enqueue(card);
-            }
-            foreach(CardViewModel card in this.bvm) // DIese Schleife kopiert ggf. die Bilder an den neuen Ort und speichert den neuen Dateipfad
-            {
-                if(card.AnswerPic != null)
+                string filepath = Path.GetDirectoryName(ofd.FileName);
+                XmlDocument doc = new XmlDocument();    // Ein neues XmlDocument wird erstellt, in das dann die zu importierende Datei geladen wird.
+                doc.Load(ofd.FileName);
+                this.bvm = new BoxViewModel();  // Ein BoxViewModel, in das die zu importierenden Karten geladen werden sollen
+                foreach (XmlNode node in doc.DocumentElement)
                 {
-                    string picName = "Test" + ".jpg"; // Name muss noch definiert werden + Überprüfen auf vorhandensein?
-                    //File.Copy(card.AnswerPic, Environment.SpecialFolder.MyDocuments + @"\Lernkarten-App\content\" + picName);
-                    File.Copy(filepath + @"\content\" + card.AnswerPic, pictureDirectory + picName);
-                    //card.AnswerPic = Environment.SpecialFolder.MyDocuments + @"\Lernkarten-App\content\" + picName;
-                    card.AnswerPic = pictureDirectory + picName;
+                    CardViewModel card = readOwnFormatNode(node);
+                    this.bvm.Enqueue(card);
                 }
-                if (card.QuestionPic != null)
+                foreach (CardViewModel card in this.bvm) // DIese Schleife kopiert ggf. die Bilder an den neuen Ort und speichert den neuen Dateipfad
                 {
-                    string picName = "Test2" + ".jpg"; // Name muss noch definiert werden + Überprüfen auf vorhandensein?
-                    //File.Copy(card.QuestionPic, Environment.SpecialFolder.MyDocuments + @"\Lernkarten-App\content\" + picName);
-                    File.Copy(filepath + @"\content\" + card.QuestionPic, pictureDirectory + picName);
-                    //card.QuestionPic = Environment.SpecialFolder.MyDocuments + @"\Lernkarten-App\content\" + picName;
-                    card.QuestionPic = pictureDirectory + picName;
+                    if (card.AnswerPic != null)
+                    {
+                        string picName = "Test" + ".jpg"; // Name muss noch definiert werden + Überprüfen auf vorhandensein?
+                                                          //File.Copy(card.AnswerPic, Environment.SpecialFolder.MyDocuments + @"\Lernkarten-App\content\" + picName);
+                        File.Copy(filepath + @"\content\" + card.AnswerPic, pictureDirectory + picName);
+                        //card.AnswerPic = Environment.SpecialFolder.MyDocuments + @"\Lernkarten-App\content\" + picName;
+                        card.AnswerPic = pictureDirectory + picName;
+                    }
+                    if (card.QuestionPic != null)
+                    {
+                        string picName = "Test2" + ".jpg"; // Name muss noch definiert werden + Überprüfen auf vorhandensein?
+                                                           //File.Copy(card.QuestionPic, Environment.SpecialFolder.MyDocuments + @"\Lernkarten-App\content\" + picName);
+                        File.Copy(filepath + @"\content\" + card.QuestionPic, pictureDirectory + picName);
+                        //card.QuestionPic = Environment.SpecialFolder.MyDocuments + @"\Lernkarten-App\content\" + picName;
+                        card.QuestionPic = pictureDirectory + picName;
+                    }
                 }
-            } 
+            }
+            
         }
         /*
          * Diese Methode kann unser eigenes Xml-Schema lesen und aufgrund dessen neue Karten erstellen.
@@ -120,12 +121,12 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                     case "Category":
                         card.Category = new Category(child.InnerText); // Ich glaube nicht ganz korrekt. Immer eine Neue? Oder kann ich eine vorhandene verwenden? Muss das noch abgefragt werden?
                         break;
-                    case "StatisticCollection":   //Statistic Collection muss dann immer passend dafür angelegt werden? Ja! Und auch tiefergehend mit allen folgenden Nodes.... Viel Aufwand
+                    case "StatisticCollection":
                         card.StatisticCollection = new StatisticCollection();   // Wird noch zu einer StatisticCollectionViewModel
                         /*
                          * Durch diese Schleife wird jedes Statistic Object einzeln durchgegangen.
                          */
-                        foreach(XmlNode statNode in node) 
+                        foreach(XmlNode statNode in child) 
                         {
                             Statistic stat = new Statistic(); // Es wird eine neue Statistik angelegt
                             /*
@@ -143,7 +144,27 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                                         stat.SuccessfullAnswer = Convert.ToBoolean(statDet.InnerText);
                                         break;
                                     case "CurrentBoxNumber":
-                                        //stat.CurrentBoxNumber = statDet.InnerText;    //Noch zu bearbeiten aufgrund der Enum Problematik
+                                        switch(statDet.InnerText)
+                                        {
+                                            case "None":
+                                                stat.CurrentBoxNumber = Boxnumber.None;
+                                                break;
+                                            case "Box1":
+                                                stat.CurrentBoxNumber = Boxnumber.Box1;
+                                                break;
+                                            case "Box2":
+                                                stat.CurrentBoxNumber = Boxnumber.Box2;
+                                                break;
+                                            case "Box3":
+                                                stat.CurrentBoxNumber = Boxnumber.Box3;
+                                                break;
+                                            case "Box4":
+                                                stat.CurrentBoxNumber = Boxnumber.Box4;
+                                                break;
+                                            case "Box5":
+                                                stat.CurrentBoxNumber = Boxnumber.Box5;
+                                                break;
+                                        }
                                         break;
                                 }
                             }

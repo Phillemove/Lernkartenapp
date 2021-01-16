@@ -17,12 +17,6 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
     {
         public static void SaveCardsToFile(BoxViewModel box)
         {
-
-            //System.IO.Directory.CreateDirectory(Environment.SpecialFolder.MyDocuments + @"\Lernkarten-App");
-            //System.IO.Directory.CreateDirectory(Environment.SpecialFolder.MyDocuments + @"\Lernkarten-App\content");
-            
-            //string saveDirectory = Environment.SpecialFolder.MyDocuments + @"\Lernkarten-App";
-            //string pictureDirectory = Environment.SpecialFolder.MyDocuments + @"\Lernkarten-App\content";
             string saveDirectory = @"..\..\..\Lernkarten";
             string pictureDirectory = @"..\..\..\Lernkarten\content";
             System.IO.Directory.CreateDirectory(saveDirectory);
@@ -45,7 +39,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
                 if (categorys.Contains(card.Category))
                 {
                     BoxViewModel current = (BoxViewModel)bc.Where(cat => cat.Peek().Category == card.Category); // Die Categorybox wird aus der BoxCollection gezogen und die Carte dieser hinzugefügt.
-                    current.Enqueue(card); // Muss in der BoxViewModel noch behoben werden
+                    current.Enqueue(card);
                 }
                 else
                 {
@@ -103,7 +97,6 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
         public static void hardSave(BoxViewModel box)
         {
             string saveDirectory = @"..\..\..\Lernkarten";
-            //string saveDirectory = Environment.SpecialFolder.MyDocuments + @"\Lernkarten-App";
             string filename = box.Peek().Category.Name; // Der Filename wird aus einer der Dateien gelesen. Dabei handelt es sich um die Kategorienamen
             XmlTextWriter writer = new XmlTextWriter(saveDirectory + @"\" + filename + ".xml", System.Text.Encoding.UTF8);  // Die Datei wird durch den Writer erstellt. Name ist dabei "Kategorie".xml
             writer.Formatting = Formatting.Indented;
@@ -128,13 +121,14 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
                                         writer.WriteElementString("Timestamp", stat.Timestamp != null ? stat.Timestamp.ToString() : null);
                                         writer.WriteElementString("SuccessfullAnswer", stat.SuccessfullAnswer ? stat.SuccessfullAnswer.ToString() : null);
                                         //writer.WriteElementString("CurrentBoxNumber",stat.CurrentBoxNumber != null ? stat.CurrentBoxNumber.ToString() : null);    //Derzeit aufgrund der Enum Problematik nicht möglich
-                                    writer.WriteEndAttribute();
+                                    writer.WriteEndAttribute(); // Ende eines Statistic Blocks
                                 }
                             }
-                        writer.WriteEndAttribute();
-                    writer.WriteEndAttribute();
+                        writer.WriteElementString("LastBox", box.Bn.ToString());
+                        writer.WriteEndAttribute(); // Ende der StatisticCollection
+                    writer.WriteEndAttribute(); // Ende der Card
                 }
-            writer.WriteEndAttribute();
+            writer.WriteEndAttribute(); // Ende der Kategoriebox
             writer.WriteEndDocument();
             writer.Flush();
             writer.Close();
