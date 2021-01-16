@@ -27,7 +27,7 @@
 
             </UniformGrid>
             <UniformGrid Grid.Column="1" Columns="1" Margin="40,100,40,30">
-                <DataGrid >
+                <DataGrid ItemsSource="{Binding Path=bvm}" IsReadOnly="True">
                 </DataGrid>
                 <UniformGrid Columns="3">
                     <RadioButton 
@@ -37,8 +37,9 @@
                         IsChecked="{Binding Path=RadioButtonNewCatIsChecked}"/>
                     <Label Content="Vorgeschlagener neuer Kategoriename: " VerticalAlignment="Top"></Label>
                     <Label 
-                        Content="Klassenname" 
-                        HorizontalAlignment="Left"></Label>
+                        HorizontalAlignment="Left"
+                        Content="{Binding Path=ClassName}"
+                    ></Label>
                     <RadioButton 
                         HorizontalAlignment="Right" 
                         Margin="0,7,0,0"

@@ -102,11 +102,11 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                                         }
                                         if (stat.SuccessfullAnswer)
                                         {
-                                            xmlWriter.WriteElementString("Timestamp", stat.SuccessfullAnswer.ToString());
+                                            xmlWriter.WriteElementString("SuccessfullAnswer", stat.SuccessfullAnswer.ToString());
                                         }
                                         if (stat.CurrentBoxNumber != Boxnumber.None)
                                         {
-                                            xmlWriter.WriteElementString("Timestamp", stat.CurrentBoxNumber.ToString());
+                                            xmlWriter.WriteElementString("CurrentBoxNumber", stat.CurrentBoxNumber.ToString());
                                         }
                                         xmlWriter.WriteEndElement(); // Ende eines Statistic Blocks
                                     }

@@ -17,7 +17,10 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         public RelayCommand chooseData { get; }
         public RelayCommand importData { get; }
         public string FileName { get; set; }
-        private BoxViewModel bvm;
+        public string ClassName { get; set; }
+
+        public BoxViewModel bvm;
+
         //private readonly string saveDirectory = @"..\..\..\Lernkarten\";  // Soweit derzeit nicht nötig. Nur für ggf. zu erstellenden Ordnern, wobei die grundlegend vorhanden sein sollten
         private readonly string pictureDirectory = @"..\..\..\Lernkarten\content\";
         public Boolean RadioButtonNewCatIsChecked { get; set; }
@@ -26,7 +29,6 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         {
             chooseData = new RelayCommand(() => chooseDataMethod());
             importData = new RelayCommand(() => importDataMethod());
-
         }
 
         /*
@@ -37,6 +39,14 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         {
             if (RadioButtonNewCatIsChecked)
             {
+                bvm = new BoxViewModel();
+                XmlDocument doc = new XmlDocument();
+                doc.Load(@"C:\Users\hauke\OneDrive\Desktop\Testitestitest\Export\Example.xml"); // Da der Name der Datei der Kategorie entspricht, funktioniert dies hier so
+                foreach (XmlNode node in doc.DocumentElement)
+                {
+                    bvm.Enqueue(ImportViewModel.readOwnFormatNode(node));   // Jede Karte wird in Form von einer XmlNode eingelesen, zu einer Karte gemacht und zurück gegeben
+                }
+
                 MessageBox.Show("Also eine neue Kategorie soll angelegt werden, soso");
                 //SaveCards.hardSave(this.bvm);   // Wichtig! Überprüfen, ob es schon solch eine Kategorie gibt. Wenn ja, werden die Karten der anderen Kategorie hinzugefügt.
             }
