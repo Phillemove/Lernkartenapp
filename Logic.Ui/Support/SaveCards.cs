@@ -38,6 +38,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
                 }
                 if (categorys.Contains(card.Category))
                 {
+
                     BoxViewModel current = (BoxViewModel)bc.Where(cat => cat.Peek().Category == card.Category); // Die Categorybox wird aus der BoxCollection gezogen und die Carte dieser hinzugefügt.
                     current.Enqueue(card);
                 }
@@ -57,13 +58,23 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
             {
                 try
                 {
-                    BoxViewModel current = (BoxViewModel)bc.Where(cat => cat.Peek().Category.Name == item.Name);
-                    XmlDocument doc = new XmlDocument();
-                    doc.Load(saveDirectory + @"\" + item + ".xml"); // Da der Name der Datei der Kategorie entspricht, funktioniert dies hier so
-                    foreach (XmlNode node in doc.DocumentElement)
+                    MessageBox.Show(item.Name);
+                    Category cat = new Category(item.Name);
+                    //BoxViewModel current = (BoxViewModel)bc.Where(cat => cat.Peek().Category.Name == item.Name);
+                    foreach (BoxViewModel curBox in bc)
                     {
-                        current.Enqueue(ImportViewModel.readOwnFormatNode(node));   // Jede Karte wird in Form von einer XmlNode eingelesen, zu einer Karte gemacht und zurück gegeben
+                        if(curBox.Peek().Category.Name.Contains(item.Name))
+                        {
+                            XmlDocument doc = new XmlDocument();
+                            doc.Load(saveDirectory + @"\" + item.Name + ".xml"); // Da der Name der Datei der Kategorie entspricht, funktioniert dies hier so
+                            foreach (XmlNode node in doc.DocumentElement)
+                            {
+                                curBox.Enqueue(ImportViewModel.readOwnFormatNode(node));   // Jede Karte wird in Form von einer XmlNode eingelesen, zu einer Karte gemacht und zurück gegeben
+                            }
+                        }
                     }
+                    //BoxViewModel current = (BoxViewModel)bc.Where(cate => cate.Peek().Answer == "Jaa");
+                    
                 }
                 catch
                 {
@@ -100,35 +111,44 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
             string filename = box.Peek().Category.Name; // Der Filename wird aus einer der Dateien gelesen. Dabei handelt es sich um die Kategorienamen
             XmlTextWriter writer = new XmlTextWriter(saveDirectory + @"\" + filename + ".xml", System.Text.Encoding.UTF8);  // Die Datei wird durch den Writer erstellt. Name ist dabei "Kategorie".xml
             writer.Formatting = Formatting.Indented;
-            writer.WriteComment(filename);  // Als Kommentar wird der Dateiname, also die Kategorie geschrieben
-            writer.WriteName(filename); // Name der Datei ist auch die Kategorie
             writer.WriteStartDocument();    // Beginnen des Schreibens in die Datei
-            writer.WriteStartElement("Cards");  // Das Startelement ist ein Cards Element
-                foreach(CardViewModel card in box)  // Für jede Karte werden nun folgende Nodes + Inhalt geschrieben
-                {
-                    writer.WriteStartAttribute("Card"); // Einleitung über eine Card Node
-                        writer.WriteElementString("Question", card.Question != null ? card.Question : null);    // Wenn keine Frage vorhanden ist, wird nichts geschrieben
-                        writer.WriteElementString("Answer", card.Answer != null ? card.Answer : null);// Wenn keine Antwort vorhanden ist, wird nichts geschrieben
-                        writer.WriteElementString("Category", filename);    // Kategorie wird auf jeden Fall geschrieben
-                        writer.WriteElementString("QuestionPic", card.QuestionPic != null ? card.QuestionPic : null);// Wenn kein FragenBild vorhanden ist, wird nichts geschrieben
-                        writer.WriteElementString("AnswerPic", card.AnswerPic != null ? card.AnswerPic : null);// Wenn kein AntwortBild vorhanden ist, wird nichts geschrieben
-                        writer.WriteStartAttribute("StatisticCollection");
-                            if (card.StatisticCollection != null)   // Wenn es an dieser Stelle noch keine StatisticCollection gibt, wird hier auch nichts rein geschrieben
-                            {
-                                foreach(Statistic stat in card.StatisticCollection)
+                writer.WriteComment(filename);  // Als Kommentar wird der Dateiname, also die Kategorie geschrieben
+                //writer.WriteName(filename); // Name der Datei ist auch die Kategorie
+                writer.WriteStartElement("Cards");  // Das Startelement ist ein Cards Element
+                    foreach(CardViewModel card in box)  // Für jede Karte werden nun folgende Nodes + Inhalt geschrieben
+                    {
+                        writer.WriteStartElement("Card"); // Einleitung über eine Card Node
+                            writer.WriteElementString("Question", card.Question);    // Wenn keine Frage vorhanden ist, wird nichts geschrieben
+                            writer.WriteElementString("Answer", card.Answer);// Wenn keine Antwort vorhanden ist, wird nichts geschrieben
+                            writer.WriteElementString("Category", filename);    // Kategorie wird auf jeden Fall geschrieben
+                            writer.WriteElementString("QuestionPic", card.QuestionPic);// Wenn kein FragenBild vorhanden ist, wird nichts geschrieben
+                            writer.WriteElementString("AnswerPic", card.AnswerPic);// Wenn kein AntwortBild vorhanden ist, wird nichts geschrieben
+                            writer.WriteStartElement("StatisticCollection");
+                                if (card.StatisticCollection != null)   // Wenn es an dieser Stelle noch keine StatisticCollection gibt, wird hier auch nichts rein geschrieben
                                 {
-                                    writer.WriteStartAttribute("Statistic");
-                                        writer.WriteElementString("Timestamp", stat.Timestamp != null ? stat.Timestamp.ToString() : null);
-                                        writer.WriteElementString("SuccessfullAnswer", stat.SuccessfullAnswer ? stat.SuccessfullAnswer.ToString() : null);
-                                        //writer.WriteElementString("CurrentBoxNumber",stat.CurrentBoxNumber != null ? stat.CurrentBoxNumber.ToString() : null);    //Derzeit aufgrund der Enum Problematik nicht möglich
-                                    writer.WriteEndAttribute(); // Ende eines Statistic Blocks
+                                    foreach(Statistic stat in card.StatisticCollection)
+                                    {
+                                        writer.WriteStartElement("Statistic");   // Beginn eines Statistic Blocks
+                                        if (stat.Timestamp != null)
+                                        {
+                                            writer.WriteElementString("Timestamp", stat.Timestamp.ToString());
+                                        }
+                                        if (stat.SuccessfullAnswer != null)
+                                        {
+                                            writer.WriteElementString("SuccessfullAnswer", stat.SuccessfullAnswer.ToString());
+                                        }
+                                        if (stat.CurrentBoxNumber != Boxnumber.None)
+                                        {
+                                            writer.WriteElementString("CurrentBoxNumber", stat.CurrentBoxNumber.ToString());
+                                        }
+                                         writer.WriteEndElement(); // Ende eines Statistic Blocks
+                                    }
                                 }
-                            }
-                        writer.WriteElementString("LastBox", box.Bn.ToString());
-                        writer.WriteEndAttribute(); // Ende der StatisticCollection
-                    writer.WriteEndAttribute(); // Ende der Card
-                }
-            writer.WriteEndAttribute(); // Ende der Kategoriebox
+                            writer.WriteElementString("LastBox", box.Bn.ToString());
+                            writer.WriteEndElement(); // Ende der StatisticCollection
+                        writer.WriteEndElement(); // Ende der Card
+                    }
+                writer.WriteEndElement(); // Ende der Kategoriebox
             writer.WriteEndDocument();
             writer.Flush();
             writer.Close();

@@ -18,14 +18,17 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         public RelayCommand importData { get; }
         public string FileName { get; set; }
         public string ClassName { get; set; }
+        public string Class { get; set; }
 
         public BoxViewModel bvm;
         private static Random random = new Random();
         private readonly static int randPicNameLength = 10;
+        private OpenFileDialog ofd;
+        private static string filepath;
 
 
         //private readonly string saveDirectory = @"..\..\..\Lernkarten\";  // Soweit derzeit nicht nötig. Nur für ggf. zu erstellenden Ordnern, wobei die grundlegend vorhanden sein sollten
-        private readonly string pictureDirectory = @"..\..\..\Lernkarten\content\";
+        private readonly static string pictureDirectory = @"..\..\..\Lernkarten\content\";
         public Boolean RadioButtonNewCatIsChecked { get; set; }
         public Boolean RadioButtonExistentCatIsChecked { get; set; }
         public ImportViewModel()
@@ -42,21 +45,37 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         {
             if (RadioButtonNewCatIsChecked)
             {
-                bvm = new BoxViewModel();
-                XmlDocument doc = new XmlDocument();
-                doc.Load(@"C:\Users\hauke\OneDrive\Desktop\Testitestitest\Export\Example.xml"); // Da der Name der Datei der Kategorie entspricht, funktioniert dies hier so
-                foreach (XmlNode node in doc.DocumentElement)
+                Category cat = new Category(System.IO.Path.GetFileNameWithoutExtension(ofd.FileName));
+                foreach (CardViewModel card in this.bvm)
                 {
-                    bvm.Enqueue(ImportViewModel.readOwnFormatNode(node));   // Jede Karte wird in Form von einer XmlNode eingelesen, zu einer Karte gemacht und zurück gegeben
+                    card.Category = cat;   // Müsste aber doch eigentlich CategoryViewModel sein oder?
+                    if(card.AnswerPic != null)
+                    {
+                        copyPic(card.AnswerPic);
+                    }
+                    if (card.QuestionPic != null)
+                    {
+                        copyPic(card.QuestionPic);
+                    }
                 }
-
-                MessageBox.Show("Also eine neue Kategorie soll angelegt werden, soso");
-                //SaveCards.hardSave(this.bvm);   // Wichtig! Überprüfen, ob es schon solch eine Kategorie gibt. Wenn ja, werden die Karten der anderen Kategorie hinzugefügt.
+                SaveCards.hardSave(this.bvm);   // Wichtig! Überprüfen, ob es schon solch eine Kategorie gibt. Wenn ja, werden die Karten der anderen Kategorie hinzugefügt.
             }
             else if (RadioButtonExistentCatIsChecked)
             {
-                MessageBox.Show("Ja da sollten wohl noch ein paar Karten zur Kategorie dazu.");
-                //SaveCards.SaveCardsToFile(this.bvm);
+                Category cat = new Category(Class);
+                foreach (CardViewModel card in this.bvm)
+                {
+                    card.Category = cat;   // Müsste aber doch eigentlich CategoryViewModel sein oder?
+                    if (card.AnswerPic != null)
+                    {
+                        copyPic(card.AnswerPic);
+                    }
+                    if (card.QuestionPic != null)
+                    {
+                        copyPic(card.QuestionPic);
+                    }
+                }
+                SaveCards.SaveCardsToFile(this.bvm);
             }
             else
             {
@@ -68,12 +87,12 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
          */
         private void chooseDataMethod()
         {
-            OpenFileDialog ofd = new OpenFileDialog();  // Ein OpenFileDialog wird erstellt, durch das die Datei ausgewählt weden kann
+            ofd = new OpenFileDialog();  // Ein OpenFileDialog wird erstellt, durch das die Datei ausgewählt weden kann
             ofd.Filter = "XML-Files|*.xml";     // Begrenzung der angezeigten Dateien auf .xml Dateien
             if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK) // Wenn die Auswahl ohne Problme von statten ging
             {
-                MessageBox.Show(ofd.FileName);  // Anzeigen des Dateinamen (Nur erst mal Intern zur Kontrolle)
-                string filepath = Path.GetDirectoryName(ofd.FileName);
+                MessageBox.Show(System.IO.Path.GetFileNameWithoutExtension(ofd.FileName));  // Anzeigen des Dateinamen (Nur erst mal Intern zur Kontrolle)
+                filepath = Path.GetDirectoryName(ofd.FileName);
                 XmlDocument doc = new XmlDocument();    // Ein neues XmlDocument wird erstellt, in das dann die zu importierende Datei geladen wird.
                 doc.Load(ofd.FileName);
                 this.bvm = new BoxViewModel();  // Ein BoxViewModel, in das die zu importierenden Karten geladen werden sollen
@@ -81,27 +100,6 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                 {
                     CardViewModel card = readOwnFormatNode(node);
                     this.bvm.Enqueue(card);
-                }
-                foreach (CardViewModel card in this.bvm) // DIese Schleife kopiert ggf. die Bilder an den neuen Ort und speichert den neuen Dateipfad
-                {
-                    if (card.AnswerPic != null)
-                    {
-                        string randName = RandomString();
-                        string picName = randName + ".jpg"; // Name muss noch definiert werden + Überprüfen auf vorhandensein?
-                                                          //File.Copy(card.AnswerPic, Environment.SpecialFolder.MyDocuments + @"\Lernkarten-App\content\" + picName);
-                        File.Copy(filepath + @"\content\" + card.AnswerPic, pictureDirectory + @"\" + picName);
-                        //card.AnswerPic = Environment.SpecialFolder.MyDocuments + @"\Lernkarten-App\content\" + picName;
-                        card.AnswerPic = pictureDirectory + @"\" + picName;
-                    }
-                    if (card.QuestionPic != null)
-                    {
-                        string randName = RandomString();
-                        string picName = randName + ".jpg"; // Name muss noch definiert werden + Überprüfen auf vorhandensein?
-                                                           //File.Copy(card.QuestionPic, Environment.SpecialFolder.MyDocuments + @"\Lernkarten-App\content\" + picName);
-                        File.Copy(filepath + @"\content\" + card.QuestionPic, pictureDirectory + @"\" + picName);
-                        //card.QuestionPic = Environment.SpecialFolder.MyDocuments + @"\Lernkarten-App\content\" + picName;
-                        card.QuestionPic = pictureDirectory + @"\" + picName;
-                    }
                 }
             }
             else
@@ -200,6 +198,12 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             return new string(Enumerable.Repeat(chars, randPicNameLength)
               .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+
+        public static void copyPic(string currentPath)
+        {
+            string randName = RandomString();
+            File.Copy(filepath + @"\content\" + currentPath, pictureDirectory + @"\" + randName + ".jpg");
         }
 
     }

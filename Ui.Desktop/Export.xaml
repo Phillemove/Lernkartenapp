@@ -22,7 +22,6 @@
                         HorizontalAlignment="Left"
                         SelectedValue="{Binding Class}"
                        >
-                        <ComboBoxItem Content="&quot;Test&quot;"/>
                         <System:String>Example</System:String>
                     </ComboBox>
                     <!--Der Comobobox muss noch die Verbinung zu den Categorys sowie dann die entsprechende Box hergestellt werden-->

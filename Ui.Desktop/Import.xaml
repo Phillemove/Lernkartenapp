@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:De.HsFlensburg.ClientApp101.Ui.Desktop"
+        xmlns:local="clr-namespace:De.HsFlensburg.ClientApp101.Ui.Desktop" xmlns:System="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="Import" Height="450" Width="800">
     <Window.DataContext>
@@ -49,7 +49,15 @@
                         GroupName="1"
                         IsChecked="{Binding Path=RadioButtonExistentCatIsChecked}"/>
                     <Label Content="Vorhandener Kategorie hinzufügen: " VerticalAlignment="Top"></Label>
-                    <ComboBox Width="200px" Height="20px" VerticalAlignment="Top" HorizontalAlignment="Left"></ComboBox>
+                    <ComboBox 
+                        Width="200px" 
+                        Height="20px" 
+                        VerticalAlignment="Top" 
+                        HorizontalAlignment="Left"
+                        SelectedValue="{Binding Class}"
+                    >
+                        <System:String>AWP</System:String>
+                    </ComboBox>
                 </UniformGrid>
             </UniformGrid>
             <UniformGrid Grid.Column="2" Columns="1">
