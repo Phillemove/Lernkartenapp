@@ -20,6 +20,9 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         public string ClassName { get; set; }
 
         public BoxViewModel bvm;
+        private static Random random = new Random();
+        private readonly static int randPicNameLength = 10;
+
 
         //private readonly string saveDirectory = @"..\..\..\Lernkarten\";  // Soweit derzeit nicht nötig. Nur für ggf. zu erstellenden Ordnern, wobei die grundlegend vorhanden sein sollten
         private readonly string pictureDirectory = @"..\..\..\Lernkarten\content\";
@@ -83,23 +86,28 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                 {
                     if (card.AnswerPic != null)
                     {
-                        string picName = "Test" + ".jpg"; // Name muss noch definiert werden + Überprüfen auf vorhandensein?
+                        string randName = RandomString();
+                        string picName = randName + ".jpg"; // Name muss noch definiert werden + Überprüfen auf vorhandensein?
                                                           //File.Copy(card.AnswerPic, Environment.SpecialFolder.MyDocuments + @"\Lernkarten-App\content\" + picName);
-                        File.Copy(filepath + @"\content\" + card.AnswerPic, pictureDirectory + picName);
+                        File.Copy(filepath + @"\content\" + card.AnswerPic, pictureDirectory + @"\" + picName);
                         //card.AnswerPic = Environment.SpecialFolder.MyDocuments + @"\Lernkarten-App\content\" + picName;
-                        card.AnswerPic = pictureDirectory + picName;
+                        card.AnswerPic = pictureDirectory + @"\" + picName;
                     }
                     if (card.QuestionPic != null)
                     {
-                        string picName = "Test2" + ".jpg"; // Name muss noch definiert werden + Überprüfen auf vorhandensein?
+                        string randName = RandomString();
+                        string picName = randName + ".jpg"; // Name muss noch definiert werden + Überprüfen auf vorhandensein?
                                                            //File.Copy(card.QuestionPic, Environment.SpecialFolder.MyDocuments + @"\Lernkarten-App\content\" + picName);
-                        File.Copy(filepath + @"\content\" + card.QuestionPic, pictureDirectory + picName);
+                        File.Copy(filepath + @"\content\" + card.QuestionPic, pictureDirectory + @"\" + picName);
                         //card.QuestionPic = Environment.SpecialFolder.MyDocuments + @"\Lernkarten-App\content\" + picName;
-                        card.QuestionPic = pictureDirectory + picName;
+                        card.QuestionPic = pictureDirectory + @"\" + picName;
                     }
                 }
             }
-            
+            else
+            {
+                MessageBox.Show("Die Auswahl hat leider nicht geklappt");
+            }
         }
         /*
          * Diese Methode kann unser eigenes Xml-Schema lesen und aufgrund dessen neue Karten erstellen.
@@ -185,6 +193,13 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             };
             return card;
             
+        }
+
+        public static string RandomString()
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(Enumerable.Repeat(chars, randPicNameLength)
+              .Select(s => s[random.Next(s.Length)]).ToArray());
         }
 
     }

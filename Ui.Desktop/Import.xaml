@@ -35,17 +35,20 @@
                         Margin="0,7,0,0"
                         GroupName="1"
                         IsChecked="{Binding Path=RadioButtonNewCatIsChecked}"/>
-                    <Label Content="Vorgeschlagener neuer Kategoriename: " VerticalAlignment="Top"></Label>
+                    <Label 
+                        Content="Kategoriename aus Datei übernehmen" 
+                        VerticalAlignment="Top"
+                    ></Label>
                     <Label 
                         HorizontalAlignment="Left"
-                        Content="{Binding Path=ClassName}"
+                        Content="Überschrift ggf. vorhande Kategorien" Foreground="Red" FontWeight="SemiBold"
                     ></Label>
                     <RadioButton 
                         HorizontalAlignment="Right" 
                         Margin="0,7,0,0"
                         GroupName="1"
                         IsChecked="{Binding Path=RadioButtonExistentCatIsChecked}"/>
-                    <Label Content="Vorhandene Kategorie verwenden: " VerticalAlignment="Top"></Label>
+                    <Label Content="Vorhandener Kategorie hinzufügen: " VerticalAlignment="Top"></Label>
                     <ComboBox Width="200px" Height="20px" VerticalAlignment="Top" HorizontalAlignment="Left"></ComboBox>
                 </UniformGrid>
             </UniformGrid>
