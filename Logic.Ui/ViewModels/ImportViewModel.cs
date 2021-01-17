@@ -17,7 +17,6 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         public RelayCommand chooseData { get; }
         public RelayCommand importData { get; }
         public string FileName { get; set; }
-        public string ClassName { get; set; }
         public string Class { get; set; }
 
         public BoxViewModel bvm;
@@ -35,6 +34,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         {
             chooseData = new RelayCommand(() => chooseDataMethod());
             importData = new RelayCommand(() => importDataMethod());
+
         }
 
         /*
@@ -43,43 +43,41 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
          */
         private void importDataMethod()
         {
-            if (RadioButtonNewCatIsChecked)
+            if(!RadioButtonNewCatIsChecked && !RadioButtonExistentCatIsChecked)
             {
-                Category cat = new Category(System.IO.Path.GetFileNameWithoutExtension(ofd.FileName));
-                foreach (CardViewModel card in this.bvm)
-                {
-                    card.Category = cat;   // Müsste aber doch eigentlich CategoryViewModel sein oder?
-                    if(card.AnswerPic != null)
-                    {
-                        copyPic(card.AnswerPic);
-                    }
-                    if (card.QuestionPic != null)
-                    {
-                        copyPic(card.QuestionPic);
-                    }
-                }
-                SaveCards.hardSave(this.bvm);   // Wichtig! Überprüfen, ob es schon solch eine Kategorie gibt. Wenn ja, werden die Karten der anderen Kategorie hinzugefügt.
-            }
-            else if (RadioButtonExistentCatIsChecked)
-            {
-                Category cat = new Category(Class);
-                foreach (CardViewModel card in this.bvm)
-                {
-                    card.Category = cat;   // Müsste aber doch eigentlich CategoryViewModel sein oder?
-                    if (card.AnswerPic != null)
-                    {
-                        copyPic(card.AnswerPic);
-                    }
-                    if (card.QuestionPic != null)
-                    {
-                        copyPic(card.QuestionPic);
-                    }
-                }
-                SaveCards.SaveCardsToFile(this.bvm);
+                MessageBox.Show("Leider nichts ausgewählt, somit kein Import möglich"); // Vielleicht etwas eleganter mit Auswahl oder so.
             }
             else
             {
-                MessageBox.Show("Leider nichts ausgewählt, somit kein Import möglich"); // Vielleicht etwas eleganter mit Auswahl oder so. 
+                foreach (CardViewModel card in this.bvm)
+                {
+                    if (card.AnswerPic != null)
+                    {
+                        string newFile = copyPic(card.AnswerPic);
+                        card.AnswerPic = newFile;
+                    }
+                    if (card.QuestionPic != null)
+                    {
+                        string newFile = copyPic(card.QuestionPic);
+                        card.QuestionPic = newFile;
+                    }
+                }
+                if (RadioButtonNewCatIsChecked) 
+                { 
+                    foreach (CardViewModel card in this.bvm)
+                    {
+                        card.Category = new Category(System.IO.Path.GetFileNameWithoutExtension(ofd.FileName));
+                    }
+                    SaveCards.hardSave(this.bvm); 
+                }
+                else 
+                {
+                    foreach (CardViewModel card in this.bvm)
+                    {
+                        card.Category = new Category(Class);
+                    }
+                    SaveCards.SaveCardsToFile(this.bvm); 
+                };
             }
         }
         /*
@@ -96,6 +94,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                 XmlDocument doc = new XmlDocument();    // Ein neues XmlDocument wird erstellt, in das dann die zu importierende Datei geladen wird.
                 doc.Load(ofd.FileName);
                 this.bvm = new BoxViewModel();  // Ein BoxViewModel, in das die zu importierenden Karten geladen werden sollen
+                this.bvm.Bn = Boxnumber.None;
                 foreach (XmlNode node in doc.DocumentElement)
                 {
                     CardViewModel card = readOwnFormatNode(node);
@@ -195,15 +194,16 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
 
         public static string RandomString()
         {
-            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
             return new string(Enumerable.Repeat(chars, randPicNameLength)
               .Select(s => s[random.Next(s.Length)]).ToArray());
         }
 
-        public static void copyPic(string currentPath)
+        public static string copyPic(string currentPath)
         {
-            string randName = RandomString();
-            File.Copy(filepath + @"\content\" + currentPath, pictureDirectory + @"\" + randName + ".jpg");
+            string randName = RandomString() + ".jpg";
+            File.Copy(filepath + @"\content\" + currentPath, pictureDirectory +  randName);
+            return (randName);
         }
 
     }

@@ -22,7 +22,7 @@
                         HorizontalAlignment="Left"
                         SelectedValue="{Binding Class}"
                        >
-                        <System:String>Example</System:String>
+                        <System:String>AWP</System:String>
                     </ComboBox>
                     <!--Der Comobobox muss noch die Verbinung zu den Categorys sowie dann die entsprechende Box hergestellt werden-->
                 </UniformGrid>

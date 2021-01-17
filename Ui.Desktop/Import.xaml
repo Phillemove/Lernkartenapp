@@ -41,7 +41,7 @@
                     ></Label>
                     <Label 
                         HorizontalAlignment="Left"
-                        Content="Überschrift ggf. vorhande Kategorien" Foreground="Red" FontWeight="SemiBold"
+                        Content="Klassenname aus Datei" Foreground="Red" FontWeight="SemiBold"
                     ></Label>
                     <RadioButton 
                         HorizontalAlignment="Right" 
@@ -57,6 +57,7 @@
                         SelectedValue="{Binding Class}"
                     >
                         <System:String>AWP</System:String>
+                        <System:String>Netzwerkadministration</System:String>
                     </ComboBox>
                 </UniformGrid>
             </UniformGrid>

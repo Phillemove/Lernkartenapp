@@ -15,6 +15,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
     {
 
         public readonly string saveDirectory = @"..\..\..\Lernkarten";
+        public readonly string savePicDirectory = @"..\..\..\Lernkarten\content\";
 
         public Boolean inclStat { get; set; }
 
@@ -57,7 +58,6 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                         {
                             currentBox.Enqueue(ImportViewModel.readOwnFormatNode(node));   // Jede Karte wird in Form von einer XmlNode eingelesen, zu einer Karte gemacht und zurück gegeben
                         }
-                        currentBox.Bn = Boxnumber.Box1;
 
                         xmlWriter.Formatting = Formatting.Indented; //Noch mal nachforschen, was es tut
                         xmlWriter.WriteStartDocument();
@@ -70,22 +70,26 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                             xmlWriter.WriteElementString("Question", card.Question);
                             xmlWriter.WriteElementString("Answer", card.Answer);
                             xmlWriter.WriteElementString("Category", filename);
-                            if (card.QuestionPic != null)
+                            if (card.QuestionPic != null && card.QuestionPic != "")
                             {
                                 string picNew = filename + "_img_" + picCount + ".jpg"; //Name der Bilder wird noch allgemein festgelegt
                                 picCount++;
-                                xmlWriter.WriteElementString("QuestionPic", picNew);
                                 string pathSavePicture = fbd.SelectedPath.ToString() + @"\Export\content\" + picNew;
-                                File.Copy(@"..\..\..\Lernkarten\content\question.jpg", pathSavePicture);
+                                File.Copy(savePicDirectory + card.QuestionPic, pathSavePicture);
+                                xmlWriter.WriteElementString("QuestionPic", picNew);
+                                
+                                //File.Copy(@"..\..\..\Lernkarten\content\question.jpg", pathSavePicture);
                             }
 
-                            if (card.AnswerPic != null)
+                            if (card.AnswerPic != null && card.AnswerPic != "")
                             {
                                 string picNew = filename + "_img_" + picCount + ".jpg"; //Name der Bilder wird noch allgemein festgelegt
                                 picCount++;
-                                xmlWriter.WriteElementString("AnswerPic", picNew);
                                 string pathSavePicture = fbd.SelectedPath.ToString() + @"\Export\content\" + picNew;
-                                File.Copy(@"..\..\..\Lernkarten\content\answer.jpg", pathSavePicture);
+                                File.Copy(savePicDirectory + card.AnswerPic, pathSavePicture);
+                                xmlWriter.WriteElementString("AnswerPic", picNew);
+                                
+                                //File.Copy(@"..\..\..\Lernkarten\content\answer.jpg", pathSavePicture);
                             }
                             xmlWriter.WriteElementString("Boxnumber", currentBox.Bn.ToString());
                             if (inclStat && card.StatisticCollection != null)
@@ -96,18 +100,21 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                                     foreach (Statistic stat in card.StatisticCollection)
                                     {
                                         xmlWriter.WriteStartElement("Statistic");   // Beginn eines Statistic Blocks
-                                        if(stat.Timestamp != null)
+                                        /*if(stat.Timestamp != null)
                                         {
                                             xmlWriter.WriteElementString("Timestamp", stat.Timestamp.ToString());
                                         }
-                                        if (stat.SuccessfullAnswer)
+                                        if (stat.SuccessfullAnswer != null)
                                         {
                                             xmlWriter.WriteElementString("SuccessfullAnswer", stat.SuccessfullAnswer.ToString());
                                         }
                                         if (stat.CurrentBoxNumber != Boxnumber.None)
                                         {
                                             xmlWriter.WriteElementString("CurrentBoxNumber", stat.CurrentBoxNumber.ToString());
-                                        }
+                                        }*/
+                                            xmlWriter.WriteElementString("Timestamp", stat.Timestamp.ToString());
+                                            xmlWriter.WriteElementString("SuccessfullAnswer", stat.SuccessfullAnswer.ToString());
+                                            xmlWriter.WriteElementString("CurrentBoxNumber", stat.CurrentBoxNumber.ToString());
                                         xmlWriter.WriteEndElement(); // Ende eines Statistic Blocks
                                     }
                                 }

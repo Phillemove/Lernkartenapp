@@ -2,21 +2,11 @@
 <!--AWP-->
 <Cards>
   <Card>
-    <Question>Funktioniert das hinzufügen?</Question>
-    <Answer>Jaa</Answer>
-    <Category>AWP</Category>
-    <QuestionPic />
-    <AnswerPic />
-    <StatisticCollection>
-      <LastBox>None</LastBox>
-    </StatisticCollection>
-  </Card>
-  <Card>
     <Question>In welcher Sprache müssen wir die Lernkartenapp schreiben?</Question>
     <Answer>c#</Answer>
     <Category>AWP</Category>
-    <QuestionPic>question.jpg</QuestionPic>
-    <AnswerPic>answer.jpg</AnswerPic>
+    <QuestionPic>hGWFG4miTl.jpg</QuestionPic>
+    <AnswerPic>MtYmU7EmUg.jpg</AnswerPic>
     <StatisticCollection>
       <Statistic>
         <Timestamp>16.01.2021 15:13:09</Timestamp>
@@ -33,25 +23,11 @@
         <SuccessfullAnswer>True</SuccessfullAnswer>
         <CurrentBoxNumber>Box2</CurrentBoxNumber>
       </Statistic>
-      <Statistic>
-        <Timestamp>01.01.0001 00:00:00</Timestamp>
-        <SuccessfullAnswer>False</SuccessfullAnswer>
-      </Statistic>
-      <LastBox>None</LastBox>
     </StatisticCollection>
   </Card>
   <Card>
     <Question>Bis wann muss die Hausarbeit abgegeben sein?</Question>
     <Answer>15. Februar 2021</Answer>
     <Category>AWP</Category>
-    <QuestionPic />
-    <AnswerPic />
-    <StatisticCollection>
-      <Statistic>
-        <Timestamp>01.01.0001 00:00:00</Timestamp>
-        <SuccessfullAnswer>False</SuccessfullAnswer>
-      </Statistic>
-      <LastBox>None</LastBox>
-    </StatisticCollection>
   </Card>
 </Cards>
