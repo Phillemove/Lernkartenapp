@@ -25,8 +25,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
         public CategoryViewModel CategoryViewModel { get; }
 
         private StatisticCollectionViewModel statisticCollectionVM;
-        private StatisticCollectionViewModel statisticCollectionCard1;
-        private StatisticCollectionViewModel statisticCollectionCard2;
+
 
         //<maha>
         public CardWindowViewModel CardWindowViewModel { get; }
@@ -35,8 +34,6 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
         public ViewModelLocator()
         {
             statisticCollectionVM = new StatisticCollectionViewModel();
-            statisticCollectionCard1 = new StatisticCollectionViewModel();
-            statisticCollectionCard2 = new StatisticCollectionViewModel();
 
             MainWindowViewModel = new MainWindowViewModel();
             StatisticWindowViewModel = new StatisticWindowViewModel(statisticCollectionVM);
@@ -47,7 +44,8 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
             CategoryViewModel = new CategoryViewModel();
 
 
-            // Statistic DummyDaten
+            // Statistic DummyData for testing statistics
+            // normally is generated when a Card is learned in the learning algorithm
             Statistic statistic = new Statistic();
             statistic.Timestamp = DateTime.UtcNow;
             statistic.SuccessfullAnswer = true;
@@ -65,6 +63,9 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
             statistic2.SuccessfullAnswer = true;
             statistic2.CurrentBoxNumber = Boxnumber.Box2;
             statisticCollectionVM.Add(new StatisticViewModel(statistic2));
+
+            // This mthod must be executed each time the statistics Window is opened
+            StatisticWindowViewModel.MakeStatistic();
 
 
             //<maha>
@@ -109,7 +110,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
             //marah
             CardLearningViewModel = new CardLearningViewModel(myModelViewModel.BoxCollectionVM);
 
-            StatisticWindowViewModel.MakeStatistic();
+           
 
         }
     }

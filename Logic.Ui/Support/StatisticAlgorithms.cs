@@ -44,7 +44,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
             {
                 if (statistic.SuccessfulAnswer == true)
                 {   
-                    if (DateTime.Compare(time, statistic.Timestamp)<0)
+                    if (DateTime.Compare(time, statistic.Timestamp) < 0)
                     {
                         time = statistic.Timestamp;
                     }
