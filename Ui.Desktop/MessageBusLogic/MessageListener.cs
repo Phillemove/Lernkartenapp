@@ -37,7 +37,7 @@ namespace De.HsFlensburg.ClientApp101.Ui.Desktop.MessageBusLogic
             });
             ServiceBus.Instance.Register<OpenStatisticMessage>(this, delegate ()
             {
-                Statistics statistic = new Statistics();
+                StatisticWindow statistic = new StatisticWindow();
                 statistic.ShowDialog();
             });
             ServiceBus.Instance.Register<OpenCategoryMessage>(this, delegate ()
