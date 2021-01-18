@@ -6,7 +6,26 @@
         xmlns:local="clr-namespace:De.HsFlensburg.ClientApp101.Ui.Desktop"
         mc:Ignorable="d"
         Title="CardLearning" Height="450" Width="800">
+
+    <Window.DataContext>
+        <Binding Source="{StaticResource VMLocator}" Path="CardLearningViewModel"></Binding>
+    </Window.DataContext>
     <Grid>
-        
+        <Label Grid.Column="0" x:Name="Question" Content="Question" HorizontalAlignment="Left"
+               VerticalAlignment="Top" Background="#901aff"  FontFamily="Verdana" FontSize="10"
+               FontWeight="Bold" Foreground="#FFFAFAFA" Margin="49,61,0,0" Height="22" Width="82"/>
+        <TextBox Grid.Column="0" Text="{Binding Path=CardVM.Question,UpdateSourceTrigger=PropertyChanged}" BorderBrush="#dab3ff"
+                 Background="#e6ccff" VerticalAlignment="Center" HorizontalAlignment="Right"
+                 Margin="0,61,330.6,317" Width="298" Height="42"></TextBox>
+        <Label Grid.Column="0" x:Name="Answer" Content="Answer" HorizontalAlignment="Left"
+               VerticalAlignment="Top" Background="#901aff"  FontFamily="Verdana" FontSize="10"
+               FontWeight="Bold" Foreground="#FFFAFAFA" Margin="49,140,0,0" Height="22" Width="82"/>
+        <TextBox Grid.Column="0" Text="{Binding Path=Answer}" BorderBrush="#dab3ff"
+                 Background="#e6ccff" VerticalAlignment="Center" HorizontalAlignment="Right" RenderTransformOrigin="-5.147,-1.657" Margin="0,140,330.6,235" Height="45" Width="298"></TextBox>        
+        <Button Grid.Column="0" HorizontalAlignment="Left"  Width="206"
+                Command="{Binding ShowCard,Mode=OneWay}" Margin="283,302,0,34"
+                RenderTransformOrigin="0.22,-1.215">
+        show next card    
+        </Button>
     </Grid>
 </Window>
