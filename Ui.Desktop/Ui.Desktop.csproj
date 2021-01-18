@@ -79,8 +79,8 @@
     <Compile Include="ManageCard.xaml.cs">
       <DependentUpon>ManageCard.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Statistics.xaml.cs">
-      <DependentUpon>Statistics.xaml</DependentUpon>
+    <Compile Include="StatisticWindow.xaml.cs">
+      <DependentUpon>StatisticWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="CardAdd.xaml">
       <SubType>Designer</SubType>
@@ -126,7 +126,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Statistics.xaml">
+    <Page Include="StatisticWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
