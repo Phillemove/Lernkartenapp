@@ -36,8 +36,11 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper
             }
             public CardViewModel remove()
             {
-                this.Dequeue();
-                return new CardViewModel(box.remove());
+                box.remove();
+                if (this.Any())
+                    return this.Dequeue();
+                else
+                    return null;
             }
         }
     }

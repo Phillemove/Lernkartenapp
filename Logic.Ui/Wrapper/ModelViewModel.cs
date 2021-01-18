@@ -62,7 +62,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper
 
 
 
-        public BoxCollectionViewModel BoxCollection
+        public BoxCollectionViewModel BoxCollectionVM
         {
             get
             {

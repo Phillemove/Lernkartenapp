@@ -22,7 +22,13 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         public RelayCommand AddQuestionPic { get; }
         public RelayCommand AddAnswerPic { get; }
         public BoxCollectionViewModel myBoxCollectionViewModel { get; set; }
-    
+        public CategoryCollectionViewModel myCatCollectionViewModel { get; set; }
+
+        public CardWindowViewModel(BoxCollectionViewModel bcvm, CategoryCollectionViewModel ccvm)
+        {
+            myBoxCollectionViewModel = bcvm;
+            myCatCollectionViewModel = ccvm;
+        }
         private void AddCardMethod()
         {
             CardViewModel cardVM = new CardViewModel();

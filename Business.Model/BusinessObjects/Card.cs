@@ -24,6 +24,15 @@ namespace De.HsFlensburg.ClientApp101.Business.Model.BusinessObjects
             Category = null;
             StatisticCollection = null;
         }
+        public Card(String question, String answer)
+        {
+            Question = question;
+            Answer = answer;
+            QuestionPic = null;
+            AnswerPic = null;
+            Category = null;
+            StatisticCollection = null;
+        }
         public Card(String question, String answer, String questionPic, String answerPic,
                                      Category category,StatisticCollection statisticCollectio)
         {

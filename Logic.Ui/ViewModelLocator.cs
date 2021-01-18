@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace De.HsFlensburg.ClientApp101.Logic.Ui
 {
@@ -41,7 +42,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
             StatisticWindowViewModel = new StatisticWindowViewModel(statisticCollectionVM);
             ExportViewModel = new ExportViewModel();
             ImportViewModel = new ImportViewModel();
-            CardLearningViewModel = new CardLearningViewModel();
+            
             //CardWindowViewModel = new CardWindowViewModel();
             CategoryViewModel = new CategoryViewModel();
 
@@ -69,8 +70,9 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
             //<maha>
             //myBoxCollectionViewModel = new BoxCollectionViewModel();
             myModelViewModel = new ModelViewModel();
-
+            
             CategoryManageViewModel = new CategoryManageViewModel(myModelViewModel.myCategoryCollection);
+
             //myBoxCollectionViewModel = new BoxCollectionViewModel(myModelViewModel.BoxCollection);
             //myCategoryCollectionViewModel = new CategoryCollectionViewModel(myModelViewModel.CategoryCollection);
 
@@ -80,23 +82,32 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
             BoxViewModel bvm4 = new BoxViewModel(new Box(Boxnumber.Box4));
             BoxViewModel bvm5 = new BoxViewModel(new Box(Boxnumber.Box5));
 
-            CardViewModel cvm1 = new CardViewModel(new Card(new Category("Math")));
-            CardViewModel cvm2 = new CardViewModel(new Card(new Category("computer")));
-            CardViewModel cvm3 = new CardViewModel(new Card(new Category("IT")));
+            CardViewModel cvm1 = new CardViewModel(new Card("what is sky color?","blue"));
+            CardViewModel cvm2 = new CardViewModel(new Card("what is year?","2021"));
+            CardViewModel cvm3 = new CardViewModel(new Card("is mouse input or output device?","input"));
 
-            myModelViewModel.BoxCollection.Add(bvm1);
-            myModelViewModel.BoxCollection.Add(bvm2);
-            myModelViewModel.BoxCollection.Add(bvm3);
-            myModelViewModel.BoxCollection.Add(bvm4);
-            myModelViewModel.BoxCollection.Add(bvm5);
+            myModelViewModel.BoxCollectionVM.Add(bvm1);
+            myModelViewModel.BoxCollectionVM.Add(bvm2);
+            myModelViewModel.BoxCollectionVM.Add(bvm3);
+            myModelViewModel.BoxCollectionVM.Add(bvm4);
+            myModelViewModel.BoxCollectionVM.Add(bvm5);
 
-            myModelViewModel.BoxCollection.storeCard(cvm1, Boxnumber.Box1);
-            myModelViewModel.BoxCollection.storeCard(cvm2, Boxnumber.Box2);
-            myModelViewModel.BoxCollection.storeCard(cvm3, Boxnumber.Box2);
-            myModelViewModel.BoxCollection.storeCard(cvm1, Boxnumber.Box3);
+            myModelViewModel.BoxCollectionVM.storeCard(cvm1, Boxnumber.Box1);
+            myModelViewModel.BoxCollectionVM.storeCard(cvm2, Boxnumber.Box1);
+            myModelViewModel.BoxCollectionVM.storeCard(cvm3, Boxnumber.Box1);
+           
+            myModelViewModel.BoxCollectionVM.storeCard(cvm2, Boxnumber.Box2);
+            myModelViewModel.BoxCollectionVM.storeCard(cvm3, Boxnumber.Box2);
+            myModelViewModel.BoxCollectionVM.storeCard(cvm3, Boxnumber.Box3);
+            myModelViewModel.BoxCollectionVM.storeCard(cvm2, Boxnumber.Box4);
+            myModelViewModel.BoxCollectionVM.storeCard(cvm1, Boxnumber.Box5);
 
-            //CardWindowViewModel = new CardWindowViewModel(myModelViewModel.BoxCollection);
             //</maha>
+            CardWindowViewModel = new CardWindowViewModel(myModelViewModel.BoxCollectionVM , myModelViewModel.myCategoryCollection);
+            
+
+            //marah
+            CardLearningViewModel = new CardLearningViewModel(myModelViewModel.BoxCollectionVM);
 
             StatisticWindowViewModel.MakeStatistic();
 

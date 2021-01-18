@@ -38,7 +38,10 @@ namespace De.HsFlensburg.ClientApp101.Business.Model.BusinessObjects
         }
         public Card remove()
         {
-            return this.Dequeue();
+            if (this.Any())
+                return this.Dequeue();
+            else
+                return null;
         }
     }
 }

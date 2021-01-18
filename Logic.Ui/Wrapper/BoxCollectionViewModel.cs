@@ -23,8 +23,8 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper
        public BoxCollectionViewModel(BoxCollection bc)
         {
             boxCollection = bc;
-        this.CollectionChanged += ViewModelCollectionChanged;
-          boxCollection.CollectionChanged += ModelCollectionChanged;
+            this.CollectionChanged += ViewModelCollectionChanged;
+            boxCollection.CollectionChanged += ModelCollectionChanged;
           }
 
         public CardViewModel giveCard(Boxnumber bn)
