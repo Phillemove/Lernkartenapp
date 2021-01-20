@@ -19,11 +19,10 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
         public ImportViewModel ImportViewModel { get; }
         public MainWindowViewModel MainWindowViewModel { get; }
         public CardLearningViewModel CardLearningViewModel { get; }
-        
         public CategoryManageViewModel CategoryManageViewModel { get; }
-
         public CategoryViewModel CategoryViewModel { get; }
 
+        // for Statistics Dummydata
         private StatisticCollectionViewModel statisticCollectionVM;
 
 
@@ -33,6 +32,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
         //</maha>
         public ViewModelLocator()
         {
+            // for Statistics Dummydata
             statisticCollectionVM = new StatisticCollectionViewModel();
 
             MainWindowViewModel = new MainWindowViewModel();
@@ -47,22 +47,28 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
             // Statistic DummyData for testing statistics
             // normally is generated when a Card is learned in the learning algorithm
             Statistic statistic = new Statistic();
-            statistic.Timestamp = DateTime.UtcNow;
+            statistic.Timestamp = new DateTime(2021, 01, 01, 7, 20, 22);
             statistic.SuccessfullAnswer = true;
             statistic.CurrentBoxNumber = Boxnumber.Box2;
             statisticCollectionVM.Add(new StatisticViewModel(statistic));
           
             Statistic statistic1 = new Statistic();
-            statistic1.Timestamp = new DateTime(2020, 12, 12, 7, 30, 32);
+            statistic1.Timestamp = new DateTime(2021, 01, 03, 8, 45, 25);
             statistic1.SuccessfullAnswer = true;
-            statistic1.CurrentBoxNumber = Boxnumber.Box2;
+            statistic1.CurrentBoxNumber = Boxnumber.Box3;
             statisticCollectionVM.Add(new StatisticViewModel(statistic1));
 
             Statistic statistic2 = new Statistic();
-            statistic2.Timestamp = DateTime.Now;
+            statistic2.Timestamp = new DateTime(2021, 01, 15, 9, 36, 21);
             statistic2.SuccessfullAnswer = true;
-            statistic2.CurrentBoxNumber = Boxnumber.Box2;
+            statistic2.CurrentBoxNumber = Boxnumber.Box4;
             statisticCollectionVM.Add(new StatisticViewModel(statistic2));
+
+            Statistic statistic3 = new Statistic();
+            statistic3.Timestamp = DateTime.Now;
+            statistic3.SuccessfullAnswer = false;
+            statistic3.CurrentBoxNumber = Boxnumber.Box4;
+            statisticCollectionVM.Add(new StatisticViewModel(statistic3));
 
             // This mthod must be executed each time the statistics Window is opened
             StatisticWindowViewModel.MakeStatistic();

@@ -19,11 +19,11 @@
                   ScrollViewer.CanContentScroll="True"
                   ScrollViewer.HorizontalScrollBarVisibility="Auto"
                   ScrollViewer.VerticalScrollBarVisibility="Auto">
-
         </DataGrid>
         <TextBlock HorizontalAlignment="Left" Margin="10,49,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="236" Width="772">
             <Run Text="Wie oft wurde die Karte gelernt:"/>
-            <Run Text="{Binding Path=LearnedCard}"/><LineBreak/>
+            <Run Text="{Binding Path=LearnedCard}"/>
+            <Run Text="mal"/><LineBreak/>
             <Run Text="Wann wurde die Karte zuletzt gelernt:"/>
             <Run Text="{Binding Path=LastLearned}"/><LineBreak/>
             <Run Text="Wie wurde die Karte zuletzt beantwortet:"/>
@@ -33,21 +33,27 @@
             <Run Text="Wann wurde die Karte in die aktuelle Box verschoben:"/>
             <Run Text="{Binding Path=DropintoCurrentBox}"/><LineBreak/>
             <Run Text="Wie oft war die Karte in dieser Box:"/>
-            <Run Text="{Binding Path=ActualBoxPassed}"/><LineBreak/>
+            <Run Text="{Binding Path=ActualBoxPassed}"/>
+            <Run Text="mal"/><LineBreak/>
             <Run Text="Wie oft wurde die Karte insgesamt richtig beantwortet:"/>
-            <Run Text="{Binding Path=RightAnswer}"/><LineBreak/>
+            <Run Text="{Binding Path=RightAnswer}"/>
+            <Run Text="mal"/><LineBreak/>
             <Run Text="Wann wurde die Karte zuletzt richtig beantwortet:"/>
             <Run Text="{Binding Path=LastSucessfullAnswer}"/><LineBreak/>
             <Run Text="Wie oft wurde die Karte hintereinander richtig beantwortet:"/>
-            <Run Text="{Binding Path=LearningSucess}"/><LineBreak/>
+            <Run Text="{Binding Path=LearningSucess}"/>
+            <Run Text="mal"/><LineBreak/>
             <Run Text="Wie oft wurde die Karte insgesamt falsch beantwortet:"/>
-            <Run Text="{Binding Path=WrongAnswer}"/><LineBreak/>
+            <Run Text="{Binding Path=WrongAnswer}"/>
+            <Run Text="mal"/><LineBreak/>
             <Run Text="Wann wurde die Karte zuletzt Falsch beantwortet:"/>
             <Run Text="{Binding Path=LastWrongAnswer}"/><LineBreak/>
             <Run Text="Wie oft wurde die Karte hintereinander falsch beantwortet:"/>
-            <Run Text="{Binding Path=LearningWrong}"/><LineBreak/>
+            <Run Text="{Binding Path=LearningWrong}"/>
+            <Run Text="mal"/><LineBreak/>
             <Run Text="Wie oft wurde die Karte in andere Boxen verschoben:"/>
-            <Run Text="{Binding Path=BoxShift}"/><LineBreak/>
+            <Run Text="{Binding Path=BoxShift}"/>
+            <Run Text="mal"/><LineBreak/>
         </TextBlock>
 
     </Grid>
