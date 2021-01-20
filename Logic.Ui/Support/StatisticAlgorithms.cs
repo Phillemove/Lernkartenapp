@@ -9,13 +9,15 @@ using De.HsFlensburg.ClientApp101.Business.Model.BusinessObjects;
 
 namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
 {
+    /*
+     * This class is for calculating statistics. Therefore are thirteen static methods
+     * calculating several things. There is no need of an instance of this class. This
+     * is why all methods are static.
+     * All DateTime Methods return the time convert to string. This allows 
+     * to display the DateTime in a local format.
+     */
     public class StatisticAlgorithms
     {
-        /*
-         * All DateTime Methods return the time convert to string. This allows 
-         * to display the DateTime in a local format (german format).
-         */
-
         // How often is this card learned successfull
         public static int RightAnswer(StatisticCollectionViewModel collection)
         {

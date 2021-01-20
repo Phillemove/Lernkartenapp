@@ -8,6 +8,10 @@ using System.Threading.Tasks;
 
 namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
 {
+    /*
+     * ViewModel for the UI-Element StatisticWindow. Method fill the Properties
+     * with Data, that they can be displayed in the UI
+     */
     public class StatisticWindowViewModel
     {
         public StatisticCollectionViewModel StatisticCollectionVM { get; set; }
