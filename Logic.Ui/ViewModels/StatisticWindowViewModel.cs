@@ -23,7 +23,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         public int CurrentBoxNumber { get; set; }
         public int ActualBoxPassed { get; set; }
         public int BoxShift { get; set; }
-        public DateTime DropintoCurrentBox { get; set; }
+        public String DropintoCurrentBox { get; set; }
 
         public StatisticWindowViewModel(StatisticCollectionViewModel statisticCollectionVM)
         {

@@ -11,6 +11,11 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
 {
     public class StatisticAlgorithms
     {
+        /*
+         * All DateTime Methods return the time convert to string. This allows 
+         * to display the DateTime in a local format (german format).
+         */
+
         // How often is this card learned successfull
         public static int RightAnswer(StatisticCollectionViewModel collection)
         {
@@ -261,7 +266,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
         }
 
         // When was the Card dropped into the current Box
-        public static DateTime DropintoCurrentBox(StatisticCollectionViewModel collection, int currentBoxNumber, DateTime currentTimestamp)
+        public static String DropintoCurrentBox(StatisticCollectionViewModel collection, int currentBoxNumber, DateTime currentTimestamp)
         {
             DateTime time = currentTimestamp;
             foreach (StatisticViewModel statistic in collection)
@@ -272,7 +277,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
                 }
 
             }
-            return time;
+            return time.ToString();
         }
 
     }
