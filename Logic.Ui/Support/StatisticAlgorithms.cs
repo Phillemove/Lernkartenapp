@@ -76,7 +76,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
             for(int i = 0; i < collection.Count; i++)
             {
                 
-                if (i+1 < collection.Count && collection[i].SuccessfulAnswer == false && collection[i+1].SuccessfulAnswer == true)
+                if (i + 1 < collection.Count && collection[i].SuccessfulAnswer == false && collection[i+1].SuccessfulAnswer == true)
                 {
                     
                 } else if (i + 1 < collection.Count && collection[i].SuccessfulAnswer == true && collection[i+1].SuccessfulAnswer == true)
