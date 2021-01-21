@@ -60,6 +60,7 @@
     <Compile Include="ViewModels\CardLearningViewModel.cs" />
     <Compile Include="ViewModels\CardWindowViewModel.cs" />
     <Compile Include="ViewModels\CategoryManageViewModel.cs" />
+    <Compile Include="ViewModels\ImportForeignFormatViewModel.cs" />
     <Compile Include="Wrapper\CategoryCollectionViewModel.cs" />
     <Compile Include="Wrapper\CategoryViewModel.cs" />
     <Compile Include="ViewModels\ExportViewModel.cs" />

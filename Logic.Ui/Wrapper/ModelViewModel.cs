@@ -58,6 +58,21 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper
             }
         }
 
+        public void SaveCategorys()
+        {
+            var appRoot = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            XmlWriter writer = XmlWriter.Create(appRoot + CategoryFile);
+            writer.WriteStartDocument();
+            writer.WriteStartElement("CategoryList");
+            foreach (var category in myCategoryCollection)
+            {
+                writer.WriteStartElement("Category");
+                writer.WriteString(category.Name);
+                writer.WriteEndElement();
+            }
+            writer.WriteEndDocument();
+            writer.Close();
+        }
 
 
 
