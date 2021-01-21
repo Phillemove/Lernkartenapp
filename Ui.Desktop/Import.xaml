@@ -41,7 +41,7 @@
                     ></Label>
                     <Label 
                         HorizontalAlignment="Left"
-                        Content="Klassenname aus Datei" Foreground="Red" FontWeight="SemiBold"
+                        Content="{Binding newClassName}" Foreground="Red" FontWeight="SemiBold"
                     ></Label>
                     <RadioButton 
                         HorizontalAlignment="Right" 
@@ -55,9 +55,10 @@
                         VerticalAlignment="Top" 
                         HorizontalAlignment="Left"
                         SelectedValue="{Binding Class}"
+                        ItemsSource="{Binding myModelViewModel}"
+                        DisplayMemberPath="Name"
                     >
-                        <System:String>AWP</System:String>
-                        <System:String>Netzwerkadministration</System:String>
+
                     </ComboBox>
                 </UniformGrid>
             </UniformGrid>

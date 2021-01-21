@@ -17,13 +17,17 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         public RelayCommand chooseData { get; }
         public RelayCommand importData { get; }
         public string FileName { get; set; }
-        public string Class { get; set; }
+        public CategoryViewModel Class { get; set; }
 
         public BoxViewModel bvm;
         private static Random random = new Random();
         private readonly static int randPicNameLength = 10;
         private OpenFileDialog ofd;
         private static string filepath;
+
+        public CategoryCollectionViewModel myModelViewModel { get; set; }
+
+        public String newClassName { get; set; }
 
 
         //private readonly string saveDirectory = @"..\..\..\Lernkarten\";  // Soweit derzeit nicht nötig. Nur für ggf. zu erstellenden Ordnern, wobei die grundlegend vorhanden sein sollten
@@ -37,6 +41,12 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
 
         }
 
+        public ImportViewModel(CategoryCollectionViewModel categorys)
+        {
+            chooseData = new RelayCommand(() => chooseDataMethod());
+            importData = new RelayCommand(() => importDataMethod());
+            myModelViewModel = categorys;
+        }
         /*
          * Diese Methode speichert die Dateien entweder unter einem neuen Kategorienamen ab oder fügt diese zu einer
          * bestehenden Kategorie hinzu
@@ -49,6 +59,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             }
             else
             {
+                
                 foreach (CardViewModel card in this.bvm)
                 {
                     if (card.AnswerPic != null)
@@ -66,17 +77,18 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                 { 
                     foreach (CardViewModel card in this.bvm)
                     {
-                        card.Category = new Category(System.IO.Path.GetFileNameWithoutExtension(ofd.FileName));
+                        card.Category = new Category(System.IO.Path.GetFileNameWithoutExtension(ofd.FileName)); // Zuweisung der Kategorie einer jeden Karte aus Dteiname
                     }
                     SaveCards.hardSave(this.bvm); 
                 }
                 else 
                 {
+                    Category cat = new Category(Class.Name);
                     foreach (CardViewModel card in this.bvm)
                     {
-                        card.Category = new Category(Class);
+                        card.Category = cat;    // Zuweisung der Kategorie einer jeden Karte aus vorhandenen Kategorien
                     }
-                    SaveCards.SaveCardsToFile(this.bvm); 
+                    SaveCards.SaveCardsToFile(this.bvm, true); 
                 };
             }
         }
@@ -89,7 +101,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             ofd.Filter = "XML-Files|*.xml";     // Begrenzung der angezeigten Dateien auf .xml Dateien
             if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK) // Wenn die Auswahl ohne Problme von statten ging
             {
-                MessageBox.Show(System.IO.Path.GetFileNameWithoutExtension(ofd.FileName));  // Anzeigen des Dateinamen (Nur erst mal Intern zur Kontrolle)
+                //MessageBox.Show(System.IO.Path.GetFileNameWithoutExtension(ofd.FileName));  // Anzeigen des Dateinamen (Nur erst mal Intern zur Kontrolle)
                 filepath = Path.GetDirectoryName(ofd.FileName);
                 XmlDocument doc = new XmlDocument();    // Ein neues XmlDocument wird erstellt, in das dann die zu importierende Datei geladen wird.
                 doc.Load(ofd.FileName);

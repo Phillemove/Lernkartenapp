@@ -17,16 +17,24 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         public readonly string saveDirectory = @"..\..\..\Lernkarten";
         public readonly string savePicDirectory = @"..\..\..\Lernkarten\content\";
 
+        public CategoryCollectionViewModel myModelViewModel { get; set; }
+
         public Boolean inclStat { get; set; }
 
 
-        public String Class { get; set; }   // Class ist die ausgewählte Kategory, oder ist es ein CategoryVM Objekt? Muss noch in ein VM geändert werden....
+        public CategoryViewModel Class { get; set; }   // Class ist die ausgewählte Kategory, oder ist es ein CategoryVM Objekt? Muss noch in ein VM geändert werden....
 
         public RelayCommand ExportData { get; }
 
         public ExportViewModel()
         {
             ExportData = new RelayCommand(() => ExportDataMethod());
+        }
+
+        public ExportViewModel(CategoryCollectionViewModel categorys)
+        {
+            ExportData = new RelayCommand(() => ExportDataMethod());
+            myModelViewModel = categorys;
         }
 
         /*
@@ -41,7 +49,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                 fbd.Description = "Bitte den Ort wählen, an dem der Export-Ordner erstellt werden soll";
                 if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    string filename = Class;    // Der Klassenname für die Datei wird aus der Auswahl getroffen.
+                    string filename = Class.Name;    // Der Klassenname für die Datei wird aus der Auswahl getroffen.
                     System.IO.Directory.CreateDirectory(fbd.SelectedPath + @"\Export"); // Der Speicherordner wird an der ausgewählten Stelle geschrieben
                     System.IO.Directory.CreateDirectory(fbd.SelectedPath + @"\Export\content"); // Der Speicherordner für die Bilder wird geschrieben
                     string filepath = fbd.SelectedPath + @"\Export\" + filename + ".xml";   // Speicherort mit Name wird für die Datei erstellt
