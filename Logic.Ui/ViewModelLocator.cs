@@ -21,6 +21,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
         public CardLearningViewModel CardLearningViewModel { get; }
         public CategoryManageViewModel CategoryManageViewModel { get; }
         public CategoryViewModel CategoryViewModel { get; }
+        public ImportForeignFormatViewModel ImportForeignFormatViewModel { get; }
 
         // for Statistics Dummydata
         private StatisticCollectionViewModel statisticCollectionVM;
@@ -79,6 +80,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
             myModelViewModel = new ModelViewModel();
             
             CategoryManageViewModel = new CategoryManageViewModel(myModelViewModel.myCategoryCollection);
+            ImportForeignFormatViewModel = new ImportForeignFormatViewModel(myModelViewModel.myCategoryCollection);
             ImportViewModel = new ImportViewModel(myModelViewModel.myCategoryCollection);
             ExportViewModel = new ExportViewModel(myModelViewModel.myCategoryCollection);
 
