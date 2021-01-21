@@ -37,8 +37,8 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
 
             MainWindowViewModel = new MainWindowViewModel();
             StatisticWindowViewModel = new StatisticWindowViewModel(statisticCollectionVM);
-            ExportViewModel = new ExportViewModel();
-            ImportViewModel = new ImportViewModel();
+            
+            
             
             //CardWindowViewModel = new CardWindowViewModel();
             CategoryViewModel = new CategoryViewModel();
@@ -79,6 +79,8 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
             myModelViewModel = new ModelViewModel();
             
             CategoryManageViewModel = new CategoryManageViewModel(myModelViewModel.myCategoryCollection);
+            ImportViewModel = new ImportViewModel(myModelViewModel.myCategoryCollection);
+            ExportViewModel = new ExportViewModel(myModelViewModel.myCategoryCollection);
 
             //myBoxCollectionViewModel = new BoxCollectionViewModel(myModelViewModel.BoxCollection);
             //myCategoryCollectionViewModel = new CategoryCollectionViewModel(myModelViewModel.CategoryCollection);
