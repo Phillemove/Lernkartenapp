@@ -74,11 +74,13 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                     }
                 }
                 if (RadioButtonNewCatIsChecked) 
-                { 
+                {
+                    Category cat = new Category(System.IO.Path.GetFileNameWithoutExtension(ofd.FileName));
                     foreach (CardViewModel card in this.bvm)
                     {
-                        card.Category = new Category(System.IO.Path.GetFileNameWithoutExtension(ofd.FileName)); // Zuweisung der Kategorie einer jeden Karte aus Dteiname
+                        card.Category = cat; // Zuweisung der Kategorie einer jeden Karte aus Dteiname
                     }
+                    myModelViewModel.categoryCollection.Add(cat);
                     SaveCards.hardSave(this.bvm); 
                 }
                 else 

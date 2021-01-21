@@ -15,7 +15,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
 {
     class SaveCards
     {
-        public static void SaveCardsToFile(BoxViewModel box)
+        public static void SaveCardsToFile(BoxViewModel box, Boolean copied = false)
         {
             string saveDirectory = @"..\..\..\Lernkarten";
             string pictureDirectory = @"..\..\..\Lernkarten\content\";
@@ -26,21 +26,29 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
 
             foreach (CardViewModel card in box) // Jede Karte aus der übergbenen Box wird durchgegangen
             {
-                if(card.QuestionPic != null && !card.QuestionPic.Contains(pictureDirectory))    // Wenn ein Foto vorhanden ist und es einen anderen Datenspeicherort hat, wird die Datei in unsere Struktur kopiert
+                if(card.QuestionPic != null && !copied)    // Wenn ein Foto vorhanden ist und es einen anderen Datenspeicherort hat, wird die Datei in unsere Struktur kopiert
                 {
                     string newPicPath = ImportViewModel.RandomString() + ".jpg";
                     File.Copy(card.QuestionPic, pictureDirectory + newPicPath);  // Der Dateiname muss noch geändert werden. Wie, entscheidet die Kartenetsellung
                 }
-                if (card.AnswerPic != null && !card.AnswerPic.Contains(pictureDirectory))   // Wenn ein Foto vorhanden ist und es einen anderen Datenspeicherort hat, wird die Datei in unsere Struktur kopiert
+                if (card.AnswerPic != null && !copied)   // Wenn ein Foto vorhanden ist und es einen anderen Datenspeicherort hat, wird die Datei in unsere Struktur kopiert
                 {
                     string newPicPath = ImportViewModel.RandomString() + ".jpg";
                     File.Copy(card.AnswerPic, pictureDirectory + newPicPath);  // Der Dateiname muss noch geändert werden. Wie, entscheidet die Kartenetsellung
                 }
                 if (categorys.Contains(card.Category))
                 {
+                    //BoxViewModel current;
+                    foreach(BoxViewModel test in bc)
+                    {
+                        if (test.Peek().Category.Equals(card.Category))
+                        {
+                            test.Enqueue(card);
+                        }
+                    }
 
-                    BoxViewModel current = (BoxViewModel)bc.Where(cat => cat.Peek().Category == card.Category); // Die Categorybox wird aus der BoxCollection gezogen und die Carte dieser hinzugefügt.
-                    current.Enqueue(card);
+                    //BoxViewModel current = (BoxViewModel)bc.Where(cat => cat.Peek().Category == card.Category); // Die Categorybox wird aus der BoxCollection gezogen und die Carte dieser hinzugefügt.
+                    //current.Enqueue(card);
                 }
                 else
                 {
@@ -78,6 +86,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
                 }
                 catch
                 {
+                    MessageBox.Show("Keine Kategorie davon vorhanden");
                     //Weiß noch nicht, ob was passieren soll, eigentlich nämlich nicht
                 };
             };
