@@ -36,7 +36,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
             // for Statistics Dummydata
             statisticCollectionVM = new StatisticCollectionViewModel();
 
-            MainWindowViewModel = new MainWindowViewModel();
+            
             StatisticWindowViewModel = new StatisticWindowViewModel(statisticCollectionVM);
             
             
@@ -83,6 +83,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
             ImportForeignFormatViewModel = new ImportForeignFormatViewModel(myModelViewModel.myCategoryCollection);
             ImportViewModel = new ImportViewModel(myModelViewModel.myCategoryCollection);
             ExportViewModel = new ExportViewModel(myModelViewModel.myCategoryCollection);
+            MainWindowViewModel = new MainWindowViewModel(myModelViewModel);
 
             //myBoxCollectionViewModel = new BoxCollectionViewModel(myModelViewModel.BoxCollection);
             //myCategoryCollectionViewModel = new CategoryCollectionViewModel(myModelViewModel.CategoryCollection);

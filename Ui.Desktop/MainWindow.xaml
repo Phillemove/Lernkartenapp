@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:De.HsFlensburg.ClientApp101.Ui.Desktop"
         mc:Ignorable="d"
-        Title="MainWindow" Height="200" Width="600">
+        Title="MainWindow" Height="200" Width="600"
+        x:Name="ThisWindow">
     <Window.Resources>
     </Window.Resources>
     <Window.IsEnabled>
@@ -20,10 +21,11 @@
             <Button Command="{Binding OpenManageCardsWindow, Mode=OneWay}">Karte bearbeiten</Button>
             <Button Command="{Binding OpenImportWindow, Mode=OneWay}">Import</Button>
             <Button Command="{Binding OpenExportWindow, Mode=OneWay}">Export</Button>
-            <Button Command="{Binding OpenStatisticsWindow, Mode=OneWay}">Statistik</Button>
+            <Button Command="{Binding OpenStatisticsWindow, Mode=OneWay}" x:Name="TestButton">Statistik</Button>
             <Button Command="{Binding OpenCategoryWindow, Mode=OneWay}">Kategorien verwalten</Button>
             <Button Command="{Binding OpenImportForeignFormatWindow, Mode=OneWay}">Import Fremdformat</Button>
             <Button Command="{Binding OpenCardLearningWindow, Mode=OneWay}">Karten lernen</Button>
+            <Button Command="{Binding SaveAndCloseAll}" CommandParameter="{Binding ElementName=ThisWindow}">Speichern</Button>
         </UniformGrid>
     </Grid>
 </Window>

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:De.HsFlensburg.ClientApp101.Ui.Desktop" xmlns:System="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="Import" Height="450" Width="800">
+        Title="Import" Height="300" Width="700">
     <Window.DataContext>
         <Binding Source="{StaticResource VMLocator}" Path="ImportViewModel"></Binding>
     </Window.DataContext>
@@ -26,9 +26,7 @@
                 </UniformGrid>
 
             </UniformGrid>
-            <UniformGrid Grid.Column="1" Columns="1" Margin="40,100,40,30">
-                <DataGrid ItemsSource="{Binding Path=bvm}" IsReadOnly="True">
-                </DataGrid>
+            <UniformGrid Grid.Column="1" Columns="1" Margin="20,100,20,30">
                 <UniformGrid Columns="3">
                     <RadioButton 
                         HorizontalAlignment="Right" 

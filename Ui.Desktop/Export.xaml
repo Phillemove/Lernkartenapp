@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:De.HsFlensburg.ClientApp101.Ui.Desktop"
         xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="De.HsFlensburg.ClientApp101.Ui.Desktop.Export"
         mc:Ignorable="d"
-        Title="Export" Height="450" Width="800" DataContext="{Binding ExportViewModel, Source={StaticResource VMLocator}}">
+        Title="Export" Height="200" Width="700" DataContext="{Binding ExportViewModel, Source={StaticResource VMLocator}}">
     <Grid>
         <Grid>
             <UniformGrid Grid.Column="0" Columns="1" Height="100px" VerticalAlignment="top">
@@ -28,9 +28,7 @@
                     <!--Der Comobobox muss noch die Verbinung zu den Categorys sowie dann die entsprechende Box hergestellt werden-->
                 </UniformGrid>
             </UniformGrid>
-            <UniformGrid Grid.Column="1" Columns="1">
-                <DataGrid Height="200px" Width="600"/>
-            </UniformGrid>
+            <UniformGrid Grid.Column="1" Columns="1"/>
             <UniformGrid Grid.Column="2" Columns="1">
                 <UniformGrid Grid.Column="0" Columns="2">
                     <CheckBox
