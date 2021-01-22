@@ -15,7 +15,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
 {
     class SaveCards
     {
-        public static void SaveCardsToFile(BoxViewModel box, Boolean copied = false)
+        public static void SaveCardsToFile(BoxViewModel box, CategoryCollectionViewModel ccvm)
         {
             string saveDirectory = @"..\..\..\Lernkarten";
             string pictureDirectory = @"..\..\..\Lernkarten\content\";
@@ -27,16 +27,21 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
 
             foreach (CardViewModel card in box) // Jede Karte aus der übergbenen Box wird durchgegangen
             {
-                if(card.Category == null) { card.Category = defaultCat; }
-                if(card.QuestionPic != null && !copied)    // Wenn ein Foto vorhanden ist und es einen anderen Datenspeicherort hat, wird die Datei in unsere Struktur kopiert
+                if(card.Category == null) { 
+                    card.Category = defaultCat;
+                    ccvm.categoryCollection.Add(defaultCat);
+                }
+                if(card.QuestionPic != null && card.QuestionPic.Contains(@"\"))    // Wenn ein Foto vorhanden ist und es einen anderen Datenspeicherort hat, wird die Datei in unsere Struktur kopiert
                 {
                     string newPicPath = ImportViewModel.RandomString() + ".jpg";
                     File.Copy(card.QuestionPic, pictureDirectory + newPicPath);  // Der Dateiname muss noch geändert werden. Wie, entscheidet die Kartenetsellung
+                    card.QuestionPic = newPicPath;
                 }
-                if (card.AnswerPic != null && !copied)   // Wenn ein Foto vorhanden ist und es einen anderen Datenspeicherort hat, wird die Datei in unsere Struktur kopiert
+                if (card.AnswerPic != null && card.AnswerPic.Contains(@"\"))   // Wenn ein Foto vorhanden ist und es einen anderen Datenspeicherort hat, wird die Datei in unsere Struktur kopiert
                 {
                     string newPicPath = ImportViewModel.RandomString() + ".jpg";
                     File.Copy(card.AnswerPic, pictureDirectory + newPicPath);  // Der Dateiname muss noch geändert werden. Wie, entscheidet die Kartenetsellung
+                    card.AnswerPic = newPicPath;
                 }
                 if (categorys.Contains(card.Category))
                 {
@@ -105,11 +110,11 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
          * Dort wird dann die Box dementsprechend abgespeichert. Hierbei wird davon ausgegangen, dass bei übergabe einer ganzen Collection die einzelnen Boxen schon sortiert sind und 
          * man sich darüber vorher keine Gedanken machen muss.
          */
-        public static void SaveCardsToFile(BoxCollectionViewModel bcvm)
+        public static void SaveCardsToFile(BoxCollectionViewModel bcvm, CategoryCollectionViewModel ccvm)
         {
             foreach (BoxViewModel box in bcvm)
             {
-                SaveCardsToFile(box);
+                SaveCardsToFile(box, ccvm);
             }
         }
 

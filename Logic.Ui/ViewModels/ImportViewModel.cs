@@ -29,8 +29,6 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
 
         public String newClassName { get; set; }
 
-
-        //private readonly string saveDirectory = @"..\..\..\Lernkarten\";  // Soweit derzeit nicht nötig. Nur für ggf. zu erstellenden Ordnern, wobei die grundlegend vorhanden sein sollten
         private readonly static string pictureDirectory = @"..\..\..\Lernkarten\content\";
         public Boolean RadioButtonNewCatIsChecked { get; set; }
         public Boolean RadioButtonExistentCatIsChecked { get; set; }
@@ -90,7 +88,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                     {
                         card.Category = cat;    // Zuweisung der Kategorie einer jeden Karte aus vorhandenen Kategorien
                     }
-                    SaveCards.SaveCardsToFile(this.bvm, true); 
+                    SaveCards.SaveCardsToFile(this.bvm, myModelViewModel); 
                 };
             }
         }
@@ -219,6 +217,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             File.Copy(filepath + @"\content\" + currentPath, pictureDirectory +  randName);
             return (randName);
         }
+
 
     }
 

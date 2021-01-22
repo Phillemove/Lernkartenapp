@@ -48,7 +48,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         private void Save()
         {
             //myModelViewModel.SaveCategorys();
-            SaveCards.SaveCardsToFile(myBoxCollectionViewModel);
+            SaveCards.SaveCardsToFile(myBoxCollectionViewModel, myModelViewModel.myCategoryCollection);
         }
 
 

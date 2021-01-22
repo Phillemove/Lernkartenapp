@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:De.HsFlensburg.ClientApp101.Ui.Desktop" xmlns:System="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="Import" Height="300" Width="700">
+        Title="Import" Height="300" Width="700"
+        >
     <Window.DataContext>
         <Binding Source="{StaticResource VMLocator}" Path="ImportViewModel"></Binding>
     </Window.DataContext>
@@ -39,7 +40,7 @@
                     ></Label>
                     <Label 
                         HorizontalAlignment="Left"
-                        Content="{Binding newClassName}" Foreground="Red" FontWeight="SemiBold"
+                        Content="{Binding Path=newClassName}" Foreground="Red" FontWeight="SemiBold"
                     ></Label>
                     <RadioButton 
                         HorizontalAlignment="Right" 

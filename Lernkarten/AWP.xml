@@ -5,8 +5,8 @@
     <Question>In welcher Sprache müssen wir die Lernkartenapp schreiben?</Question>
     <Answer>c#</Answer>
     <Category>AWP</Category>
-    <QuestionPic>fysaKPGFgU.jpg</QuestionPic>
-    <AnswerPic>6yVcCgGIFT.jpg</AnswerPic>
+    <QuestionPic>SQJ4MjhAjX.jpg</QuestionPic>
+    <AnswerPic>18iE15E99J.jpg</AnswerPic>
     <StatisticCollection>
       <Statistic>
         <Timestamp>16.01.2021 15:13:09</Timestamp>
@@ -29,5 +29,6 @@
     <Question>Bis wann muss die Hausarbeit abgegeben sein?</Question>
     <Answer>15. Februar 2021</Answer>
     <Category>AWP</Category>
+    <StatisticCollection />
   </Card>
 </Cards>

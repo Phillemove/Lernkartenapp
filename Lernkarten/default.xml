@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--default-->
+<Cards>
+  <Card>
+    <Question>what is sky color?</Question>
+    <Answer>blue</Answer>
+    <Category>default</Category>
+    <QuestionPic>wgOsyIPdrn.jpg</QuestionPic>
+  </Card>
+  <Card>
+    <Question>what is year?</Question>
+    <Answer>2021</Answer>
+    <Category>default</Category>
+    <QuestionPic>RuLyK15eBF.jpg</QuestionPic>
+    <StatisticCollection />
+  </Card>
+  <Card>
+    <Question>is mouse input or output device?</Question>
+    <Answer>input</Answer>
+    <Category>default</Category>
+    <QuestionPic>F9wH7O37Sk.jpg</QuestionPic>
+    <StatisticCollection />
+  </Card>
+  <Card>
+    <Question>what is year?</Question>
+    <Answer>2021</Answer>
+    <Category>default</Category>
+    <QuestionPic>RuLyK15eBF.jpg</QuestionPic>
+    <StatisticCollection />
+  </Card>
+  <Card>
+    <Question>is mouse input or output device?</Question>
+    <Answer>input</Answer>
+    <Category>default</Category>
+    <QuestionPic>F9wH7O37Sk.jpg</QuestionPic>
+    <StatisticCollection />
+  </Card>
+  <Card>
+    <Question>what is year?</Question>
+    <Answer>2021</Answer>
+    <Category>default</Category>
+    <QuestionPic>RuLyK15eBF.jpg</QuestionPic>
+    <StatisticCollection />
+  </Card>
+  <Card>
+    <Question>is mouse input or output device?</Question>
+    <Answer>input</Answer>
+    <Category>default</Category>
+    <QuestionPic>F9wH7O37Sk.jpg</QuestionPic>
+    <StatisticCollection />
+  </Card>
+</Cards>
