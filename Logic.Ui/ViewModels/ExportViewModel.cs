@@ -17,12 +17,12 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         public readonly string saveDirectory = @"..\..\..\Lernkarten";
         public readonly string savePicDirectory = @"..\..\..\Lernkarten\content\";
 
-        public CategoryCollectionViewModel myModelViewModel { get; set; }
+        public CategoryCollectionViewModel MyModelViewModel { get; set; }
 
         public Boolean inclStat { get; set; }
 
 
-        public CategoryViewModel Class { get; set; }   // Class ist die ausgewählte Kategory, oder ist es ein CategoryVM Objekt? Muss noch in ein VM geändert werden....
+        public CategoryViewModel Class { get; set; } 
 
         public RelayCommand ExportData { get; }
 
@@ -30,84 +30,77 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         {
             ExportData = new RelayCommand(() => ExportDataMethod());
         }
-
         public ExportViewModel(CategoryCollectionViewModel categorys)
         {
             ExportData = new RelayCommand(() => ExportDataMethod());
-            myModelViewModel = categorys;
+            MyModelViewModel = categorys;
         }
 
         /*
-         * Diese Datei Exportiert eine von dem Nutzer ausgewählte Kategorie an eine beliebige Stelle. Dabei werden keine Statistikobjekte mit exportiert, sondern nur die sozusagen nie 
-         * benutzten Karten. 
+         * This Method exports all cards of the user choosen category. The Place is free to choose. You have the choise to export the statistic Objects or not
          */
         private void ExportDataMethod()
         {
-            if(Class != null)   // Zur Überprüfung, ob die zu exportierende Kategorie ausgewählt wurde.
+            if(Class != null)   // If a Category is choosen
             {
-                FolderBrowserDialog fbd = new FolderBrowserDialog();    // Zum Ort auswählen, an dem der Ordner mit dem Export erstellt werden soll
+                FolderBrowserDialog fbd = new FolderBrowserDialog();    // new FolderBrwoserDialog to choose the export filepath
                 fbd.Description = "Bitte den Ort wählen, an dem der Export-Ordner erstellt werden soll";
-                if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)   // If the filepath is okay
                 {
-                    string filename = Class.Name;    // Der Klassenname für die Datei wird aus der Auswahl getroffen.
-                    System.IO.Directory.CreateDirectory(fbd.SelectedPath + @"\Export"); // Der Speicherordner wird an der ausgewählten Stelle geschrieben
-                    System.IO.Directory.CreateDirectory(fbd.SelectedPath + @"\Export\content"); // Der Speicherordner für die Bilder wird geschrieben
-                    string filepath = fbd.SelectedPath + @"\Export\" + filename + ".xml";   // Speicherort mit Name wird für die Datei erstellt
-                    int picCount = 1;   // laufende Variable für die Fotobenennung.
+                    string filename = Class.Name;    // The Categoryname is choosen from the choosen Entry of the ComboBox
+                    System.IO.Directory.CreateDirectory(fbd.SelectedPath + @"\Export"); // The Folder are going to be created if not created
+                    System.IO.Directory.CreateDirectory(fbd.SelectedPath + @"\Export\content"); // The Folder for the images
+                    string filepath = fbd.SelectedPath + @"\Export\" + filename + ".xml";   // declare a variable for the to be exported file with filename (Categoryname)
+                    int picCount = 1;   // for the running imagenaming
 
-                    XmlTextWriter xmlWriter = new XmlTextWriter(filepath, System.Text.Encoding.UTF8);
+                    XmlTextWriter xmlWriter = new XmlTextWriter(filepath, System.Text.Encoding.UTF8);   // A xmlWriter to write the nodes
 
-                    try  // Versuch des ladens einer Kategoriedatei. Sollte nur die Kategorie ohne Karten angelegt worden sein, wird hier nichts geladen werden können und es wird ein Fehler ausgegeben.
+                    try  // Try to load a file with the Categoryname. If there is no file with the naming, the try doesn't work and going to the cache
                     {
                         BoxViewModel currentBox = new BoxViewModel();
                         XmlDocument doc = new XmlDocument();
-                        doc.Load(saveDirectory + @"\" + filename + ".xml");
-                        foreach (XmlNode node in doc.DocumentElement)
+                        doc.Load(saveDirectory + @"\" + filename + ".xml"); // load the nodes from the categoryname.xml file
+                        foreach (XmlNode node in doc.DocumentElement)   // Every node is going to be a Card 
                         {
-                            currentBox.Enqueue(ImportViewModel.readOwnFormatNode(node));   // Jede Karte wird in Form von einer XmlNode eingelesen, zu einer Karte gemacht und zurück gegeben
+                            currentBox.Enqueue(ImportViewModel.readOwnFormatNode(node)); 
                         }
 
                         xmlWriter.Formatting = Formatting.Indented; //Noch mal nachforschen, was es tut
                         xmlWriter.WriteStartDocument();
                         xmlWriter.WriteComment(filename);
-                        //xmlWriter.WriteName(filename);
                         xmlWriter.WriteStartElement("Cards");
                         foreach (CardViewModel card in currentBox)
                         {
                             xmlWriter.WriteStartElement("Card");
                             xmlWriter.WriteElementString("Question", card.Question);
                             xmlWriter.WriteElementString("Answer", card.Answer);
-                            xmlWriter.WriteElementString("Category", filename);
+                            //xmlWriter.WriteElementString("Category", filename);
                             if (card.QuestionPic != null && card.QuestionPic != "")
                             {
-                                string picNew = filename + "_img_" + picCount + ".jpg"; //Name der Bilder wird noch allgemein festgelegt
+                                string picNew = filename + "_img_" + picCount + ".jpg";
                                 picCount++;
                                 string pathSavePicture = fbd.SelectedPath.ToString() + @"\Export\content\" + picNew;
                                 File.Copy(savePicDirectory + card.QuestionPic, pathSavePicture);
                                 xmlWriter.WriteElementString("QuestionPic", picNew);
-                                
-                                //File.Copy(@"..\..\..\Lernkarten\content\question.jpg", pathSavePicture);
                             }
 
                             if (card.AnswerPic != null && card.AnswerPic != "")
                             {
-                                string picNew = filename + "_img_" + picCount + ".jpg"; //Name der Bilder wird noch allgemein festgelegt
+                                string picNew = filename + "_img_" + picCount + ".jpg";
                                 picCount++;
                                 string pathSavePicture = fbd.SelectedPath.ToString() + @"\Export\content\" + picNew;
                                 File.Copy(savePicDirectory + card.AnswerPic, pathSavePicture);
                                 xmlWriter.WriteElementString("AnswerPic", picNew);
-                                
-                                //File.Copy(@"..\..\..\Lernkarten\content\answer.jpg", pathSavePicture);
                             }
-                            xmlWriter.WriteElementString("Boxnumber", currentBox.Bn.ToString());
+                            //xmlWriter.WriteElementString("Boxnumber", currentBox.Bn.ToString());
                             if (inclStat && card.StatisticCollection != null)
                             {
                                 xmlWriter.WriteStartElement("StatisticCollection");
-                                if (card.StatisticCollection != null)   // Wenn es an dieser Stelle noch keine StatisticCollection gibt, wird hier auch nichts rein geschrieben
+                                if (card.StatisticCollection != null)
                                 {
                                     foreach (Statistic stat in card.StatisticCollection)
                                     {
-                                        xmlWriter.WriteStartElement("Statistic");   // Beginn eines Statistic Blocks
+                                        xmlWriter.WriteStartElement("Statistic");
                                         /*if(stat.Timestamp != null)
                                         {
                                             xmlWriter.WriteElementString("Timestamp", stat.Timestamp.ToString());
@@ -123,10 +116,10 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                                             xmlWriter.WriteElementString("Timestamp", stat.Timestamp.ToString());
                                             xmlWriter.WriteElementString("SuccessfullAnswer", stat.SuccessfullAnswer.ToString());
                                             xmlWriter.WriteElementString("CurrentBoxNumber", stat.CurrentBoxNumber.ToString());
-                                        xmlWriter.WriteEndElement(); // Ende eines Statistic Blocks
+                                        xmlWriter.WriteEndElement();
                                     }
                                 }
-                                xmlWriter.WriteEndElement(); // Ende der StatisticCollection
+                                xmlWriter.WriteEndElement();
                             }
                             xmlWriter.WriteEndElement();
                         }
@@ -134,7 +127,6 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                         xmlWriter.WriteEndDocument();
                         xmlWriter.Flush(); // Muss noch mal genau gelesen und beschrieben werden
                         xmlWriter.Close();
-                        MessageBox.Show("Dateien wurden exportiert");
                     }
                     catch
                     {

@@ -21,7 +21,7 @@
                         VerticalAlignment="Top" 
                         HorizontalAlignment="Left"
                         SelectedValue="{Binding Class}"
-                        ItemsSource="{Binding myModelViewModel}"
+                        ItemsSource="{Binding MyModelViewModel}"
                         DisplayMemberPath="Name"
                        >
                     </ComboBox>

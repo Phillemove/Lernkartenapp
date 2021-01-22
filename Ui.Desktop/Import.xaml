@@ -40,7 +40,7 @@
                     ></Label>
                     <Label 
                         HorizontalAlignment="Left"
-                        Content="{Binding Path=newClassName}" Foreground="Red" FontWeight="SemiBold"
+                        Content="{Binding Path=NewClassName}" Foreground="Red" FontWeight="SemiBold"
                     ></Label>
                     <RadioButton 
                         HorizontalAlignment="Right" 
@@ -54,7 +54,7 @@
                         VerticalAlignment="Top" 
                         HorizontalAlignment="Left"
                         SelectedValue="{Binding Class}"
-                        ItemsSource="{Binding myModelViewModel}"
+                        ItemsSource="{Binding MyModelViewModel}"
                         DisplayMemberPath="Name"
                     >
 

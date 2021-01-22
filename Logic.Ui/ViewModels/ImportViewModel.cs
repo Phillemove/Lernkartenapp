@@ -3,6 +3,7 @@ using De.HsFlensburg.ClientApp101.Logic.Ui.Support;
 using De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -12,11 +13,11 @@ using System.Xml;
 
 namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
 {
-    public class ImportViewModel
+    public class ImportViewModel: INotifyPropertyChanged
     {
         public RelayCommand chooseData { get; }
         public RelayCommand importData { get; }
-        public string FileName { get; set; }
+        //public string FileName { get; set; }
         public CategoryViewModel Class { get; set; }
 
         public BoxViewModel bvm;
@@ -25,35 +26,46 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         private OpenFileDialog ofd;
         private static string filepath;
 
-        public CategoryCollectionViewModel myModelViewModel { get; set; }
+        public CategoryCollectionViewModel MyModelViewModel { get; set; }
 
-        public String newClassName { get; set; }
+        private string classname;
+
+        public String NewClassName { get
+            {
+                return classname; }
+            set {
+                classname = value;
+                OnPropertyChanged("NewClassName");
+            } }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         private readonly static string pictureDirectory = @"..\..\..\Lernkarten\content\";
         public Boolean RadioButtonNewCatIsChecked { get; set; }
         public Boolean RadioButtonExistentCatIsChecked { get; set; }
-        public ImportViewModel()
-        {
-            chooseData = new RelayCommand(() => chooseDataMethod());
-            importData = new RelayCommand(() => importDataMethod());
-
-        }
 
         public ImportViewModel(CategoryCollectionViewModel categorys)
         {
             chooseData = new RelayCommand(() => chooseDataMethod());
             importData = new RelayCommand(() => importDataMethod());
-            myModelViewModel = categorys;
+            MyModelViewModel = categorys;
         }
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+
+
         /*
-         * Diese Methode speichert die Dateien entweder unter einem neuen Kategorienamen ab oder fügt diese zu einer
-         * bestehenden Kategorie hinzu
+         * This Method saves the Cards under a new Categoryname or fuse them with available Cards of the same category
          */
         private void importDataMethod()
         {
             if(!RadioButtonNewCatIsChecked && !RadioButtonExistentCatIsChecked)
             {
-                MessageBox.Show("Leider nichts ausgewählt, somit kein Import möglich"); // Vielleicht etwas eleganter mit Auswahl oder so.
+                MessageBox.Show("Leider nichts ausgewählt, somit kein Import möglich");
             }
             else
             {
@@ -73,41 +85,47 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                 }
                 if (RadioButtonNewCatIsChecked) 
                 {
-                    Category cat = new Category(System.IO.Path.GetFileNameWithoutExtension(ofd.FileName));
-                    foreach (CardViewModel card in this.bvm)
+                    CategoryViewModel cat = new CategoryViewModel(new Category(System.IO.Path.GetFileNameWithoutExtension(ofd.FileName)));
+                    foreach (CardViewModel card in this.bvm)    // Every Card gets the Category of the Filename
                     {
-                        card.Category = cat; // Zuweisung der Kategorie einer jeden Karte aus Dteiname
+                        card.Category = cat.category;
                     }
-                    myModelViewModel.categoryCollection.Add(cat);
+                    MyModelViewModel.Add(cat);
+
                     SaveCards.hardSave(this.bvm); 
                 }
                 else 
                 {
-                    Category cat = new Category(Class.Name);
-                    foreach (CardViewModel card in this.bvm)
+                    foreach(CategoryViewModel catVM in MyModelViewModel)
                     {
-                        card.Category = cat;    // Zuweisung der Kategorie einer jeden Karte aus vorhandenen Kategorien
+                        if(catVM.Name == Class.Name)
+                        {
+                            foreach (CardViewModel card in this.bvm)    // Every Card gets the choosen Category
+                            {
+                                card.Category = catVM.category;
+                            }
+                            SaveCards.SaveAdditionalCardBox(catVM,this.bvm);
+                        }
                     }
-                    SaveCards.SaveCardsToFile(this.bvm, myModelViewModel); 
                 };
             }
         }
         /*
-         * Diese Methode ist zum auswählen der Datei da. Damit kann man aus seiner Dateistruktur eine .xml Datei auswählen, welche dann eingelesen und importiert werden soll.
+         * This Method opens the OpenFileDialog with which the user can choose a .xml File. This reades the xml Nodes and creates with them new cards.
          */
         private void chooseDataMethod()
         {
-            ofd = new OpenFileDialog();  // Ein OpenFileDialog wird erstellt, durch das die Datei ausgewählt weden kann
-            ofd.Filter = "XML-Files|*.xml";     // Begrenzung der angezeigten Dateien auf .xml Dateien
-            if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK) // Wenn die Auswahl ohne Problme von statten ging
+            ofd = new OpenFileDialog();  // creating a OpenFileDialog to choose the File to be imported
+            ofd.Filter = "XML-Files|*.xml";     // Limitation for .xml Files
+            if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK) // If the choosen File works
             {
-                //MessageBox.Show(System.IO.Path.GetFileNameWithoutExtension(ofd.FileName));  // Anzeigen des Dateinamen (Nur erst mal Intern zur Kontrolle)
                 filepath = Path.GetDirectoryName(ofd.FileName);
-                XmlDocument doc = new XmlDocument();    // Ein neues XmlDocument wird erstellt, in das dann die zu importierende Datei geladen wird.
+                NewClassName = System.IO.Path.GetFileNameWithoutExtension(ofd.FileName);    // Show the Filename in the View
+                XmlDocument doc = new XmlDocument();    // a new XmlDocument, which is going to load the file in the next step
                 doc.Load(ofd.FileName);
-                this.bvm = new BoxViewModel();  // Ein BoxViewModel, in das die zu importierenden Karten geladen werden sollen
-                this.bvm.Bn = Boxnumber.None;
-                foreach (XmlNode node in doc.DocumentElement)
+                this.bvm = new BoxViewModel();  // A BoxViewModel, in which the cards are going to be stored
+                //this.bvm.Bn = Boxnumber.None;   // The 
+                foreach (XmlNode node in doc.DocumentElement)   // The Node is going to be a card and Enqueue to the BoxViewModel
                 {
                     CardViewModel card = readOwnFormatNode(node);
                     this.bvm.Enqueue(card);
@@ -119,19 +137,18 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             }
         }
         /*
-         * Diese Methode kann unser eigenes Xml-Schema lesen und aufgrund dessen neue Karten erstellen.
-         * Übergeben werden muss hier eine XmlNode und Rückgabe wird durch eine Karte realisiert.
+         * This Method reads the xml Nodes and creates cards
          */
         public static CardViewModel readOwnFormatNode(XmlNode node)
         {
-            CardViewModel card = new CardViewModel();   // Erstellung der Karte, welche zurückgegeben wird.
+            CardViewModel card = new CardViewModel();   // Creating the card, which is going to be given back
 
             foreach (XmlNode child in node)
             {
                 /*
-                 * In diesem Switch-Case wird immer geschaut, welche Node gerade vorhanden ist und der dementsprechende Wert dann der passenden Kartenstelle zugeschrieben.
+                 * This Switch-Case looks what kind the actual Node is and creates the equivalent part of the card
                  */
-                switch (child.Name) // Muss noch ausdetailliert werden im Bereich Category und StasticCollection
+                switch (child.Name)
                 {
                     case "Question":
                         card.Question = child.InnerText;
@@ -145,22 +162,21 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                     case "AnswerPic":
                         card.AnswerPic = child.InnerText;
                         break;
-                    case "Category":
-                        card.Category = new Category(child.InnerText); // Ich glaube nicht ganz korrekt. Immer eine Neue? Oder kann ich eine vorhandene verwenden? Muss das noch abgefragt werden?
-                        break;
+                    //case "Category":
+                        //card.Category = new Category(child.InnerText);
+                        //break;
                     case "StatisticCollection":
                         card.StatisticCollection = new StatisticCollection();   // Wird noch zu einer StatisticCollectionViewModel
                         /*
-                         * Durch diese Schleife wird jedes Statistic Object einzeln durchgegangen.
+                         * loop to go throug every Statistic
                          */
                         foreach(XmlNode statNode in child) 
                         {
-                            Statistic stat = new Statistic(); // Es wird eine neue Statistik angelegt
+                            Statistic stat = new Statistic();   // Creates a new Statistic
                             /*
-                             * Durch diese Schleife wird jede Node innerhalb einer Statistik-Node durchgegangen.
-                             * Hier verbergen sich die dementsprechenden Werte, welche zum erstellen der Statistik anlagen.
+                             * loop for the details of every StatisticObject
                              */
-                            foreach(XmlNode statDet in statNode) //Wie die Erstellung einzelner Statisticobjekte?
+                            foreach(XmlNode statDet in statNode)
                             {
                                 switch (statDet.Name)
                                 {
@@ -195,7 +211,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                                         break;
                                 }
                             }
-                            card.StatisticCollection.Add(stat); // Das gerade erzeugte Statistic-Objekt wird der Collection hinzugefügt.
+                            card.StatisticCollection.Add(stat);
                         }
                         break;
                 }
@@ -204,6 +220,9 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             
         }
 
+        /*
+         * This Method creates a random String for the Filenames
+         */
         public static string RandomString()
         {
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -211,6 +230,9 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
               .Select(s => s[random.Next(s.Length)]).ToArray());
         }
 
+        /*
+         * This Method copys pictures from the actual importfile to the own saveplace
+         */
         public static string copyPic(string currentPath)
         {
             string randName = RandomString() + ".jpg";
