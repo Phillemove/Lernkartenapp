@@ -4,6 +4,7 @@ using De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels;
 using De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,7 +29,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
 
 
         //<maha>
-        public CardWindowViewModel CardWindowViewModel { get; }
+        public CardWindowViewModel cardWindowViewModel { get; }
         public ModelViewModel myModelViewModel { get; }
         //</maha>
         public ViewModelLocator()
@@ -94,9 +95,9 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
             BoxViewModel bvm4 = new BoxViewModel(new Box(Boxnumber.Box4));
             BoxViewModel bvm5 = new BoxViewModel(new Box(Boxnumber.Box5));
 
-            CardViewModel cvm1 = new CardViewModel(new Card("what is sky color?","blue"));
-            CardViewModel cvm2 = new CardViewModel(new Card("what is year?","2021"));
-            CardViewModel cvm3 = new CardViewModel(new Card("is mouse input or output device?","input"));
+            CardViewModel cvm1 = new CardViewModel(new Card("what is sky color?","blue", @"..\images\sky.jpeg"));
+            CardViewModel cvm2 = new CardViewModel(new Card("what is year?","2021","Data/images/year2021.jpg"));
+            CardViewModel cvm3 = new CardViewModel(new Card("is mouse input or output device?","input", "Data/images/mouse.jpg"));
 
             myModelViewModel.BoxCollectionVM.Add(bvm1);
             myModelViewModel.BoxCollectionVM.Add(bvm2);
@@ -115,13 +116,14 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
             myModelViewModel.BoxCollectionVM.storeCard(cvm1, Boxnumber.Box5);
 
             //</maha>
-            CardWindowViewModel = new CardWindowViewModel(myModelViewModel.BoxCollectionVM , myModelViewModel.myCategoryCollection);
-            
+            cardWindowViewModel = new CardWindowViewModel(myModelViewModel.BoxCollectionVM , myModelViewModel.myCategoryCollection);
+
 
             //marah
             CardLearningViewModel = new CardLearningViewModel(myModelViewModel.BoxCollectionVM);
+            
 
-           
+
 
         }
     }
