@@ -23,7 +23,7 @@
                         HorizontalAlignment="Left" 
                         VerticalAlignment="Top" 
                         Width="75"
-                        Command="{Binding chooseData, Mode=OneWay}"/>
+                        Command="{Binding ChooseData, Mode=OneWay}"/>
                 </UniformGrid>
 
             </UniformGrid>
@@ -68,7 +68,7 @@
                     VerticalAlignment="Bottom" 
                     HorizontalAlignment="Right" 
                     Margin="10px"
-                    Command="{Binding importData, Mode=OneWay}"/>
+                    Command="{Binding ImportData, Mode=OneWay}"/>
             </UniformGrid>
         </Grid>
     </Grid>

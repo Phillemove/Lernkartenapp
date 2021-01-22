@@ -36,7 +36,7 @@
                     VerticalAlignment="Bottom"    
                     Margin="10px"
                     HorizontalAlignment="Right"
-                    IsChecked="{Binding inclStat}"/>
+                    IsChecked="{Binding InclStat}"/>
                     <Button 
                     Content="Exportieren" 
                     Height="20px" 
