@@ -15,69 +15,101 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
 {
 
     /*
-     * This Class Handels all the opportunities to Save a CardViewModel, BoxViewModel or BoxCollectionViewModel to the FileSystem. It can only write it to the FileSystem
-     * or load previously the cards, which are allready saved in the FileSystem
+     * This Class Handels all the opportunities to Save a CardViewModel, 
+     * BoxViewModel or BoxCollectionViewModel to the FileSystem. 
+     * It can only write it to the FileSystem or load previously the cards, 
+     * which are allready saved in the FileSystem
      */
     class SaveCards
     {
-        private static readonly string saveDirectory = @"..\..\..\Lernkarten\";
-        private static readonly string pictureDirectory = @"..\..\..\Lernkarten\content\";
+        private static readonly string saveDirectory = 
+            @"..\..\..\Lernkarten\";
+        private static readonly string pictureDirectory = 
+            @"..\..\..\Lernkarten\content\";
 
         /*
-         * This Method gets a BoxViewModel and Save this to the Filesystem. It creates a .xml File with the naming of the category.  
+         * This Method gets a BoxViewModel and Save this to the Filesystem. 
+         * It creates a .xml File with the naming of the category.  
          */
         public static void SaveBoxToFileSystem(BoxViewModel box)
         {
             System.IO.Directory.CreateDirectory(saveDirectory);
             System.IO.Directory.CreateDirectory(pictureDirectory);
             string filename = box.Peek().Category.Name;
-            XmlTextWriter writer = new XmlTextWriter(saveDirectory + @"\" + filename + ".xml", System.Text.Encoding.UTF8);
-            writer.Formatting = Formatting.Indented;    // So the .xml File is more readable and every Element get an own Line and is intended
+            XmlTextWriter writer = new XmlTextWriter(
+                saveDirectory + @"\" + filename + ".xml",
+                System.Text.Encoding.UTF8);
+            // So the .xml File is more readable and every
+            //  Element get an own Line and is intended
+            writer.Formatting = Formatting.Indented;    
             writer.WriteStartDocument();    
-                writer.WriteComment(filename);
-                writer.WriteStartElement("Cards"); 
-                    foreach(CardViewModel card in box)
+            writer.WriteComment(filename);
+            writer.WriteStartElement("Cards"); 
+            foreach(CardViewModel card in box)
+            {
+                writer.WriteStartElement("Card");
+                if (card.Question != null) { 
+                    writer.WriteElementString("Question", 
+                        card.Question); 
+                }
+                if (card.Answer != null) 
+                { 
+                    writer.WriteElementString("Answer", 
+                        card.Answer); 
+                }
+                if (card.QuestionPic != null) 
+                { 
+                    writer.WriteElementString("QuestionPic", 
+                        card.QuestionPic); 
+                }
+                if (card.AnswerPic != null) 
+                { 
+                    writer.WriteElementString("AnswerPic", 
+                        card.AnswerPic); 
+                }
+                if (card.StatisticCollection != null) { 
+                    writer.WriteStartElement("StatisticCollection"); 
+                    if (card.StatisticCollection != null)
                     {
-                        writer.WriteStartElement("Card");
-                            if (card.Question != null) { writer.WriteElementString("Question", card.Question); }
-                            if (card.Answer != null) { writer.WriteElementString("Answer", card.Answer); }
-                            if (card.QuestionPic != null) { writer.WriteElementString("QuestionPic", card.QuestionPic); }
-                            if (card.AnswerPic != null) { writer.WriteElementString("AnswerPic", card.AnswerPic); }
-                            if (card.StatisticCollection != null) { 
-                                writer.WriteStartElement("StatisticCollection"); 
-                                if (card.StatisticCollection != null)
-                                {
-                                    foreach(Statistic stat in card.StatisticCollection)
-                                    {
-                                        writer.WriteStartElement("Statistic");
-                                            writer.WriteElementString("Timestamp", stat.Timestamp.ToString());
-                                            writer.WriteElementString("SuccessfullAnswer", stat.SuccessfullAnswer.ToString());
-                                            writer.WriteElementString("CurrentBoxNumber", stat.CurrentBoxNumber.ToString());
-                                        writer.WriteEndElement();
-                                        writer.Flush();
-                                    }
-                                }
-                                writer.WriteEndElement();
-                            }
-                        writer.WriteEndElement();
-                        writer.Flush();
+                        foreach(Statistic stat in card.StatisticCollection)
+                        {
+                            writer.WriteStartElement("Statistic");
+                            writer.WriteElementString("Timestamp", 
+                                stat.Timestamp.ToString());
+                            writer.WriteElementString("SuccessfullAnswer", 
+                                stat.SuccessfullAnswer.ToString());
+                            writer.WriteElementString("CurrentBoxNumber", 
+                                stat.CurrentBoxNumber.ToString());
+                            writer.WriteEndElement();
+                            writer.Flush();
+                        }
                     }
-                writer.WriteEndElement(); 
+                writer.WriteEndElement();
+                }
+            writer.WriteEndElement();
+            writer.Flush();
+            }
+            writer.WriteEndElement(); 
             writer.WriteEndDocument();
             writer.Flush();
             writer.Close();
         }
 
         /*
-         * This Method gets a BoxCollectionViewModel and CategoryCollectionViewModel and Sort all Cards in the BCVM by theyre Category and put them in a new Box.
-         * All the Boxes with cards of the same Category are then the return.
+         * This Method gets a BoxCollectionViewModel and 
+         * CategoryCollectionViewModel and Sort all Cards in the
+         * BCVM by theyre Category and put them in a new Box.
+         * All the Boxes with cards of the same Category
+         * are then the return.
          */
-        public static BoxCollectionViewModel SortCardsFromBoxCollection(BoxCollectionViewModel bcvm, CategoryCollectionViewModel ccvm)
+        public static BoxCollectionViewModel SortCardsFromBoxCollection(
+            BoxCollectionViewModel bcvm, CategoryCollectionViewModel ccvm)
         {
             
             ArrayList categorys = new ArrayList();
             BoxCollectionViewModel bc = new BoxCollectionViewModel();
-            CategoryViewModel defaultCat = new CategoryViewModel(new Category("default"));
+            CategoryViewModel defaultCat = 
+                new CategoryViewModel(new Category("default"));
 
 
             foreach (BoxViewModel box in bcvm)
@@ -89,19 +121,33 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
                         card.Category = defaultCat.category;
                         ccvm.Add(defaultCat);
                     }
-                    if (card.QuestionPic != null && card.QuestionPic.Contains(@"\"))    // If there is a Picture, which isn't in our Filesystem, it will be copyd to it and the Card gets the new Name
+                    // If there is a Picture, which isn't in our Filesystem, 
+                    // it will be copyd to it and the Card gets the new Name
+                    if (card.QuestionPic != null && 
+                        card.QuestionPic.Contains(@"\"))    
                     {
-                        string newPicPath = ImportViewModel.RandomString() + ".jpg";
-                        File.Copy(card.QuestionPic, pictureDirectory + newPicPath);
+                        string newPicPath = 
+                            ImportViewModel.RandomString() + ".jpg";
+                        File.Copy(card.QuestionPic, 
+                            pictureDirectory + newPicPath);
                         card.QuestionPic = newPicPath;
                     }
-                    if (card.AnswerPic != null && card.AnswerPic.Contains(@"\"))   // If there is a Picture, which isn't in our Filesystem, it will be copyd to it and the Card gets the new Name
+                    // If there is a Picture, which isn't in our Filesystem, 
+                    // it will be copyd to it and the Card gets the new Name
+                    if (card.AnswerPic != null && 
+                        card.AnswerPic.Contains(@"\"))   
                     {
-                        string newPicPath = ImportViewModel.RandomString() + ".jpg";
-                        File.Copy(card.AnswerPic, pictureDirectory + newPicPath);
+                        string newPicPath = 
+                            ImportViewModel.RandomString() + ".jpg";
+                        File.Copy(card.AnswerPic, pictureDirectory +
+                            newPicPath);
                         card.AnswerPic = newPicPath;
                     }
-                    if (categorys.Contains(card.Category))  // If categorys allready contains the category of the card, the card will be enqueued to the correspondingly BoxViewModel
+                    /* If categorys allready contains the category of the card, 
+                    * the card will be enqueued to the correspondingly 
+                    * BoxViewModel
+                    */
+                    if (categorys.Contains(card.Category))  
                     {
                         foreach (BoxViewModel bvm in bc)
                         {
@@ -111,7 +157,13 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
                             }
                         }
                     }
-                    else // If the category isn't in category, it will create a new BoxViewModel for the category, add the category of the card to categorys and put the card in the new BoxViewModel
+                    /*
+                     * If the category isn't in category, it will create 
+                     * a new BoxViewModel for the category, add the category 
+                     * of the card to categorys and put the card 
+                     * in the new BoxViewModel
+                     */
+                    else
                     {
                         categorys.Add(card.Category);
                         BoxViewModel newBox = new BoxViewModel();
@@ -124,22 +176,30 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
         }
         
         /*
-         * This Method gets a CategoryViewModel and a CardViewModel. It will load all Cards which the corresponds to the CategoryViewModel, put them in a BoxViewModel,
-         * put the CardViewModel also in the BoxViewModel and calls SaveBoxToFileSystem() to Save the Cards to the FileSystem.
+         * This Method gets a CategoryViewModel and a CardViewModel. 
+         * It will load all Cards which the corresponds to 
+         * the CategoryViewModel, put them in a BoxViewModel,
+         * put the CardViewModel also in the BoxViewModel and calls 
+         * SaveBoxToFileSystem() to Save the Cards to the FileSystem.
          */
-        public static void SaveAdditionalCard(CategoryViewModel cat, CardViewModel card)
+        public static void SaveAdditionalCard(
+            CategoryViewModel cat, CardViewModel card)
         {
-            //BoxViewModel bvm = LoadExistingCards(card.Category) // Only available, if the CardViewModel contains a CategoryViewModel and not Category
             BoxViewModel bvm = LoadExistingCards(cat);
             bvm.Enqueue(card);
             SaveBoxToFileSystem(bvm);
         }
 
         /*
-         * This Method gets a CategoryViewModel and a BoxViewModel. It will load all Cards which the corresponds to the CategoryViewModel, put them in a BoxViewModel,
-         * put the CardViewModels from the BoxViewModel also in the new BoxViewModel and calls SaveBoxToFileSystem() to Save the Cards to the FileSystem.
+         * This Method gets a CategoryViewModel and a BoxViewModel. 
+         * It will load all Cards which the corresponds to the 
+         * CategoryViewModel, put them in a BoxViewModel, put the 
+         * CardViewModels from the BoxViewModel also in the new 
+         * BoxViewModel and calls SaveBoxToFileSystem() to 
+         * Save the Cards to the FileSystem.
          */
-        public static void SaveAdditionalCardBox(CategoryViewModel cat, BoxViewModel box)
+        public static void SaveAdditionalCardBox(
+            CategoryViewModel cat, BoxViewModel box)
         {
             BoxViewModel bvm = LoadExistingCards(cat);
             foreach(CardViewModel card in box)
@@ -151,12 +211,17 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
         }
 
         /*
-         * This Method gets a BoxCollectionViewModel and a CategoryCollectionViewModel. It calls SortCardsFromBoxCollection() with the BoxCollectionViewModel and
-         * CategoryCollectionViewModel. With this new BoxCollectionViewModel it calls SaveBoxToFileSystem() for every Box to save them to the FileSystem.
+         * This Method gets a BoxCollectionViewModel and 
+         * a CategoryCollectionViewModel. It calls SortCardsFromBoxCollection()
+         * with the BoxCollectionViewModel and CategoryCollectionViewModel. 
+         * With this new BoxCollectionViewModel it calls 
+         * SaveBoxToFileSystem() for every Box to save them to the FileSystem.
          */
-        public static void SaveBoxCollectionsToFilesystem(BoxCollectionViewModel bcvm, CategoryCollectionViewModel ccvm)
+        public static void SaveBoxCollectionsToFilesystem(
+            BoxCollectionViewModel bcvm, CategoryCollectionViewModel ccvm)
         {
-            BoxCollectionViewModel newBCVM = SortCardsFromBoxCollection(bcvm, ccvm);
+            BoxCollectionViewModel newBCVM = 
+                SortCardsFromBoxCollection(bcvm, ccvm);
             foreach(BoxViewModel box in newBCVM)
             {
                 SaveBoxToFileSystem(box);
@@ -164,8 +229,11 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
         }
 
         /*
-         * This Method gets a CategoryViewModel and Load all the Cards out of the File, which has the Name of the CategoryViewModel. So it give a BoxViewModel with all the
-         * loaded Cards back. If there are no Cards in the Filesystem, the Method returns an empty BoxViewModel and shows a hint.
+         * This Method gets a CategoryViewModel and Load all the Cards out of
+         * the File, which has the Name of the CategoryViewModel.
+         * So it give a BoxViewModel with all the loaded Cards back.
+         * If there are no Cards in the Filesystem, 
+         * the Method returns an empty BoxViewModel and shows a hint.
          */
         public static BoxViewModel LoadExistingCards(CategoryViewModel cat)
         {
@@ -173,16 +241,21 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
             try
             { 
                 XmlDocument doc = new XmlDocument();
-                doc.Load(saveDirectory + cat.Name + ".xml"); // This is possible, because the name of the File is the name of the category
+                // This is possible, because the name of the
+                // File is the name of the category
+                doc.Load(saveDirectory + cat.Name + ".xml"); 
                 foreach (XmlNode node in doc.DocumentElement)
                 {
-                    CardViewModel card = ImportViewModel.ReadOwnFormatNode(node);
+                    CardViewModel card = 
+                        ImportViewModel.ReadOwnFormatNode(node);
                     card.Category = cat.category;
                     bvm.Enqueue(card);
                 }
             } catch
             {
-                MessageBox.Show("Es konnten keine Karten aus dem Dateisystem geladen werden");
+                MessageBox.Show(
+                    "Es konnten keine Karten aus " +
+                    "dem Dateisystem geladen werden");
             }
             return bvm;
             

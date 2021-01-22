@@ -20,16 +20,21 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         public CategoryViewModel Class { get; set; }
         public BoxViewModel bvm;
         private readonly static Random random = new Random();
-        private readonly static int randPicNameLength = 10; // The stringlength for the Method RandomString()
+        // The stringlength for the Method RandomString()
+        private readonly static int randPicNameLength = 10; 
         private OpenFileDialog ofd;
-        private static string filepath; // The variable for the FileSystemPath, where the to be imported file is stored
-        private readonly static string pictureDirectory = @"..\..\..\Lernkarten\content\";
+        // The variable for the FileSystemPath,
+        // where the to be imported file is stored
+        private static string filepath; 
+        private readonly static string pictureDirectory =
+            @"..\..\..\Lernkarten\content\";
         public CategoryCollectionViewModel MyModelViewModel { get; set; }
 
         private string classname;   // the variable for the Label in the View
 
         /*
-         * This String is for the displaying the Classname of the loaded file in the View.
+         * This String is for the displaying the 
+         * Classname of the loaded file in the View.
          */
         public String NewClassName { get
             {
@@ -37,8 +42,8 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             }
             set {
                 classname = value;
-                OnPropertyChanged("NewClassName");  // If the NewClassName gets a new value, the OnPropertyChanged() is going to be called
-            } } // The Property for the Label in View, which shows the choosen Classname
+                OnPropertyChanged("NewClassName");
+            } }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -55,22 +60,28 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         }
 
         /*
-         * This Method is to "inform" the View about the new String in NewClassName, so the new value is going to be shown in the view
+         * This Method is to "inform" the View about the new String in
+         * NewClassName, so the new value is going to be shown in the view
          */
         protected void OnPropertyChanged(string propertyName)   
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this,
+                new PropertyChangedEventArgs(propertyName));
         }
 
         /*
-         * This Method saves the Cards under a new Categoryname or fuse them with available Cards of the same category. If the imported Files contains
-         * a picture, the Method copys them to the correct directory and replace the Name in the Card with the new Name.
+         * This Method saves the Cards under a new Categoryname or fuse 
+         * them with available Cards of the same category.
+         * If the imported Files contains a picture,
+         * the Method copys them to the correct directory
+         * and replace the Name in the Card with the new Name.
          */
         private void ImportDataMethod()
         {
             if(!RadioButtonNewCatIsChecked && !RadioButtonExistentCatIsChecked)
             {
-                MessageBox.Show("Leider nichts ausgewählt, somit kein Import möglich");
+                MessageBox.Show(
+                    "Leider nichts ausgewählt, somit kein Import möglich");
             }
             else
             {
@@ -89,8 +100,13 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                 }
                 if (RadioButtonNewCatIsChecked) 
                 {
-                    CategoryViewModel cat = new CategoryViewModel(new Category(System.IO.Path.GetFileNameWithoutExtension(ofd.FileName)));
-                    foreach (CardViewModel card in this.bvm)    // Every Card gets the Category of the Filename
+                    CategoryViewModel cat =
+                        new CategoryViewModel(
+                            new Category(
+                                System.IO.Path.GetFileNameWithoutExtension(
+                                    ofd.FileName)));
+                    // Every Card gets the Category of the Filename
+                    foreach (CardViewModel card in this.bvm)    
                     {
                         card.Category = cat.category;
                     }
@@ -104,7 +120,8 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                     {
                         if(catVM.Name == Class.Name)
                         {
-                            foreach (CardViewModel card in this.bvm)    // Every Card gets the choosen Category
+                            // Every Card gets the choosen Category
+                            foreach (CardViewModel card in this.bvm)    
                             {
                                 card.Category = catVM.category;
                             }
@@ -116,20 +133,31 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         }
         
         /*
-         * This Method opens the OpenFileDialog with which the user can choose a .xml File. This reades the xml Nodes and creates with them new cards.
+         * This Method opens the OpenFileDialog with which the
+         * user can choose a .xml File. This reades the xml Nodes
+         * and creates with them new cards.
          */
         private void ChooseDataMethod()
         {
-            ofd = new OpenFileDialog();  // creating a OpenFileDialog to choose the File to be imported
+            // creating a OpenFileDialog to choose the File to be imported
+            ofd = new OpenFileDialog();  
             ofd.Filter = "XML-Files|*.xml";     // Limitation for .xml Files
-            if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK) // If the choosen File works
+            // If the choosen File works
+            if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK) 
             {
                 filepath = Path.GetDirectoryName(ofd.FileName);
-                NewClassName = System.IO.Path.GetFileNameWithoutExtension(ofd.FileName);    // Show the Filename in the View
-                XmlDocument doc = new XmlDocument();    // a new XmlDocument, which is going to load the file in the next step
+                // Show the Filename in the View
+                NewClassName =
+                    System.IO.Path.GetFileNameWithoutExtension(ofd.FileName);
+                // a new XmlDocument, which is going to load
+                // the file in the next step
+                XmlDocument doc = new XmlDocument();
                 doc.Load(ofd.FileName);
-                this.bvm = new BoxViewModel();  // A BoxViewModel, in which the cards are going to be stored
-                foreach (XmlNode node in doc.DocumentElement)   // The Node is going to be a card and Enqueue to the BoxViewModel
+                // A BoxViewModel, in which the cards are going to be stored
+                this.bvm = new BoxViewModel();
+                // The Node is going to be a 
+                // card and Enqueue to the BoxViewModel
+                foreach (XmlNode node in doc.DocumentElement) 
                 {
                     CardViewModel card = ReadOwnFormatNode(node);
                     this.bvm.Enqueue(card);
@@ -146,12 +174,14 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
          */
         public static CardViewModel ReadOwnFormatNode(XmlNode node)
         {
-            CardViewModel card = new CardViewModel();   // Creating the card, which is going to be given back
+            // Creating the card, which is going to be given back
+            CardViewModel card = new CardViewModel();   
 
             foreach (XmlNode child in node)
             {
                 /*
-                 * This Switch-Case looks what kind the actual Node is and creates the equivalent part of the card
+                 * This Switch-Case looks what kind the actual
+                 * Node is and creates the equivalent part of the card
                  */
                 switch (child.Name)
                 {
@@ -168,13 +198,14 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                         card.AnswerPic = child.InnerText;
                         break;
                     case "StatisticCollection":
-                        card.StatisticCollection = new StatisticCollection();   // Wird noch zu einer StatisticCollectionViewModel
+                        card.StatisticCollection = new StatisticCollection();
                         /*
                          * loop to go throug every Statistic
                          */
                         foreach(XmlNode statNode in child) 
                         {
-                            Statistic stat = new Statistic();   // Creates a new Statistic
+                            // Creates a new Statistic
+                            Statistic stat = new Statistic();   
                             /*
                              * loop for the details of every StatisticObject
                              */
@@ -183,31 +214,41 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                                 switch (statDet.Name)
                                 {
                                     case "Timestamp":
-                                        stat.Timestamp = Convert.ToDateTime(statDet.InnerText);
+                                        stat.Timestamp =
+                                            Convert.ToDateTime(
+                                                statDet.InnerText);
                                         break;
                                     case "SuccessfullAnswer":
-                                        stat.SuccessfullAnswer = Convert.ToBoolean(statDet.InnerText);
+                                        stat.SuccessfullAnswer =
+                                            Convert.ToBoolean(
+                                                statDet.InnerText);
                                         break;
                                     case "CurrentBoxNumber":
                                         switch(statDet.InnerText)
                                         {
                                             case "None":
-                                                stat.CurrentBoxNumber = Boxnumber.None;
+                                                stat.CurrentBoxNumber =
+                                                    Boxnumber.None;
                                                 break;
                                             case "Box1":
-                                                stat.CurrentBoxNumber = Boxnumber.Box1;
+                                                stat.CurrentBoxNumber =
+                                                    Boxnumber.Box1;
                                                 break;
                                             case "Box2":
-                                                stat.CurrentBoxNumber = Boxnumber.Box2;
+                                                stat.CurrentBoxNumber =
+                                                    Boxnumber.Box2;
                                                 break;
                                             case "Box3":
-                                                stat.CurrentBoxNumber = Boxnumber.Box3;
+                                                stat.CurrentBoxNumber =
+                                                    Boxnumber.Box3;
                                                 break;
                                             case "Box4":
-                                                stat.CurrentBoxNumber = Boxnumber.Box4;
+                                                stat.CurrentBoxNumber =
+                                                    Boxnumber.Box4;
                                                 break;
                                             case "Box5":
-                                                stat.CurrentBoxNumber = Boxnumber.Box5;
+                                                stat.CurrentBoxNumber =
+                                                    Boxnumber.Box5;
                                                 break;
                                         }
                                         break;
@@ -223,24 +264,30 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         }
 
         /*
-         * This Method creates a random String for the Filenames and give this back. The idea and the most of the code is from the following page:
+         * This Method creates a random String for the Filenames and give
+         * this back. The idea and the most of the code is
+         * from the following page:
          * https://stackoverflow.com/questions/1344221/how-can-i-generate-random-alphanumeric-strings
          * The Website call was on: 22.01.2021 16:33MEZ
          */
         public static string RandomString()
         {
-            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"; // This is the Range and possible Chars for the String
+            // This is the Range and possible Chars for the String
+            const string chars =
+                "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"; 
             return new string(Enumerable.Repeat(chars, randPicNameLength)
               .Select(s => s[random.Next(s.Length)]).ToArray());
         }
 
         /*
-         * This Method copys pictures from the actual importfile to the own saveplace and returns the new Name of the Picture
+         * This Method copys pictures from the actual importfile
+         * to the own saveplace and returns the new Name of the Picture
          */
         public static string CopyPic(string currentPath)
         {
             string randName = RandomString() + ".jpg";
-            File.Copy(filepath + @"\content\" + currentPath, pictureDirectory +  randName);
+            File.Copy(filepath + @"\content\" + currentPath,
+                pictureDirectory +  randName);
             return (randName);
         }
 
