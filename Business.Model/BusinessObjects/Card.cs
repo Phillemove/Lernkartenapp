@@ -21,14 +21,14 @@ namespace De.HsFlensburg.ClientApp101.Business.Model.BusinessObjects
             Answer = null;
             QuestionPic = null;
             AnswerPic = null;
-            Category = null;
-            StatisticCollection = null;
+            Category = new Category("");
+            StatisticCollection = new StatisticCollection();
         }
-        public Card(String question, String answer)
+        public Card(String question, String answer, String questionPic)
         {
             Question = question;
             Answer = answer;
-            QuestionPic = null;
+            QuestionPic = questionPic;
             AnswerPic = null;
             Category = null;
             StatisticCollection = null;
@@ -40,7 +40,7 @@ namespace De.HsFlensburg.ClientApp101.Business.Model.BusinessObjects
             Answer=answer;
             QuestionPic = questionPic;
             AnswerPic = answerPic;
-            Category = category;
+            this.Category = category;
             StatisticCollection = statisticCollectio;
         }
         public Card(Category category)
@@ -49,7 +49,7 @@ namespace De.HsFlensburg.ClientApp101.Business.Model.BusinessObjects
             Answer = null;
             QuestionPic = null;
             AnswerPic = null;
-            Category = category;
+            this.Category = category;
             StatisticCollection = null;
         }
     }
