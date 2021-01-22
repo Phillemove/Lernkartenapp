@@ -5,16 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:De.HsFlensburg.ClientApp101.Ui.Desktop"
         mc:Ignorable="d"
-        Title="CardAdd" Height="450" Width="800">
+        Title="CardAdd" Height="458.75" Width="698.75">
     <Window.DataContext>
-        <Binding Source="{StaticResource VMLocator}" Path="CardWindowViewModel"></Binding>
+        <Binding Source="{StaticResource VMLocator}" Path="cardWindowViewModel"></Binding>
     </Window.DataContext>
 
-    <Grid Background="#ffffff" Margin="0,0,0,0.333">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-        </Grid.ColumnDefinitions>
+    <Grid Background="#ffffff" Margin="0,0,22.4,10.8">
         <Border x:Name="header" BorderThickness="3" HorizontalAlignment="Left"
                 Height="40" VerticalAlignment="Top" Width="1092" Background="#901aff"
                 Margin="0,0,0,0"/>
@@ -23,23 +19,23 @@
                FontFamily="Verdana" FontSize="20" FontWeight="Bold" Foreground="#FFFAFAFA" />
         <Label Grid.Column="0" x:Name="Question" Content="Question" HorizontalAlignment="Left"
                VerticalAlignment="Top" Background="#901aff"  FontFamily="Verdana" FontSize="10"
-               FontWeight="Bold" Foreground="#FFFAFAFA" Margin="17,45,0,0" Height="22" Width="82"/>
+               FontWeight="Bold" Foreground="#FFFAFAFA" Margin="46,45,0,0" Height="42" Width="82"/>
         <TextBox Grid.Column="0" Text="{Binding Path=Question}" BorderBrush="#dab3ff"
                  Background="#e6ccff" VerticalAlignment="Center" HorizontalAlignment="Right"
-                 Margin="0,45,78.8,332.667" Width="197" Height="42"></TextBox>
+                 Margin="0,45,232,331" Width="288" Height="42" RenderTransformOrigin="0.505,0.5"></TextBox>
         <Label Grid.Column="0" x:Name="Answer" Content="Answer" HorizontalAlignment="Left"
                VerticalAlignment="Top" Background="#901aff"  FontFamily="Verdana" FontSize="10"
-               FontWeight="Bold" Foreground="#FFFAFAFA" Margin="17,110,0,0" Height="22" Width="82"/>
+               FontWeight="Bold" Foreground="#FFFAFAFA" Margin="46,107,0,0" Height="47" Width="82"/>
         <TextBox Grid.Column="0" Text="{Binding Path=Answer}" BorderBrush="#dab3ff"
                  Background="#e6ccff" VerticalAlignment="Center" HorizontalAlignment="Right"
-                 Margin="0,110,78.8,262.667" Width="197" Height="47" ></TextBox>
+                 Margin="0,107,232,264" Width="288" Height="47" ></TextBox>
         <Button Grid.Column="0" HorizontalAlignment="Left"  Width="149"
-                Command="{Binding AddQuestionPic,Mode=OneWay}" Margin="36,174,0,204.667"
+                Command="{Binding AddQuestionPic,Mode=OneWay}" Margin="121,174,0,205"
                 RenderTransformOrigin="0.22,-1.215">
             Add Question Picture</Button>
-        <Button Grid.Column="0"   Width="149" HorizontalAlignment="Left" 
+        <Button Grid.Column="0"   Width="148" HorizontalAlignment="Left" 
                 Command="{Binding AddAnswerPic,Mode=OneWay}"
-                RenderTransformOrigin="0.22,-1.215" Margin="225,174,0,204.667">
+                RenderTransformOrigin="0.22,-1.215" Margin="388,174,0,205">
             Add Answer Picture</Button>
         <Label Grid.Column="0" BorderBrush="#dab3ff" x:Name="Category" Content="Category"
                HorizontalAlignment="Left" VerticalAlignment="Top" Background="#901aff"
@@ -52,14 +48,12 @@
         </ComboBox>
         <ComboBox Grid.Column="0" HorizontalAlignment="Left"
                   Margin="121,312,0,60.667" DisplayMemberPath="Bn"
-                  SelectedItem="{Binding BoxNum}"
+                  SelectedItem="{Binding BoxVM}"
                   ItemsSource="{Binding myBoxCollectionViewModel}"
                   Width="197" >
         </ComboBox>
         <Button Grid.Column="0" HorizontalAlignment="Left" Margin="17,370,0,9.667" Width="111"
                 Command="{Binding AddCard,Mode=OneWay}">Add Card</Button>
-        <DataGrid Grid.Column="1" ItemsSource="{Binding  Path= myBoxCollectionViewModel}" Margin="0.2,0,-0.4,9.667">
-        </DataGrid>
         <Label Grid.Column="0" BorderBrush="#dab3ff" x:Name="BoxNumber" Content="BoxNumber"
             HorizontalAlignment="Left" VerticalAlignment="Top" Background="#901aff"
             FontFamily="Verdana" FontSize="10" FontWeight="Bold" Foreground="#FFFAFAFA"

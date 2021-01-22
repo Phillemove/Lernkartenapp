@@ -21,11 +21,19 @@
                VerticalAlignment="Top" Background="#901aff"  FontFamily="Verdana" FontSize="10"
                FontWeight="Bold" Foreground="#FFFAFAFA" Margin="49,140,0,0" Height="22" Width="82"/>
         <TextBox Grid.Column="0" Text="{Binding Path=Answer}" BorderBrush="#dab3ff"
-                 Background="#e6ccff" VerticalAlignment="Center" HorizontalAlignment="Right" RenderTransformOrigin="-5.147,-1.657" Margin="0,140,330.6,235" Height="45" Width="298"></TextBox>        
+                 Background="#e6ccff" VerticalAlignment="Center" HorizontalAlignment="Right" RenderTransformOrigin="-5.147,-1.657" Margin="0,140,330.6,235" Height="45" Width="298"></TextBox>
+        <Image Source="{Binding CardVM.QuestionPic}" HorizontalAlignment="Left" Margin="490,36,0,141" Name="image1" Stretch="Fill"
+               Width="262" />
+        <ProgressBar Minimum="0" Maximum="{Binding MaximumProgressBarValue}" Margin="49,342,41.6,34" Value="{Binding CurrentProgressBarValue}"/>
         <Button Grid.Column="0" HorizontalAlignment="Left"  Width="206"
-                Command="{Binding ShowCard,Mode=OneWay}" Margin="283,302,0,34"
+                Command="{Binding ShowCard,Mode=OneWay}" Margin="49,232,0,104"
                 RenderTransformOrigin="0.22,-1.215">
-        show next card    
+            show next card
+        </Button>
+        <Button Grid.Column="0" HorizontalAlignment="Left"  Width="206"
+                Command="{Binding doNotKnow,Mode=OneWay}" Margin="260,232,0,104"
+                RenderTransformOrigin="0.22,-1.215">
+            I do not know
         </Button>
     </Grid>
 </Window>

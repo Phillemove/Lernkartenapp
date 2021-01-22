@@ -12,7 +12,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper
 
     public class BoxCollectionViewModel : ObservableCollection<BoxViewModel>
     {
-        public BoxCollection boxCollection;
+        public BoxCollection boxCollection { get; set; }
         private bool syncDisabled;
         public BoxCollectionViewModel()
         {

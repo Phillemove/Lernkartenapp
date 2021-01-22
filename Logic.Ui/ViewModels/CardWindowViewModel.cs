@@ -2,6 +2,7 @@
 using De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,8 +10,9 @@ using System.Windows.Forms;
 
 namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
 {
-    public class CardWindowViewModel
+    public class CardWindowViewModel : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
         public BoxViewModel BoxVM { get; set; }
         public String Question { get; set; }
         public String Answer { get; set; }
@@ -22,12 +24,62 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         public RelayCommand AddQuestionPic { get; }
         public RelayCommand AddAnswerPic { get; }
         public BoxCollectionViewModel myBoxCollectionViewModel { get; set; }
+        public BoxViewModel myBoxesViewModel;
+        public BoxViewModel MyBoxesViewModel
+        {
+            get { return this.myBoxesViewModel; }
+            set
+            {
+                this.myBoxesViewModel = value;
+                OnPropertyChanged("MyBox1ViewModel");
+            }
+        }
         public CategoryCollectionViewModel myCatCollectionViewModel { get; set; }
 
         public CardWindowViewModel(BoxCollectionViewModel bcvm, CategoryCollectionViewModel ccvm)
         {
+            AddCard = new RelayCommand(() => AddCardMethod());
+            AddQuestionPic = new RelayCommand(() => AddQuestionPicMethod());
+            AddAnswerPic = new RelayCommand(() => AddAnswerPicMethod());
             myBoxCollectionViewModel = bcvm;
-            myCatCollectionViewModel = ccvm;
+            MyBoxesViewModel = new BoxViewModel();
+            //int cardCount = GetCardsCount();
+            //for (int i = 1; i <= cardCount; i++)
+            //{
+            //    MyBoxesViewModel.add(getNextCard());
+            //}
+        }
+        public int GetCardsCount()
+        {
+            int count = 0;
+            for (int i = 0; i < 5; i++)
+            {
+                count += myBoxCollectionViewModel[i].Count;
+            }
+            //--------------------
+            MessageBox.Show("Cards Count = "+count);
+            return count;
+        }
+        public CardViewModel getNextCard()
+        {
+            CardViewModel CardVM = myBoxCollectionViewModel.giveCard(Boxnumber.Box1);
+            if (CardVM == null)
+            {
+                CardVM = myBoxCollectionViewModel.giveCard(Boxnumber.Box2);
+            }
+            if (CardVM == null)
+            {
+                CardVM = myBoxCollectionViewModel.giveCard(Boxnumber.Box3);
+            }
+            if (CardVM == null)
+            {
+                CardVM = myBoxCollectionViewModel.giveCard(Boxnumber.Box4);
+            }
+            if (CardVM == null)
+            {
+                CardVM = myBoxCollectionViewModel.giveCard(Boxnumber.Box5);
+            }
+            return CardVM;
         }
         private void AddCardMethod()
         {
@@ -36,11 +88,11 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             cardVM.Answer = Answer;
             cardVM.QuestionPic = QuestionPic;
             cardVM.AnswerPic = AnswerPic;
-          //  cardVM.Category = myCategory;
+            cardVM.Category = null;
             cardVM.StatisticCollection = null;
-           // MessageBox.Show("myCategory :" + myCategory.Name);
+           //MessageBox.Show("myCategory :" + myCategory.Name);
             //MessageBox.Show(cardVM.Question+"-"+ cardVM.Answer+" - "+ cardVM.QuestionPic+"-"+ cardVM.AnswerPic
-            //                +"-"+ myCategory.Name + "- boxNumber:"+ BoxVM.Bn);
+            // +"-"+ myCategory.Name + "- boxNumber:"+ BoxVM.Bn);
             myBoxCollectionViewModel.storeCard(cardVM, BoxVM.Bn);
 
         }
@@ -84,7 +136,14 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             }
 
         }
+        private void OnPropertyChanged(string propertyName)
+        {
+            if (this.PropertyChanged != null)
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
+
     }
+
 }
 
 
