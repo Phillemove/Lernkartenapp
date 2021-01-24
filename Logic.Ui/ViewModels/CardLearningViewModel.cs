@@ -75,6 +75,8 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             CardVM = myBoxCollectionViewModel.giveCard(Boxnumber.Box1);
             ShowCard = new RelayCommand(() => ShowCardMethod());
             doNotKnow= new RelayCommand(() => doNotKnowMethod());
+           
+
         }
         private void OnTimedEvent(Object source, ElapsedEventArgs e)
         {
@@ -98,8 +100,9 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
 
                         MessageBox.Show("correct answer");
                         Answer = "";
-                        //-------------------                        
-                        //CardVM.StatisticCollection.Add(new Statistic(new DateTime(),true,Boxnumber.None));
+                        //-------------------           
+                        //MessageBox.Show(DateTime.Now.ToString());
+                        CardVM.StatisticCollection.Add(new Statistic(DateTime.Now,true,Boxnumber.None));
                     }
                     else
                     { //  incorrect answer
@@ -107,7 +110,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                         MessageBox.Show("Errror");                        
                         Answer = "";
                         //-------------------
-                        //CardVM.StatisticCollection.Add(new Statistic(new DateTime(),false,Boxnumber.None));
+                        CardVM.StatisticCollection.Add(new Statistic(DateTime.Now,false,Boxnumber.None));
                     }
                     // go to next card
                     getNextCard();

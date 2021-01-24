@@ -31,7 +31,7 @@ namespace De.HsFlensburg.ClientApp101.Business.Model.BusinessObjects
             QuestionPic = questionPic;
             AnswerPic = null;
             Category = null;
-            StatisticCollection = null;
+            StatisticCollection = new StatisticCollection();
         }
         public Card(String question, String answer, String questionPic, String answerPic,
                                      Category category,StatisticCollection statisticCollectio)

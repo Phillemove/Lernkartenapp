@@ -5,19 +5,36 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:De.HsFlensburg.ClientApp101.Ui.Desktop"
         mc:Ignorable="d"
-        Title="ManageCard" Height="828.55" Width="1015.5">
+        Title="ManageCard" Height="669.95" Width="1015.5">
     <Window.DataContext>
         <Binding Source="{StaticResource VMLocator}" Path="cardWindowViewModel"></Binding>
     </Window.DataContext>
-    <Grid Margin="0,0,40.6,49">
-        <Label Margin="0,0,-20.8,726.2">All Boxes
-        </Label>
-        <DataGrid ItemsSource="{Binding Path=MyBoxesViewModel}" IsReadOnly="True"  
-                HorizontalAlignment="Left" Height="392" 
-                VerticalAlignment="Top" Width="968" 
-                RenderTransformOrigin="0.5,0.5"
-                ScrollViewer.CanContentScroll="True"
-                ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="0,24,0,0"/>
-    </Grid>
+    <Grid Margin="0,0,2.8,5">
+        <DataGrid ItemsSource="{Binding Path=myBoxCollectionViewModel}"
+                  SelectedItem="{Binding SelectedBox}"
+                  Margin="36,55,563,421" />
+        <DataGrid ItemsSource="{Binding Path=SelectedBox}"
+                  SelectedItem="{Binding SelectedCard}"
+                  HorizontalAlignment="Left"
+                  Height="250" Margin="482,10,0,0" VerticalAlignment="Top" Width="487"/>
+        <TextBox  Text="{Binding Path=SelectedCard.Question}" HorizontalAlignment="Left" Height="55"
+                  Margin="154,276,0,0" TextWrapping="Wrap"
+                  VerticalAlignment="Top" Width="236"/>
+        <Label Content="question&#xD;&#xA;" HorizontalAlignment="Left" Margin="55,276,0,0" VerticalAlignment="Top" FontSize="22" Height="55"/>
+        <Image  Source="{Binding SelectedCard.QuestionPic}" 
+                HorizontalAlignment="Left" Height="183" Margin="97,362,0,0"
+                VerticalAlignment="Top" Width="293"/>
+        <TextBox  Text="{Binding SelectedCard.Answer}" HorizontalAlignment="Left" Height="55"
+            Margin="546,276,0,0" TextWrapping="Wrap"
+            VerticalAlignment="Top" Width="236"/>
+        <Label Content="Answer&#xA;" HorizontalAlignment="Left" Margin="447,276,0,0" VerticalAlignment="Top" FontSize="22" Height="55"/>
+        <Image  Source="{Binding SelectedCard.AnswerPic}" 
+            HorizontalAlignment="Left" Height="183" Margin="546,362,0,0"
+            VerticalAlignment="Top" Width="261"/>
+        <Button Command="{Binding UpdateQuestionPic,Mode=OneWay}" Content="update Question Picture" HorizontalAlignment="Left" Margin="180,574,0,0" VerticalAlignment="Top" Width="236" Height="51" FontSize="18"/>
+        <Button Command="{Binding UpdateAnswerPic,Mode=OneWay}" Content="update Answer Picture" HorizontalAlignment="Left" Margin="613,572,0,0" VerticalAlignment="Top" Width="213" Height="51" FontSize="18" RenderTransformOrigin="0.787,0.525"/>
+        <Button Command="{Binding EditQuestionPic,Mode=OneWay}" Content="Edit" HorizontalAlignment="Left" Margin="55,574,0,0" VerticalAlignment="Top" Width="75" Height="46" FontSize="18"/>
+        <Button Command="{Binding EditAnswerPic, Mode=OneWay}" Content="Edit" HorizontalAlignment="Left" Margin="505,572,0,0" VerticalAlignment="Top" Width="75" Height="46" FontSize="18" RenderTransformOrigin="0.869,0.617"/>
+        <Button Command="{Binding DeleteCard, Mode=OneWay}" Content="delete" HorizontalAlignment="Left" Margin="872,574,0,0" VerticalAlignment="Top" Width="124" Height="51" FontSize="24"/>
+    </Grid> 
 </Window>
