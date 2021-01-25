@@ -1,12 +1,7 @@
 ﻿using De.HsFlensburg.ClientApp101.Logic.Ui.MessageBusMessages;
-using De.HsFlensburg.ClientApp101.Logic.Ui.Support;
 using De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper;
 using De.HsFlensburg.ClientApp101.Services.MessageBus;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
 
 namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
 {
@@ -38,15 +33,17 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             OpenCategoryAddWindow = new RelayCommand(() => ServiceBus.Instance.Send(new OpenCategoryAddMessage()));
             OpenImportForeignFormatWindow = new RelayCommand(() => ServiceBus.Instance.Send(new OpenImportForeignFormatMessage()));
             OpenManageCardsWindow = new RelayCommand(() => ServiceBus.Instance.Send(new OpenManageCardMessage()));
-            SaveAndCloseAll = new RelayCommand(() => Save());
+            SaveAndCloseAll = new RelayCommand(param => Save(param));
 
             myBoxCollectionViewModel = mvm.BoxCollectionVM; 
             myModelViewModel = mvm;
         }
 
 
-        private void Save()
+        private void Save(object param)
         {
+            Window window = (Window)param;
+            window.Close();
             //myModelViewModel.SaveCategorys();
             //SaveCards.SaveBoxCollectionsToFilesystem(myBoxCollectionViewModel, myModelViewModel.myCategoryCollection);
         }

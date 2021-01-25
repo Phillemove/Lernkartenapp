@@ -14,6 +14,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
             add { }
             remove { }
         }
+        private Action<object> parameterMethodToExecute;
         private Action methodToExecute;
         private Func<bool> canExecuteEvaluator;
         public RelayCommand(Action methodToExecute, Func<bool> canExecuteEvaluator)
@@ -24,6 +25,12 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
         public RelayCommand(Action methodToExecute)
             : this(methodToExecute, null)
         {
+        }
+        public RelayCommand(Action<object> methodToExecute) : this(methodToExecute, null) { }
+        public RelayCommand(Action<object> methodToExecute, Func<bool> canExecuteEvaluator)
+        {
+            this.parameterMethodToExecute = methodToExecute;
+            this.canExecuteEvaluator = canExecuteEvaluator;
         }
         public bool CanExecute(object parameter)
         {
@@ -39,7 +46,17 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
         }
         public void Execute(object parameter)
         {
-            this.methodToExecute.Invoke();
+            if (this.methodToExecute != null)
+            {
+                this.methodToExecute.Invoke();
+            }
+            if (this.parameterMethodToExecute != null)
+            {
+                this.parameterMethodToExecute.Invoke(parameter);
+            }
         }
     }
 }
+
+
+
