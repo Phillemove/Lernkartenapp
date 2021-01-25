@@ -3,6 +3,7 @@ using De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,15 +24,41 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         public RelayCommand AddCard { get; }
         public RelayCommand AddQuestionPic { get; }
         public RelayCommand AddAnswerPic { get; }
+        public RelayCommand UpdateQuestionPic { get; }
+        public RelayCommand UpdateAnswerPic { get; }
+        public RelayCommand EditQuestionPic { get; }
+        public RelayCommand EditAnswerPic { get; }
+        public RelayCommand DeleteCard { get; }
         public BoxCollectionViewModel myBoxCollectionViewModel { get; set; }
-        public BoxViewModel myBoxesViewModel;
-        public BoxViewModel MyBoxesViewModel
+        //public BoxViewModel myBoxesViewModel;
+        //public BoxViewModel MyBoxesViewModel
+        //{
+        //    get { return this.myBoxesViewModel; }
+        //    set
+        //    {
+        //        this.myBoxesViewModel = value;
+        //        OnPropertyChanged("MyBox1ViewModel");
+        //    }
+        //}
+
+        public BoxViewModel selectedBox;
+        public BoxViewModel SelectedBox
         {
-            get { return this.myBoxesViewModel; }
+            get { return this.selectedBox; }
             set
             {
-                this.myBoxesViewModel = value;
-                OnPropertyChanged("MyBox1ViewModel");
+                this.selectedBox = value;
+                OnPropertyChanged("SelectedBox");
+            }
+        }
+        public CardViewModel selectedCard;
+        public CardViewModel SelectedCard
+        {
+            get { return this.selectedCard; }
+            set
+            {
+                this.selectedCard = value;
+                OnPropertyChanged("SelectedCard");
             }
         }
         public CategoryCollectionViewModel myCatCollectionViewModel { get; set; }
@@ -41,13 +68,17 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             AddCard = new RelayCommand(() => AddCardMethod());
             AddQuestionPic = new RelayCommand(() => AddQuestionPicMethod());
             AddAnswerPic = new RelayCommand(() => AddAnswerPicMethod());
+
+            UpdateQuestionPic = new RelayCommand(() => UpdateQuestionPicMethod());
+            UpdateAnswerPic = new RelayCommand(() => UpdateAnswerPicMethod());
+
+            EditQuestionPic = new RelayCommand(() => EditQuestionPicMethod());
+            EditAnswerPic = new RelayCommand(() => EditAnswerPicMethod());
+
+            DeleteCard = new RelayCommand(() => DeleteCardMethod());
+
             myBoxCollectionViewModel = bcvm;
-            MyBoxesViewModel = new BoxViewModel();
-            //int cardCount = GetCardsCount();
-            //for (int i = 1; i <= cardCount; i++)
-            //{
-            //    MyBoxesViewModel.add(getNextCard());
-            //}
+            myCatCollectionViewModel = ccvm;
         }
         public int GetCardsCount()
         {
@@ -57,7 +88,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                 count += myBoxCollectionViewModel[i].Count;
             }
             //--------------------
-            MessageBox.Show("Cards Count = "+count);
+            //MessageBox.Show("Cards Count = "+count);
             return count;
         }
         public CardViewModel getNextCard()
@@ -116,6 +147,41 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             }
 
         }
+        private void UpdateQuestionPicMethod()
+        {
+            try
+            {
+                OpenFileDialog dialog = new OpenFileDialog();
+                dialog.Filter = "jpg files(*.jpg)|*.jpg| PNG files(*.png)|*.png| All Files(*.*)|*.*";
+                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    //Image newImage = Image.FromFile(dialog.FileName);
+                    SelectedCard.QuestionPic = dialog.FileName;
+                    MessageBox.Show(this.QuestionPic);
+                }
+
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("An Error Occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+        private void EditQuestionPicMethod()
+        {
+            try
+            {
+                ProcessStartInfo startInfo = new ProcessStartInfo(SelectedCard.QuestionPic);
+                startInfo.Verb = "edit";
+                Process.Start(startInfo);
+
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("An Error Occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
         private void AddAnswerPicMethod()
         {
             try
@@ -134,7 +200,57 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             {
                 MessageBox.Show("An Error Occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+        private void UpdateAnswerPicMethod()
+        {
+            try
+            {
+                OpenFileDialog dialog = new OpenFileDialog();
+                dialog.Filter = "jpg files(*.jpg)|*.jpg| PNG files(*.png)|*.png| All Files(*.*)|*.*";
+                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    //Image newImage = Image.FromFile(dialog.FileName);
+                    SelectedCard.AnswerPic = dialog.FileName;
+                    MessageBox.Show(this.AnswerPic);
+                }
 
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("An Error Occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+        private void EditAnswerPicMethod()
+        {
+            try
+            {
+                ProcessStartInfo startInfo = new ProcessStartInfo(SelectedCard.AnswerPic);
+                startInfo.Verb = "edit";
+                Process.Start(startInfo);
+
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("An Error Occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+        private void DeleteCardMethod()
+        {
+                BoxViewModel boxvm = new BoxViewModel();
+                for (int i = 0; i < SelectedBox.Count; i++)
+                {
+                    CardViewModel cvm = SelectedBox.remove();
+                    if (!cvm.Equals(selectedCard))
+                    {
+                        boxvm.add(cvm);
+                    }
+                }
+                for (int i = 0; i < boxvm.Count; i++)
+                {
+                    SelectedBox.add(boxvm.remove());
+                }
         }
         private void OnPropertyChanged(string propertyName)
         {

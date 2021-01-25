@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -37,11 +38,11 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
             // for Statistics Dummydata
             statisticCollectionVM = new StatisticCollectionViewModel();
 
-            
+
             StatisticWindowViewModel = new StatisticWindowViewModel(statisticCollectionVM);
-            
-            
-            
+
+
+
             //CardWindowViewModel = new CardWindowViewModel();
             CategoryViewModel = new CategoryViewModel();
 
@@ -53,7 +54,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
             statistic.SuccessfullAnswer = true;
             statistic.CurrentBoxNumber = Boxnumber.Box2;
             statisticCollectionVM.Add(new StatisticViewModel(statistic));
-          
+
             Statistic statistic1 = new Statistic();
             statistic1.Timestamp = new DateTime(2021, 01, 03, 8, 45, 25);
             statistic1.SuccessfullAnswer = true;
@@ -71,6 +72,8 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
             statistic3.SuccessfullAnswer = false;
             statistic3.CurrentBoxNumber = Boxnumber.Box4;
             statisticCollectionVM.Add(new StatisticViewModel(statistic3));
+
+
 
             // This mthod must be executed each time the statistics Window is opened
             StatisticWindowViewModel.MakeStatistic();
@@ -95,9 +98,11 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
             BoxViewModel bvm4 = new BoxViewModel(new Box(Boxnumber.Box4));
             BoxViewModel bvm5 = new BoxViewModel(new Box(Boxnumber.Box5));
 
-            CardViewModel cvm1 = new CardViewModel(new Card("what is sky color?","blue", @"..\images\sky.jpeg"));
-            CardViewModel cvm2 = new CardViewModel(new Card("what is year?","2021","Data/images/year2021.jpg"));
-            CardViewModel cvm3 = new CardViewModel(new Card("is mouse input or output device?","input", "Data/images/mouse.jpg"));
+            CardViewModel cvm1 = new CardViewModel(new Card("what is sky color?", "blue", Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "\\..\\..\\..\\Data\\myimages\\sky.jpeg"));
+            CardViewModel cvm2 = new CardViewModel(new Card("what is year?", "2021", Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "\\..\\..\\..\\Data\\myimages\\year2021.jpg"));
+            CardViewModel cvm3 = new CardViewModel(new Card("is mouse input or output device?", "input", Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "\\..\\..\\..\\Data\\myimages\\mouse.jpg"));
+
+            cvm1.StatisticCollection = statisticCollectionVM.statisticCollection;
 
             myModelViewModel.BoxCollectionVM.Add(bvm1);
             myModelViewModel.BoxCollectionVM.Add(bvm2);
