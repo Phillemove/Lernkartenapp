@@ -42,5 +42,6 @@
                 ScrollViewer.CanContentScroll="True"
                 ScrollViewer.HorizontalScrollBarVisibility="Auto"
                 ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="884,43,0,0"/>
+        <Button IsCancel="True" Content="Close" HorizontalAlignment="Left" Margin="283,10,0,0" VerticalAlignment="Top" Width="100" Height="28" FontSize="18"/>
     </Grid>
 </Window>

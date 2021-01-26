@@ -30,16 +30,6 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         public RelayCommand EditAnswerPic { get; }
         public RelayCommand DeleteCard { get; }
         public BoxCollectionViewModel myBoxCollectionViewModel { get; set; }
-        //public BoxViewModel myBoxesViewModel;
-        //public BoxViewModel MyBoxesViewModel
-        //{
-        //    get { return this.myBoxesViewModel; }
-        //    set
-        //    {
-        //        this.myBoxesViewModel = value;
-        //        OnPropertyChanged("MyBox1ViewModel");
-        //    }
-        //}
 
         public BoxViewModel selectedBox;
         public BoxViewModel SelectedBox
@@ -238,19 +228,27 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         }
         private void DeleteCardMethod()
         {
+                String s = "";
                 BoxViewModel boxvm = new BoxViewModel();
-                for (int i = 0; i < SelectedBox.Count; i++)
+                int leng = SelectedBox.Count;
+                for (int i = 0; i < leng; i++)
                 {
-                    CardViewModel cvm = SelectedBox.remove();
+                    CardViewModel cvm = SelectedBox.Remove();
                     if (!cvm.Equals(selectedCard))
                     {
-                        boxvm.add(cvm);
+                        boxvm.Add(cvm);
+                        s += cvm.Question;
                     }
                 }
-                for (int i = 0; i < boxvm.Count; i++)
+                leng = boxvm.Count;
+                for (int i = 0; i < leng; i++)
                 {
-                    SelectedBox.add(boxvm.remove());
+                    CardViewModel cvm = boxvm.Remove();
+                    SelectedBox.Add(cvm);
+                    
                 }
+                MessageBox.Show(s);
+                SelectedBox = SelectedBox;
         }
         private void OnPropertyChanged(string propertyName)
         {

@@ -33,7 +33,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper
             {
                 if (boxvm.Bn == bn)
                 {
-                    return boxvm.remove();
+                    return boxvm.Remove();
                 }
             }
             return null;
@@ -44,14 +44,14 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper
             {
                 if (boxvm.Bn == bn)
                 {
-                    boxvm.add(cardvm);
+                    boxvm.Add(cardvm);
                 }
             }
             foreach (Box box in this.boxCollection)
             {
                 if (box.Bn == bn)
                 {
-                    box.add(cardvm.card);
+                    box.Add(cardvm.card);
                 }
             }
         }

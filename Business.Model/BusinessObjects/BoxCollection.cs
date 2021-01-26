@@ -17,7 +17,7 @@ namespace De.HsFlensburg.ClientApp101.Business.Model.BusinessObjects
             {
                 if (box.Bn == bn)
                 {
-                    return box.remove();
+                    return box.Remove();
                 }
             }
             return null;
@@ -28,7 +28,7 @@ namespace De.HsFlensburg.ClientApp101.Business.Model.BusinessObjects
             {
                 if (box.Bn == bn)
                 {
-                    box.add(card);
+                    box.Add(card);
                 }
             }
         }

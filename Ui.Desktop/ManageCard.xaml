@@ -36,5 +36,6 @@
         <Button Command="{Binding EditQuestionPic,Mode=OneWay}" Content="Edit" HorizontalAlignment="Left" Margin="55,574,0,0" VerticalAlignment="Top" Width="75" Height="46" FontSize="18"/>
         <Button Command="{Binding EditAnswerPic, Mode=OneWay}" Content="Edit" HorizontalAlignment="Left" Margin="505,572,0,0" VerticalAlignment="Top" Width="75" Height="46" FontSize="18" RenderTransformOrigin="0.869,0.617"/>
         <Button Command="{Binding DeleteCard, Mode=OneWay}" Content="delete" HorizontalAlignment="Left" Margin="872,574,0,0" VerticalAlignment="Top" Width="124" Height="51" FontSize="24"/>
+        <Button IsCancel="True" Content="Close" HorizontalAlignment="Left" Margin="892,434,0,0" VerticalAlignment="Top" Width="75" Height="51" FontSize="20"/>
     </Grid> 
 </Window>
