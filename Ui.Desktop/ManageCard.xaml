@@ -10,10 +10,10 @@
         <Binding Source="{StaticResource VMLocator}" Path="cardWindowViewModel"></Binding>
     </Window.DataContext>
     <Grid Margin="0,0,2.8,5">
-        <DataGrid ItemsSource="{Binding Path=myBoxCollectionViewModel}"
+        <DataGrid ItemsSource="{Binding Path=myBoxCollectionViewModel,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                   SelectedItem="{Binding SelectedBox}"
                   Margin="36,55,563,421" />
-        <DataGrid ItemsSource="{Binding Path=SelectedBox}"
+        <DataGrid ItemsSource="{Binding Path=SelectedBox,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                   SelectedItem="{Binding SelectedCard}"
                   HorizontalAlignment="Left"
                   Height="250" Margin="482,10,0,0" VerticalAlignment="Top" Width="487"/>
@@ -28,7 +28,7 @@
             Margin="546,276,0,0" TextWrapping="Wrap"
             VerticalAlignment="Top" Width="236"/>
         <Label Content="Answer&#xA;" HorizontalAlignment="Left" Margin="447,276,0,0" VerticalAlignment="Top" FontSize="22" Height="55"/>
-        <Image  Source="{Binding SelectedCard.AnswerPic}" 
+        <Image  Source="{Binding SelectedCard.AnswerPic}"
             HorizontalAlignment="Left" Height="183" Margin="546,362,0,0"
             VerticalAlignment="Top" Width="261"/>
         <Button Command="{Binding UpdateQuestionPic,Mode=OneWay}" Content="update Question Picture" HorizontalAlignment="Left" Margin="180,574,0,0" VerticalAlignment="Top" Width="236" Height="51" FontSize="18"/>
@@ -36,6 +36,6 @@
         <Button Command="{Binding EditQuestionPic,Mode=OneWay}" Content="Edit" HorizontalAlignment="Left" Margin="55,574,0,0" VerticalAlignment="Top" Width="75" Height="46" FontSize="18"/>
         <Button Command="{Binding EditAnswerPic, Mode=OneWay}" Content="Edit" HorizontalAlignment="Left" Margin="505,572,0,0" VerticalAlignment="Top" Width="75" Height="46" FontSize="18" RenderTransformOrigin="0.869,0.617"/>
         <Button Command="{Binding DeleteCard, Mode=OneWay}" Content="delete" HorizontalAlignment="Left" Margin="872,574,0,0" VerticalAlignment="Top" Width="124" Height="51" FontSize="24"/>
-        <Button IsCancel="True" Content="Close" HorizontalAlignment="Left" Margin="892,434,0,0" VerticalAlignment="Top" Width="75" Height="51" FontSize="20"/>
-    </Grid> 
+        <Button IsCancel="True" Content="Close" HorizontalAlignment="Left" Margin="892,434,0,0" VerticalAlignment="Top" Width="75" Height="51" FontSize="20" Click="Button_Click"/>
+    </Grid>
 </Window>

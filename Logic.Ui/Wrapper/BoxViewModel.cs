@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper
 {
-    public class BoxViewModel : Queue<CardViewModel>, INotifyCollectionChanged
+    public class BoxViewModel : Queue<CardViewModel> //, INotifyCollectionChanged
     {
         public Box box;
-        public event NotifyCollectionChangedEventHandler CollectionChanged;
+        //public event NotifyCollectionChangedEventHandler CollectionChanged;
         public BoxViewModel()
             {
                 this.box = new Box();
@@ -38,34 +38,34 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper
             {
                 box.Add(cardvm.card);
                 base.Enqueue(cardvm);
-                if (this.CollectionChanged != null)
-                CollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add));
+                //if (this.CollectionChanged != null)
+                //  CollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add));
             }
             public CardViewModel Remove()
             {
-            CardViewModel item = base.Dequeue();
-            if (this.CollectionChanged != null)
-                CollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove));
-            return item;
-            //    box.Remove();
-            //if (this.Any())
-            //{
-            //    CardViewModel cvm = this.Dequeue();
-            //    this.OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, cvm));
-            //    return cvm;
-            //}
-            //else
-            //{
-            //    this.OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove));
-            //    return null;
-            //}          
+            //CardViewModel item = base.Dequeue();
+            //if (this.CollectionChanged != null)
+            //   CollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove));
+            //return item;
+            box.Remove();
+            if (this.Any())
+            {
+                CardViewModel cvm = this.Dequeue();
+                //this.OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, cvm));
+                return cvm;
+            }
+            else
+            {
+                //this.OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove));
+                return null;
+            }
         }
 
         public new void Clear()
         {
             base.Clear();
-            if (this.CollectionChanged != null)
-                CollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+            //if (this.CollectionChanged != null)
+            //    CollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
         }
         //=================================================================
         //public virtual event NotifyCollectionChangedEventHandler CollectionChanged;

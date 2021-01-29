@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 namespace De.HsFlensburg.ClientApp101.Business.Model.BusinessObjects
 {
 
-    public class Box : Queue<Card> , INotifyCollectionChanged
+    public class Box : Queue<Card> //, INotifyCollectionChanged
     {
         Boxnumber bn;
-        public event NotifyCollectionChangedEventHandler CollectionChanged;
+        //public event NotifyCollectionChangedEventHandler CollectionChanged;
         public Box()
         {
             this.bn = Boxnumber.None;
@@ -36,32 +36,27 @@ namespace De.HsFlensburg.ClientApp101.Business.Model.BusinessObjects
         public void Add(Card card)
         {
             base.Enqueue(card);
-            if (this.CollectionChanged != null)
-                CollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add));
+            //this.OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, c));
         }
         public Card Remove()
         {
-            Card item = base.Dequeue();
-            if (this.CollectionChanged != null)
-                CollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove));
-            return item;
-            //if (this.Any())
-            //{
-            //    Card c = this.Dequeue();
-            //    this.OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, c));
-            //    return c;
-            //}
-            //else
-            //{
-            //    this.OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove));
-            //    return null;
-            //}
+            if (this.Any())
+            {
+                Card c = this.Dequeue();
+                //this.OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, c));
+                return c;
+            }
+            else
+            {
+                //this.OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove));
+                return null;
+            }
         }
         public new void Clear()
         {
             base.Clear();
-            if (this.CollectionChanged != null)
-                CollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+            //if (this.CollectionChanged != null)
+            //   CollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
         }
         //private void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         //{

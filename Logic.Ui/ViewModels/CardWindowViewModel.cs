@@ -19,8 +19,6 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         public String Answer { get; set; }
         public String QuestionPic { get; set; }
         public String AnswerPic { get; set; }
-        public CategoryViewModel myCategory { get; set; }
-        public StatisticCollectionViewModel StatisticCollection { get; set; }
         public RelayCommand AddCard { get; }
         public RelayCommand AddQuestionPic { get; }
         public RelayCommand AddAnswerPic { get; }
@@ -234,11 +232,15 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                 for (int i = 0; i < leng; i++)
                 {
                     CardViewModel cvm = SelectedBox.Remove();
-                    if (!cvm.Equals(selectedCard))
-                    {
-                        boxvm.Add(cvm);
-                        s += cvm.Question;
-                    }
+                if (!cvm.Equals(selectedCard))
+                {
+                    boxvm.Add(cvm);
+                    
+                }
+                else
+                {
+                    s += cvm.Question;
+                }
                 }
                 leng = boxvm.Count;
                 for (int i = 0; i < leng; i++)
@@ -247,8 +249,8 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                     SelectedBox.Add(cvm);
                     
                 }
-                MessageBox.Show(s);
-                SelectedBox = SelectedBox;
+                MessageBox.Show(selectedCard.Question +"was deleted successfully");
+                //SelectedBox = SelectedBox;
         }
         private void OnPropertyChanged(string propertyName)
         {
