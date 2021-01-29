@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Forms;
 using System.Xml;
 
@@ -17,6 +18,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
     {
         public RelayCommand ChooseData { get; }
         public RelayCommand ImportData { get; }
+        public RelayCommand CloseWindow { get; }
         public CategoryViewModel Class { get; set; }
         public BoxViewModel bvm;
         private readonly static Random random = new Random();
@@ -47,8 +49,6 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        
-
         public Boolean RadioButtonNewCatIsChecked { get; set; }
         public Boolean RadioButtonExistentCatIsChecked { get; set; }
 
@@ -56,6 +56,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         {
             ChooseData = new RelayCommand(() => ChooseDataMethod());
             ImportData = new RelayCommand(() => ImportDataMethod());
+            CloseWindow = new RelayCommand(param => Close(param));
             MyModelViewModel = categorys;
         }
 
@@ -70,6 +71,15 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         }
 
         /*
+         * This Method close the Window
+         */
+        private void Close(object param)
+        {
+            Window window = (Window)param;
+            window.Close();
+        }
+
+        /*
          * This Method saves the Cards under a new Categoryname or fuse 
          * them with available Cards of the same category.
          * If the imported Files contains a picture,
@@ -80,7 +90,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         {
             if(!RadioButtonNewCatIsChecked && !RadioButtonExistentCatIsChecked)
             {
-                MessageBox.Show(
+                System.Windows.MessageBox.Show(
                     "Leider nichts ausgewählt, somit kein Import möglich");
             }
             else
@@ -129,6 +139,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                         }
                     }
                 };
+                NewClassName = "Keine Datei ausgewählt";
             }
         }
         
@@ -165,7 +176,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             }
             else
             {
-                MessageBox.Show("Die Auswahl hat leider nicht geklappt");
+                System.Windows.MessageBox.Show("Die Auswahl hat leider nicht geklappt");
             }
         }
         
@@ -204,56 +215,8 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                          */
                         foreach(XmlNode statNode in child) 
                         {
-                            // Creates a new Statistic
-                            Statistic stat = new Statistic();   
-                            /*
-                             * loop for the details of every StatisticObject
-                             */
-                            foreach(XmlNode statDet in statNode)
-                            {
-                                switch (statDet.Name)
-                                {
-                                    case "Timestamp":
-                                        stat.Timestamp =
-                                            Convert.ToDateTime(
-                                                statDet.InnerText);
-                                        break;
-                                    case "SuccessfullAnswer":
-                                        stat.SuccessfullAnswer =
-                                            Convert.ToBoolean(
-                                                statDet.InnerText);
-                                        break;
-                                    case "CurrentBoxNumber":
-                                        switch(statDet.InnerText)
-                                        {
-                                            case "None":
-                                                stat.CurrentBoxNumber =
-                                                    Boxnumber.None;
-                                                break;
-                                            case "Box1":
-                                                stat.CurrentBoxNumber =
-                                                    Boxnumber.Box1;
-                                                break;
-                                            case "Box2":
-                                                stat.CurrentBoxNumber =
-                                                    Boxnumber.Box2;
-                                                break;
-                                            case "Box3":
-                                                stat.CurrentBoxNumber =
-                                                    Boxnumber.Box3;
-                                                break;
-                                            case "Box4":
-                                                stat.CurrentBoxNumber =
-                                                    Boxnumber.Box4;
-                                                break;
-                                            case "Box5":
-                                                stat.CurrentBoxNumber =
-                                                    Boxnumber.Box5;
-                                                break;
-                                        }
-                                        break;
-                                }
-                            }
+                            Statistic stat = ReadStat(statNode);
+                            
                             card.StatisticCollection.Add(stat);
                         }
                         break;
@@ -283,12 +246,62 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
          * This Method copys pictures from the actual importfile
          * to the own saveplace and returns the new Name of the Picture
          */
-        public static string CopyPic(string currentPath)
+        public static string CopyPic(string file)
         {
             string randName = RandomString() + ".jpg";
-            File.Copy(filepath + @"\content\" + currentPath,
+            File.Copy(filepath + @"\content\" + file,
                 pictureDirectory +  randName);
             return (randName);
+        }
+
+        /*
+         * This Method gets an XmlNode with Statistic Nodes, create out of
+         * it a Statistic Object and give this Object back.
+         */
+        private static Statistic ReadStat(XmlNode statNode)
+        {
+            // Creates a new Statistic
+            Statistic stat = new Statistic();
+            /*
+             * loop for the details of every StatisticObject
+             */
+            foreach (XmlNode statDet in statNode)
+            {
+                switch (statDet.Name)
+                {
+                    case "Timestamp":
+                        stat.Timestamp = Convert.ToDateTime(statDet.InnerText);
+                        break;
+                    case "SuccessfullAnswer":
+                        stat.SuccessfullAnswer =
+                            Convert.ToBoolean(statDet.InnerText);
+                        break;
+                    case "CurrentBoxNumber":
+                        switch (statDet.InnerText)
+                        {
+                            case "None":
+                                stat.CurrentBoxNumber = Boxnumber.None;
+                                break;
+                            case "Box1":
+                                stat.CurrentBoxNumber = Boxnumber.Box1;
+                                break;
+                            case "Box2":
+                                stat.CurrentBoxNumber = Boxnumber.Box2;
+                                break;
+                            case "Box3":
+                                stat.CurrentBoxNumber = Boxnumber.Box3;
+                                break;
+                            case "Box4":
+                                stat.CurrentBoxNumber = Boxnumber.Box4;
+                                break;
+                            case "Box5":
+                                stat.CurrentBoxNumber = Boxnumber.Box5;
+                                break;
+                        }
+                        break;
+                }
+            }
+            return stat;
         }
 
 

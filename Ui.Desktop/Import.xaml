@@ -7,6 +7,7 @@
         xmlns:System="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="Import" Height="300" Width="700"
+        x:Name="ThisWindow"
         >
     <Window.DataContext>
         <Binding 
@@ -78,7 +79,7 @@
                     </ComboBox>
                 </UniformGrid>
             </UniformGrid>
-            <UniformGrid Grid.Column="2" Columns="1">
+            <UniformGrid Grid.Column="2" Columns="2">
                 <Button 
                     Content="Importieren" 
                     Height="20px" Width="80px" 
@@ -86,6 +87,14 @@
                     HorizontalAlignment="Right" 
                     Margin="10px"
                     Command="{Binding ImportData, Mode=OneWay}"/>
+                <Button 
+                    Content="Schließen"
+                    Height="20px"
+                    Width="80px"
+                    VerticalAlignment="Bottom"
+                    HorizontalAlignment="Right"
+                    Margin="10px"
+                    Command="{Binding CloseWindow}" CommandParameter="{Binding ElementName=ThisWindow}"/>
             </UniformGrid>
         </Grid>
     </Grid>

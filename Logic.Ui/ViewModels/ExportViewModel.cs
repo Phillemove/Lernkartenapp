@@ -1,11 +1,8 @@
 ﻿using De.HsFlensburg.ClientApp101.Business.Model.BusinessObjects;
 using De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Forms;
 using System.Xml;
 
@@ -24,10 +21,19 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         public Boolean InclStat { get; set; } 
         public CategoryViewModel Class { get; set; } 
         public RelayCommand ExportData { get; }
+        public RelayCommand CloseWindow { get; }
         public ExportViewModel(CategoryCollectionViewModel categorys)
         {
             ExportData = new RelayCommand(() => ExportDataMethod());
             MyModelViewModel = categorys;
+            CloseWindow = new RelayCommand(param => Close(param));
+        }
+        private int picCount = 1;
+
+        private void Close(object param)
+        {
+            Window window = (Window)param;
+            window.Close();
         }
 
         /*
@@ -58,8 +64,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                     // declare a variable for the to be exported
                     // file with filename (Categoryname)
                     string filepath = fbd.SelectedPath +
-                        @"\Export\" + filename + ".xml";   
-                    int picCount = 1;   // for the running imagenaming
+                        @"\Export\" + filename + ".xml"; 
                     // A xmlWriter to write the nodes
                     XmlTextWriter xmlWriter = new XmlTextWriter(
                         filepath, System.Text.Encoding.UTF8);
@@ -69,93 +74,14 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                     */ 
                     try
                     {
-                        BoxViewModel currentBox = new BoxViewModel();
-                        XmlDocument doc = new XmlDocument();
-                        // load the nodes from the categoryname.xml file
-                        doc.Load(saveDirectory + @"\" + filename + ".xml");
-                        // Every node is going to be a Card 
-                        foreach (XmlNode node in doc.DocumentElement)   
-                        {
-                            currentBox.Enqueue(ImportViewModel.ReadOwnFormatNode(node)); 
-                        }
+                        BoxViewModel currentBox = ReadSavedFile(filename);
                         // So the .xml File is more readable and every Element
                         //get an own Line and is intended
-                        xmlWriter.Formatting = Formatting.Indented; 
-                        xmlWriter.WriteStartDocument();
-                        xmlWriter.WriteComment(filename);
-                        xmlWriter.WriteStartElement("Cards");
-                        foreach (CardViewModel card in currentBox)
-                        {
-                            xmlWriter.WriteStartElement("Card");
-                            xmlWriter.WriteElementString(
-                                "Question", card.Question);
-                            xmlWriter.WriteElementString(
-                                "Answer", card.Answer);
-                            if (card.QuestionPic != null && 
-                                card.QuestionPic != "")
-                            {
-                                string picNew = filename + "_img_" +
-                                    picCount + ".jpg";
-                                picCount++;
-                                string pathSavePicture = 
-                                    fbd.SelectedPath.ToString() +
-                                    @"\Export\content\" + picNew;
-                                File.Copy(savePicDirectory + 
-                                    card.QuestionPic, pathSavePicture);
-                                xmlWriter.WriteElementString(
-                                    "QuestionPic", picNew);
-                            }
-
-                            if (card.AnswerPic != null &&
-                                card.AnswerPic != "")
-                            {
-                                string picNew = filename + "_img_" +
-                                    picCount + ".jpg";
-                                picCount++;
-                                string pathSavePicture = 
-                                    fbd.SelectedPath.ToString() +
-                                    @"\Export\content\" + picNew;
-                                File.Copy(savePicDirectory +
-                                    card.AnswerPic, pathSavePicture);
-                                xmlWriter.WriteElementString("AnswerPic",
-                                    picNew);
-                            }
-                            if (InclStat && card.StatisticCollection != null)
-                            {
-                                xmlWriter.WriteStartElement(
-                                    "StatisticCollection");
-                                if (card.StatisticCollection != null)
-                                {
-                                    foreach (Statistic stat in
-                                        card.StatisticCollection)
-                                    {
-                                        xmlWriter.WriteStartElement("Statistic");
-                                            xmlWriter.WriteElementString(
-                                                "Timestamp",
-                                                stat.Timestamp.ToString());
-                                            xmlWriter.WriteElementString(
-                                                "SuccessfullAnswer",
-                                                stat.SuccessfullAnswer.ToString());
-                                            xmlWriter.WriteElementString(
-                                                "CurrentBoxNumber",
-                                                stat.CurrentBoxNumber.ToString());
-                                        xmlWriter.WriteEndElement();
-                                        xmlWriter.Flush();
-                                    }
-                                }
-                                xmlWriter.WriteEndElement();
-                            }
-                            xmlWriter.WriteEndElement();
-                            xmlWriter.Flush();
-                        }
-                        xmlWriter.WriteEndElement();
-                        xmlWriter.WriteEndDocument();
-                        xmlWriter.Flush();
-                        xmlWriter.Close();
+                        WriteXML(xmlWriter, filename, currentBox, fbd);
                     }
                     catch
                     {
-                        MessageBox.Show(
+                        System.Windows.MessageBox.Show(
                             "Leider konnte kein Export durchgeführt werden," +
                             " da entweder die Datei nicht gelesen werden" +
                             " konnte oder es noch gar keine" +
@@ -163,9 +89,126 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                     }
                 } else
                 {
-                    MessageBox.Show("Es muss ein Zielpfad ausgewählt werden");
+                    System.Windows.MessageBox.Show("Es muss ein Zielpfad ausgewählt werden");
                 }
             }
+        }
+
+        /*
+         * This Method writes the BoxViewModel in an own designes Format 
+         * with a XmlTextWriter to the FileSystem.
+         */
+        private void WriteXML(XmlTextWriter xmlWriter,
+            string filename,
+            BoxViewModel currentBox,
+            FolderBrowserDialog fbd)
+        {
+            
+            xmlWriter.Formatting = Formatting.Indented;
+            xmlWriter.WriteStartDocument();
+            xmlWriter.WriteComment(filename);
+            xmlWriter.WriteStartElement("Cards");
+            foreach (CardViewModel card in currentBox)
+            {
+                xmlWriter.WriteStartElement("Card");
+                xmlWriter.WriteElementString(
+                    "Question", card.Question);
+                xmlWriter.WriteElementString(
+                    "Answer", card.Answer);
+                CopyCardPics(card, xmlWriter, filename, fbd);
+                if (InclStat && card.StatisticCollection != null)
+                {
+                    WriteStatistic(card, xmlWriter);
+                }
+                xmlWriter.WriteEndElement();
+                xmlWriter.Flush();
+            }
+            xmlWriter.WriteEndElement();
+            xmlWriter.WriteEndDocument();
+            xmlWriter.Flush();
+            xmlWriter.Close();
+        }
+
+        /*
+         * This Method receives a Card, the XmlTextWriter, 
+         * the Filename (Category) and the FolderBrowserDialog and copy the 
+         * Pictures if necessery.
+         */
+        private void CopyCardPics(CardViewModel card,
+            XmlTextWriter xmlWriter,
+            string filename,
+            FolderBrowserDialog fbd)
+        {
+            if(card.QuestionPic != null && card.QuestionPic != "")
+            {
+                CopyPic(filename, fbd, card.QuestionPic, xmlWriter);
+            }
+            if (card.AnswerPic != null && card.AnswerPic != "")
+            {
+                CopyPic(filename, fbd, card.AnswerPic, xmlWriter);
+            }
+
+        }
+
+        /*
+         * This Method copy Copy the Card and writes the xmlNode
+         */
+        private void CopyPic(string filename,
+            FolderBrowserDialog fbd, string file, XmlTextWriter xmlWriter)
+        {
+            string picNew = filename + "_img_" + picCount + ".jpg";
+            picCount++;
+            string pathSavePicture = fbd.SelectedPath.ToString() +
+                @"\Export\content\" + picNew;
+            File.Copy(savePicDirectory + file, pathSavePicture);
+            xmlWriter.WriteElementString("QuestionPic", picNew);
+        }
+
+        /*
+         * This Method receives the CardViewModel and the XmlTextWriter and 
+         * write the StatisticNodes if necessery
+         */
+        private void WriteStatistic(CardViewModel card, XmlTextWriter xmlWriter)
+        {
+            xmlWriter.WriteStartElement(
+                        "StatisticCollection");
+            if (card.StatisticCollection != null)
+            {
+                foreach (Statistic stat in card.StatisticCollection)
+                {
+                    xmlWriter.WriteStartElement("Statistic");
+                    xmlWriter.WriteElementString("Timestamp",
+                        stat.Timestamp.ToString());
+                    xmlWriter.WriteElementString("SuccessfullAnswer",
+                        stat.SuccessfullAnswer.ToString());
+                    xmlWriter.WriteElementString("CurrentBoxNumber",
+                        stat.CurrentBoxNumber.ToString());
+                    xmlWriter.WriteEndElement();
+                    xmlWriter.Flush();
+                }
+            }
+            xmlWriter.WriteEndElement();
+        }
+
+        /*
+         * This Method receives the filename (Category) and try to read a file
+         * of the Category. If there is a File, the Method Adds the loaded 
+         * Cards to the BoxViewModel. If there is no Card, the BoxViewModel
+         * stays empty. The Method returns the BoxViewModel.
+         */
+        private BoxViewModel ReadSavedFile(string filename)
+        {
+            BoxViewModel currentBox = new BoxViewModel();
+            XmlDocument doc = new XmlDocument();
+            // load the nodes from the categoryname.xml file
+            doc.Load(saveDirectory + @"\" + filename + ".xml");
+            // Every node is going to be a Card 
+            foreach (XmlNode node in doc.DocumentElement)
+            {
+                currentBox.Enqueue(
+                    ImportViewModel.ReadOwnFormatNode(node));
+            }         
+            return currentBox;
         }
     }
 }
