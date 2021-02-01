@@ -17,7 +17,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
 
         private String ans;
-
+        private Boxnumber curBoxNumber { get; set; }
         private int currentProgressBarValue;
         private int maximumProgressBarValue;
         public static System.Timers.Timer aTimer { get; set; }
@@ -56,8 +56,8 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                 OnPropertyChanged("CardVM"); } 
         }
         
-        public RelayCommand ShowCard { get; }
-        public RelayCommand doNotKnow { get; }
+        public RelayCommand TrueAnswer { get; }
+        public RelayCommand FalseAnswer { get; }
         public BoxCollectionViewModel myBoxCollectionViewModel { get; set; }
 
         public CardLearningViewModel(BoxCollectionViewModel bcvm)
@@ -73,8 +73,8 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             MaximumProgressBarValue = GetCardsCount();
 
             CardVM = myBoxCollectionViewModel.giveCard(Boxnumber.Box1);
-            ShowCard = new RelayCommand(() => ShowCardMethod());
-            doNotKnow= new RelayCommand(() => doNotKnowMethod());
+            TrueAnswer = new RelayCommand(() => TrueAnswerMethod());
+            FalseAnswer = new RelayCommand(() => FalseAnswerMethod());
            
 
         }
@@ -83,90 +83,154 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             //Console.WriteLine("The Elapsed event was raised at {0:HH:mm:ss.fff}",e.SignalTime);
 
             aTimer.Enabled = false;
-            MessageBox.Show("Time finished");
-            aTimer.Enabled = true;
+            //MessageBox.Show("Time finished");
+            //aTimer.Enabled = true;
             // go to next card
-            getNextCard();
-            CurrentProgressBarValue += 1;
+            if (CardVM != null)
+            {
+                Answer = CardVM.Answer;
+            }
+            else {
+                CurrentProgressBarValue += 100;
+            }
+            //getNextCard();
+            //CurrentProgressBarValue += 1;
         }
-        public void ShowCardMethod()
+        public void TrueAnswerMethod()
+         {
+            if (CardVM != null)
+            {
+                Answer = "";
+                CardVM.StatisticCollection.Add(new Statistic(DateTime.Now, true, curBoxNumber));
+                getNextCard();
+                aTimer.Enabled = true;
+                CurrentProgressBarValue += 1;
+            }
+            else {
+                CurrentProgressBarValue += 100;
+            }
+        }
+        public void FalseAnswerMethod()
         {
             if (CardVM != null)
             {
-                if (Answer != null && !Answer.Equals(""))
-                {
-                    if (Answer.Equals(CardVM.Answer))
-                    { //  correct answer
-
-                        MessageBox.Show("correct answer");
-                        Answer = "";
-                        //-------------------           
-                        //MessageBox.Show(DateTime.Now.ToString());
-                        CardVM.StatisticCollection.Add(new Statistic(DateTime.Now,true,Boxnumber.None));
-                    }
-                    else
-                    { //  incorrect answer
-                        Answer = CardVM.Answer;
-                        MessageBox.Show("Errror");                        
-                        Answer = "";
-                        //-------------------
-                        CardVM.StatisticCollection.Add(new Statistic(DateTime.Now,false,Boxnumber.None));
-                    }
-                    // go to next card
-                    getNextCard();
-                    CurrentProgressBarValue += 1;
-                    aTimer.Enabled = false;
-                    aTimer.Enabled = true;
-                    if (CardVM == null)
-                    {
-                        MessageBox.Show("Cards Finished");
-                        aTimer.Enabled = false;
-                        //------------------
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Please enter the Answer");
-                }
+                Answer = "";
+                CardVM.StatisticCollection.Add(new Statistic(DateTime.Now, false, curBoxNumber));
+                moveCard();
+                getNextCard();
+                aTimer.Enabled = true;
             }
-            
-         }
-        public void doNotKnowMethod()
-        {
-            Answer = CardVM.Answer;
-            MessageBox.Show("try again later");
-            Answer = "";
-            // go to next card
-            getNextCard();
-            CurrentProgressBarValue += 1;
-            aTimer.Enabled = false;
-            aTimer.Enabled = true;
-            if (CardVM == null)
+            else
             {
-                MessageBox.Show("Cards Finished");
-                aTimer.Enabled = false;
-                //------------------
+                CurrentProgressBarValue += 100;
             }
         }
+        //public void TrueAnswerMethod1()
+        //{
+        //    if (CardVM != null)
+        //    {
+        //        if (Answer != null && !Answer.Equals(""))
+        //        {
+        //            if (Answer.Equals(CardVM.Answer))
+        //            { //  correct answer
+
+        //                MessageBox.Show("correct answer");
+        //                Answer = "";
+        //                //-------------------           
+        //                //MessageBox.Show(DateTime.Now.ToString());
+        //                CardVM.StatisticCollection.Add(new Statistic(DateTime.Now,true,Boxnumber.None));
+        //            }
+        //            else
+        //            { //  incorrect answer
+        //                Answer = CardVM.Answer;
+        //                MessageBox.Show("Errror");                        
+        //                Answer = "";
+        //                //-------------------
+        //                CardVM.StatisticCollection.Add(new Statistic(DateTime.Now,false,Boxnumber.None));
+        //            }
+        //            // go to next card
+        //            getNextCard();
+        //            CurrentProgressBarValue += 1;
+        //            aTimer.Enabled = false;
+        //            aTimer.Enabled = true;
+        //            if (CardVM == null)
+        //            {
+        //                MessageBox.Show("Cards Finished");
+        //                aTimer.Enabled = false;
+        //                //------------------
+        //            }
+        //        }
+        //        else
+        //        {
+        //            MessageBox.Show("Please enter the Answer");
+        //        }
+        //    }
+
+        // }
+        //public void FalseAnswerMethod1()
+        //{
+        //    Answer = CardVM.Answer;
+        //    MessageBox.Show("try again later");
+        //    Answer = "";
+        //    go to next card
+        //    getNextCard();
+        //    CurrentProgressBarValue += 1;
+        //    aTimer.Enabled = false;
+        //    aTimer.Enabled = true;
+        //    if (CardVM == null)
+        //    {
+        //        MessageBox.Show("Cards Finished");
+        //        aTimer.Enabled = false;
+        //        ------------------
+        //    }
+        //}
         public void getNextCard()
         {
             //--------------------
             CardVM = myBoxCollectionViewModel.giveCard(Boxnumber.Box1);
+            curBoxNumber = Boxnumber.Box1;
             if (CardVM == null)
             {
                 CardVM = myBoxCollectionViewModel.giveCard(Boxnumber.Box2);
+                curBoxNumber = Boxnumber.Box2;
             }
             if (CardVM == null)
             {
                 CardVM = myBoxCollectionViewModel.giveCard(Boxnumber.Box3);
+                curBoxNumber = Boxnumber.Box3;
             }
             if (CardVM == null)
             {
                 CardVM = myBoxCollectionViewModel.giveCard(Boxnumber.Box4);
+                curBoxNumber = Boxnumber.Box4;
             }
             if (CardVM == null)
             {
                 CardVM = myBoxCollectionViewModel.giveCard(Boxnumber.Box5);
+                curBoxNumber = Boxnumber.Box5;
+            }
+        }
+        public void moveCard()
+        {
+            if (curBoxNumber == Boxnumber.Box1)
+            {
+                myBoxCollectionViewModel.storeCard(CardVM, Boxnumber.Box2);
+            }
+            else if (curBoxNumber == Boxnumber.Box2)
+            {
+                myBoxCollectionViewModel.storeCard(CardVM, Boxnumber.Box3);
+            }
+            else if (curBoxNumber == Boxnumber.Box3)
+            {
+                myBoxCollectionViewModel.storeCard(CardVM, Boxnumber.Box4);
+            }
+            else if (curBoxNumber == Boxnumber.Box4)
+            {
+                myBoxCollectionViewModel.storeCard(CardVM, Boxnumber.Box5);
+            }
+            else if (curBoxNumber == Boxnumber.Box5)
+            {
+                myBoxCollectionViewModel.storeCard(CardVM, Boxnumber.Box1);
             }
         }
         public int GetCardsCount()
