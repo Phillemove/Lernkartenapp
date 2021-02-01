@@ -174,13 +174,13 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                         "StatisticCollection");
             if (card.StatisticCollection != null)
             {
-                foreach (Statistic stat in card.StatisticCollection)
+                foreach (StatisticViewModel stat in card.StatisticCollection)
                 {
                     xmlWriter.WriteStartElement("Statistic");
                     xmlWriter.WriteElementString("Timestamp",
                         stat.Timestamp.ToString());
                     xmlWriter.WriteElementString("SuccessfullAnswer",
-                        stat.SuccessfullAnswer.ToString());
+                        stat.SuccessfulAnswer.ToString());
                     xmlWriter.WriteElementString("CurrentBoxNumber",
                         stat.CurrentBoxNumber.ToString());
                     xmlWriter.WriteEndElement();

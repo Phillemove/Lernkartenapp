@@ -71,13 +71,13 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
                     writer.WriteStartElement("StatisticCollection"); 
                     if (card.StatisticCollection != null)
                     {
-                        foreach(Statistic stat in card.StatisticCollection)
+                        foreach(StatisticViewModel stat in card.StatisticCollection)
                         {
                             writer.WriteStartElement("Statistic");
                             writer.WriteElementString("Timestamp", 
                                 stat.Timestamp.ToString());
                             writer.WriteElementString("SuccessfullAnswer", 
-                                stat.SuccessfullAnswer.ToString());
+                                stat.SuccessfulAnswer.ToString());
                             writer.WriteElementString("CurrentBoxNumber", 
                                 stat.CurrentBoxNumber.ToString());
                             writer.WriteEndElement();
@@ -118,7 +118,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
                 {
                     if (card.Category == null)
                     {
-                        card.Category = defaultCat.category;
+                        card.Category = defaultCat;
                         ccvm.Add(defaultCat);
                     }
                     // If there is a Picture, which isn't in our Filesystem, 
@@ -248,7 +248,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
                 {
                     CardViewModel card = 
                         ImportViewModel.ReadOwnFormatNode(node);
-                    card.Category = cat.category;
+                    card.Category = cat;
                     bvm.Enqueue(card);
                 }
             } catch

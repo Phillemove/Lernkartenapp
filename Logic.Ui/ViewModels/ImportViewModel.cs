@@ -118,7 +118,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                     // Every Card gets the Category of the Filename
                     foreach (CardViewModel card in this.bvm)    
                     {
-                        card.Category = cat.category;
+                        card.Category = cat;
                     }
                     MyModelViewModel.Add(cat);
 
@@ -133,7 +133,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                             // Every Card gets the choosen Category
                             foreach (CardViewModel card in this.bvm)    
                             {
-                                card.Category = catVM.category;
+                                card.Category = catVM;
                             }
                             SaveCards.SaveAdditionalCardBox(catVM,this.bvm);
                         }
@@ -209,13 +209,13 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                         card.AnswerPic = child.InnerText;
                         break;
                     case "StatisticCollection":
-                        card.StatisticCollection = new StatisticCollection();
+                        card.StatisticCollection = new StatisticCollectionViewModel();
                         /*
                          * loop to go throug every Statistic
                          */
                         foreach(XmlNode statNode in child) 
                         {
-                            Statistic stat = ReadStat(statNode);
+                            StatisticViewModel stat = ReadStat(statNode);
                             
                             card.StatisticCollection.Add(stat);
                         }
@@ -258,10 +258,10 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
          * This Method gets an XmlNode with Statistic Nodes, create out of
          * it a Statistic Object and give this Object back.
          */
-        private static Statistic ReadStat(XmlNode statNode)
+        private static StatisticViewModel ReadStat(XmlNode statNode)
         {
             // Creates a new Statistic
-            Statistic stat = new Statistic();
+            StatisticViewModel stat = new StatisticViewModel();
             /*
              * loop for the details of every StatisticObject
              */
@@ -273,7 +273,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                         stat.Timestamp = Convert.ToDateTime(statDet.InnerText);
                         break;
                     case "SuccessfullAnswer":
-                        stat.SuccessfullAnswer =
+                        stat.SuccessfulAnswer =
                             Convert.ToBoolean(statDet.InnerText);
                         break;
                     case "CurrentBoxNumber":

@@ -1,4 +1,6 @@
 ﻿using De.HsFlensburg.ClientApp101.Business.Model.BusinessObjects;
+using De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels;
+using De.HsFlensburg.ClientApp101.Logic.Ui;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,6 +12,9 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper
 {
     public class CardViewModel 
     {
+
+        private CategoryViewModel category;
+        private StatisticCollectionViewModel statisticCollection;
 
 
         public Card card;
@@ -44,15 +49,15 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper
                 card.Answer = value;
             }
         }
-        public Category Category
+        public CategoryViewModel Category
         {
             get
             {
-                return card.Category;
+                return category;
             }
             set
             {
-                card.Category = value;
+                category = value;
             }
         }
 
@@ -79,15 +84,15 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper
             }
         }
 
-        public StatisticCollection StatisticCollection
+        public StatisticCollectionViewModel StatisticCollection
         {
             get
             {
-                return card.StatisticCollection;
+                return statisticCollection;
             }
             set
             {
-                card.StatisticCollection = value;
+                statisticCollection = value;
             }
         }
     }
