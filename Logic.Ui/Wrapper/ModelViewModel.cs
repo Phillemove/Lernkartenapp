@@ -17,64 +17,22 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper
         private BoxCollectionViewModel bcvm;
         public CategoryCollectionViewModel myCategoryCollection;
 
-        private const string CategoryFile = @"..\..\..\Data\Categorys.xml";
+       // private const string CategoryFile = @"..\..\..\Data\Categorys.xml";
 
 
         public ModelViewModel()
         {
             this.model = new Model();
             bcvm = new BoxCollectionViewModel(this.model.BoxCollection);
-            myCategoryCollection = new CategoryCollectionViewModel(this.model.CategoryCollection);
-            LoadCategorys();
-
+            myCategoryCollection = new CategoryCollectionViewModel();
         }
+        /*
         public ModelViewModel(Model model)
         {
             this.model = model;
             bcvm = new BoxCollectionViewModel(this.model.BoxCollection);
-            myCategoryCollection = new CategoryCollectionViewModel(this.model.CategoryCollection);
-
-
-            LoadCategorys();
-
-        }
-
-
-        private void LoadCategorys()
-        {
-
-            // Should be Ui.Desktop/bin/Debug or Ui.Desktop/bin/Release
-            //var appRoot = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-            if (File.Exists(CategoryFile))
-            {
-                // File exists - load Category Names 
-                var reader = XmlReader.Create(CategoryFile);
-                while (reader.ReadToFollowing("Category"))
-                {
-                    // Read Caegorys and create Category Object in the Collection
-                    myCategoryCollection.Add(new CategoryViewModel(new Category(reader.ReadElementContentAsString())));
-                }
-            }
-        }
-
-        public void SaveCategorys()
-        {
-            //var appRoot = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-            XmlWriter writer = XmlWriter.Create(CategoryFile);
-            writer.WriteStartDocument();
-            writer.WriteStartElement("CategoryList");
-            foreach (var category in myCategoryCollection)
-            {
-                writer.WriteStartElement("Category");
-                writer.WriteString(category.Name);
-                writer.WriteEndElement();
-            }
-            writer.WriteEndDocument();
-            writer.Close();
-        }
-
-
-
+            myCategoryCollection = new CategoryCollectionViewModel();
+        } */
 
         public BoxCollectionViewModel BoxCollectionVM
         {

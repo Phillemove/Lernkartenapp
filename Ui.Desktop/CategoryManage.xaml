@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:De.HsFlensburg.ClientApp101.Ui.Desktop"
         mc:Ignorable="d"
-        Title="Kategorien verwalten" Height="450" Width="800">
+        Title="Kategorien verwalten" Height="417" Width="533"
+        x:Name="ThisWindow">
     <Window.Resources>
 
     </Window.Resources>
@@ -16,10 +17,10 @@
         <Binding Source="{StaticResource VMLocator}" Path="CategoryManageViewModel"></Binding>
     </Window.DataContext>
     <Grid>
-        <Label Content="Kategorien verwalten" />
+        <Label Content="Kategorien verwalten" Margin="0,0,250,0" />
 
-        <Button Command="{Binding OpenCategoryAddWindow, Mode=OneWay}" Content="Neue Kategorie" Margin="216,334,282,37"/>
-        <DataGrid ItemsSource="{Binding Path=MyCategoryCollection}" HorizontalAlignment="Left" Height="283" Margin="10,33,0,0" VerticalAlignment="Top" Width="500" RenderTransformOrigin="0.491,0.519"/>
+        <Button Command="{Binding CloseWindow}" CommandParameter="{Binding ElementName=ThisWindow}" Content="Fenster schließen" Margin="357,332,15,10"/>
+        <DataGrid ItemsSource="{Binding Path=MyCategoryCollection, Mode=OneWay}" HorizontalAlignment="Left" Height="283" Margin="10,33,0,0" VerticalAlignment="Top" Width="500" RenderTransformOrigin="0.491,0.519"/>
 
     </Grid>
 </Window>

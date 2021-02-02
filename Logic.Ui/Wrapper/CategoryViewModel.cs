@@ -33,14 +33,8 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
 
         public CategoryViewModel()
         {
-
+            this.category = new Category("");
         }
 
-
-
-
-
-
-        // Möööp
     }
 }

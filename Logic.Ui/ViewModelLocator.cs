@@ -22,7 +22,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
         public MainWindowViewModel MainWindowViewModel { get; }
         public CardLearningViewModel CardLearningViewModel { get; }
         public CategoryManageViewModel CategoryManageViewModel { get; }
-        public CategoryViewModel CategoryViewModel { get; }
+       // public CategoryViewModel CategoryViewModel { get; }
         public ImportForeignFormatViewModel ImportForeignFormatViewModel { get; }
 
         // for Statistics Dummydata
@@ -44,7 +44,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
 
 
             //CardWindowViewModel = new CardWindowViewModel();
-            CategoryViewModel = new CategoryViewModel();
+            //CategoryViewModel = new CategoryViewModel();
 
 
             // Statistic DummyData for testing statistics

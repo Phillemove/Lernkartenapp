@@ -3,9 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
 {
@@ -14,12 +16,57 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
 
         public CategoryCollection categoryCollection;
         private bool syncDisabled;
+        private const string CategoryFile = @"..\..\..\Data\Categorys.xml";
 
+        /*
         public CategoryCollectionViewModel(CategoryCollection cc)
         {
             categoryCollection = cc;
             this.CollectionChanged += ViewModelCollectionChanged;
             categoryCollection.CollectionChanged += ModelCollectionChanged;
+        }*/
+
+        public CategoryCollectionViewModel()
+        {
+            categoryCollection = new CategoryCollection();
+            this.CollectionChanged += ViewModelCollectionChanged;
+            categoryCollection.CollectionChanged += ModelCollectionChanged;
+            LoadCategorys();
+        }
+
+        private void LoadCategorys()
+        {
+            if (File.Exists(CategoryFile))
+            {
+                // File exists - load Category Names 
+                var reader = System.Xml.XmlReader.Create(CategoryFile);
+                while (reader.ReadToFollowing("Category"))
+                {
+                    // Read Caegorys and create Category Object in the Collection
+                    this.Add(new CategoryViewModel(new Category(reader.ReadElementContentAsString())));
+                }
+            }
+        }
+
+        public void SaveCategorys()
+        {
+            XmlWriterSettings settings = new XmlWriterSettings();
+            settings.Indent = true;
+            //settings.IndentChars = "\n";
+            XmlWriter writer = XmlWriter.Create(CategoryFile,settings);
+            writer.WriteStartDocument();
+            writer.WriteStartElement("CategoryList");
+            foreach (var category in this)
+            {
+                if (category.Name != "")
+                {
+                    writer.WriteStartElement("Category");
+                    writer.WriteString(category.Name);
+                    writer.WriteEndElement();
+                }
+            }
+            writer.WriteEndDocument();
+            writer.Close();
         }
 
         private void ViewModelCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
