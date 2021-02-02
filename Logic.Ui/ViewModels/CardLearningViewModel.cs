@@ -101,7 +101,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             if (CardVM != null)
             {
                 Answer = "";
-                CardVM.StatisticCollection.Add(new Statistic(DateTime.Now, true, curBoxNumber));
+               // CardVM.StatisticCollection.Add(new Statistic(DateTime.Now, true, curBoxNumber));
                 getNextCard();
                 aTimer.Enabled = true;
                 CurrentProgressBarValue += 1;
@@ -115,7 +115,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             if (CardVM != null)
             {
                 Answer = "";
-                CardVM.StatisticCollection.Add(new Statistic(DateTime.Now, false, curBoxNumber));
+               // CardVM.StatisticCollection.Add(new Statistic(DateTime.Now, false, curBoxNumber));
                 moveCard();
                 getNextCard();
                 aTimer.Enabled = true;

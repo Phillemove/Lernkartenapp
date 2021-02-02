@@ -102,7 +102,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
             CardViewModel cvm2 = new CardViewModel(new Card("what is year?", "2021", Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "\\..\\..\\..\\Data\\myimages\\year2021.jpg"));
             CardViewModel cvm3 = new CardViewModel(new Card("is mouse input or output device?", "input", Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "\\..\\..\\..\\Data\\myimages\\mouse.jpg"));
 
-            cvm1.StatisticCollection = statisticCollectionVM.statisticCollection;
+            //cvm1.StatisticCollection = statisticCollectionVM.statisticCollection;
 
             myModelViewModel.BoxCollectionVM.Add(bvm1);
             myModelViewModel.BoxCollectionVM.Add(bvm2);
