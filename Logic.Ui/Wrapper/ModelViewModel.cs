@@ -17,8 +17,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper
         private BoxCollectionViewModel bcvm;
         public CategoryCollectionViewModel myCategoryCollection;
 
-
-        private const string CategoryFile = "\\..\\..\\..\\Data\\Categorys.xml";
+        private const string CategoryFile = @"..\..\..\Data\Categorys.xml";
 
 
         public ModelViewModel()
@@ -45,11 +44,11 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper
         {
 
             // Should be Ui.Desktop/bin/Debug or Ui.Desktop/bin/Release
-            var appRoot = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-            if (File.Exists(appRoot + CategoryFile))
+            //var appRoot = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            if (File.Exists(CategoryFile))
             {
                 // File exists - load Category Names 
-                var reader = XmlReader.Create(appRoot + CategoryFile);
+                var reader = XmlReader.Create(CategoryFile);
                 while (reader.ReadToFollowing("Category"))
                 {
                     // Read Caegorys and create Category Object in the Collection
@@ -60,8 +59,8 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper
 
         public void SaveCategorys()
         {
-            var appRoot = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-            XmlWriter writer = XmlWriter.Create(appRoot + CategoryFile);
+            //var appRoot = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            XmlWriter writer = XmlWriter.Create(CategoryFile);
             writer.WriteStartDocument();
             writer.WriteStartElement("CategoryList");
             foreach (var category in myCategoryCollection)
