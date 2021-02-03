@@ -110,38 +110,70 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                 }
                 if (RadioButtonNewCatIsChecked) 
                 {
-                    CategoryViewModel cat =
-                        new CategoryViewModel(
-                            new Category(
-                                System.IO.Path.GetFileNameWithoutExtension(
-                                    ofd.FileName)));
-                    // Every Card gets the Category of the Filename
-                    foreach (CardViewModel card in this.bvm)    
-                    {
-                        card.Category = cat;
-                    }
-                    MyModelViewModel.Add(cat);
-
-                    SaveCards.SaveBoxToFileSystem(this.bvm); 
+                    SaveCardsWithNewCategory();
                 }
                 else 
                 {
-                    foreach(CategoryViewModel catVM in MyModelViewModel)
-                    {
-                        if(catVM.Name == Class.Name)
-                        {
-                            // Every Card gets the choosen Category
-                            foreach (CardViewModel card in this.bvm)    
-                            {
-                                card.Category = catVM;
-                            }
-                            SaveCards.SaveAdditionalCardBox(catVM,this.bvm);
-                        }
-                    }
+                    SaveCardsToExistCategory();
                 };
                 NewClassName = "Keine Datei ausgewählt";
             }
         }
+
+        /*
+         * This Method looks if there is a CategoryViewModel allready with the 
+         * same Name and Overwrite the Cards in the Category. 
+         * If there is no CategoryViewModel with the Name, it creates
+         * a new one, add it to the CategoryCollectionViewModel, saves the
+         * CategoryCollectionViewModel and saves the Cards to the Filesystem
+         * with the help of the SaveCards Class.
+         */
+        private void SaveCardsWithNewCategory()
+        {
+            CategoryViewModel cat;
+            string catName = System.IO.Path.GetFileNameWithoutExtension(
+                    ofd.FileName);
+            var savedCat = MyModelViewModel.Where
+                (p => p.Name == catName).FirstOrDefault();
+            if (savedCat == null)
+            {
+                cat = new CategoryViewModel(new Category(catName));
+                MyModelViewModel.Add(cat);
+                MyModelViewModel.SaveCategorys();
+            }
+            else
+            {
+                cat = savedCat;
+            }
+            foreach (CardViewModel card in this.bvm)
+            {
+                card.Category = cat;
+            }
+            SaveCards.SaveBoxToFileSystem(this.bvm);
+        }
+
+        /*
+         * This Method gives all cards the existing CategoryViewModel and 
+         * push the BoxViewModel to the SaveCards Class to 
+         * add the Cards to the existing Cards of the Category and saves them 
+         * to the FileSystem.
+         */
+        private void SaveCardsToExistCategory()
+        {
+            foreach (CategoryViewModel catVM in MyModelViewModel)
+            {
+                if (catVM.Name == Class.Name)
+                {
+                    // Every Card gets the choosen Category
+                    foreach (CardViewModel card in this.bvm)
+                    {
+                        card.Category = catVM;
+                    }
+                    SaveCards.SaveAdditionalCardBox(catVM, this.bvm);
+                }
+            }
+        }
+
         
         /*
          * This Method opens the OpenFileDialog with which the
