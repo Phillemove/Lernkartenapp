@@ -17,26 +17,24 @@
         <Label Grid.Column="0" x:Name="AddCard" Content="AddCard" HorizontalAlignment="Left"
                VerticalAlignment="Top" Margin="3,0,0,0" Height="40" Width="241"
                FontFamily="Verdana" FontSize="20" FontWeight="Bold" Foreground="#FFFAFAFA" />
-        <Label Grid.Column="0" x:Name="Question" Content="Question" HorizontalAlignment="Left"
+        <Label Grid.Column="0" x:Name="Question" Content="Frage" HorizontalAlignment="Left"
                VerticalAlignment="Top" Background="#901aff"  FontFamily="Verdana" FontSize="10"
                FontWeight="Bold" Foreground="#FFFAFAFA" Margin="46,45,0,0" Height="42" Width="82"/>
         <TextBox Grid.Column="0" Text="{Binding Path=Question}" BorderBrush="#dab3ff"
                  Background="#e6ccff" VerticalAlignment="Center" HorizontalAlignment="Right"
                  Margin="0,45,232,331" Width="288" Height="42" RenderTransformOrigin="0.505,0.5"></TextBox>
-        <Label Grid.Column="0" x:Name="Answer" Content="Answer" HorizontalAlignment="Left"
+        <Label Grid.Column="0" x:Name="Answer" Content="Antwort" HorizontalAlignment="Left"
                VerticalAlignment="Top" Background="#901aff"  FontFamily="Verdana" FontSize="10"
                FontWeight="Bold" Foreground="#FFFAFAFA" Margin="46,107,0,0" Height="47" Width="82"/>
         <TextBox Grid.Column="0" Text="{Binding Path=Answer}" BorderBrush="#dab3ff"
                  Background="#e6ccff" VerticalAlignment="Center" HorizontalAlignment="Right"
                  Margin="0,107,232,264" Width="288" Height="47" ></TextBox>
         <Button Grid.Column="0" HorizontalAlignment="Left"  Width="149"
-                Command="{Binding AddQuestionPic,Mode=OneWay}" Margin="121,174,0,205"
-                RenderTransformOrigin="0.22,-1.215">
-            Add Question Picture</Button>
+                Command="{Binding AddQuestionPic, Mode=OneWay}" Margin="121,174,0,205"
+                RenderTransformOrigin="0.22,-1.215" Content="Frage Bild hinzufügen"/>
         <Button Grid.Column="0"   Width="148" HorizontalAlignment="Left" 
-                Command="{Binding AddAnswerPic,Mode=OneWay}"
-                RenderTransformOrigin="0.22,-1.215" Margin="388,174,0,205">
-            Add Answer Picture</Button>
+                Command="{Binding AddAnswerPic, Mode=OneWay}"
+                RenderTransformOrigin="0.22,-1.215" Margin="388,174,0,205" Content="Antwort Bild hinzufügen"/>
         <Label Grid.Column="0" BorderBrush="#dab3ff" x:Name="Category" Content="Category"
                HorizontalAlignment="Left" VerticalAlignment="Top" Background="#901aff"
                FontFamily="Verdana" FontSize="10" FontWeight="Bold" Foreground="#FFFAFAFA"
@@ -53,7 +51,7 @@
                   Width="197" >
         </ComboBox>
         <Button Grid.Column="0" HorizontalAlignment="Left" Margin="17,370,0,9.667" Width="111"
-                Command="{Binding AddCard,Mode=OneWay}">Add Card</Button>
+                Command="{Binding AddCard,Mode=OneWay}" Click="Button_Click">Karte hinzufügen</Button>
         <Label Grid.Column="0" BorderBrush="#dab3ff" x:Name="BoxNumber" Content="BoxNumber"
             HorizontalAlignment="Left" VerticalAlignment="Top" Background="#901aff"
             FontFamily="Verdana" FontSize="10" FontWeight="Bold" Foreground="#FFFAFAFA"
