@@ -39,7 +39,8 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
             statisticCollectionVM = new StatisticCollectionViewModel();
 
 
-            StatisticWindowViewModel = new StatisticWindowViewModel(statisticCollectionVM);
+            //StatisticWindowViewModel = new StatisticWindowViewModel(CardLearningViewModel.CardVM.StatisticCollection);
+            //CardLearningViewModel.CardVM.StatisticCollection;
 
 
 
@@ -49,34 +50,34 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
 
             // Statistic DummyData for testing statistics
             // normally is generated when a Card is learned in the learning algorithm
-            Statistic statistic = new Statistic();
+            StatisticViewModel statistic = new StatisticViewModel();
             statistic.Timestamp = new DateTime(2021, 01, 01, 7, 20, 22);
-            statistic.SuccessfullAnswer = true;
+            statistic.SuccessfulAnswer = true;
             statistic.CurrentBoxNumber = Boxnumber.Box2;
-            statisticCollectionVM.Add(new StatisticViewModel(statistic));
+            statisticCollectionVM.Add(statistic);
 
-            Statistic statistic1 = new Statistic();
+            StatisticViewModel statistic1 = new StatisticViewModel();
             statistic1.Timestamp = new DateTime(2021, 01, 03, 8, 45, 25);
-            statistic1.SuccessfullAnswer = true;
+            statistic1.SuccessfulAnswer = true;
             statistic1.CurrentBoxNumber = Boxnumber.Box3;
-            statisticCollectionVM.Add(new StatisticViewModel(statistic1));
+            statisticCollectionVM.Add(statistic1);
 
-            Statistic statistic2 = new Statistic();
+            StatisticViewModel statistic2 = new StatisticViewModel();
             statistic2.Timestamp = new DateTime(2021, 01, 15, 9, 36, 21);
-            statistic2.SuccessfullAnswer = true;
+            statistic2.SuccessfulAnswer = true;
             statistic2.CurrentBoxNumber = Boxnumber.Box4;
-            statisticCollectionVM.Add(new StatisticViewModel(statistic2));
+            statisticCollectionVM.Add(statistic2);
 
-            Statistic statistic3 = new Statistic();
+            StatisticViewModel statistic3 = new StatisticViewModel();
             statistic3.Timestamp = DateTime.Now;
-            statistic3.SuccessfullAnswer = false;
+            statistic3.SuccessfulAnswer = false;
             statistic3.CurrentBoxNumber = Boxnumber.Box4;
-            statisticCollectionVM.Add(new StatisticViewModel(statistic3));
+            statisticCollectionVM.Add(statistic3);
 
 
 
             // This mthod must be executed each time the statistics Window is opened
-            StatisticWindowViewModel.MakeStatistic();
+            //StatisticWindowViewModel.MakeStatistic();
 
 
             //<maha>
@@ -102,7 +103,9 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
             CardViewModel cvm2 = new CardViewModel(new Card("what is year?", "2021", Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "\\..\\..\\..\\Data\\myimages\\year2021.jpg"));
             CardViewModel cvm3 = new CardViewModel(new Card("is mouse input or output device?", "input", Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "\\..\\..\\..\\Data\\myimages\\mouse.jpg"));
 
-            //cvm1.StatisticCollection = statisticCollectionVM.statisticCollection;
+            cvm1.StatisticCollection = statisticCollectionVM;
+            cvm2.StatisticCollection = statisticCollectionVM;
+            cvm3.StatisticCollection = statisticCollectionVM;
 
             myModelViewModel.BoxCollectionVM.Add(bvm1);
             myModelViewModel.BoxCollectionVM.Add(bvm2);
@@ -125,9 +128,10 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
 
 
             //marah
-            CardLearningViewModel = new CardLearningViewModel(myModelViewModel.BoxCollectionVM);
-            
+            CardLearningViewModel = new CardLearningViewModel(myModelViewModel.BoxCollectionVM, myModelViewModel.myCategoryCollection);
 
+            StatisticWindowViewModel = new StatisticWindowViewModel(CardLearningViewModel.CardVM.StatisticCollection);
+            StatisticWindowViewModel.MakeStatistic();
 
 
         }

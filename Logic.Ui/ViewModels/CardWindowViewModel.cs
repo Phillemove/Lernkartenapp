@@ -113,6 +113,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             //MessageBox.Show(cardVM.Question+"-"+ cardVM.Answer+" - "+ cardVM.QuestionPic+"-"+ cardVM.AnswerPic
             // +"-"+ myCategory.Name + "- boxNumber:"+ BoxVM.Bn);
             myBoxCollectionViewModel.storeCard(cardVM, BoxVM.Bn);
+            //Support.SaveCards.SaveAdditionalCard("CategoryViewModel der Karte", cardVM); //CategoryViewModel der Karte muss noch eingefügt werden
 
         }
         private void AddQuestionPicMethod()

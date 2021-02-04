@@ -21,7 +21,6 @@
             <Button Command="{Binding OpenManageCardsWindow, Mode=OneWay}">Karte bearbeiten</Button>
             <Button Command="{Binding OpenImportWindow, Mode=OneWay}">Import</Button>
             <Button Command="{Binding OpenExportWindow, Mode=OneWay}">Export</Button>
-            <Button Command="{Binding OpenStatisticsWindow, Mode=OneWay}" x:Name="TestButton">Statistik</Button>
             <Button Command="{Binding OpenCategoryWindow, Mode=OneWay}">Kategorien verwalten</Button>
             <Button Command="{Binding OpenImportForeignFormatWindow, Mode=OneWay}">Import Fremdformat</Button>
             <Button Command="{Binding OpenCardLearningWindow, Mode=OneWay}">Karten lernen</Button>

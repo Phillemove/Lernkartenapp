@@ -9,6 +9,9 @@ using System.Windows.Forms;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Timers;
+using System.Windows;
+using De.HsFlensburg.ClientApp101.Services.MessageBus;
+using De.HsFlensburg.ClientApp101.Logic.Ui.MessageBusMessages;
 
 namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
 {
@@ -16,10 +19,14 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        public RelayCommand OpenStatisticsWindow { get; }
+        public RelayCommand CloseWindow { get; }
+
         private String ans;
         private Boxnumber curBoxNumber { get; set; }
         private int currentProgressBarValue;
         private int maximumProgressBarValue;
+        private readonly CategoryCollectionViewModel ccvm;
         public static System.Timers.Timer aTimer { get; set; }
         public int CurrentProgressBarValue
         {
@@ -60,7 +67,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         public RelayCommand FalseAnswer { get; }
         public BoxCollectionViewModel myBoxCollectionViewModel { get; set; }
 
-        public CardLearningViewModel(BoxCollectionViewModel bcvm)
+        public CardLearningViewModel(BoxCollectionViewModel bcvm, CategoryCollectionViewModel ccvm)
         {
             //-----------------------------------
             aTimer = new System.Timers.Timer();
@@ -75,9 +82,19 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             CardVM = myBoxCollectionViewModel.giveCard(Boxnumber.Box1);
             TrueAnswer = new RelayCommand(() => TrueAnswerMethod());
             FalseAnswer = new RelayCommand(() => FalseAnswerMethod());
-           
 
+            OpenStatisticsWindow = new RelayCommand(() => ServiceBus.Instance.Send(new OpenStatisticMessage()));
+            CloseWindow = new RelayCommand(param => Close(param));
+            this.ccvm = ccvm;
         }
+
+        private void Close(object param)
+        {
+            Support.SaveCards.SaveBoxCollectionsToFilesystem(myBoxCollectionViewModel, ccvm);   //Saves the learned Cards to the Filesystem
+            Window window = (Window)param;
+            window.Close();
+        }
+
         private void OnTimedEvent(Object source, ElapsedEventArgs e)
         {
             //Console.WriteLine("The Elapsed event was raised at {0:HH:mm:ss.fff}",e.SignalTime);
@@ -101,7 +118,9 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             if (CardVM != null)
             {
                 Answer = "";
-               // CardVM.StatisticCollection.Add(new Statistic(DateTime.Now, true, curBoxNumber));
+                CardVM.StatisticCollection.Add(new StatisticViewModel(new Statistic(DateTime.Now, true, curBoxNumber)));
+                StatisticWindowViewModel swvm = new StatisticWindowViewModel(CardVM.StatisticCollection);
+                swvm.MakeStatistic();
                 getNextCard();
                 aTimer.Enabled = true;
                 CurrentProgressBarValue += 1;
@@ -115,7 +134,9 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             if (CardVM != null)
             {
                 Answer = "";
-               // CardVM.StatisticCollection.Add(new Statistic(DateTime.Now, false, curBoxNumber));
+                CardVM.StatisticCollection.Add(new StatisticViewModel(new Statistic(DateTime.Now, false, curBoxNumber)));
+                StatisticWindowViewModel swvm = new StatisticWindowViewModel(CardVM.StatisticCollection);
+                swvm.MakeStatistic();
                 moveCard();
                 getNextCard();
                 aTimer.Enabled = true;

@@ -5,8 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:De.HsFlensburg.ClientApp101.Ui.Desktop"
         mc:Ignorable="d"
-        Title="CardLearning" Height="450" Width="1313.032">
-
+        Title="CardLearning" Height="450" Width="1313.032" x:Name="ThisWindow">
+    <Window.IsEnabled>
+        <Binding Source="{StaticResource MessageListener}" Path="BindableProperty"></Binding>
+    </Window.IsEnabled>
     <Window.DataContext>
         <Binding Source="{StaticResource VMLocator}" Path="CardLearningViewModel"></Binding>
     </Window.DataContext>
@@ -42,6 +44,7 @@
                 ScrollViewer.CanContentScroll="True"
                 ScrollViewer.HorizontalScrollBarVisibility="Auto"
                 ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="841,36,0,0"/>
-        <Button IsCancel="True" Content="Close" HorizontalAlignment="Left" Margin="283,10,0,0" VerticalAlignment="Top" Width="100" Height="28" FontSize="18"/>
+        <Button Command="{Binding CloseWindow}" CommandParameter="{Binding ElementName=ThisWindow}" Content="Close" HorizontalAlignment="Left" Margin="283,10,0,0" VerticalAlignment="Top" Width="100" Height="28" FontSize="18"/>
+        <Button Command="{Binding OpenStatisticsWindow, Mode=OneWay}" Content="Statistik" HorizontalAlignment="Left" Margin="155,10,0,0" VerticalAlignment="Top" Width="100" Height="28" FontSize="18"/>
     </Grid>
 </Window>
