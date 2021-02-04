@@ -22,7 +22,7 @@
         </DataGrid>
         <TextBlock HorizontalAlignment="Left" Margin="10,49,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="236" Width="772">
             <Run Text="Wie oft wurde die Karte gelernt:"/>
-            <Run Text="{Binding Path=LearnedCard}"/>
+            <Run Text="{Binding Path=LearnedCard, Mode=TwoWay}"/>
             <Run Text="mal"/><LineBreak/>
             <Run Text="Wann wurde die Karte zuletzt gelernt:"/>
             <Run Text="{Binding Path=LastLearned}"/><LineBreak/>
