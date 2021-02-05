@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Windows;
+using System.Runtime.CompilerServices;
 
 namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
 {
@@ -17,18 +18,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
     public class StatisticWindowViewModel : INotifyPropertyChanged
     {
 
-        private StatisticCollectionViewModel statisticCollectionVM;
-        public StatisticCollectionViewModel StatisticCollectionVM {
-            get
-            {
-                return statisticCollectionVM;
-            }
-            set
-            {
-                statisticCollectionVM = value;
-                OnPropertyChanged("");
-            }
-        }
+        public StatisticCollectionViewModel StatisticCollectionVM { get; set; }
 
         private int learnedCard;
         public int LearnedCard {
@@ -39,32 +29,171 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             set
             {
                 learnedCard = value;
-                OnPropertyChanged("LearnedCard");
+                OnPropertyChanged();
             }
         }
-        public int RightAnswer { get; set; }
-        public String LastSucessfullAnswer { get; set; }
-        public int LearningSucess { get; set; }
-        public String LastLearned { get; set; }
-        public String LastAnswer { get; set; }
-        public int WrongAnswer { get; set; }
-        public String LastWrongAnswer { get; set; }
-        public int LearningWrong { get; set; }
-        public int CurrentBoxNumber { get; set; }
-        public int ActualBoxPassed { get; set; }
-        public int BoxShift { get; set; }
-        public String DropintoCurrentBox { get; set; }
+
+        private int rightAnswer;
+        public int RightAnswer {
+            get
+            {
+                return rightAnswer;
+            }
+            set
+            {
+                rightAnswer = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private String lastSucessfullAnswer;
+        public String LastSucessfullAnswer {
+            get
+            {
+                return lastSucessfullAnswer;
+            }
+            set
+            {
+                lastSucessfullAnswer = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private int learningSucess;
+        public int LearningSucess {
+            get
+            {
+                return learningSucess;
+            }
+            set
+            {
+                learningSucess = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private String lastLearned;
+        public String LastLearned {
+            get
+            {
+                return lastLearned;
+            }
+            set
+            {
+                lastLearned = value;
+                OnPropertyChanged();
+            } 
+        }
+
+        private String lastAnswer;
+        public String LastAnswer {
+            get
+            {
+                return lastAnswer;
+            }
+            set
+            {
+                lastAnswer = value;
+                OnPropertyChanged();
+            } 
+        }
+
+        private int wrongAnswer;
+        public int WrongAnswer {
+            get
+            {
+                return wrongAnswer;
+            }
+            set
+            {
+                wrongAnswer = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private String lastWrongAnswer;
+        public String LastWrongAnswer {
+            get
+            {
+                return lastWrongAnswer;
+            }
+            set
+            {
+                lastWrongAnswer = value;
+                OnPropertyChanged();
+            } 
+        }
+
+        private int learningWrong;
+        public int LearningWrong {
+            get
+            {
+                return learningWrong;
+            }
+            set
+            {
+                learningWrong = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private int currentBoxNumber;
+        public int CurrentBoxNumber {
+            get
+            {
+                return currentBoxNumber;
+            }
+            set
+            {
+                currentBoxNumber = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private int actualBoxPassed;
+        public int ActualBoxPassed {
+            get
+            {
+                return actualBoxPassed;
+            }
+            set
+            {
+                actualBoxPassed = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private int boxShift;
+        public int BoxShift {
+            get
+            {
+                return boxShift;
+            }
+            set
+            {
+                boxShift = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private String dropintoCurrentBox;
+        public String DropintoCurrentBox {
+            get
+            {
+                return dropintoCurrentBox;
+            }
+            set
+            {
+                dropintoCurrentBox = value;
+                OnPropertyChanged();
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void OnPropertyChanged(string propertyName)
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            /*if(this.PropertyChanged != null)
-            {
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }*/
-            PropertyChanged?.Invoke(this,
-                new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         public StatisticWindowViewModel(StatisticCollectionViewModel statisticCollectionVM)
@@ -89,6 +218,8 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             ActualBoxPassed = StatisticAlgorithms.ActualBoxPassed(StatisticCollectionVM,CurrentBoxNumber);
             BoxShift = StatisticAlgorithms.BoxShift(StatisticCollectionVM, CurrentBoxNumber);
             DropintoCurrentBox = StatisticAlgorithms.DropintoCurrentBox(StatisticCollectionVM, CurrentBoxNumber, DateTime.Parse(LastLearned));
+            // Test der zeigt, das Properties richtig geschrieben werden
+            Console.WriteLine(LearnedCard);
         }
 
     }

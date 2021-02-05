@@ -38,16 +38,11 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
             // for Statistics Dummydata
             statisticCollectionVM = new StatisticCollectionViewModel();
 
-
-            //StatisticWindowViewModel = new StatisticWindowViewModel(CardLearningViewModel.CardVM.StatisticCollection);
-            //CardLearningViewModel.CardVM.StatisticCollection;
-
-
-
             //CardWindowViewModel = new CardWindowViewModel();
             //CategoryViewModel = new CategoryViewModel();
 
 
+            
             // Statistic DummyData for testing statistics
             // normally is generated when a Card is learned in the learning algorithm
             StatisticViewModel statistic = new StatisticViewModel();
@@ -55,7 +50,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
             statistic.SuccessfulAnswer = true;
             statistic.CurrentBoxNumber = Boxnumber.Box2;
             statisticCollectionVM.Add(statistic);
-
+            /*
             StatisticViewModel statistic1 = new StatisticViewModel();
             statistic1.Timestamp = new DateTime(2021, 01, 03, 8, 45, 25);
             statistic1.SuccessfulAnswer = true;
@@ -73,7 +68,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
             statistic3.SuccessfulAnswer = false;
             statistic3.CurrentBoxNumber = Boxnumber.Box4;
             statisticCollectionVM.Add(statistic3);
-
+            */
 
 
             // This mthod must be executed each time the statistics Window is opened
@@ -85,7 +80,6 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
             myModelViewModel = new ModelViewModel();
             
             CategoryManageViewModel = new CategoryManageViewModel(myModelViewModel.myCategoryCollection);
-            ImportForeignFormatViewModel = new ImportForeignFormatViewModel(myModelViewModel.myCategoryCollection);
             ImportViewModel = new ImportViewModel(myModelViewModel.myCategoryCollection);
             ExportViewModel = new ExportViewModel(myModelViewModel.myCategoryCollection);
             MainWindowViewModel = new MainWindowViewModel(myModelViewModel);
@@ -131,7 +125,8 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
             CardLearningViewModel = new CardLearningViewModel(myModelViewModel.BoxCollectionVM, myModelViewModel.myCategoryCollection);
 
             StatisticWindowViewModel = new StatisticWindowViewModel(CardLearningViewModel.CardVM.StatisticCollection);
-            StatisticWindowViewModel.MakeStatistic();
+            
+            ImportForeignFormatViewModel = new ImportForeignFormatViewModel(myModelViewModel.myCategoryCollection, bvm1);
 
 
         }

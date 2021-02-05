@@ -6,9 +6,12 @@
         xmlns:local="clr-namespace:De.HsFlensburg.ClientApp101.Ui.Desktop"
         mc:Ignorable="d"
         Title="Card Statistics" Height="450" Width="800">
-    <Window.DataContext >
-        <Binding Source = "{StaticResource VMLocator}" Path = "StatisticWindowViewModel" ></Binding >
-    </Window.DataContext >
+    <Window.IsEnabled>
+        <Binding Source="{StaticResource MessageListener}" Path="BindableProperty"></Binding>
+    </Window.IsEnabled>
+    <Window.DataContext>
+        <Binding Source ="{StaticResource VMLocator}" Path ="StatisticWindowViewModel"></Binding >
+    </Window.DataContext>
     <Grid>
         <Button Content="Karte" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="54"/>
         <GridSplitter HorizontalAlignment="Left" Height="3" Margin="0,41,0,0" VerticalAlignment="Top" Width="792"/>
@@ -55,6 +58,6 @@
             <Run Text="{Binding Path=BoxShift}"/>
             <Run Text="mal"/><LineBreak/>
         </TextBlock>
-
+        <Label Content="{Binding Path=LastSucessfullAnswer, Mode=TwoWay}" HorizontalAlignment="Left" Margin="114,10,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>

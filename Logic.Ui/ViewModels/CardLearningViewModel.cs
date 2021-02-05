@@ -17,6 +17,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
 {
     public class CardLearningViewModel : INotifyPropertyChanged
     {
+        public StatisticWindowViewModel StatisticWindowVM { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
 
         public RelayCommand OpenStatisticsWindow { get; }
@@ -66,6 +67,8 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         public RelayCommand TrueAnswer { get; }
         public RelayCommand FalseAnswer { get; }
         public BoxCollectionViewModel myBoxCollectionViewModel { get; set; }
+
+       
 
         public CardLearningViewModel(BoxCollectionViewModel bcvm, CategoryCollectionViewModel ccvm)
         {
@@ -119,8 +122,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             {
                 Answer = "";
                 CardVM.StatisticCollection.Add(new StatisticViewModel(new Statistic(DateTime.Now, true, curBoxNumber)));
-                StatisticWindowViewModel swvm = new StatisticWindowViewModel(CardVM.StatisticCollection);
-                swvm.MakeStatistic();
+                StatisticWindowVM = new StatisticWindowViewModel(CardVM.StatisticCollection);
                 getNextCard();
                 aTimer.Enabled = true;
                 CurrentProgressBarValue += 1;
@@ -135,8 +137,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             {
                 Answer = "";
                 CardVM.StatisticCollection.Add(new StatisticViewModel(new Statistic(DateTime.Now, false, curBoxNumber)));
-                StatisticWindowViewModel swvm = new StatisticWindowViewModel(CardVM.StatisticCollection);
-                swvm.MakeStatistic();
+                StatisticWindowVM = new StatisticWindowViewModel(CardVM.StatisticCollection);
                 moveCard();
                 getNextCard();
                 aTimer.Enabled = true;

@@ -3,10 +3,27 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:De.HsFlensburg.ClientApp101.Ui.Desktop"
+        xmlns:local="clr-namespace.HsFlensburg.ClientApp101.Ui.Desktop"
         mc:Ignorable="d"
-        Title="ImportForeignFormat" Height="450" Width="800">
-    <Grid>
-        
+        Title="ImportForeignFormat" Height="227" Width="407"
+        x:Name="ThisWindow">
+    <Window.Resources>
+
+    </Window.Resources>
+    <Window.IsEnabled>
+        <Binding Source="{StaticResource MessageListener}" Path="BindableProperty"></Binding>
+    </Window.IsEnabled>
+    <Window.DataContext>
+        <Binding Source="{StaticResource VMLocator}" Path="ImportForeignFormatViewModel"></Binding>
+    </Window.DataContext>
+    <Grid Margin="0,0,2,0">
+        <Button Content="Datei importieren" HorizontalAlignment="Left" Margin="28,146,0,0" VerticalAlignment="Top" Width="202" Height="25"/>
+        <Label  Content="{Binding Path=ErrorMsg, Mode=TwoWay}" Foreground="Red" HorizontalAlignment="Left" Margin="28,88,0,0" VerticalAlignment="Top" Height="46" Width="338"/>
+        <ComboBox ItemsSource="{Binding Path=MyCategoryCollection, Mode=OneWay}" DisplayMemberPath="Name" SelectedValue="Name"  HorizontalAlignment="Left" Margin="119,53,0,0" VerticalAlignment="Top" Width="171"/>
+        <Label Content="Kategorie" HorizontalAlignment="Left" Margin="28,49,0,0" VerticalAlignment="Top"/>
+        <Button Command="{Binding CloseWindow}" CommandParameter="{Binding ElementName=ThisWindow}" Content="Schließen" HorizontalAlignment="Left" Margin="258,146,0,0" VerticalAlignment="Top" Width="86" Height="25"/>
+        <Button Command="{Binding SelectFile, Mode=OneWay}" Content="..." HorizontalAlignment="Left" Margin="319,10,0,0" VerticalAlignment="Top" Width="25"/>
+        <Label Content="Datei auswählen" HorizontalAlignment="Left" Height="34" Margin="28,10,0,0" VerticalAlignment="Top" Width="262"/>
+
     </Grid>
 </Window>
