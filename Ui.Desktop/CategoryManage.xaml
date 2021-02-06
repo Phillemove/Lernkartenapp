@@ -10,9 +10,11 @@
     <Window.Resources>
 
     </Window.Resources>
+    <!--
     <Window.IsEnabled>
         <Binding Source="{StaticResource MessageListener}" Path="BindableProperty"></Binding>
     </Window.IsEnabled>
+    -->
     <Window.DataContext>
         <Binding Source="{StaticResource VMLocator}" Path="CategoryManageViewModel"></Binding>
     </Window.DataContext>
