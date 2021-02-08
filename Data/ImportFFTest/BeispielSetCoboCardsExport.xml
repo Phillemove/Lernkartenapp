@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CoboCards>
+     <set name="SAP" />
+     <card content="[Pic1]&lt;br&gt;[Pic2]&lt;br&gt;[Pic3]" last_learned="1352575214" level="1" source="" tags="" title="Handling &lt;br&gt;classic exceptions VS. class-based exceptions?&lt;br&gt;(Code-Beispiel, Syntax)">
+          <images>
+               <image path="data/6m8ik1112.jpg" />
+               <image path="data/6m8ik1112_2.jpg" />
+               <image path="data/6m8ik1112_3.jpg" />
+          </images>
+     </card>
+     <card content="Fehler innerhalb Try-Catch-Block:&lt;br&gt;- processing is terminated&lt;br&gt;- system branches directly to relevant CATCH-Block.&lt;br&gt;&lt;br&gt;&lt;br&gt;class-based-exceptions ermöglichen viel - in diesem Kurs: Minimalbehandlung." last_learned="1352575267" level="1" source="" tags="" title="class-based exception: Was geschieht bei Fehler?&lt;br&gt;&lt;br&gt;Besonderheiten?">
+          <images />
+     </card>
+     <card content="Instanzen werden in Variablen gespeichert (Pointer)&lt;br&gt;&lt;br&gt;Definition:&lt;br&gt;DATA gr_ref_name**TYPE REF TO** class_name.&lt;br&gt;&lt;br&gt;Instantiierung:&lt;br&gt;**CRATE OBJECT** gr_ref_name.&lt;br&gt;&lt;br&gt;//evtl: method CONSTRUCTOR supply with data//&lt;br&gt;&lt;br&gt;Ansprache:&lt;br&gt;**CALL METHOD** gr_ref_name-&amp;gt;method_name" last_learned="0" level="6" source="" tags="" title="Wie werden Instanzen angesprochen?&lt;br&gt;&lt;br&gt;Wie werden sie definiert? (Syntax)&lt;br&gt;&lt;br&gt;Wie werden sie angesprochen? (Syntax)">
+          <images />
+     </card>
+     <card content="Class Builder" last_learned="1352575279" level="2" source="" tags="" title="Mit welchem Tool werden global Classes erstellt?">
+          <images />
+     </card>
+     <card content="Im source-Code eines Programms." last_learned="1352575293" level="2" source="" tags="" title="Wie werden local classes erstellt?">
+          <images />
+     </card>
+     <card content="[Pic1]" last_learned="1352575324" level="6" source="" tags="" title="Syntax: Definition einer Local Class">
+          <images>
+               <image path="data/3463l1112.jpg" />
+          </images>
+     </card>
+     <card content="[Pic1]" last_learned="0" level="1" source="" tags="" title="Example: the ORDER BY Addition">
+          <images>
+               <image path="data/5ca6z1112.jpg" />
+          </images>
+     </card>
+     <card content="Expencive Process folr database, if&lt;br&gt;{*result set is large&lt;br&gt;*sort fields do not agree with the fields in the database index used}" last_learned="0" level="1" source="" tags="" title="Problems with DESCENDING and ASCENDING Addition?">
+          <images />
+     </card>
+</CoboCards>
