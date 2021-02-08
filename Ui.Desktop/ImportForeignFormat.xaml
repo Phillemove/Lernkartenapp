@@ -30,12 +30,14 @@
         <Label  Content="{Binding ImportFile, Mode=OneWay}" Foreground="Black" HorizontalAlignment="Left" Margin="28,33,0,0" VerticalAlignment="Top" Height="25" Width="232"/>
         <Label  Content="{Binding ErrorMsg, Mode=OneWay}" Foreground="Red" HorizontalAlignment="Left" Margin="28,110,0,0" VerticalAlignment="Top" Height="25" Width="338"/>
 
-        <Button Content="Datei importieren" Command="{Binding FileImport, Mode=OneWay}" HorizontalAlignment="Left" Margin="174,140,0,0" VerticalAlignment="Top" Width="116" Height="25"/>
+        <Button Content="Datei importieren" Command="{Binding FileImport, Mode=OneWay}" HorizontalAlignment="Left" Margin="28,140,0,0" VerticalAlignment="Top" Width="116" Height="25"/>
 
         <Button Command="{Binding CloseWindow}" CommandParameter="{Binding ElementName=ThisWindow}" Content="Schließen" HorizontalAlignment="Left" Margin="641,217,0,0" VerticalAlignment="Top" Width="86" Height="25"/>
 
-        <DataGrid ItemsSource="{Binding Path=TempBox, Mode=TwoWay}" HorizontalAlignment="Left" Height="202" Margin="295,10,0,0" VerticalAlignment="Top" Width="432"/>
+        <TextBox Text="{Binding ImportLog}" HorizontalAlignment="Left" Height="202" Margin="295,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="432"/>
 
-        <Button Content="Karten importieren" Command="{Binding CardImport}" HorizontalAlignment="Left" Margin="174,187,0,0" VerticalAlignment="Top" Width="116" Height="25"/>
+        <Button Content="Karten importieren" Command="{Binding CardImport}" HorizontalAlignment="Left" Margin="174,157,0,0" VerticalAlignment="Top" Width="116" Height="25" RenderTransformOrigin="0.181,0.6"/>
+        <Button Content="Karten verwerfen" Command="{Binding CardClear}" HorizontalAlignment="Left" Margin="174,187,0,0" VerticalAlignment="Top" Width="116" Height="25"/>
+        
     </Grid>
 </Window>

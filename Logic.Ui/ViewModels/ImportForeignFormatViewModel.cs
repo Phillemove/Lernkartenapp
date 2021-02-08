@@ -2,8 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
@@ -21,6 +23,8 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         public RelayCommand SelectFile { get; }
         public RelayCommand FileImport { get; }
         public RelayCommand CardImport { get; }
+        public RelayCommand CardClear { get; }
+        public String ImportLog { get; set; }
         public String ErrorMsg { get; set; }
         public String ImportFile { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
@@ -32,16 +36,13 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             SelectFile = new RelayCommand(() => FileChoose());
             FileImport = new RelayCommand(() => Import());
             CardImport = new RelayCommand(() => ImportCards());
+            CardClear = new RelayCommand(() => ClearCards());
             this.MyCategoryCollection = ccvm;
             this.ImportBox = importbox;
             this.TempBox = new BoxViewModel();
-            CardViewModel card = new CardViewModel();
-            card.StatisticCollection = new StatisticCollectionViewModel();
-            card.Question = "Title";
-            card.Answer = "Answer";
-            TempBox.Add(card);
 
 
+            ImportLog = "";
             ErrorMsg = "";
             ImportFile = "";
         }
@@ -55,8 +56,25 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
 
         private void ImportCards()
         {
-
+            foreach (CardViewModel card in TempBox) // test
+            {
+                ImportBox.Add(card);
+            }
+            // SaveBox
+            ClearLog();
         }
+
+        private void ClearCards()
+        {
+            TempBox.Clear();
+            ClearLog();
+        }
+        private void ClearLog()
+        {
+            ImportLog = "";
+            OnPropertyChanged("ImportLog");
+        }
+
         private void Close(object param)
         {
             // Save Box
@@ -88,8 +106,17 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         private String StripHTML(String str)
         {
             str = str.Replace("<br>","\n");
+            str = str.Replace("<div>", "");
+            str = str.Replace("</div>", "");
+            str = str.Replace("&nbsp;", " ");
+            str = Regex.Replace(str, "<img[^>]+>", "");
 
             return str;
+        }
+
+        private void AddCardToLog(String question,String answer)
+        {
+            ImportLog = ImportLog + "Frage:\n" + question + "\n\nAntwort:\n" + answer + "\n---------\n";
         }
 
         private void ImportCoboCards()
@@ -112,20 +139,43 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                             card.Question = title;
                             card.Answer = content;
                             TempBox.Add(card);
-                            OnPropertyChanged("TempBox");
-                            Console.WriteLine(card.Answer);
-                            //show cards?
-                            // Save Box
-                            // Exclude Picture only answers
+                            AddCardToLog(title, content);
                         }
                     }
                 }
+                OnPropertyChanged("ImportLog");
             }
             else
             {
                 ShowError("XML File ist kein valider CoboCards Export");
             }
         }
+        private void ImportAnkiTxt()
+        {
+            StreamReader stream = new StreamReader(ImportFile);
+            while (!stream.EndOfStream)
+            {
+                String line = stream.ReadLine();
+                String[] values = line.Split('\t');
+                if (values[0] != "" && values[1] != "")
+                {
+                    String question = StripHTML(values[0]);
+                    String answer = StripHTML(values[1]);
+                    if (question != "" && answer != "" && answer != "\"\"" && question != "\"\"")
+                    {
+                        CardViewModel card = new CardViewModel();
+                        card.StatisticCollection = new StatisticCollectionViewModel();
+                        card.Question = question;
+                        card.Answer = answer;
+                        TempBox.Add(card);
+                        AddCardToLog(question, answer);
+                    }
+                }
+            }
+            OnPropertyChanged("ImportLog");
+        }
+        // Bilder kopieren ?!
+        // txt Import
 
 
         private void FileChoose()
@@ -135,11 +185,9 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             dialog.Filter = "CoboCards Export|*.xml| Ansi txt-Export|*.txt";
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                
                 if (dialog.FileName.EndsWith(".txt"))
                 {
                     ShowFile(dialog.FileName);
-                    ShowError("txt nicht implementiert");
                 }
                 else if (dialog.FileName.EndsWith(".xml"))
                 {
@@ -164,7 +212,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                 {
                     if (ImportFile.EndsWith(".txt"))
                     {
-
+                        ImportAnkiTxt();
                     }
                     else if (ImportFile.EndsWith(".xml"))
                     {
