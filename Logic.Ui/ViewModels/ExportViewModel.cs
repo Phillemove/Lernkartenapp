@@ -168,24 +168,20 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
          * This Method receives the CardViewModel and the XmlTextWriter and 
          * write the StatisticNodes if necessery
          */
-        private void WriteStatistic(CardViewModel card, XmlTextWriter xmlWriter)
+        public static void WriteStatistic(CardViewModel card, XmlTextWriter xmlWriter)
         {
-            xmlWriter.WriteStartElement(
-                        "StatisticCollection");
-            if (card.StatisticCollection != null)
+            xmlWriter.WriteStartElement("StatisticCollection");
+            foreach (StatisticViewModel stat in card.StatisticCollection)
             {
-                foreach (StatisticViewModel stat in card.StatisticCollection)
-                {
-                    xmlWriter.WriteStartElement("Statistic");
-                    xmlWriter.WriteElementString("Timestamp",
-                        stat.Timestamp.ToString());
-                    xmlWriter.WriteElementString("SuccessfullAnswer",
-                        stat.SuccessfulAnswer.ToString());
-                    xmlWriter.WriteElementString("CurrentBoxNumber",
-                        stat.CurrentBoxNumber.ToString());
-                    xmlWriter.WriteEndElement();
-                    xmlWriter.Flush();
-                }
+                xmlWriter.WriteStartElement("Statistic");
+                xmlWriter.WriteElementString("Timestamp",
+                    stat.Timestamp.ToString());
+                xmlWriter.WriteElementString("SuccessfullAnswer",
+                    stat.SuccessfulAnswer.ToString());
+                xmlWriter.WriteElementString("CurrentBoxNumber",
+                    stat.CurrentBoxNumber.ToString());
+                xmlWriter.WriteEndElement();
+                xmlWriter.Flush();
             }
             xmlWriter.WriteEndElement();
         }

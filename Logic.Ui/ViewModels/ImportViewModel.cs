@@ -28,8 +28,6 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         // The variable for the FileSystemPath,
         // where the to be imported file is stored
         private static string filepath; 
-        private readonly static string pictureDirectory =
-            @"..\..\..\Lernkarten\content\";
         public CategoryCollectionViewModel MyModelViewModel { get; set; }
 
         private string classname;   // the variable for the Label in the View
@@ -99,12 +97,18 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                 {
                     if (card.AnswerPic != null)
                     {
-                        string newFile = CopyPic(card.AnswerPic);
+                        string newFile = SaveCards.CopyPic(
+                            filepath + 
+                            @"\content\" +
+                            card.AnswerPic);
                         card.AnswerPic = newFile;
                     }
                     if (card.QuestionPic != null)
                     {
-                        string newFile = CopyPic(card.QuestionPic);
+                        string newFile = SaveCards.CopyPic(
+                            filepath +
+                            @"\content\" +
+                            card.QuestionPic);
                         card.QuestionPic = newFile;
                     }
                 }
@@ -130,24 +134,19 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
          */
         private void SaveCardsWithNewCategory()
         {
-            CategoryViewModel cat;
             string catName = System.IO.Path.GetFileNameWithoutExtension(
                     ofd.FileName);
-            var savedCat = MyModelViewModel.Where
-                (p => p.Name == catName).FirstOrDefault();
+            CategoryViewModel savedCat = MyModelViewModel.Where
+                (cat => cat.Name == catName).FirstOrDefault();
             if (savedCat == null)
             {
-                cat = new CategoryViewModel(new Category(catName));
-                MyModelViewModel.Add(cat);
+                savedCat = new CategoryViewModel(new Category(catName));
+                MyModelViewModel.Add(savedCat);
                 MyModelViewModel.SaveCategorys();
-            }
-            else
-            {
-                cat = savedCat;
             }
             foreach (CardViewModel card in this.bvm)
             {
-                card.Category = cat;
+                card.Category = savedCat;
             }
             SaveCards.SaveBoxToFileSystem(this.bvm);
         }
@@ -272,18 +271,6 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                 "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"; 
             return new string(Enumerable.Repeat(chars, randPicNameLength)
               .Select(s => s[random.Next(s.Length)]).ToArray());
-        }
-
-        /*
-         * This Method copys pictures from the actual importfile
-         * to the own saveplace and returns the new Name of the Picture
-         */
-        public static string CopyPic(string file)
-        {
-            string randName = RandomString() + ".jpg";
-            File.Copy(filepath + @"\content\" + file,
-                pictureDirectory +  randName);
-            return (randName);
         }
 
         /*

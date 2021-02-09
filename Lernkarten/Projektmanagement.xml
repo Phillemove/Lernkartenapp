@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--Projektmanagement-->
+<Cards>
+  <Card>
+    <Question>Wie finde ich das Fach?</Question>
+    <Answer>Nicht ganz so super</Answer>
+  </Card>
+  <Card>
+    <Question>Bis wann muss die Hausarbeit abgegeben sein?</Question>
+    <Answer>10. Februar 2021</Answer>
+    <QuestionPic>QUAVoTxo41.jpg</QuestionPic>
+    <AnswerPic>Ui4n4tPlne.jpg</AnswerPic>
+  </Card>
+</Cards>
