@@ -40,6 +40,7 @@
                FontFamily="Verdana" FontSize="10" FontWeight="Bold" Foreground="#FFFAFAFA"
                Margin="10,242,0,0" Height="30" Width="89"/>
         <ComboBox ItemsSource="{Binding myCatCollectionViewModel}"
+                  SelectedItem="{Binding Catvm}"
                   Grid.Column="0" HorizontalAlignment="Left"
                   Margin="121,242,0,0"  DisplayMemberPath="Name"    
                   VerticalAlignment="Top" Width="197" Height="47" >

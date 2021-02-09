@@ -19,6 +19,8 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         public String Answer { get; set; }
         public String QuestionPic { get; set; }
         public String AnswerPic { get; set; }
+
+        public CategoryViewModel Catvm { get; set; }
         public RelayCommand AddCard { get; }
         public RelayCommand AddQuestionPic { get; }
         public RelayCommand AddAnswerPic { get; }
@@ -107,14 +109,13 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             cardVM.Answer = Answer;
             cardVM.QuestionPic = QuestionPic;
             cardVM.AnswerPic = AnswerPic;
-            cardVM.Category = null;
+            cardVM.Category = Catvm;
             cardVM.StatisticCollection = null;
            //MessageBox.Show("myCategory :" + myCategory.Name);
             //MessageBox.Show(cardVM.Question+"-"+ cardVM.Answer+" - "+ cardVM.QuestionPic+"-"+ cardVM.AnswerPic
             // +"-"+ myCategory.Name + "- boxNumber:"+ BoxVM.Bn);
             myBoxCollectionViewModel.storeCard(cardVM, BoxVM.Bn);
-            //Support.SaveCards.SaveAdditionalCard("CategoryViewModel der Karte", cardVM); //CategoryViewModel der Karte muss noch eingefügt werden
-
+            Support.SaveCards.SaveAdditionalCard(cardVM.Category, cardVM); //CategoryViewModel der Karte muss noch eingefügt werden
         }
         private void AddQuestionPicMethod()
         {

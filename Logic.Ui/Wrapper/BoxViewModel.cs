@@ -63,6 +63,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper
 
         public new void Clear()
         {
+            box.Clear();
             base.Clear();
             //if (this.CollectionChanged != null)
             //    CollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
