@@ -7,7 +7,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Forms;
+using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
 {
@@ -29,7 +31,8 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         public RelayCommand EditQuestionPic { get; }
         public RelayCommand EditAnswerPic { get; }
         public RelayCommand DeleteCard { get; }
-        public BoxCollectionViewModel myBoxCollectionViewModel { get; set; }
+        public RelayCommand CloseManageWindow { get; }
+        public BoxCollectionViewModel MyBoxCollectionViewModel { get; set; }
 
         public BoxViewModel selectedBox;
         public BoxViewModel SelectedBox
@@ -51,7 +54,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                 OnPropertyChanged("SelectedCard");
             }
         }
-        public CategoryCollectionViewModel myCatCollectionViewModel { get; set; }
+        public CategoryCollectionViewModel MyCatCollectionViewModel { get; set; }
 
         public CardWindowViewModel(BoxCollectionViewModel bcvm, CategoryCollectionViewModel ccvm)
         {
@@ -67,15 +70,23 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
 
             DeleteCard = new RelayCommand(() => DeleteCardMethod());
 
-            myBoxCollectionViewModel = bcvm;
-            myCatCollectionViewModel = ccvm;
+            CloseManageWindow = new RelayCommand((param) => CloseManage(param));
+            MyBoxCollectionViewModel = bcvm;
+            MyCatCollectionViewModel = ccvm;
+        }
+
+        public void CloseManage(object param)
+        {
+            Support.SaveCards.SaveBoxCollectionsToFilesystem(MyBoxCollectionViewModel,MyCatCollectionViewModel);
+            Window window = (Window)param;
+            window.Close();
         }
         public int GetCardsCount()
         {
             int count = 0;
             for (int i = 0; i < 5; i++)
             {
-                count += myBoxCollectionViewModel[i].Count;
+                count += MyBoxCollectionViewModel[i].Count;
             }
             //--------------------
             //MessageBox.Show("Cards Count = "+count);
@@ -83,22 +94,22 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         }
         public CardViewModel getNextCard()
         {
-            CardViewModel CardVM = myBoxCollectionViewModel.giveCard(Boxnumber.Box1);
+            CardViewModel CardVM = MyBoxCollectionViewModel.GiveCard(Boxnumber.Box1);
             if (CardVM == null)
             {
-                CardVM = myBoxCollectionViewModel.giveCard(Boxnumber.Box2);
+                CardVM = MyBoxCollectionViewModel.GiveCard(Boxnumber.Box2);
             }
             if (CardVM == null)
             {
-                CardVM = myBoxCollectionViewModel.giveCard(Boxnumber.Box3);
+                CardVM = MyBoxCollectionViewModel.GiveCard(Boxnumber.Box3);
             }
             if (CardVM == null)
             {
-                CardVM = myBoxCollectionViewModel.giveCard(Boxnumber.Box4);
+                CardVM = MyBoxCollectionViewModel.GiveCard(Boxnumber.Box4);
             }
             if (CardVM == null)
             {
-                CardVM = myBoxCollectionViewModel.giveCard(Boxnumber.Box5);
+                CardVM = MyBoxCollectionViewModel.GiveCard(Boxnumber.Box5);
             }
             return CardVM;
         }
@@ -114,7 +125,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
            //MessageBox.Show("myCategory :" + myCategory.Name);
             //MessageBox.Show(cardVM.Question+"-"+ cardVM.Answer+" - "+ cardVM.QuestionPic+"-"+ cardVM.AnswerPic
             // +"-"+ myCategory.Name + "- boxNumber:"+ BoxVM.Bn);
-            myBoxCollectionViewModel.storeCard(cardVM, BoxVM.Bn);
+            MyBoxCollectionViewModel.storeCard(cardVM, BoxVM.Bn);
             Support.SaveCards.SaveAdditionalCard(cardVM.Category, cardVM); //CategoryViewModel der Karte muss noch eingefügt werden
         }
         private void AddQuestionPicMethod()
@@ -147,7 +158,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                 {
                     //Image newImage = Image.FromFile(dialog.FileName);
                     SelectedCard.QuestionPic = dialog.FileName;
-                    MessageBox.Show(this.QuestionPic);
+                    MessageBox.Show(SelectedCard.QuestionPic);
                 }
 
             }

@@ -20,14 +20,8 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper
             this.CollectionChanged += ViewModelCollectionChanged;
             boxCollection.CollectionChanged += ModelCollectionChanged;
         }
-       public BoxCollectionViewModel(BoxCollection bc)
-        {
-            boxCollection = bc;
-            this.CollectionChanged += ViewModelCollectionChanged;
-            boxCollection.CollectionChanged += ModelCollectionChanged;
-          }
 
-        public CardViewModel giveCard(Boxnumber bn)
+        public CardViewModel GiveCard(Boxnumber bn)
         {
             foreach (BoxViewModel boxvm in this)
             {

@@ -70,7 +70,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
 
        
 
-        public CardLearningViewModel(BoxCollectionViewModel bcvm, CategoryCollectionViewModel ccvm)
+        public CardLearningViewModel(BoxCollectionViewModel bcvm, CategoryCollectionViewModel ccvm, StatisticWindowViewModel swvm)
         {
             //-----------------------------------
             aTimer = new System.Timers.Timer();
@@ -78,15 +78,19 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             aTimer.Interval = 10000;
             //-----------------------------------
 
+            this.StatisticWindowVM = swvm;
             myBoxCollectionViewModel = bcvm;
             CurrentProgressBarValue = 0;
             MaximumProgressBarValue = GetCardsCount();
 
-            CardVM = myBoxCollectionViewModel.giveCard(Boxnumber.Box1);
+            CardVM = myBoxCollectionViewModel.GiveCard(Boxnumber.Box1);
             TrueAnswer = new RelayCommand(() => TrueAnswerMethod());
             FalseAnswer = new RelayCommand(() => FalseAnswerMethod());
 
-            OpenStatisticsWindow = new RelayCommand(() => ServiceBus.Instance.Send(new OpenStatisticMessage()));
+            OpenStatisticsWindow = new RelayCommand(() => {
+                this.StatisticWindowVM.MakeStatistic();
+                ServiceBus.Instance.Send(new OpenStatisticMessage());
+                });
             CloseWindow = new RelayCommand(param => Close(param));
             this.ccvm = ccvm;
         }
@@ -122,7 +126,8 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             {
                 Answer = "";
                 CardVM.StatisticCollection.Add(new StatisticViewModel(new Statistic(DateTime.Now, true, curBoxNumber)));
-                StatisticWindowVM = new StatisticWindowViewModel(CardVM.StatisticCollection);
+                this.StatisticWindowVM.StatisticCollectionVM = CardVM.StatisticCollection;
+                //StatisticWindowVM = new StatisticWindowViewModel(CardVM.StatisticCollection);
                 getNextCard();
                 aTimer.Enabled = true;
                 CurrentProgressBarValue += 1;
@@ -137,7 +142,8 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             {
                 Answer = "";
                 CardVM.StatisticCollection.Add(new StatisticViewModel(new Statistic(DateTime.Now, false, curBoxNumber)));
-                StatisticWindowVM = new StatisticWindowViewModel(CardVM.StatisticCollection);
+                this.StatisticWindowVM.StatisticCollectionVM = CardVM.StatisticCollection;
+                //StatisticWindowVM = new StatisticWindowViewModel(CardVM.StatisticCollection);
                 moveCard();
                 getNextCard();
                 aTimer.Enabled = true;
@@ -209,26 +215,26 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         public void getNextCard()
         {
             //--------------------
-            CardVM = myBoxCollectionViewModel.giveCard(Boxnumber.Box1);
+            CardVM = myBoxCollectionViewModel.GiveCard(Boxnumber.Box1);
             curBoxNumber = Boxnumber.Box1;
             if (CardVM == null)
             {
-                CardVM = myBoxCollectionViewModel.giveCard(Boxnumber.Box2);
+                CardVM = myBoxCollectionViewModel.GiveCard(Boxnumber.Box2);
                 curBoxNumber = Boxnumber.Box2;
             }
             if (CardVM == null)
             {
-                CardVM = myBoxCollectionViewModel.giveCard(Boxnumber.Box3);
+                CardVM = myBoxCollectionViewModel.GiveCard(Boxnumber.Box3);
                 curBoxNumber = Boxnumber.Box3;
             }
             if (CardVM == null)
             {
-                CardVM = myBoxCollectionViewModel.giveCard(Boxnumber.Box4);
+                CardVM = myBoxCollectionViewModel.GiveCard(Boxnumber.Box4);
                 curBoxNumber = Boxnumber.Box4;
             }
             if (CardVM == null)
             {
-                CardVM = myBoxCollectionViewModel.giveCard(Boxnumber.Box5);
+                CardVM = myBoxCollectionViewModel.GiveCard(Boxnumber.Box5);
                 curBoxNumber = Boxnumber.Box5;
             }
         }

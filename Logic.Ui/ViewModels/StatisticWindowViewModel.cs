@@ -201,6 +201,11 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             StatisticCollectionVM = statisticCollectionVM;
             this.MakeStatistic();
         }
+        public StatisticWindowViewModel()
+        {
+            StatisticCollectionVM = new StatisticCollectionViewModel();
+            //this.MakeStatistic();
+        }
 
         // Writing statistics for the Window
         public void MakeStatistic()

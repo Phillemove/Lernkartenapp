@@ -1,4 +1,5 @@
-﻿using De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper;
+﻿using De.HsFlensburg.ClientApp101.Business.Model.BusinessObjects;
+using De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,7 +16,9 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
     public class ImportForeignFormatViewModel : INotifyPropertyChanged
     {
         public CategoryCollectionViewModel MyCategoryCollection { get; set; }
-        public BoxViewModel ImportBox { get; }
+        public Boxnumber ImportBox { get; }
+        public BoxCollectionViewModel BoxCollection { get; }
+
         public CategoryViewModel SelectedCategory { get; set; }
         public BoxViewModel TempBox { get; set; }
 
@@ -30,13 +33,14 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
 
 
-        public ImportForeignFormatViewModel(CategoryCollectionViewModel ccvm, BoxViewModel importbox)
+        public ImportForeignFormatViewModel(CategoryCollectionViewModel ccvm, Boxnumber importbox, BoxCollectionViewModel bcvm)
         {
             CloseWindow = new RelayCommand(param => Close(param));
             SelectFile = new RelayCommand(() => FileChoose());
             FileImport = new RelayCommand(() => Import());
             CardImport = new RelayCommand(() => ImportCards());
             CardClear = new RelayCommand(() => ClearCards());
+            this.BoxCollection = bcvm;
             this.MyCategoryCollection = ccvm;
             this.ImportBox = importbox;
             this.TempBox = new BoxViewModel();
@@ -58,20 +62,23 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         {
             foreach (CardViewModel card in TempBox) // test
             {
-                ImportBox.Add(card);
+                BoxCollection.storeCard(card,ImportBox);
             }
-            // SaveBox
+            // Kategoriezu Karten addden!!!!11111einselfhundertelfzig
+            Support.SaveCards.SaveBoxToFileSystem(TempBox);
             ClearLog();
         }
 
         private void ClearCards()
         {
             TempBox.Clear();
+            ClearFile();
             ClearLog();
         }
         private void ClearLog()
         {
             ImportLog = "";
+            ClearFile();
             OnPropertyChanged("ImportLog");
         }
 
@@ -138,6 +145,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                             card.StatisticCollection = new StatisticCollectionViewModel();
                             card.Question = title;
                             card.Answer = content;
+                            card.Category = SelectedCategory;
                             TempBox.Add(card);
                             AddCardToLog(title, content);
                         }
@@ -167,6 +175,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                         card.StatisticCollection = new StatisticCollectionViewModel();
                         card.Question = question;
                         card.Answer = answer;
+                        card.Category = SelectedCategory;
                         TempBox.Add(card);
                         AddCardToLog(question, answer);
                     }

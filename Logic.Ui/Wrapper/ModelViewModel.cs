@@ -14,32 +14,25 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper
     public class ModelViewModel
     {
         public Model model;
-        private BoxCollectionViewModel bcvm;
         public CategoryCollectionViewModel myCategoryCollection;
-
-       // private const string CategoryFile = @"..\..\..\Data\Categorys.xml";
-
+        public BoxCollectionViewModel BoxCollectionVM { get; set; }
 
         public ModelViewModel()
         {
             this.model = new Model();
-            bcvm = new BoxCollectionViewModel(this.model.BoxCollection);
-            myCategoryCollection = new CategoryCollectionViewModel();
-        }
-        /*
-        public ModelViewModel(Model model)
-        {
-            this.model = model;
-            bcvm = new BoxCollectionViewModel(this.model.BoxCollection);
-            myCategoryCollection = new CategoryCollectionViewModel();
-        } */
+            BoxCollectionVM = new BoxCollectionViewModel();
+            // --
+            BoxCollectionVM.Add(new BoxViewModel(new Box(Boxnumber.Box1)));
+            BoxCollectionVM.Add(new BoxViewModel(new Box(Boxnumber.Box2)));
+            BoxCollectionVM.Add(new BoxViewModel(new Box(Boxnumber.Box3)));
+            BoxCollectionVM.Add(new BoxViewModel(new Box(Boxnumber.Box4)));
+            BoxCollectionVM.Add(new BoxViewModel(new Box(Boxnumber.Box5)));
 
-        public BoxCollectionViewModel BoxCollectionVM
-        {
-            get
-            {
-                return bcvm;
-            }
+
+            myCategoryCollection = new CategoryCollectionViewModel();
         }
+
+
+        
     }
 }
