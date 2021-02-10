@@ -7,23 +7,26 @@
         mc:Ignorable="d"
         Title="Card Statistics" Height="450" Width="800">
     <Window.IsEnabled>
-        <Binding Source="{StaticResource MessageListener}" Path="BindableProperty"></Binding>
+        <Binding Source="{StaticResource MessageListener}" 
+                 Path="BindableProperty"></Binding>
     </Window.IsEnabled>
     <Window.DataContext>
-        <Binding Source ="{StaticResource VMLocator}" Path ="StatisticWindowViewModel"></Binding >
+        <Binding Source ="{StaticResource VMLocator}" 
+                 Path ="StatisticWindowViewModel"></Binding >
     </Window.DataContext>
     <Grid>
-        <Button Content="Karte" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="54"/>
-        <GridSplitter HorizontalAlignment="Left" Height="3" Margin="0,41,0,0" VerticalAlignment="Top" Width="792"/>
-        <DataGrid ItemsSource="{Binding Path=StatisticCollectionVM}" IsReadOnly="True"  
-                  HorizontalAlignment="Left" Height="119" Margin="10,290,0,0" 
+        <DataGrid ItemsSource="{Binding Path=StatisticCollectionVM}"
+                  IsReadOnly="True"  
+                  HorizontalAlignment="Left" Height="182" Margin="10,227,0,0" 
                   VerticalAlignment="Top" Width="773" 
                   RenderTransformOrigin="0.5,0.5"
                   ScrollViewer.CanContentScroll="True"
                   ScrollViewer.HorizontalScrollBarVisibility="Auto"
                   ScrollViewer.VerticalScrollBarVisibility="Auto">
         </DataGrid>
-        <TextBlock HorizontalAlignment="Left" Margin="10,49,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="236" Width="772">
+        <TextBlock HorizontalAlignment="Left" Margin="11,10,0,0" 
+                   TextWrapping="Wrap" VerticalAlignment="Top" 
+                   Height="212" Width="772">
             <Run Text="Wie oft wurde die Karte gelernt:"/>
             <Run Text="{Binding Path=LearnedCard, Mode=TwoWay}"/>
             <Run Text="mal"/><LineBreak/>
@@ -58,6 +61,5 @@
             <Run Text="{Binding Path=BoxShift}"/>
             <Run Text="mal"/><LineBreak/>
         </TextBlock>
-        <Label Content="{Binding Path=LastSucessfullAnswer, Mode=TwoWay}" HorizontalAlignment="Left" Margin="114,10,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>

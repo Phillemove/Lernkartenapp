@@ -191,40 +191,48 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        protected void OnPropertyChanged(
+            [CallerMemberName] string propertyName = null)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this,
+                new PropertyChangedEventArgs(propertyName));
         }
 
-        public StatisticWindowViewModel(StatisticCollectionViewModel statisticCollectionVM)
-        {
-            StatisticCollectionVM = statisticCollectionVM;
-            this.MakeStatistic();
-        }
         public StatisticWindowViewModel()
         {
             StatisticCollectionVM = new StatisticCollectionViewModel();
-            //this.MakeStatistic();
         }
 
         // Writing statistics for the Window
         public void MakeStatistic()
         {
-            LearnedCard = StatisticAlgorithms.LearnedCard(StatisticCollectionVM);
-            RightAnswer = StatisticAlgorithms.RightAnswer(StatisticCollectionVM);
-            LastSucessfullAnswer = StatisticAlgorithms.LastSucessfullAnswer(StatisticCollectionVM);
-            LearningSucess = StatisticAlgorithms.LearningSucess(StatisticCollectionVM);
-            LastLearned = StatisticAlgorithms.LearnedLast(StatisticCollectionVM);
-            LastAnswer = StatisticAlgorithms.LastAnswer(StatisticCollectionVM);
-            WrongAnswer = StatisticAlgorithms.WrongAnswer(StatisticCollectionVM);
-            LastWrongAnswer = StatisticAlgorithms.LastWrongAnswer(StatisticCollectionVM);
-            LearningWrong = StatisticAlgorithms.LearningWrong(StatisticCollectionVM);
-            CurrentBoxNumber = StatisticAlgorithms.CurrentBoxNumber(StatisticCollectionVM);
-            ActualBoxPassed = StatisticAlgorithms.ActualBoxPassed(StatisticCollectionVM,CurrentBoxNumber);
-            BoxShift = StatisticAlgorithms.BoxShift(StatisticCollectionVM, CurrentBoxNumber);
-            DropintoCurrentBox = StatisticAlgorithms.DropintoCurrentBox(StatisticCollectionVM, CurrentBoxNumber, DateTime.Parse(LastLearned));
-            // Test der zeigt, das Properties richtig geschrieben werden
-            Console.WriteLine(LearnedCard);
+            LearnedCard = StatisticAlgorithms.LearnedCard(
+                StatisticCollectionVM);
+            RightAnswer = StatisticAlgorithms.RightAnswer(
+                StatisticCollectionVM);
+            LastSucessfullAnswer = StatisticAlgorithms.LastSucessfullAnswer(
+                StatisticCollectionVM);
+            LearningSucess = StatisticAlgorithms.LearningSucess(
+                StatisticCollectionVM);
+            LastLearned = StatisticAlgorithms.LearnedLast(
+                StatisticCollectionVM);
+            LastAnswer = StatisticAlgorithms.LastAnswer(
+                StatisticCollectionVM);
+            WrongAnswer = StatisticAlgorithms.WrongAnswer(
+                StatisticCollectionVM);
+            LastWrongAnswer = StatisticAlgorithms.LastWrongAnswer(
+                StatisticCollectionVM);
+            LearningWrong = StatisticAlgorithms.LearningWrong(
+                StatisticCollectionVM);
+            CurrentBoxNumber = StatisticAlgorithms.CurrentBoxNumber(
+                StatisticCollectionVM);
+            ActualBoxPassed = StatisticAlgorithms.ActualBoxPassed(
+                StatisticCollectionVM,CurrentBoxNumber);
+            BoxShift = StatisticAlgorithms.BoxShift(
+                StatisticCollectionVM, CurrentBoxNumber);
+            DropintoCurrentBox = StatisticAlgorithms.DropintoCurrentBox(
+                StatisticCollectionVM, CurrentBoxNumber,
+                DateTime.Parse(LastLearned));
         }
 
     }

@@ -10,15 +10,16 @@ using De.HsFlensburg.ClientApp101.Business.Model.BusinessObjects;
 namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
 {
     /*
-     * This class is for calculating statistics. Therefore are thirteen static methods
-     * calculating several things. There is no need of an instance of this class. This
+     * This class is for calculating statistics. Therefore are thirteen 
+     * static methods calculating several things.
+     * There is no need of an instance of this class. This
      * is why all methods are static.
      * All DateTime Methods return the time convert to string. This allows 
      * to display the DateTime in a local format.
      */
     public class StatisticAlgorithms
     {
-        // How often is this card learned successfull
+        // How often is this card learned right
         public static int RightAnswer(StatisticCollectionViewModel collection)
         {
             int counter = 0;
@@ -43,8 +44,9 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
             return counter;
         }
 
-        // On which Date is a Card learned correct the last time
-        public static String LastSucessfullAnswer(StatisticCollectionViewModel collection)
+        // On which Date is this Card learned correct the last time
+        public static String LastSucessfullAnswer(
+            StatisticCollectionViewModel collection)
         {
             DateTime time = new DateTime();
             foreach(StatisticViewModel statistic in collection)
@@ -68,25 +70,33 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
             }
         }
 
-        // How often in a row is a Card learned successfull
-        public static int LearningSucess(StatisticCollectionViewModel collection)
+        // How often in a row is this Card learned successfull
+        public static int LearningSucess(
+            StatisticCollectionViewModel collection)
         {
             int counter = 0;
            
             for(int i = 0; i < collection.Count; i++)
             {
                 
-                if (i + 1 < collection.Count && collection[i].SuccessfulAnswer == false && collection[i+1].SuccessfulAnswer == true)
+                if (i + 1 < collection.Count &&
+                    collection[i].SuccessfulAnswer == false &&
+                    collection[i+1].SuccessfulAnswer == true)
                 {
                     
-                } else if (i + 1 < collection.Count && collection[i].SuccessfulAnswer == true && collection[i+1].SuccessfulAnswer == true)
+                } else if (i + 1 < collection.Count &&
+                    collection[i].SuccessfulAnswer == true &&
+                    collection[i+1].SuccessfulAnswer == true)
                 {
                     counter++;
-                } else if (i + 1 < collection.Count && collection[i].SuccessfulAnswer == true && collection[i+1].SuccessfulAnswer == false)
+                } else if (i + 1 < collection.Count &&
+                    collection[i].SuccessfulAnswer == true &&
+                    collection[i+1].SuccessfulAnswer == false)
                 {
                     counter++;
                     break;
-                } else if (i + 1 >= collection.Count && collection[i].SuccessfulAnswer == true)
+                } else if (i + 1 >= collection.Count &&
+                    collection[i].SuccessfulAnswer == true)
                 {
                     counter++;
                     break;
@@ -95,8 +105,9 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
             return counter;
         }
 
-        // When is the Card learned last
-        public static String LearnedLast(StatisticCollectionViewModel collection)
+        // On which Date was the card leanred the last time
+        public static String LearnedLast(
+            StatisticCollectionViewModel collection)
         {
             DateTime time = new DateTime();
             foreach(StatisticViewModel statistic in collection)
@@ -116,8 +127,9 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
             }
         }
 
-        // Last Answer
-        public static String LastAnswer(StatisticCollectionViewModel collection)
+        // What was the Last Answer
+        public static String LastAnswer(
+            StatisticCollectionViewModel collection)
         {
             bool lastanswer = false;
             DateTime time = new DateTime();
@@ -139,7 +151,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
             
         }
 
-        // How often ist this card learned unsuccessfull
+        // How often is this card learned wrong
         public static int WrongAnswer(StatisticCollectionViewModel collection)
         {
             int counter = 0;
@@ -153,8 +165,9 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
             return counter;
         }
 
-        // On which Date is a Card learned wrong the last time
-        public static String LastWrongAnswer(StatisticCollectionViewModel collection)
+        // On which Date is this Card learned wrong the last time
+        public static String LastWrongAnswer(
+            StatisticCollectionViewModel collection)
         {
             DateTime time = new DateTime();
             foreach (StatisticViewModel statistic in collection)
@@ -178,28 +191,36 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
                   
         }
 
-        // How often in a row is a Card learned Wrong
-        public static int LearningWrong(StatisticCollectionViewModel collection)
+        // How often in a row is this Card learned wrong
+        public static int LearningWrong(
+            StatisticCollectionViewModel collection)
         {
             int counter = 0;
 
             for (int i = 0; i < collection.Count; i++)
             {
 
-                if (i + 1 < collection.Count && collection[i].SuccessfulAnswer == true && collection[i + 1].SuccessfulAnswer == false)
+                if (i + 1 < collection.Count &&
+                    collection[i].SuccessfulAnswer == true &&
+                    collection[i + 1].SuccessfulAnswer == false)
                 {
 
                 }
-                else if (i + 1 < collection.Count && collection[i].SuccessfulAnswer == false && collection[i + 1].SuccessfulAnswer == false)
+                else if (i + 1 < collection.Count &&
+                    collection[i].SuccessfulAnswer == false &&
+                    collection[i + 1].SuccessfulAnswer == false)
                 {
                     counter++;
                 }
-                else if (i + 1 < collection.Count && collection[i].SuccessfulAnswer == false && collection[i + 1].SuccessfulAnswer == true)
+                else if (i + 1 < collection.Count &&
+                    collection[i].SuccessfulAnswer == false &&
+                    collection[i + 1].SuccessfulAnswer == true)
                 {
                     counter++;
                     break;
                 }
-                else if (i + 1 >= collection.Count && collection[i].SuccessfulAnswer == false)
+                else if (i + 1 >= collection.Count &&
+                    collection[i].SuccessfulAnswer == false)
                 {
                     counter++;
                     break;
@@ -208,8 +229,9 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
             return counter;
         }
 
-        // Current Box
-        public static int CurrentBoxNumber(StatisticCollectionViewModel collection)
+        // What is the current Boxnumber of this Card
+        public static int CurrentBoxNumber(
+            StatisticCollectionViewModel collection)
         {
             int currentBoxNumber = 0;
             DateTime time = new DateTime();
@@ -224,8 +246,10 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
             return currentBoxNumber;
         }
 
-        // How often was a Card in a Box
-        public static int ActualBoxPassed(StatisticCollectionViewModel collection, int currentBoxNumber)
+        // How often was this Card in the current Box
+        public static int ActualBoxPassed(
+            StatisticCollectionViewModel collection,
+            int currentBoxNumber)
         {
             int counter = 0;
 
@@ -240,7 +264,9 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
         }
 
         // How many Box shifts has the Card
-        public static int BoxShift(StatisticCollectionViewModel collection, int currentBoxNumber)
+        public static int BoxShift(
+            StatisticCollectionViewModel collection,
+            int currentBoxNumber)
         {
             int counter = 0;
             foreach(StatisticViewModel statistic in collection)
@@ -251,11 +277,14 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
                     currentBoxNumber = (int)statistic.CurrentBoxNumber;  
                 }
             }
-            /* currentBoxNumber can be from an Statistic Object somwhere in the Collection.
-               This caused, that the currentBox is counted twice here. 
-               To handle this, it is nessescary to decrease counter with 1 
-               at the return statement. If counter is 0 this caused to return a -1, the return
-               Statement will be 0
+            /* 
+             * currentBoxNumber can be from an Statistic Object
+             * somwhere in the Collection.
+             * This caused, that the currentBox is counted twice here. 
+             * To handle this, it is nessescary to decrease counter with 1 
+             * at the return statement. 
+             * If counter is 0 this caused to return a -1, the return
+             * Statement will be 0
              */
             if (counter == 0)
             {
@@ -268,12 +297,16 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
         }
 
         // When was the Card dropped into the current Box
-        public static String DropintoCurrentBox(StatisticCollectionViewModel collection, int currentBoxNumber, DateTime currentTimestamp)
+        public static String DropintoCurrentBox(
+            StatisticCollectionViewModel collection,
+            int currentBoxNumber,
+            DateTime currentTimestamp)
         {
             DateTime time = currentTimestamp;
             foreach (StatisticViewModel statistic in collection)
             {
-                if ((int)statistic.CurrentBoxNumber == currentBoxNumber && DateTime.Compare(time, statistic.Timestamp) > 0)
+                if ((int)statistic.CurrentBoxNumber == currentBoxNumber &&
+                    DateTime.Compare(time, statistic.Timestamp) > 0)
                 {
                     time = statistic.Timestamp;
                 }

@@ -23,18 +23,23 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper
             statisticCollection.CollectionChanged += ModelCollectionChanged;
         }
 
-        private void ViewModelCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void ViewModelCollectionChanged(object sender,
+            NotifyCollectionChangedEventArgs e)
         {
             if (syncDisabled) return;
             syncDisabled = true;
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    foreach (var statistic in e.NewItems.OfType<StatisticViewModel>().Select(v => v.statistic).OfType<Statistic>())
+                    foreach (var statistic
+                        in e.NewItems.OfType<StatisticViewModel>().Select(
+                            v => v.statistic).OfType<Statistic>())
                         statisticCollection.Add(statistic);
                     break;
                 case NotifyCollectionChangedAction.Remove:
-                    foreach (var statistic in e.OldItems.OfType<StatisticViewModel>().Select(v => v.statistic).OfType<Statistic>())
+                    foreach (var statistic
+                        in e.OldItems.OfType<StatisticViewModel>().Select(
+                            v => v.statistic).OfType<Statistic>())
                         statisticCollection.Remove(statistic);
                     break;
                 case NotifyCollectionChangedAction.Reset:
@@ -44,7 +49,8 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper
             syncDisabled = false;  
         }
 
-        private void ModelCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void ModelCollectionChanged(object sender,
+            NotifyCollectionChangedEventArgs e)
         {
             if (syncDisabled) return;
             syncDisabled = true;
