@@ -7,22 +7,18 @@
         mc:Ignorable="d"
         Title="Kategorien verwalten" Height="417" Width="533"
         x:Name="ThisWindow">
-    <Window.Resources>
-
-    </Window.Resources>
-    <!--
-    <Window.IsEnabled>
-        <Binding Source="{StaticResource MessageListener}" Path="BindableProperty"></Binding>
-    </Window.IsEnabled>
-    -->
     <Window.DataContext>
-        <Binding Source="{StaticResource VMLocator}" Path="CategoryManageViewModel"></Binding>
+        <Binding Source="{StaticResource VMLocator}" Path="CategoryManageViewModel" />
     </Window.DataContext>
     <Grid>
-        <Label Content="Kategorien verwalten" Margin="0,0,250,0" />
-
-        <Button Command="{Binding CloseWindow}" CommandParameter="{Binding ElementName=ThisWindow}" Content="Fenster schließen" Margin="357,332,15,10"/>
-        <DataGrid ItemsSource="{Binding Path=MyCategoryCollection, Mode=OneWay}" HorizontalAlignment="Left" Height="283" Margin="10,33,0,0" VerticalAlignment="Top" Width="500" RenderTransformOrigin="0.491,0.519"/>
-
+        <Button Command="{Binding CloseWindow}" 
+                CommandParameter="{Binding ElementName=ThisWindow}" 
+                Content="Fenster schließen" 
+                Margin="357,332,15,10"/>
+        <DataGrid 
+            ItemsSource="{Binding Path=MyCategoryCollection, Mode=OneWay}" 
+            HorizontalAlignment="Left" Height="283" Margin="10,33,0,0" 
+            VerticalAlignment="Top" Width="500" 
+            RenderTransformOrigin="0.491,0.519"/>
     </Grid>
 </Window>

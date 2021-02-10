@@ -7,37 +7,95 @@
         mc:Ignorable="d"
         Title="ImportForeignFormat" Height="283.393" Width="746.786"
         x:Name="ThisWindow">
-    <Window.Resources>
-
-    </Window.Resources>
-    <!--
-    <Window.IsEnabled>
-       
-        <Binding Source="{StaticResource MessageListener}" Path="BindableProperty"></Binding>
-       
-    </Window.IsEnabled>
-    -->
     <Window.DataContext>
-        <Binding Source="{StaticResource VMLocator}" Path="ImportForeignFormatViewModel"></Binding>
+        <Binding 
+            Source="{StaticResource VMLocator}" 
+            Path="ImportForeignFormatViewModel" />
     </Window.DataContext>
     <Grid Margin="0,0,2,0">
-        <Label Content="Datei auswählen:" HorizontalAlignment="Left" Height="34" Margin="28,10,0,0" VerticalAlignment="Top" Width="262"/>
-        <Button Command="{Binding SelectFile, Mode=OneWay}" Content="..." HorizontalAlignment="Left" Margin="265,33,0,0" VerticalAlignment="Top" Width="25"/>
-
-        <Label Content="Kategorie" HorizontalAlignment="Left" Margin="28,69,0,0" VerticalAlignment="Top"/>
-        <ComboBox ItemsSource="{Binding Path=MyCategoryCollection, Mode=OneWay}" SelectedValue="{Binding SelectedCategory}" DisplayMemberPath="Name" HorizontalAlignment="Left" Margin="119,73,0,0" VerticalAlignment="Top" Width="171"/>
-
-        <Label  Content="{Binding ImportFile, Mode=OneWay}" Foreground="Black" HorizontalAlignment="Left" Margin="28,33,0,0" VerticalAlignment="Top" Height="25" Width="232"/>
-        <Label  Content="{Binding ErrorMsg, Mode=OneWay}" Foreground="Red" HorizontalAlignment="Left" Margin="28,110,0,0" VerticalAlignment="Top" Height="25" Width="338"/>
-
-        <Button Content="Datei importieren" Command="{Binding FileImport, Mode=OneWay}" HorizontalAlignment="Left" Margin="28,140,0,0" VerticalAlignment="Top" Width="116" Height="25"/>
-
-        <Button Command="{Binding CloseWindow}" CommandParameter="{Binding ElementName=ThisWindow}" Content="Schließen" HorizontalAlignment="Left" Margin="641,217,0,0" VerticalAlignment="Top" Width="86" Height="25"/>
-
-        <TextBox Text="{Binding ImportLog}" HorizontalAlignment="Left" Height="202" Margin="295,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="432"/>
-
-        <Button Content="Karten importieren" Command="{Binding CardImport}" HorizontalAlignment="Left" Margin="174,157,0,0" VerticalAlignment="Top" Width="116" Height="25" RenderTransformOrigin="0.181,0.6"/>
-        <Button Content="Karten verwerfen" Command="{Binding CardClear}" HorizontalAlignment="Left" Margin="174,187,0,0" VerticalAlignment="Top" Width="116" Height="25"/>
-        
+        <Label 
+            Content="Datei auswählen:" 
+            HorizontalAlignment="Left" 
+            Height="34" Margin="28,10,0,0" 
+            VerticalAlignment="Top" 
+            Width="262"/>
+        <Button 
+            Command="{Binding SelectFile, Mode=OneWay}" 
+            Content="..." 
+            HorizontalAlignment="Left" 
+            Margin="265,33,0,0" 
+            VerticalAlignment="Top" 
+            Width="25"/>
+        <Label 
+            Content="Kategorie" 
+            HorizontalAlignment="Left" 
+            Margin="28,69,0,0" 
+            VerticalAlignment="Top"/>
+        <ComboBox 
+            ItemsSource="{Binding Path=MyCategoryCollection, Mode=OneWay}" 
+            SelectedValue="{Binding SelectedCategory}" 
+            DisplayMemberPath="Name" 
+            HorizontalAlignment="Left" 
+            Margin="119,73,0,0" 
+            VerticalAlignment="Top" 
+            Width="171"/>
+        <Label 
+            Content="{Binding ImportFile, Mode=OneWay}" 
+            Foreground="Black" 
+            HorizontalAlignment="Left" 
+            Margin="28,33,0,0" 
+            VerticalAlignment="Top" 
+            Height="25" 
+            Width="232"/>
+        <Label 
+            Content="{Binding ErrorMsg, Mode=OneWay}" 
+            Foreground="Red" 
+            HorizontalAlignment="Left" 
+            Margin="28,110,0,0" 
+            VerticalAlignment="Top" 
+            Height="25" 
+            Width="338"/>
+        <Button 
+            Content="Datei importieren" 
+            Command="{Binding FileImport, Mode=OneWay}" 
+            HorizontalAlignment="Left" 
+            Margin="28,140,0,0" 
+            VerticalAlignment="Top" 
+            Width="116" 
+            Height="25"/>
+        <Button 
+            Command="{Binding CloseWindow}" 
+            CommandParameter="{Binding ElementName=ThisWindow}" 
+            Content="Schließen" 
+            HorizontalAlignment="Left" 
+            Margin="641,217,0,0" 
+            VerticalAlignment="Top" 
+            Width="86" 
+            Height="25"/>
+        <TextBox 
+            Text="{Binding ImportLog}" 
+            HorizontalAlignment="Left" 
+            Height="202" 
+            Margin="295,10,0,0" 
+            TextWrapping="Wrap" 
+            VerticalAlignment="Top" 
+            Width="432"/>
+        <Button 
+            Content="Karten importieren" 
+            Command="{Binding CardImport}" 
+            HorizontalAlignment="Left" 
+            Margin="174,157,0,0" 
+            VerticalAlignment="Top" 
+            Width="116" 
+            Height="25" 
+            RenderTransformOrigin="0.181,0.6"/>
+        <Button 
+            Content="Karten verwerfen" 
+            Command="{Binding CardClear}" 
+            HorizontalAlignment="Left" 
+            Margin="174,187,0,0" 
+            VerticalAlignment="Top" 
+            Width="116" 
+            Height="25"/>
     </Grid>
 </Window>

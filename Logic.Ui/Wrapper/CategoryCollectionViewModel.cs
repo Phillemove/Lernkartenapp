@@ -11,20 +11,14 @@ using System.Xml;
 
 namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
 {
-    public class CategoryCollectionViewModel : ObservableCollection<CategoryViewModel>
+    public class CategoryCollectionViewModel : 
+        ObservableCollection<CategoryViewModel>
     {
-
         public CategoryCollection categoryCollection;
         private bool syncDisabled;
+        // Path to Category File - where to look for it/ save it
         private const string CategoryFile = @"..\..\..\Data\Categorys.xml";
 
-        /*
-        public CategoryCollectionViewModel(CategoryCollection cc)
-        {
-            categoryCollection = cc;
-            this.CollectionChanged += ViewModelCollectionChanged;
-            categoryCollection.CollectionChanged += ModelCollectionChanged;
-        }*/
 
         public CategoryCollectionViewModel()
         {
@@ -34,6 +28,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             LoadCategorys();
         }
 
+        // Loads Categorys from CategoryFile if it exists
         private void LoadCategorys()
         {
             if (File.Exists(CategoryFile))
@@ -42,12 +37,15 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                 var reader = System.Xml.XmlReader.Create(CategoryFile);
                 while (reader.ReadToFollowing("Category"))
                 {
-                    // Read Caegorys and create Category Object in the Collection
-                    this.Add(new CategoryViewModel(new Category(reader.ReadElementContentAsString())));
+                    // Read Caegorys and create Category 
+                    // Object in the Collection
+                    this.Add(new CategoryViewModel(new Category(
+                        reader.ReadElementContentAsString())));
                 }
             }
         }
 
+        // Saves Categorys to CategoryFile
         public void SaveCategorys()
         {
             XmlWriterSettings settings = new XmlWriterSettings();
@@ -69,18 +67,23 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             writer.Close();
         }
 
-        private void ViewModelCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void ViewModelCollectionChanged(object sender, 
+            NotifyCollectionChangedEventArgs e)
         {
             if (syncDisabled) return;
             syncDisabled = true;
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    foreach (var category in e.NewItems.OfType<CategoryViewModel>().Select(v => v.category).OfType<Category>())
+                    foreach (var category in e.NewItems.OfType
+                        <CategoryViewModel>
+                        ().Select(v => v.category).OfType<Category>())
                         categoryCollection.Add(category);
                     break;
                 case NotifyCollectionChangedAction.Remove:
-                    foreach (var category in e.OldItems.OfType<CategoryViewModel>().Select(v => v.category).OfType<Category>())
+                    foreach (var category in e.OldItems.OfType
+                        <CategoryViewModel>().Select
+                        (v => v.category).OfType<Category>())
                         categoryCollection.Remove(category);
                     break;
                 case NotifyCollectionChangedAction.Reset:
@@ -90,7 +93,8 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             syncDisabled = false;
         }
 
-        private void ModelCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void ModelCollectionChanged(object sender, 
+            NotifyCollectionChangedEventArgs e)
         {
             if (syncDisabled) return;
             syncDisabled = true;
@@ -116,13 +120,8 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             foreach (CategoryViewModel cvm in this)
             {
                 if (cvm.category.Equals(category)) return cvm;
-
             }
             return null;
         }
-
-
-
-
     }
 }

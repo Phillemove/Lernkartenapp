@@ -21,6 +21,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             this.MyCategoryCollection = ccvm;
         }
 
+        // Saves Categorys to FileSystem and Closes the Window
         private void Close(object param)
         {
             MyCategoryCollection.SaveCategorys();

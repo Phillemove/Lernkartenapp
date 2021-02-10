@@ -61,9 +61,6 @@
     <Compile Include="CardLearning.xaml.cs">
       <DependentUpon>CardLearning.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CategoryAdd.xaml.cs">
-      <DependentUpon>CategoryAdd.xaml</DependentUpon>
-    </Compile>
     <Compile Include="CategoryManage.xaml.cs">
       <DependentUpon>CategoryManage.xaml</DependentUpon>
     </Compile>
@@ -87,10 +84,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CardLearning.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="CategoryAdd.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

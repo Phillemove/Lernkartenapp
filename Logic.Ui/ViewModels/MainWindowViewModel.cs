@@ -28,7 +28,6 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             OpenImportWindow = new RelayCommand(() => ServiceBus.Instance.Send(new OpenImportMessage()));
             OpenExportWindow = new RelayCommand(() => ServiceBus.Instance.Send(new OpenExportMessage()));
             OpenCategoryWindow = new RelayCommand(() => ServiceBus.Instance.Send(new OpenCategoryMessage()));
-            OpenCategoryAddWindow = new RelayCommand(() => ServiceBus.Instance.Send(new OpenCategoryAddMessage()));
             OpenImportForeignFormatWindow = new RelayCommand(() => ServiceBus.Instance.Send(new OpenImportForeignFormatMessage()));
             OpenManageCardsWindow = new RelayCommand(() => ServiceBus.Instance.Send(new OpenManageCardMessage()));
             SaveAndCloseAll = new RelayCommand(param => Save(param));

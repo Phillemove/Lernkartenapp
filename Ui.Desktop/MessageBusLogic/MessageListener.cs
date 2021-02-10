@@ -45,11 +45,6 @@ namespace De.HsFlensburg.ClientApp101.Ui.Desktop.MessageBusLogic
                 CategoryManage catManage = new CategoryManage();
                 catManage.ShowDialog();
             });
-            ServiceBus.Instance.Register<OpenCategoryAddMessage>(this, delegate ()
-            {
-                CategoryAdd catAdd = new CategoryAdd();
-                catAdd.ShowDialog();
-            });
             ServiceBus.Instance.Register<OpenExportMessage>(this, delegate ()
             {
                 Export export = new Export();

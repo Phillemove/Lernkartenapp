@@ -33,7 +33,10 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
 
 
-        public ImportForeignFormatViewModel(CategoryCollectionViewModel ccvm, Boxnumber importbox, BoxCollectionViewModel bcvm)
+        public ImportForeignFormatViewModel(
+            CategoryCollectionViewModel ccvm, 
+            Boxnumber importbox, 
+            BoxCollectionViewModel bcvm)
         {
             CloseWindow = new RelayCommand(param => Close(param));
             SelectFile = new RelayCommand(() => FileChoose());
@@ -45,87 +48,106 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             this.ImportBox = importbox;
             this.TempBox = new BoxViewModel();
 
-
             ImportLog = "";
             ErrorMsg = "";
             ImportFile = "";
         }
 
-        // Für Änderungen der Fehlermeldung
+        // Gets Called to inform the view of changes
+        // in Properties which are bound in the view
         protected void OnPropertyChanged(string propertyName)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, 
+                new PropertyChangedEventArgs(propertyName));
         }
 
-
+        // Imports the Cards saved in the TempBox, clears Tempbox and view Fields
         private void ImportCards()
         {
-            foreach (CardViewModel card in TempBox) // test
+            foreach (CardViewModel card in TempBox)
             {
                 BoxCollection.storeCard(card,ImportBox);
             }
-            // Kategoriezu Karten addden!!!!11111einselfhundertelfzig
             Support.SaveCards.SaveBoxToFileSystem(TempBox);
-            ClearLog();
+            ClearCards();
         }
 
+        // Clears TempBox, Log and Filechoose Field
         private void ClearCards()
         {
             TempBox.Clear();
             ClearFile();
             ClearLog();
         }
+
+        // Clears Log and informs the view about the change
         private void ClearLog()
         {
             ImportLog = "";
-            ClearFile();
             OnPropertyChanged("ImportLog");
         }
 
+        // Closes this window
         private void Close(object param)
         {
-            // Save Box
             Window window = (Window)param;
             window.Close();
         }
 
+        // Clears Error Message and informs the view about change
         private void ClearError()
         {
             ErrorMsg = "";
             OnPropertyChanged("ErrorMsg");
         }
+
+        // Shows given error message in Error field and informs the view
         private void ShowError(String msg)
         {
             ErrorMsg = msg;
             OnPropertyChanged("ErrorMsg");
         }
+
+        // Clears the filechoose field and informs the view
         private void ClearFile()
         {
             ImportFile = "";
             OnPropertyChanged("ImportFile");
         }
+
+        // Displays given Filename in the filechoose field and informs the view
         private void ShowFile(String msg)
         {
             ImportFile = msg;
             OnPropertyChanged("ImportFile");
         }
 
+        // Strips/Replaces common HTML Elements from given String
+        // TODO: Does work for testet Import Files, but needs further
+        // improvements for future imports most likely
         private String StripHTML(String str)
         {
+            str = str.Replace("&lt;", "<");
+            str = str.Replace("&gt;", ">");
             str = str.Replace("<br>","\n");
+            str = str.Replace("<br />", "\n");
             str = str.Replace("<div>", "");
             str = str.Replace("</div>", "");
             str = str.Replace("&nbsp;", " ");
+            str = str.Replace("&amp;", "&");
             str = Regex.Replace(str, "<img[^>]+>", "");
 
             return str;
         }
 
+        // Adds given question and answer to log
         private void AddCardToLog(String question,String answer)
         {
-            ImportLog = ImportLog + "Frage:\n" + question + "\n\nAntwort:\n" + answer + "\n---------\n";
+            ImportLog = ImportLog + "Frage:\n" + 
+                question + "\n\nAntwort:\n" + answer + "\n---------\n";
         }
 
+        // Method to import CoboCards
         private void ImportCoboCards()
         {
             var reader = System.Xml.XmlReader.Create(ImportFile);
@@ -136,13 +158,15 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                 {
                     if (reader.HasAttributes)
                     {
-                        String title = StripHTML(reader.GetAttribute("title"));
-                        String content = StripHTML(reader.GetAttribute("content"));
+                        String title = StripHTML(
+                            reader.GetAttribute("title"));
+                        String content = StripHTML(
+                            reader.GetAttribute("content"));
                         if (title != null && content != null)
                         {
-
                             CardViewModel card = new CardViewModel();
-                            card.StatisticCollection = new StatisticCollectionViewModel();
+                            card.StatisticCollection = 
+                                new StatisticCollectionViewModel();
                             card.Question = title;
                             card.Answer = content;
                             card.Category = SelectedCategory;
@@ -158,6 +182,10 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                 ShowError("XML File ist kein valider CoboCards Export");
             }
         }
+
+        // Imports Anki txt Export Files
+        // Remark: txt File cant be checked if its really anki export
+        // So log needs to be checked if imported questions make sense
         private void ImportAnkiTxt()
         {
             StreamReader stream = new StreamReader(ImportFile);
@@ -169,10 +197,12 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                 {
                     String question = StripHTML(values[0]);
                     String answer = StripHTML(values[1]);
-                    if (question != "" && answer != "" && answer != "\"\"" && question != "\"\"")
+                    if (question != "" && answer != "" && 
+                        answer != "\"\"" && question != "\"\"")
                     {
                         CardViewModel card = new CardViewModel();
-                        card.StatisticCollection = new StatisticCollectionViewModel();
+                        card.StatisticCollection = 
+                            new StatisticCollectionViewModel();
                         card.Question = question;
                         card.Answer = answer;
                         card.Category = SelectedCategory;
@@ -183,10 +213,8 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             }
             OnPropertyChanged("ImportLog");
         }
-        // Bilder kopieren ?!
-        // txt Import
 
-
+        // Displays File choose Dialog
         private void FileChoose()
         {
             ClearError();
@@ -213,6 +241,11 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             }
         }
 
+        // Imports Cards from chosen file, checks Filetype to know
+        // which method to call
+        // TODO: Future Improvements could be a better File verification
+        // like XML check against DTD if more XML Formats than CoboCards
+        // needs to be supportet
         private void Import()
         {
             if (ImportFile != "")

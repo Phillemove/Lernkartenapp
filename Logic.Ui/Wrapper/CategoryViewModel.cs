@@ -10,7 +10,6 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
          
     public class CategoryViewModel
     {
-
         public Category category;
         public String Name
         {
@@ -25,12 +24,12 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             }
         }
 
-
         public CategoryViewModel(Category category)
         {
             this.category = category;
         }
 
+        // Needed for Creation of CategoryViewModels in Datagrid
         public CategoryViewModel()
         {
             this.category = new Category("");
