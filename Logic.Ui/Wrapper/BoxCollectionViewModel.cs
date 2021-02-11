@@ -49,18 +49,21 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper
                 }
             }
         }
-        private void ViewModelCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void ViewModelCollectionChanged(object sender,
+            NotifyCollectionChangedEventArgs e)
         {
             if (syncDisabled) return;
             syncDisabled = true;
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    foreach (var box in e.NewItems.OfType<BoxViewModel>().Select(v => v.box).OfType<Box>())
+                    foreach (var box in e.NewItems.OfType<BoxViewModel>()
+                        .Select(v => v.box).OfType<Box>())
                         boxCollection.Add(box);
                     break;
                 case NotifyCollectionChangedAction.Remove:
-                    foreach (var box in e.NewItems.OfType<BoxViewModel>().Select(v => v.box).OfType<Box>())
+                    foreach (var box in e.NewItems.OfType<BoxViewModel>()
+                        .Select(v => v.box).OfType<Box>())
                         boxCollection.Remove(box);
                     break;
                 case NotifyCollectionChangedAction.Reset:
@@ -69,7 +72,8 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper
             }
             syncDisabled = false;
         }
-        private void ModelCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void ModelCollectionChanged(object sender,
+            NotifyCollectionChangedEventArgs e)
         {
             if (syncDisabled) return;
             syncDisabled = true;
@@ -100,5 +104,5 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper
 
     }
 
-    }
+}
 

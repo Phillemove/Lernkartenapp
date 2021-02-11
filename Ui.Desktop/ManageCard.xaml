@@ -8,37 +8,70 @@
         Title="ManageCard" Height="669.95" Width="1015.5"
         x:Name="ThisWindow">
     <Window.DataContext>
-        <Binding Source="{StaticResource VMLocator}" Path="CardWindowViewModel"></Binding>
+        <Binding Source="{StaticResource VMLocator}"
+                 Path="CardWindowViewModel"/>
     </Window.DataContext>
     <Grid Margin="0,0,2.8,5">
-        <DataGrid ItemsSource="{Binding Path=MyBoxCollectionViewModel,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+        <DataGrid ItemsSource="{Binding Path=MyBoxCollectionViewModel,
+            UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                   SelectedItem="{Binding SelectedBox}"
                   Margin="36,19,563.2,460" />
-        <DataGrid ItemsSource="{Binding Path=SelectedBox,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                  SelectedItem="{Binding SelectedCard}"
-                  HorizontalAlignment="Left"
-                  Height="250" Margin="482,10,0,0" VerticalAlignment="Top" Width="487"/>
-        <TextBox  Text="{Binding Path=SelectedCard.Question}" HorizontalAlignment="Left" Height="55"
-                  Margin="154,276,0,0" TextWrapping="Wrap"
-                  VerticalAlignment="Top" Width="236"/>
-        <Label Content="Frage" HorizontalAlignment="Left" Margin="55,276,0,0" VerticalAlignment="Top" FontSize="22" Height="55"/>
-        <Image  Source="{Binding SelectedCard.QuestionPic}" 
+        <DataGrid ItemsSource="{Binding Path=SelectedBox,
+                UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                SelectedItem="{Binding SelectedCard}"
+                HorizontalAlignment="Left"
+                Height="250" Margin="482,10,0,0"
+                VerticalAlignment="Top" Width="487"/>
+        <TextBox  Text="{Binding Path=SelectedCard.Question}"
+                HorizontalAlignment="Left" Height="55"
+                Margin="154,276,0,0" TextWrapping="Wrap"
+                VerticalAlignment="Top" Width="236"/>
+        <Label Content="Frage" HorizontalAlignment="Left"
+                Margin="55,276,0,0" VerticalAlignment="Top" 
+                FontSize="22" Height="55"/>
+        <Image  Source="{Binding SelectedCard.QuestionPic}"
                 HorizontalAlignment="Left" Height="183" Margin="97,362,0,0"
                 VerticalAlignment="Top" Width="293"/>
-        <TextBox  Text="{Binding SelectedCard.Answer}" HorizontalAlignment="Left" Height="55"
-            Margin="546,276,0,0" TextWrapping="Wrap"
-            VerticalAlignment="Top" Width="246"/>
-        <Label Content="Antwort" HorizontalAlignment="Left" Margin="460,276,0,0" VerticalAlignment="Top" FontSize="22" Height="55"/>
+        <TextBox  Text="{Binding SelectedCard.Answer}" 
+                HorizontalAlignment="Left" Height="55"
+                Margin="546,276,0,0" TextWrapping="Wrap"
+                VerticalAlignment="Top" Width="246"/>
+        <Label Content="Antwort" HorizontalAlignment="Left"
+                Margin="460,276,0,0" VerticalAlignment="Top"
+                FontSize="22" Height="55"/>
         <Image  Source="{Binding SelectedCard.AnswerPic}"
-            HorizontalAlignment="Left" Height="183" Margin="546,362,0,0"
-            VerticalAlignment="Top" Width="261"/>
-        <Button Command="{Binding UpdateQuestionPic,Mode=OneWay}" Content="neue Frage Foto" HorizontalAlignment="Left" Margin="154,574,0,0" VerticalAlignment="Top" Width="236" Height="44" FontSize="18"/>
-        <Button Command="{Binding UpdateAnswerPic,Mode=OneWay}" Content="neue Antwort Foto" HorizontalAlignment="Left" Margin="613,574,0,0" VerticalAlignment="Top" Width="213" Height="44" FontSize="18" RenderTransformOrigin="0.787,0.525"/>
-        <Button Command="{Binding EditQuestionPic,Mode=OneWay}" Content="paint öffnen" HorizontalAlignment="Left" Margin="27,574,0,0" VerticalAlignment="Top" Width="122" Height="44" FontSize="18"/>
-        <Button Command="{Binding EditAnswerPic, Mode=OneWay}" Content="paint öffnen" HorizontalAlignment="Left" Margin="482,574,0,0" VerticalAlignment="Top" Width="116" Height="44" FontSize="18" RenderTransformOrigin="0.869,0.617"/>
-        <Button Command="{Binding DeleteCard, Mode=OneWay}" Content="Löschen" HorizontalAlignment="Left" Margin="872,574,0,0" VerticalAlignment="Top" Width="124" Height="51" FontSize="24"/>
-        <Button Command="{Binding CloseManageWindow, Mode=OneWay}" CommandParameter="{Binding ElementName=ThisWindow}" Content="Close" HorizontalAlignment="Left" Margin="892,434,0,0" VerticalAlignment="Top" Width="75" Height="51" FontSize="20" Click="Button_Click"/>
-        <Label Content="Catogery" HorizontalAlignment="Left" Margin="36,199,0,0" VerticalAlignment="Top" FontSize="22" Height="47"/>
+                HorizontalAlignment="Left" Height="183" Margin="546,362,0,0"
+                VerticalAlignment="Top" Width="261"/>
+        <Button Command="{Binding UpdateQuestionPic,Mode=OneWay}" 
+                Content="neue Frage Foto" HorizontalAlignment="Left"
+                Margin="154,574,0,0" VerticalAlignment="Top" 
+                Width="236" Height="44" FontSize="18"/>
+        <Button Command="{Binding UpdateAnswerPic,Mode=OneWay}"
+                Content="neue Antwort Foto" HorizontalAlignment="Left"
+                Margin="613,574,0,0" VerticalAlignment="Top" 
+                Width="213" Height="44" FontSize="18"
+                RenderTransformOrigin="0.787,0.525"/>
+        <Button Command="{Binding EditQuestionPic,Mode=OneWay}" 
+                Content="paint öffnen" HorizontalAlignment="Left" 
+                Margin="27,574,0,0" VerticalAlignment="Top" 
+                Width="122" Height="44" FontSize="18"/>
+        <Button Command="{Binding EditAnswerPic, Mode=OneWay}" 
+                Content="paint öffnen" HorizontalAlignment="Left"
+                Margin="482,574,0,0" VerticalAlignment="Top"
+                Width="116" Height="44" FontSize="18" 
+                RenderTransformOrigin="0.869,0.617"/>
+        <Button Command="{Binding DeleteCard, Mode=OneWay}"
+                Content="Löschen" HorizontalAlignment="Left"
+                Margin="872,574,0,0" VerticalAlignment="Top"
+                Width="124" Height="51" FontSize="24"/>
+        <Button Command="{Binding CloseManageWindow, Mode=OneWay}"
+                CommandParameter="{Binding ElementName=ThisWindow}"
+                Content="Close" HorizontalAlignment="Left" Margin="892,434,0,0"
+                VerticalAlignment="Top" Width="75" Height="51" 
+                FontSize="20" Click="Button_Click"/>
+        <Label Content="Catogery" HorizontalAlignment="Left" 
+               Margin="36,199,0,0" VerticalAlignment="Top" 
+               FontSize="22" Height="47"/>
         <ComboBox ItemsSource="{Binding MyCatCollectionViewModel}"
                   Grid.Column="0" HorizontalAlignment="Left"
                   Margin="154,199,0,0"  DisplayMemberPath="Name"    
