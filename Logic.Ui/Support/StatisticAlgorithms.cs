@@ -229,6 +229,13 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
             return counter;
         }
 
+        /* 
+         * Every BoxNumber convert to int has do increased by 1. 
+         * This is why the Enum value convert to int starts by 0.
+         * So Box1 has the int value 0. For displaying Box1 as 1,
+         * every typecast from enum to int has to increased by 1.
+         */
+
         // What is the current Boxnumber of this Card
         public static int CurrentBoxNumber(
             StatisticCollectionViewModel collection)
@@ -240,10 +247,10 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
                 if (DateTime.Compare(time, statistic.Timestamp) < 0)
                 {
                     time = statistic.Timestamp;
-                    currentBoxNumber = (int)statistic.CurrentBoxNumber;
+                    currentBoxNumber = (int)statistic.CurrentBoxNumber + 1;
                 }
             }
-            return currentBoxNumber+1;
+            return currentBoxNumber;
         }
 
         // How often was this Card in the current Box
@@ -255,7 +262,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
 
             foreach(StatisticViewModel statistic in collection)
             {
-                if((int)statistic.CurrentBoxNumber == currentBoxNumber)
+                if((int)statistic.CurrentBoxNumber + 1 == currentBoxNumber)
                 {
                     counter++;
                 }
@@ -271,10 +278,10 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
             int counter = 0;
             foreach(StatisticViewModel statistic in collection)
             {   
-                if((int)statistic.CurrentBoxNumber != currentBoxNumber)
+                if((int)statistic.CurrentBoxNumber + 1 != currentBoxNumber)
                 {
                     counter++;
-                    currentBoxNumber = (int)statistic.CurrentBoxNumber;  
+                    currentBoxNumber = (int)statistic.CurrentBoxNumber + 1;  
                 }
             }
             /* 
@@ -305,7 +312,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
             DateTime time = currentTimestamp;
             foreach (StatisticViewModel statistic in collection)
             {
-                if ((int)statistic.CurrentBoxNumber == currentBoxNumber &&
+                if ((int)statistic.CurrentBoxNumber + 1 == currentBoxNumber &&
                     DateTime.Compare(time, statistic.Timestamp) > 0)
                 {
                     time = statistic.Timestamp;
