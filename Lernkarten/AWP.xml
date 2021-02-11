@@ -8,17 +8,17 @@
     <AnswerPic>b5POk2A6Z1.jpg</AnswerPic>
     <StatisticCollection>
       <Statistic>
-        <Timestamp>16.01.2021 15:13:09</Timestamp>
+        <Timestamp>1/16/2021 3:13:20 AM</Timestamp>
         <SuccessfullAnswer>True</SuccessfullAnswer>
-        <CurrentBoxNumber>Box2</CurrentBoxNumber>
+        <CurrentBoxNumber>Box5</CurrentBoxNumber>
       </Statistic>
       <Statistic>
-        <Timestamp>16.01.2021 15:15:27</Timestamp>
+	    <Timestamp>1/16/2021 3:15:27 AM</Timestamp>
         <SuccessfullAnswer>False</SuccessfullAnswer>
         <CurrentBoxNumber>Box3</CurrentBoxNumber>
       </Statistic>
       <Statistic>
-        <Timestamp>16.01.2021 15:20:11</Timestamp>
+	    <Timestamp>1/16/2021 3:20:11 AM</Timestamp>
         <SuccessfullAnswer>True</SuccessfullAnswer>
         <CurrentBoxNumber>Box2</CurrentBoxNumber>
       </Statistic>
@@ -27,5 +27,12 @@
   <Card>
     <Question>Bis wann muss die Hausarbeit abgegeben sein?</Question>
     <Answer>15. Februar 2021</Answer>
+	<StatisticCollection>
+      <Statistic>
+        <Timestamp>1/16/2021 3:40:40 AM</Timestamp>
+        <SuccessfullAnswer>False</SuccessfullAnswer>
+        <CurrentBoxNumber>Box1</CurrentBoxNumber>
+      </Statistic>
+    </StatisticCollection>
   </Card>
 </Cards>

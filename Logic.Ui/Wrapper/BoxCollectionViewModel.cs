@@ -32,7 +32,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper
             }
             return null;
         }
-        public void storeCard(CardViewModel cardvm, Boxnumber bn)
+        public void StoreCard(CardViewModel cardvm, Boxnumber bn)
         {
             foreach (BoxViewModel boxvm in this)
             {

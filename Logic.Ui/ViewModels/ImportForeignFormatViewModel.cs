@@ -66,7 +66,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         {
             foreach (CardViewModel card in TempBox)
             {
-                BoxCollection.storeCard(card,ImportBox);
+                BoxCollection.StoreCard(card,ImportBox);
             }
             Support.SaveCards.SaveBoxToFileSystem(TempBox);
             ClearCards();

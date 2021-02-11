@@ -4,11 +4,25 @@
   <Card>
     <Question>Wie finde ich das Fach?</Question>
     <Answer>Nicht ganz so super</Answer>
+	<StatisticCollection>
+      <Statistic>
+        <Timestamp>1/16/2021 3:40:40 AM</Timestamp>
+        <SuccessfullAnswer>False</SuccessfullAnswer>
+        <CurrentBoxNumber>Box3</CurrentBoxNumber>
+      </Statistic>
+    </StatisticCollection>
   </Card>
   <Card>
     <Question>Bis wann muss die Hausarbeit abgegeben sein?</Question>
     <Answer>10. Februar 2021</Answer>
     <QuestionPic>QUAVoTxo41.jpg</QuestionPic>
     <AnswerPic>Ui4n4tPlne.jpg</AnswerPic>
+	<StatisticCollection>
+      <Statistic>
+        <Timestamp>1/16/2021 3:40:40 AM</Timestamp>
+        <SuccessfullAnswer>False</SuccessfullAnswer>
+        <CurrentBoxNumber>Box4</CurrentBoxNumber>
+      </Statistic>
+    </StatisticCollection>	
   </Card>
 </Cards>
