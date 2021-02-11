@@ -69,8 +69,10 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
                     writer.WriteElementString("AnswerPic",
                         card.AnswerPic);
                 }
+                writer.WriteStartElement("StatisticCollection");
                 if (card.StatisticCollection != null)
                 {
+                    
                     ExportViewModel.WriteStatistic(card, writer);
                     /*writer.WriteStartElement("StatisticCollection");
                     if (card.StatisticCollection != null)
@@ -89,7 +91,9 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
                         }
                     }
                     writer.WriteEndElement();*/
+                    
                 }
+                writer.WriteEndElement();
                 writer.WriteEndElement();
                 writer.Flush();
             }

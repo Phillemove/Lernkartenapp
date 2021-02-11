@@ -51,6 +51,9 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
             MyModelViewModel.BoxCollectionVM,
             MyModelViewModel.myCategoryCollection,
             StatisticWindowViewModel);
+
+            Support.LoadCards.LoadAllCategorysFromFileSystem(MyModelViewModel.BoxCollectionVM, MyModelViewModel.myCategoryCollection);
+           
         }
     }
 }

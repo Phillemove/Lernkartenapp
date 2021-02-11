@@ -104,7 +104,8 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
                 switch (statDet.Name)
                 {
                     case "Timestamp":
-                        stat.Timestamp = Convert.ToDateTime(statDet.InnerText);
+                        //stat.Timestamp = Convert.ToDateTime(statDet.InnerText);
+                        stat.Timestamp = UnixTimeStampToDateTime(Convert.ToDouble(statDet.InnerText));
                         break;
                     case "SuccessfullAnswer":
                         stat.SuccessfulAnswer =
@@ -113,9 +114,6 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
                     case "CurrentBoxNumber":
                         switch (statDet.InnerText)
                         {
-                            case "None":
-                                stat.CurrentBoxNumber = Boxnumber.None;
-                                break;
                             case "Box1":
                                 stat.CurrentBoxNumber = Boxnumber.Box1;
                                 break;
@@ -209,6 +207,20 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
                 bn = Boxnumber.Box1;
             }
             return bn;
+        }
+
+        /*
+         * This Method is from stadckoverflow
+         * https://stackoverflow.com/questions/249760/how-can-i-convert-a-unix-timestamp-to-datetime-and-vice-versa
+         * Author: user6269864
+         * 11.02.2021
+         */
+        public static DateTime UnixTimeStampToDateTime(double unixTimeStamp)
+        {
+            // Unix timestamp is seconds past epoch
+            System.DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
+            dtDateTime = dtDateTime.AddSeconds(unixTimeStamp).ToLocalTime();
+            return dtDateTime;
         }
 
 

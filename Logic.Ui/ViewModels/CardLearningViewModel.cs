@@ -76,7 +76,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         {
             myBoxCollectionViewModel = bcvm;
             // load cards from xml file
-            LoadCards();
+            //LoadCards();
 
             //-----------------------------------
             aTimer = new System.Timers.Timer();
@@ -228,7 +228,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
         //-------------------------------------------------------------------------------------
-        public void LoadCards()
+        /*public void LoadCards()
         {
             XmlDocument doc1 = new XmlDocument();
             doc1.Load(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)+ 
@@ -371,7 +371,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                 }
             }
             return stat;
-        }
+        }*/
         //-------------------------------------------------------------------------
 
     }

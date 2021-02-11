@@ -116,10 +116,12 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                 xmlWriter.WriteElementString(
                     "Answer", card.Answer);
                 CopyCardPics(card, xmlWriter, filename, fbd);
+                xmlWriter.WriteStartElement("StatisticCollection");
                 if (InclStat && card.StatisticCollection != null)
                 {
                     WriteStatistic(card, xmlWriter);
                 }
+                xmlWriter.WriteEndElement();
                 xmlWriter.WriteEndElement();
                 xmlWriter.Flush();
             }
@@ -141,11 +143,15 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         {
             if(card.QuestionPic != null && card.QuestionPic != "")
             {
-                CopyPic(filename, fbd, card.QuestionPic, xmlWriter);
+                String test = CopyPic(filename, fbd, card.QuestionPic, xmlWriter);
+                System.Windows.MessageBox.Show(test);
+                xmlWriter.WriteElementString("QuestionPic", test);
             }
             if (card.AnswerPic != null && card.AnswerPic != "")
             {
-                CopyPic(filename, fbd, card.AnswerPic, xmlWriter);
+                String test = CopyPic(filename, fbd, card.AnswerPic, xmlWriter);
+                System.Windows.MessageBox.Show(test);
+                xmlWriter.WriteElementString("AnswerPic", test);
             }
 
         }
@@ -153,7 +159,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         /*
          * This Method copy Copy the Card and writes the xmlNode
          */
-        private void CopyPic(string filename,
+        private String CopyPic(string filename,
             FolderBrowserDialog fbd, string file, XmlTextWriter xmlWriter)
         {
             string picNew = filename + "_img_" + picCount + ".jpg";
@@ -161,7 +167,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             string pathSavePicture = fbd.SelectedPath.ToString() +
                 @"\Export\content\" + picNew;
             File.Copy(savePicDirectory + file, pathSavePicture);
-            xmlWriter.WriteElementString("QuestionPic", picNew);
+            return picNew;
         }
 
         /*
@@ -170,12 +176,14 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
          */
         public static void WriteStatistic(CardViewModel card, XmlTextWriter xmlWriter)
         {
-            xmlWriter.WriteStartElement("StatisticCollection");
+            
             foreach (StatisticViewModel stat in card.StatisticCollection)
             {
+                DateTime testii = stat.Timestamp;
                 xmlWriter.WriteStartElement("Statistic");
                 xmlWriter.WriteElementString("Timestamp",
-                    stat.Timestamp.ToString());
+                    //stat.Timestamp.ToString()); 
+                    (DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds.ToString());  // https://stackoverflow.com/questions/17632584/how-to-get-the-unix-timestamp-in-c-sharp#:~:text=You%20get%20a%20unix%20timestamp%20in%20C%23%20by%20using%20DateTime,unixTimestamp%20%3D%20(Int32)(DateTime.
                 xmlWriter.WriteElementString("SuccessfullAnswer",
                     stat.SuccessfulAnswer.ToString());
                 xmlWriter.WriteElementString("CurrentBoxNumber",
@@ -183,7 +191,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                 xmlWriter.WriteEndElement();
                 xmlWriter.Flush();
             }
-            xmlWriter.WriteEndElement();
+            
         }
 
         /*

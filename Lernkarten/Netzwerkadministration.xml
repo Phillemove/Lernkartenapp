@@ -4,23 +4,11 @@
   <Card>
     <Question>Was ist ein Angriff mit ARP?</Question>
     <Answer>ARP poisoning</Answer>
-	<StatisticCollection>
-      <Statistic>
-        <Timestamp>1/16/2021 3:40:40 AM</Timestamp>
-        <SuccessfullAnswer>False</SuccessfullAnswer>
-        <CurrentBoxNumber>Box2</CurrentBoxNumber>
-      </Statistic>
-    </StatisticCollection>
+    <StatisticCollection />
   </Card>
   <Card>
     <Question>Was bedeuted TTL?</Question>
     <Answer>Time To Live</Answer>
-	<StatisticCollection>
-      <Statistic>
-        <Timestamp>1/16/2021 3:40:40 AM</Timestamp>
-        <SuccessfullAnswer>False</SuccessfullAnswer>
-        <CurrentBoxNumber>Box4</CurrentBoxNumber>
-      </Statistic>
-    </StatisticCollection>
+    <StatisticCollection />
   </Card>
 </Cards>
