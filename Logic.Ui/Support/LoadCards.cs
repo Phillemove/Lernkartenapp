@@ -17,7 +17,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
         private static readonly string saveDirectory =
             @"..\..\..\Lernkarten\";
 
-        public static void LoadCategoryFromFileSystem(BoxCollectionViewModel bcvm, CategoryCollectionViewModel ccvm, CategoryViewModel cvm) // CategoryViewModel muss übergeben werden
+        public static void LoadCategoryFromFileSystem(BoxCollectionViewModel bcvm, CategoryViewModel cvm)
         {
             XmlDocument doc = new XmlDocument();
             var fileName = saveDirectory + cvm.Name + ".xml";
@@ -44,11 +44,14 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
             XmlDocument doc = new XmlDocument();
             foreach(CategoryViewModel cat in ccvm)
             {
-                LoadCategoryFromFileSystem(bcvm, ccvm, cat);
+                LoadCategoryFromFileSystem(bcvm, cat);
             }
 
         }
 
+        /*
+         * This Method reads the xml Nodes and creates cards by our selfe sheme
+         */
         public static CardViewModel ReadOwnFormatNode(XmlNode node)
         {
             // Creating the card, which is going to be given back
@@ -92,7 +95,11 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
 
         }
 
-        private static StatisticViewModel ReadStat(XmlNode statNode)
+        /*
+         * This Method gets an XmlNode with Statistic Nodes, create out of
+         * it a Statistic Object and give this Object back.
+         */
+        public static StatisticViewModel ReadStat(XmlNode statNode)
         {
             // Creates a new Statistic
             StatisticViewModel stat = new StatisticViewModel();

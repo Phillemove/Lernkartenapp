@@ -240,7 +240,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
                 foreach (XmlNode node in doc.DocumentElement)
                 {
                     CardViewModel card =
-                        ImportViewModel.ReadOwnFormatNode(node);
+                        Support.LoadCards.ReadOwnFormatNode(node);
                     card.Category = cat;
                     bvm.Enqueue(card);
                 }

@@ -173,7 +173,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             }
         }
 
-        
+
         /*
          * This Method opens the OpenFileDialog with which the
          * user can choose a .xml File. This reades the xml Nodes
@@ -182,10 +182,10 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         private void ChooseDataMethod()
         {
             // creating a OpenFileDialog to choose the File to be imported
-            ofd = new OpenFileDialog();  
+            ofd = new OpenFileDialog();
             ofd.Filter = "XML-Files|*.xml";     // Limitation for .xml Files
             // If the choosen File works
-            if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK) 
+            if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 filepath = Path.GetDirectoryName(ofd.FileName);
                 // Show the Filename in the View
@@ -199,9 +199,9 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                 this.bvm = new BoxViewModel();
                 // The Node is going to be a 
                 // card and Enqueue to the BoxViewModel
-                foreach (XmlNode node in doc.DocumentElement) 
+                foreach (XmlNode node in doc.DocumentElement)
                 {
-                    CardViewModel card = ReadOwnFormatNode(node);
+                    CardViewModel card = Support.LoadCards.ReadOwnFormatNode(node);
                     this.bvm.Enqueue(card);
                 }
             }
@@ -209,52 +209,6 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             {
                 System.Windows.MessageBox.Show("Die Auswahl hat leider nicht geklappt");
             }
-        }
-        
-        /*
-         * This Method reads the xml Nodes and creates cards by our selfe sheme
-         */
-        public static CardViewModel ReadOwnFormatNode(XmlNode node)
-        {
-            // Creating the card, which is going to be given back
-            CardViewModel card = new CardViewModel();   
-
-            foreach (XmlNode child in node)
-            {
-                /*
-                 * This Switch-Case looks what kind the actual
-                 * Node is and creates the equivalent part of the card
-                 */
-                switch (child.Name)
-                {
-                    case "Question":
-                        card.Question = child.InnerText;
-                        break;
-                    case "Answer":
-                        card.Answer = child.InnerText;
-                        break;
-                    case "QuestionPic":
-                        card.QuestionPic = child.InnerText;
-                        break;
-                    case "AnswerPic":
-                        card.AnswerPic = child.InnerText;
-                        break;
-                    case "StatisticCollection":
-                        card.StatisticCollection = new StatisticCollectionViewModel();
-                        /*
-                         * loop to go throug every Statistic
-                         */
-                        foreach(XmlNode statNode in child) 
-                        {
-                            StatisticViewModel stat = ReadStat(statNode);
-                            
-                            card.StatisticCollection.Add(stat);
-                        }
-                        break;
-                }
-            };
-            return card;
-            
         }
 
         /*
@@ -272,56 +226,5 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             return new string(Enumerable.Repeat(chars, randPicNameLength)
               .Select(s => s[random.Next(s.Length)]).ToArray());
         }
-
-        /*
-         * This Method gets an XmlNode with Statistic Nodes, create out of
-         * it a Statistic Object and give this Object back.
-         */
-        private static StatisticViewModel ReadStat(XmlNode statNode)
-        {
-            // Creates a new Statistic
-            StatisticViewModel stat = new StatisticViewModel();
-            /*
-             * loop for the details of every StatisticObject
-             */
-            foreach (XmlNode statDet in statNode)
-            {
-                switch (statDet.Name)
-                {
-                    case "Timestamp":
-                        stat.Timestamp = Convert.ToDateTime(statDet.InnerText);
-                        break;
-                    case "SuccessfullAnswer":
-                        stat.SuccessfulAnswer =
-                            Convert.ToBoolean(statDet.InnerText);
-                        break;
-                    case "CurrentBoxNumber":
-                        switch (statDet.InnerText)
-                        {
-                            case "Box1":
-                                stat.CurrentBoxNumber = Boxnumber.Box1;
-                                break;
-                            case "Box2":
-                                stat.CurrentBoxNumber = Boxnumber.Box2;
-                                break;
-                            case "Box3":
-                                stat.CurrentBoxNumber = Boxnumber.Box3;
-                                break;
-                            case "Box4":
-                                stat.CurrentBoxNumber = Boxnumber.Box4;
-                                break;
-                            case "Box5":
-                                stat.CurrentBoxNumber = Boxnumber.Box5;
-                                break;
-                        }
-                        break;
-                }
-            }
-            return stat;
-        }
-
-
-    }
-
-    
+    }   
 }

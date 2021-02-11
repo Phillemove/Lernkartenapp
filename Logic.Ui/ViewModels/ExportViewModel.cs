@@ -179,7 +179,6 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             
             foreach (StatisticViewModel stat in card.StatisticCollection)
             {
-                DateTime testii = stat.Timestamp;
                 xmlWriter.WriteStartElement("Statistic");
                 xmlWriter.WriteElementString("Timestamp",
                     //stat.Timestamp.ToString()); 
@@ -210,7 +209,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             foreach (XmlNode node in doc.DocumentElement)
             {
                 currentBox.Enqueue(
-                    ImportViewModel.ReadOwnFormatNode(node));
+                    Support.LoadCards.ReadOwnFormatNode(node));
             }         
             return currentBox;
         }
