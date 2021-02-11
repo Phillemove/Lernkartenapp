@@ -25,17 +25,20 @@ namespace De.HsFlensburg.ClientApp101.Ui.Desktop.MessageBusLogic
                 CardAdd cardAdd = new CardAdd();
                 cardAdd.ShowDialog();
             });
-            ServiceBus.Instance.Register<OpenManageCardMessage>(this, delegate ()
+            ServiceBus.Instance.Register<OpenManageCardMessage>(this, 
+                delegate ()
             {
                 ManageCard manageCard = new ManageCard();
                 manageCard.ShowDialog();
             });
-            ServiceBus.Instance.Register<OpenImportMessage>(this, delegate ()
+            ServiceBus.Instance.Register<OpenImportMessage>(this, 
+                delegate ()
             {
                 Import import = new Import();
                 import.ShowDialog();
             });
-            ServiceBus.Instance.Register<OpenStatisticMessage>(this, delegate ()
+            ServiceBus.Instance.Register<OpenStatisticMessage>(this, 
+                delegate ()
             {
                 StatisticWindow statistic = new StatisticWindow();
                 statistic.ShowDialog();
@@ -50,12 +53,15 @@ namespace De.HsFlensburg.ClientApp101.Ui.Desktop.MessageBusLogic
                 Export export = new Export();
                 export.ShowDialog();
             });
-            ServiceBus.Instance.Register<OpenImportForeignFormatMessage>(this, delegate ()
+            ServiceBus.Instance.Register<OpenImportForeignFormatMessage>(this, 
+                delegate ()
             {
-                ImportForeignFormat importForeignFormat = new ImportForeignFormat();
+                ImportForeignFormat importForeignFormat = 
+                new ImportForeignFormat();
                 importForeignFormat.ShowDialog();
             });
-            ServiceBus.Instance.Register<OpenCardLearningMessage>(this, delegate ()
+            ServiceBus.Instance.Register<OpenCardLearningMessage>(this, 
+                delegate ()
             {
                 CardLearning cardLearning = new CardLearning();
                 cardLearning.ShowDialog();

@@ -11,7 +11,8 @@ using System.Threading.Tasks;
 
 namespace De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper
 {
-    public class StatisticCollectionViewModel : ObservableCollection<StatisticViewModel>
+    public class StatisticCollectionViewModel : 
+        ObservableCollection<StatisticViewModel>
     {
         public StatisticCollection statisticCollection;
         private bool syncDisabled;

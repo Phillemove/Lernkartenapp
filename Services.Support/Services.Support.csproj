@@ -43,9 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LoadCards.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SaveCards.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Business.Model\Business.Model.csproj">

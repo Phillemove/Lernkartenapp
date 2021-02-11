@@ -23,13 +23,20 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
 
         public MainWindowViewModel(ModelViewModel mvm)
         {
-            OpenCardAddWindow = new RelayCommand(() => ServiceBus.Instance.Send(new OpenCardAddMessage()));
-            OpenCardLearningWindow = new RelayCommand(() => ServiceBus.Instance.Send(new OpenCardLearningMessage()));
-            OpenImportWindow = new RelayCommand(() => ServiceBus.Instance.Send(new OpenImportMessage()));
-            OpenExportWindow = new RelayCommand(() => ServiceBus.Instance.Send(new OpenExportMessage()));
-            OpenCategoryWindow = new RelayCommand(() => ServiceBus.Instance.Send(new OpenCategoryMessage()));
-            OpenImportForeignFormatWindow = new RelayCommand(() => ServiceBus.Instance.Send(new OpenImportForeignFormatMessage()));
-            OpenManageCardsWindow = new RelayCommand(() => ServiceBus.Instance.Send(new OpenManageCardMessage()));
+            OpenCardAddWindow = new RelayCommand(() => 
+            ServiceBus.Instance.Send(new OpenCardAddMessage()));
+            OpenCardLearningWindow = new RelayCommand(() => 
+            ServiceBus.Instance.Send(new OpenCardLearningMessage()));
+            OpenImportWindow = new RelayCommand(() => 
+            ServiceBus.Instance.Send(new OpenImportMessage()));
+            OpenExportWindow = new RelayCommand(() => 
+            ServiceBus.Instance.Send(new OpenExportMessage()));
+            OpenCategoryWindow = new RelayCommand(() => 
+            ServiceBus.Instance.Send(new OpenCategoryMessage()));
+            OpenImportForeignFormatWindow = new RelayCommand(() => 
+            ServiceBus.Instance.Send(new OpenImportForeignFormatMessage()));
+            OpenManageCardsWindow = new RelayCommand(() => 
+            ServiceBus.Instance.Send(new OpenManageCardMessage()));
             SaveAndCloseAll = new RelayCommand(param => Save(param));
 
             MyBoxCollectionViewModel = mvm.BoxCollectionVM; 
@@ -41,10 +48,6 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         {
             Window window = (Window)param;
             window.Close();
-            //myModelViewModel.SaveCategorys();
-            //SaveCards.SaveBoxCollectionsToFilesystem(myBoxCollectionViewModel, myModelViewModel.myCategoryCollection);
         }
-
-
     }
 }

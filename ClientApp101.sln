@@ -25,8 +25,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.MessageBus", "Serv
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ui.Desktop", "Ui.Desktop\Ui.Desktop.csproj", "{B1C9058A-73E7-443B-A2AA-77427BABC5FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.Support", "Services.Support\Services.Support.csproj", "{0527AB5D-A9AB-4651-B68E-3A9CB8429CD8}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,10 +47,6 @@ Global
 		{B1C9058A-73E7-443B-A2AA-77427BABC5FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B1C9058A-73E7-443B-A2AA-77427BABC5FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B1C9058A-73E7-443B-A2AA-77427BABC5FA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0527AB5D-A9AB-4651-B68E-3A9CB8429CD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0527AB5D-A9AB-4651-B68E-3A9CB8429CD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0527AB5D-A9AB-4651-B68E-3A9CB8429CD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0527AB5D-A9AB-4651-B68E-3A9CB8429CD8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -62,7 +56,6 @@ Global
 		{0BB2EFC0-398F-4BBD-A704-12BD7D1F2A54} = {DC38E49B-486C-41D0-A7E7-AD0106E99F19}
 		{DA2A706E-D85E-4571-AEAA-CEEF7E5DCC73} = {52538DE8-B731-493A-BB12-B4E689F51A9E}
 		{B1C9058A-73E7-443B-A2AA-77427BABC5FA} = {766CFCAD-510A-4C2E-8C86-9D21D49C2716}
-		{0527AB5D-A9AB-4651-B68E-3A9CB8429CD8} = {52538DE8-B731-493A-BB12-B4E689F51A9E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B3FA9E81-03F1-48E4-B240-9646B861A9E9}

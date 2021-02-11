@@ -6,7 +6,7 @@
              xmlns:desktop="clr-namespace:De.HsFlensburg.ClientApp101.Ui.Desktop.MessageBusLogic"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <viewModel:ViewModelLocator x:Key="VMLocator"></viewModel:ViewModelLocator>
-        <desktop:MessageListener x:Key="MessageListener"></desktop:MessageListener>
+        <viewModel:ViewModelLocator x:Key="VMLocator" />
+        <desktop:MessageListener x:Key="MessageListener" />
     </Application.Resources>
 </Application>

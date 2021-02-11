@@ -16,7 +16,7 @@ namespace De.HsFlensburg.ClientApp101.Business.Model.BusinessObjects
         //public event NotifyCollectionChangedEventHandler CollectionChanged;
         public Box()
         {
-            this.bn = Boxnumber.None;
+            this.bn = Boxnumber.Box1;
         }
         public Box(Boxnumber bn)
         {

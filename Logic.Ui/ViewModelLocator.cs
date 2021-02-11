@@ -47,26 +47,6 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
                 Boxnumber.Box1, 
                 MyModelViewModel.BoxCollectionVM);
 
-            // -- Dummys
-            //CardViewModel cvm1 = new CardViewModel(new Card("what is sky color?", "blue", Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "\\..\\..\\..\\Data\\myimages\\sky.jpeg"));
-            //CardViewModel cvm2 = new CardViewModel(new Card("what is year?", "2021", Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "\\..\\..\\..\\Data\\myimages\\year2021.jpg"));
-            //CardViewModel cvm3 = new CardViewModel(new Card("is mouse input or output device?", "input", Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "\\..\\..\\..\\Data\\myimages\\mouse.jpg"));
-
-            //cvm1.StatisticCollection = new StatisticCollectionViewModel();
-            //cvm2.StatisticCollection = new StatisticCollectionViewModel();
-            //cvm3.StatisticCollection = new StatisticCollectionViewModel();
-
-            //MyModelViewModel.BoxCollectionVM.StoreCard(cvm1, Boxnumber.Box1);
-            //MyModelViewModel.BoxCollectionVM.StoreCard(cvm2, Boxnumber.Box1);
-            //MyModelViewModel.BoxCollectionVM.StoreCard(cvm3, Boxnumber.Box1);
-
-            //MyModelViewModel.BoxCollectionVM.StoreCard(cvm2, Boxnumber.Box2);
-            //MyModelViewModel.BoxCollectionVM.StoreCard(cvm3, Boxnumber.Box2);
-            //MyModelViewModel.BoxCollectionVM.StoreCard(cvm3, Boxnumber.Box3);
-            //MyModelViewModel.BoxCollectionVM.StoreCard(cvm2, Boxnumber.Box4);
-            //MyModelViewModel.BoxCollectionVM.StoreCard(cvm1, Boxnumber.Box5);
-            // -- /Dummys
-
             CardLearningViewModel = new CardLearningViewModel(
             MyModelViewModel.BoxCollectionVM,
             MyModelViewModel.myCategoryCollection,

@@ -21,18 +21,14 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper
         {
             this.model = new Model();
             BoxCollectionVM = new BoxCollectionViewModel();
-            // --
+            // Creating Boxes
             BoxCollectionVM.Add(new BoxViewModel(new Box(Boxnumber.Box1)));
             BoxCollectionVM.Add(new BoxViewModel(new Box(Boxnumber.Box2)));
             BoxCollectionVM.Add(new BoxViewModel(new Box(Boxnumber.Box3)));
             BoxCollectionVM.Add(new BoxViewModel(new Box(Boxnumber.Box4)));
             BoxCollectionVM.Add(new BoxViewModel(new Box(Boxnumber.Box5)));
 
-
             myCategoryCollection = new CategoryCollectionViewModel();
         }
-
-
-        
     }
 }

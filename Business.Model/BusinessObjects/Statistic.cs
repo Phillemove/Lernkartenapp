@@ -18,10 +18,11 @@ namespace De.HsFlensburg.ClientApp101.Business.Model.BusinessObjects
         
         public Statistic()
         {
-            CurrentBoxNumber = Boxnumber.None;
+            CurrentBoxNumber = Boxnumber.Box1;
         }
 
-        public Statistic(DateTime timestamp, bool successfullanswer, Boxnumber cbn)
+        public Statistic(DateTime timestamp, bool successfullanswer, 
+            Boxnumber cbn)
         {
             Timestamp = timestamp;
             SuccessfullAnswer = successfullanswer;

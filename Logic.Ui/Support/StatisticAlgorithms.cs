@@ -243,7 +243,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
                     currentBoxNumber = (int)statistic.CurrentBoxNumber;
                 }
             }
-            return currentBoxNumber;
+            return currentBoxNumber+1;
         }
 
         // How often was this Card in the current Box

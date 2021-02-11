@@ -298,9 +298,6 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                     case "CurrentBoxNumber":
                         switch (statDet.InnerText)
                         {
-                            case "None":
-                                stat.CurrentBoxNumber = Boxnumber.None;
-                                break;
                             case "Box1":
                                 stat.CurrentBoxNumber = Boxnumber.Box1;
                                 break;

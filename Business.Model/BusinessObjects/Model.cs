@@ -21,7 +21,5 @@ namespace De.HsFlensburg.ClientApp101.Business.Model.BusinessObjects
             BoxCollection = new BoxCollection();
             CategoryCollection = new CategoryCollection();
         }
-
-        
     }
 }

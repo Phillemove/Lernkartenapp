@@ -37,13 +37,15 @@ namespace De.HsFlensburg.ClientApp101.Services.MessageBus
             Type messageType = typeof(TNotification);
             if (!references.ContainsKey(messageType))
                 references.Add(messageType, new List<WeakReferenceAction>());
-            WeakReferenceAction actionReference = new WeakReferenceAction(listener, action);
+            WeakReferenceAction actionReference = 
+                new WeakReferenceAction(listener, action);
             references[messageType].Add(actionReference);
         }
         public void Send<TNotification>(TNotification notification)
         {
             Type messageType = typeof(TNotification);
-            List<WeakReferenceAction> weakReferenceActions = references[messageType];
+            List<WeakReferenceAction> weakReferenceActions = 
+                references[messageType];
             foreach (WeakReferenceAction wra in weakReferenceActions)
             {
                 wra.Execute();
@@ -54,7 +56,8 @@ namespace De.HsFlensburg.ClientApp101.Services.MessageBus
             bool isLocked = false;
             try
             {
-                // hiermit wird das Objekt 'references' Threadsicher angesprochen
+                // hiermit wird das Objekt 'references' 
+                // Threadsicher angesprochen
                 Monitor.Enter(references, ref isLocked);
                 foreach (Type targetType in references.Keys)
                 {
