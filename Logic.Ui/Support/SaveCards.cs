@@ -1,6 +1,7 @@
 ﻿using De.HsFlensburg.ClientApp101.Business.Model.BusinessObjects;
 using De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels;
 using De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper;
+using System;
 using System.Collections;
 using System.IO;
 using System.Linq;
@@ -17,73 +18,33 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
      */
     class SaveCards
     {
-        private static readonly string saveDirectory = ModelViewModel.saveDirectory;
-        private static readonly string pictureDirectory = ModelViewModel.savePicDirectory;
-
+        private static readonly string saveDirectory =
+            ModelViewModel.saveDirectory;
+        private static readonly string pictureDirectory =
+            ModelViewModel.savePicDirectory;
+        private readonly static Random random = new Random();
+        // The stringlength for the Method RandomString()
+        private readonly static int randPicNameLength = 10;
         /*
          * This Method gets a BoxViewModel and Save this to the Filesystem. 
          * It creates a .xml File with the naming of the category.  
          */
-        public static void SaveBoxToFileSystem(BoxViewModel box, CategoryCollectionViewModel ccvm)
+        public static void SaveBoxToFileSystem(
+            BoxViewModel boxVM,
+            CategoryCollectionViewModel ccvm)
         {
             System.IO.Directory.CreateDirectory(saveDirectory);
             System.IO.Directory.CreateDirectory(pictureDirectory);
-            CardViewModel interrimsCard = box.Peek();
+            CardViewModel interrimsCard = boxVM.Peek();
             string filename;
             if(interrimsCard.Category != null)
             {
                 filename = interrimsCard.Category.Name;
             } else
             {
-                filename = PickDefaultCat(ccvm).Name;
+                filename = GetDefaultCat(ccvm).Name;
             }
-            
-            XmlTextWriter writer = new XmlTextWriter(
-                saveDirectory + filename + ".xml",
-                System.Text.Encoding.UTF8);
-            // So the .xml File is more readable and every
-            //  Element get an own Line and is intended
-            writer.Formatting = Formatting.Indented;
-            writer.WriteStartDocument();
-            writer.WriteComment(filename);
-            writer.WriteStartElement("Cards");
-            foreach (CardViewModel card in box)
-            {
-                PicCheck(card);
-                writer.WriteStartElement("Card");
-                if (card.Question != null)
-                {
-                    writer.WriteElementString("Question",
-                        card.Question);
-                }
-                if (card.Answer != null)
-                {
-                    writer.WriteElementString("Answer",
-                        card.Answer);
-                }
-                if (card.QuestionPic != null)
-                {
-                    writer.WriteElementString("QuestionPic",
-                        card.QuestionPic);
-                }
-                if (card.AnswerPic != null)
-                {
-                    writer.WriteElementString("AnswerPic",
-                        card.AnswerPic);
-                }
-                writer.WriteStartElement("StatisticCollection");
-                if (card.StatisticCollection != null)
-                { 
-                    ExportViewModel.WriteStatistic(card, writer);
-                }
-                writer.WriteEndElement();
-                writer.WriteEndElement();
-                writer.Flush();
-            }
-            writer.WriteEndElement();
-            writer.WriteEndDocument();
-            writer.Flush();
-            writer.Close();
+            WriteXMLFile(saveDirectory,boxVM,filename);
         }
 
         /*
@@ -97,19 +58,18 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
             BoxCollectionViewModel bcvm, CategoryCollectionViewModel ccvm)
         {
             ArrayList categorys = new ArrayList();
-            BoxCollectionViewModel bc = new BoxCollectionViewModel();
-            foreach (BoxViewModel box in bcvm)
+            BoxCollectionViewModel bcVM = new BoxCollectionViewModel();
+            foreach (BoxViewModel boxVM in bcvm)
             {
-                foreach (CardViewModel card in box)
+                foreach (CardViewModel card in boxVM)
                 {
                     if (card.Category == null)
                     {
-                        card.Category = PickDefaultCat(ccvm);
+                        card.Category = GetDefaultCat(ccvm);
                     }
-                    PicCheck(card);
                     if (categorys.Contains(card.Category))
                     {
-                        foreach (BoxViewModel bvm in bc)
+                        foreach (BoxViewModel bvm in bcVM)
                         {
                             if (bvm.Peek().Category.Equals(card.Category))
                             {
@@ -128,11 +88,11 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
                         categorys.Add(card.Category);
                         BoxViewModel newBox = new BoxViewModel();
                         newBox.Enqueue(card);
-                        bc.Add(newBox);
+                        bcVM.Add(newBox);
                     }
                 }
             }
-            return bc;
+            return bcVM;
         }
 
         /*
@@ -143,12 +103,13 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
          * SaveBoxToFileSystem() to Save the Cards to the FileSystem.
          */
         public static void SaveAdditionalCard(
-            CategoryViewModel cat, CardViewModel card, CategoryCollectionViewModel ccvm)
+            CategoryViewModel catVM,
+            CardViewModel card,
+            CategoryCollectionViewModel ccvm)
         {
-            PicCheck(card);
-            BoxViewModel bvm = LoadExistingCards(cat);
-            bvm.Enqueue(card);
-            SaveBoxToFileSystem(bvm, ccvm);
+            BoxViewModel boxVM = LoadExistingCards(catVM);
+            boxVM.Enqueue(card);
+            SaveBoxToFileSystem(boxVM, ccvm);
         }
 
         /*
@@ -160,14 +121,16 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
          * Save the Cards to the FileSystem.
          */
         public static void SaveAdditionalCardBox(
-            CategoryViewModel cat, BoxViewModel box, CategoryCollectionViewModel ccvm)
+            CategoryViewModel catVM,
+            BoxViewModel boxVM,
+            CategoryCollectionViewModel ccvm)
         {
-            BoxViewModel bvm = LoadExistingCards(cat);
-            foreach (CardViewModel card in box)
+            BoxViewModel boxExist = LoadExistingCards(catVM);
+            foreach (CardViewModel card in boxExist)
             {
-                bvm.Enqueue(card);
+                boxVM.Enqueue(card);
             }
-            SaveBoxToFileSystem(bvm, ccvm);
+            SaveBoxToFileSystem(boxVM, ccvm);
 
         }
 
@@ -183,9 +146,9 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
         {
             BoxCollectionViewModel newBCVM =
                 SortCardsFromBoxCollection(bcvm, ccvm);
-            foreach (BoxViewModel box in newBCVM)
+            foreach (BoxViewModel boxVM in newBCVM)
             {
-                SaveBoxToFileSystem(box, ccvm);
+                SaveBoxToFileSystem(boxVM, ccvm);
             }
         }
 
@@ -196,28 +159,188 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
          * If there are no Cards in the Filesystem, 
          * the Method returns an empty BoxViewModel and shows a hint.
          */
-        public static BoxViewModel LoadExistingCards(CategoryViewModel cat)
+        public static BoxViewModel LoadExistingCards(CategoryViewModel catVM)
         {
-            BoxViewModel bvm = new BoxViewModel();
+            BoxViewModel boxVM = new BoxViewModel();
 
-            XmlDocument doc = new XmlDocument();
+            XmlDocument xmlDoc = new XmlDocument();
             // This is possible, because the name of the
             // File is the name of the category
-            if(cat != null)
+            if(catVM != null)
             {
-                if(File.Exists(saveDirectory + cat.Name + ".xml"))
+                if(File.Exists(saveDirectory + catVM.Name + ".xml"))
                 {
-                    doc.Load(saveDirectory + cat.Name + ".xml");
-                    foreach (XmlNode node in doc.DocumentElement)
+                    xmlDoc.Load(saveDirectory + catVM.Name + ".xml");
+                    foreach (XmlNode node in xmlDoc.DocumentElement)
                     {
-                        CardViewModel card =
-                            Support.LoadCards.ReadOwnFormatNode(node);
-                        card.Category = cat;
-                        bvm.Enqueue(card);
+                        CardViewModel card = LoadCards.ReadOwnFormatNode(node);
+                        card.Category = catVM;
+                        boxVM.Enqueue(card);
                     }
                 }
             }
-            return bvm;
+            return boxVM;
+        }
+
+        /* 
+        * defaultCat is for this moment, where the correct Categorys
+        * doesn't work correctly in every classes. If everything works 
+        * correctly, the defaultCat isn't necessary
+        */
+        private static CategoryViewModel GetDefaultCat(
+            CategoryCollectionViewModel ccvm)
+        {
+            
+            CategoryViewModel defaultCat = ccvm.Where(
+                catVM => catVM.Name == "default").FirstOrDefault();
+            if (defaultCat == null)
+            {
+                defaultCat = new CategoryViewModel(new Category("default"));
+                ccvm.Add(defaultCat);
+                ccvm.SaveCategorys();
+            }
+            return defaultCat;
+        }
+
+        /*
+         * This Method gets a DateTime Object and convert it to a 
+         * unix-double value, which can be stored in the FileSystem.
+         * Source: https://stackoverflow.com/questions/17632584/how-to-get-the-unix-timestamp-in-c-sharp
+         * helpful answer from: Steven Penny
+         * 12.02.2021
+         */
+        public static double DateTimeStampToUnixTime(DateTime DateTimeStamp)
+        {
+            double unix = ((DateTimeOffset)DateTimeStamp).ToUnixTimeSeconds();
+            return unix;
+        }
+
+        /*
+         * This Method write the xmlFile by using our own xml format
+         */
+        public static void WriteXMLFile(
+            string filePath,
+            BoxViewModel boxVM,
+            string catName,
+            Boolean exportStat = true)
+        {
+            string testfile = filePath + catName + ".xml";
+            XmlTextWriter xmlWriter = new XmlTextWriter(
+                        testfile, System.Text.Encoding.UTF8)
+            {
+                Formatting = Formatting.Indented
+            };
+            xmlWriter.WriteStartDocument();
+            xmlWriter.WriteComment(catName);
+            xmlWriter.WriteStartElement("Cards");
+            foreach(CardViewModel card in boxVM)
+            {
+                xmlWriter.WriteStartElement("Card");
+                if (card.Question != null)
+                {
+                    xmlWriter.WriteElementString("Question",
+                        card.Question);
+                }
+                if (card.Answer != null)
+                {
+                    xmlWriter.WriteElementString("Answer",
+                        card.Answer);
+                }
+                if (card.QuestionPic != null)
+                {
+                    CheckQuestionPic(card, xmlWriter, filePath);
+                }
+                if (card.AnswerPic != null)
+                {
+                    CheckAnswerPic(card, xmlWriter, filePath);
+                }
+                xmlWriter.WriteStartElement("StatisticCollection");
+                if (exportStat && card.StatisticCollection != null)
+                {
+                    WriteStatistic(card, xmlWriter);
+                }
+                xmlWriter.WriteEndElement();
+                
+                xmlWriter.WriteEndElement();
+                xmlWriter.Flush();
+            }
+            xmlWriter.WriteEndElement();
+            xmlWriter.WriteEndDocument();
+            xmlWriter.Flush();
+            xmlWriter.Close();
+        }
+
+        /*
+         * This Method writes the Statistic XmlElements for every
+         * StatisticViewModel-Element
+         */
+        private static void WriteStatistic(
+            CardViewModel card,
+            XmlTextWriter xmlWriter)
+        {
+            foreach (StatisticViewModel stat in card.StatisticCollection)
+            {
+                xmlWriter.WriteStartElement("Statistic");
+                xmlWriter.WriteElementString("Timestamp",
+                    SaveCards.DateTimeStampToUnixTime(
+                        stat.Timestamp).ToString());
+                xmlWriter.WriteElementString("SuccessfullAnswer",
+                    stat.SuccessfulAnswer.ToString());
+                xmlWriter.WriteElementString("CurrentBoxNumber",
+                    stat.CurrentBoxNumber.ToString());
+                xmlWriter.WriteEndElement();
+                xmlWriter.Flush();
+            }
+        }
+
+        /*
+         * This Method cipy the AnswerPic if necessary and write the
+         * AnswerPic-XmlElement
+         */
+        private static void CheckAnswerPic(
+            CardViewModel card,
+            XmlTextWriter xmlWriter,
+            string filePath)
+        {
+            if (card.AnswerPic.Contains(@"\"))
+            {
+                card.AnswerPic = CopyPic(card.AnswerPic);
+                xmlWriter.WriteElementString("AnswerPic", card.AnswerPic);
+            }
+            else if (filePath.Contains("Export"))
+            {
+                string fileName = CopyExportPic(filePath, card.AnswerPic);
+                xmlWriter.WriteElementString("AnswerPic", fileName);
+            }
+            else
+            {
+                xmlWriter.WriteElementString("AnswerPic", card.AnswerPic);
+            }
+        }
+
+        /*
+         * This Method copy the QuestionPic if necessary and write the
+         * QuestionPic-XmlElement
+         */
+        private static void CheckQuestionPic(
+            CardViewModel card,
+            XmlTextWriter xmlWriter,
+            string filePath)
+        {
+            if (card.QuestionPic.Contains(@"\"))
+            {
+                card.QuestionPic = CopyPic(card.QuestionPic);
+                xmlWriter.WriteElementString("QuestionPic", card.QuestionPic);
+            }
+            else if (filePath.Contains("Export"))
+            {
+                string fileName = CopyExportPic(filePath, card.QuestionPic);
+                xmlWriter.WriteElementString("QuestionPic", fileName);
+            }
+            else
+            {
+                xmlWriter.WriteElementString("QuestionPic", card.QuestionPic);
+            }
         }
 
         /*
@@ -228,50 +351,48 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
         public static string CopyPic(string path)
         {
             System.IO.Directory.CreateDirectory(pictureDirectory);
-            string newPicName = ImportViewModel.RandomString() + ".jpg";
+            string newPicName = RandomString() + ".jpg";
             File.Copy(path, pictureDirectory + newPicName);
             return newPicName;
         }
 
         /*
-         * This Method receives a card and check, if the pictures
-         * are actual in our Filesystem or not. Saved Files only contains
-         * the name and no Backslashes etc. 
+         * This Method copy the Pics from the own format to the selected
+         * export filedirectory. Return value is the filename of the new 
          */
-        public static void PicCheck(CardViewModel card)
+        private static String CopyExportPic(
+            string filePath,
+            string file)
         {
-            // If there is a Picture, which isn't in our Filesystem, 
-            // it will be copyd to it and the Card gets the new Name
-            if (card.QuestionPic != null && card.QuestionPic.Contains(@"\"))
+            string picNew = RandomString() + ".jpg";
+            string pathSavePicture = filePath +
+                @"content\" + picNew;
+            while(File.Exists(pathSavePicture))
             {
-                card.QuestionPic = CopyPic(card.QuestionPic);
+                picNew = RandomString() + ".jpg";
+                pathSavePicture = filePath +
+                @"content\" + picNew;
             }
-            // If there is a Picture, which isn't in our Filesystem, 
-            // it will be copyd to it and the Card gets the new Name
-            if (card.AnswerPic != null && card.AnswerPic.Contains(@"\"))
-            {
-                card.AnswerPic = CopyPic(card.AnswerPic);
-            }
+            File.Copy(pictureDirectory + file, pathSavePicture);
+            return picNew;
         }
 
-        /* 
-        * defaultCat is for this moment, where the correct Categorys
-        * doesn't work correctly in every classes. If everything works 
-        * correctly, the defaultCat isn't necessary
+        /*
+        * This Method creates a random String for the Filenames and give
+        * this back. The idea and the most of the code is
+        * from the following page:
+        * https://stackoverflow.com/questions/1344221/how-can-i-generate-random-alphanumeric-strings
+        * The Website call was on: 22.01.2021 16:33MEZ
         */
-        private static CategoryViewModel PickDefaultCat(
-            CategoryCollectionViewModel ccvm)
+        public static string RandomString()
         {
-            
-            CategoryViewModel defaultCat = ccvm.Where(
-                cat => cat.Name == "default").FirstOrDefault();
-            if (defaultCat == null)
-            {
-                defaultCat = new CategoryViewModel(new Category("default"));
-                ccvm.Add(defaultCat);
-                ccvm.SaveCategorys();
-            }
-            return defaultCat;
+            // This is the Range and possible Chars for the String
+            const string chars =
+                "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
+                "abcdefghijklmnopqrstuvwxyz" +
+                "0123456789";
+            return new string(Enumerable.Repeat(chars, randPicNameLength)
+              .Select(s => s[random.Next(s.Length)]).ToArray());
         }
     }
 }

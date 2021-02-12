@@ -17,35 +17,29 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         public RelayCommand ImportData { get; }
         public RelayCommand CloseWindow { get; }
         public CategoryViewModel Class { get; set; }
-        public BoxViewModel bvm;
-        private readonly static Random random = new Random();
-        // The stringlength for the Method RandomString()
-        private readonly static int randPicNameLength = 10; 
-        private OpenFileDialog ofd;
+        public BoxViewModel boxVM;
+        private OpenFileDialog openFD;
         // The variable for the FileSystemPath,
         // where the to be imported file is stored
         private static string filepath; 
         public CategoryCollectionViewModel MyModelViewModel { get; set; }
-
-        private string classname;   // the variable for the Label in the View
-
+        private string newClassName;  // the variable for the Label in the View
         /*
          * This String is for the displaying the 
          * Classname of the loaded file in the View.
          */
         public String NewClassName { get
             {
-                return classname; 
+                return newClassName; 
             }
             set {
-                classname = value;
+                newClassName = value;
                 OnPropertyChanged("NewClassName");
             } }
 
         public event PropertyChangedEventHandler PropertyChanged;
-
-        public Boolean RadioButtonNewCatIsChecked { get; set; }
-        public Boolean RadioButtonExistentCatIsChecked { get; set; }
+        public Boolean NewCatCheck { get; set; }
+        public Boolean ExistCatCheck { get; set; }
 
         public ImportViewModel(CategoryCollectionViewModel categorys)
         {
@@ -83,33 +77,31 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
          */
         private void ImportDataMethod()
         {
-            if(!RadioButtonNewCatIsChecked && !RadioButtonExistentCatIsChecked)
+            if(!NewCatCheck && !ExistCatCheck)
             {
                 System.Windows.MessageBox.Show(
                     "Leider nichts ausgewählt, somit kein Import möglich");
             }
             else
             {
-                foreach (CardViewModel card in this.bvm)
+                foreach (CardViewModel card in boxVM)
                 {
                     if (card.AnswerPic != null)
                     {
-                        string newFile = SaveCards.CopyPic(
+                        card.AnswerPic = SaveCards.CopyPic(
                             filepath + 
                             @"\content\" +
                             card.AnswerPic);
-                        card.AnswerPic = newFile;
                     }
                     if (card.QuestionPic != null)
                     {
-                        string newFile = SaveCards.CopyPic(
+                        card.QuestionPic = SaveCards.CopyPic(
                             filepath +
                             @"\content\" +
                             card.QuestionPic);
-                        card.QuestionPic = newFile;
                     }
                 }
-                if (RadioButtonNewCatIsChecked) 
+                if (NewCatCheck) 
                 {
                     SaveCardsWithNewCategory(MyModelViewModel);
                 }
@@ -132,7 +124,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         private void SaveCardsWithNewCategory(CategoryCollectionViewModel ccvm)
         {
             string catName = System.IO.Path.GetFileNameWithoutExtension(
-                    ofd.FileName);
+                    openFD.FileName);
             CategoryViewModel savedCat = MyModelViewModel.Where
                 (cat => cat.Name == catName).FirstOrDefault();
             if (savedCat == null)
@@ -141,11 +133,11 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                 MyModelViewModel.Add(savedCat);
                 MyModelViewModel.SaveCategorys();
             }
-            foreach (CardViewModel card in this.bvm)
+            foreach (CardViewModel card in boxVM)
             {
                 card.Category = savedCat;
             }
-            SaveCards.SaveBoxToFileSystem(this.bvm, ccvm);
+            SaveCards.SaveBoxToFileSystem(boxVM, ccvm);
         }
 
         /*
@@ -161,11 +153,11 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                 if (catVM.Name == Class.Name)
                 {
                     // Every Card gets the choosen Category
-                    foreach (CardViewModel card in this.bvm)
+                    foreach (CardViewModel card in boxVM)
                     {
                         card.Category = catVM;
                     }
-                    SaveCards.SaveAdditionalCardBox(catVM, this.bvm, ccvm);
+                    SaveCards.SaveAdditionalCardBox(catVM, boxVM, ccvm);
                 }
             }
         }
@@ -179,49 +171,36 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         private void ChooseDataMethod()
         {
             // creating a OpenFileDialog to choose the File to be imported
-            ofd = new OpenFileDialog();
-            ofd.Filter = "XML-Files|*.xml";     // Limitation for .xml Files
-            // If the choosen File works
-            if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            openFD = new OpenFileDialog
             {
-                filepath = Path.GetDirectoryName(ofd.FileName);
+                Filter = "XML-Files|*.xml"     // Limitation for .xml Files
+            };
+            // If the choosen File works
+            if (openFD.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                filepath = Path.GetDirectoryName(openFD.FileName);
                 // Show the Filename in the View
                 NewClassName =
-                    System.IO.Path.GetFileNameWithoutExtension(ofd.FileName);
+                   System.IO.Path.GetFileNameWithoutExtension(openFD.FileName);
                 // a new XmlDocument, which is going to load
                 // the file in the next step
-                XmlDocument doc = new XmlDocument();
-                doc.Load(ofd.FileName);
+                XmlDocument xmlDoc = new XmlDocument();
+                xmlDoc.Load(openFD.FileName);
                 // A BoxViewModel, in which the cards are going to be stored
-                this.bvm = new BoxViewModel();
+                boxVM = new BoxViewModel();
                 // The Node is going to be a 
                 // card and Enqueue to the BoxViewModel
-                foreach (XmlNode node in doc.DocumentElement)
+                foreach (XmlNode node in xmlDoc.DocumentElement)
                 {
-                    CardViewModel card = Support.LoadCards.ReadOwnFormatNode(node);
-                    this.bvm.Enqueue(card);
+                    CardViewModel card = LoadCards.ReadOwnFormatNode(node);
+                    boxVM.Enqueue(card);
                 }
             }
             else
             {
-                System.Windows.MessageBox.Show("Die Auswahl hat leider nicht geklappt");
+                System.Windows.MessageBox.Show(
+                    "Die Auswahl hat leider nicht geklappt");
             }
-        }
-
-        /*
-         * This Method creates a random String for the Filenames and give
-         * this back. The idea and the most of the code is
-         * from the following page:
-         * https://stackoverflow.com/questions/1344221/how-can-i-generate-random-alphanumeric-strings
-         * The Website call was on: 22.01.2021 16:33MEZ
-         */
-        public static string RandomString()
-        {
-            // This is the Range and possible Chars for the String
-            const string chars =
-                "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"; 
-            return new string(Enumerable.Repeat(chars, randPicNameLength)
-              .Select(s => s[random.Next(s.Length)]).ToArray());
         }
     }   
 }

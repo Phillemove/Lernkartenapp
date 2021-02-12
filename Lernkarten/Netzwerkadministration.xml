@@ -2,19 +2,13 @@
 <!--Netzwerkadministration-->
 <Cards>
   <Card>
-    <Question>Wie viel Bit hat eine IPv4 Adresse?</Question>
-    <Answer>40</Answer>
-    <StatisticCollection>
-      <Statistic>
-        <Timestamp>1613077084,30519</Timestamp>
-        <SuccessfullAnswer>False</SuccessfullAnswer>
-        <CurrentBoxNumber>Box1</CurrentBoxNumber>
-      </Statistic>
-      <Statistic>
-        <Timestamp>1613077084,30618</Timestamp>
-        <SuccessfullAnswer>False</SuccessfullAnswer>
-        <CurrentBoxNumber>Box2</CurrentBoxNumber>
-      </Statistic>
-    </StatisticCollection>
+    <Question>Was ist ein Angriff mit ARP?</Question>
+    <Answer>ARP poisoning</Answer>
+    <StatisticCollection />
+  </Card>
+  <Card>
+    <Question>Was bedeuted TTL?</Question>
+    <Answer>Time To Live</Answer>
+    <StatisticCollection />
   </Card>
 </Cards>

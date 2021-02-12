@@ -3,8 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:De.HsFlensburg.ClientApp101.Ui.Desktop" 
-        xmlns:System="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="Import" Height="300" Width="700"
         x:Name="ThisWindow"
@@ -47,7 +45,7 @@
                         HorizontalAlignment="Right" 
                         Margin="0,7,0,0"
                         GroupName="1"
-                        IsChecked="{Binding Path=RadioButtonNewCatIsChecked}"/>
+                        IsChecked="{Binding Path=NewCatCheck}"/>
                     <Label 
                         Content="Kategoriename aus Datei übernehmen" 
                         VerticalAlignment="Top"
@@ -63,8 +61,8 @@
                         Margin="0,7,0,0"
                         GroupName="1"
                         IsChecked="{Binding 
-                        Path=RadioButtonExistentCatIsChecked}"/>
-                    <Label Content="Vorhandener Kategorie hinzufügen: " 
+                        Path=ExistCatCheck}"/>
+                    <Label Content="Vorhandener Kategorie hinzufügen:" 
                            VerticalAlignment="Top"></Label>
                     <ComboBox 
                         Width="200px" 
@@ -94,7 +92,8 @@
                     VerticalAlignment="Bottom"
                     HorizontalAlignment="Right"
                     Margin="10px"
-                    Command="{Binding CloseWindow}" CommandParameter="{Binding ElementName=ThisWindow}"/>
+                    Command="{Binding CloseWindow}" 
+                    CommandParameter="{Binding ElementName=ThisWindow}"/>
             </UniformGrid>
         </Grid>
     </Grid>

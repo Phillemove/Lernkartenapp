@@ -65,7 +65,8 @@
                     VerticalAlignment="Bottom"
                     HorizontalAlignment="Right"
                     Margin="10px"
-                    Command="{Binding CloseWindow}" CommandParameter="{Binding ElementName=ThisWindow}"/>
+                    Command="{Binding CloseWindow}" 
+                    CommandParameter="{Binding ElementName=ThisWindow}"/>
                 </UniformGrid>
 
             </UniformGrid>

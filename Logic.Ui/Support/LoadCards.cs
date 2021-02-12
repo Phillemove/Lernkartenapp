@@ -20,23 +20,23 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
          */
         public static void LoadCategoryFromFileSystem(
             BoxCollectionViewModel bcvm,
-            CategoryViewModel cvm)
+            CategoryViewModel catVM)
         {
-            XmlDocument doc = new XmlDocument();
-            var fileName = saveDirectory + cvm.Name + ".xml";
+            XmlDocument xmlDoc = new XmlDocument();
+            var fileName = saveDirectory + catVM.Name + ".xml";
             if (File.Exists(fileName))
             {
-                doc.Load(saveDirectory + cvm.Name + ".xml");
-                foreach (XmlNode node in doc.DocumentElement)
+                xmlDoc.Load(saveDirectory + catVM.Name + ".xml");
+                foreach (XmlNode node in xmlDoc.DocumentElement)
                 {
                     CardViewModel card = ReadOwnFormatNode(node);
-                    Boxnumber bn = CheckCardBoxnumber(card);
-                    card.Category = cvm;
-                    foreach (BoxViewModel box in bcvm)
+                    Boxnumber boxNumber = CheckCardBoxnumber(card);
+                    card.Category = catVM;
+                    foreach (BoxViewModel boxVM in bcvm)
                     {
-                        if (box.Bn.Equals(bn))
+                        if (boxVM.Bn.Equals(boxNumber))
                         {
-                            box.Enqueue(card);
+                            boxVM.Enqueue(card);
                         }
                     }
                 }
@@ -53,12 +53,10 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
             BoxCollectionViewModel bcvm,
             CategoryCollectionViewModel ccvm)
         {
-            XmlDocument doc = new XmlDocument();
-            foreach(CategoryViewModel cat in ccvm)
+            foreach(CategoryViewModel catVM in ccvm)
             {
-                LoadCategoryFromFileSystem(bcvm, cat);
+                LoadCategoryFromFileSystem(bcvm, catVM);
             }
-
         }
 
         /*
@@ -68,7 +66,6 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
         {
             // Creating the card, which is going to be given back
             CardViewModel card = new CardViewModel();
-
             foreach (XmlNode child in node)
             {
                 /*
@@ -160,58 +157,58 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
          * This Method receives a Boxnumber and give, if necessary, the 
          * next higher Boxnumber back. 
          */
-        private static Boxnumber NextBox(Boxnumber bn)
+        private static Boxnumber NextBox(Boxnumber boxNumber)
         {
-            Boxnumber ret;
+            Boxnumber retBn;
 
-            switch(bn)
+            switch(boxNumber)
             {
                 case Boxnumber.Box1:
-                    ret = Boxnumber.Box2;
+                    retBn = Boxnumber.Box2;
                     break;
                 case Boxnumber.Box2:
-                    ret = Boxnumber.Box3;
+                    retBn = Boxnumber.Box3;
                     break;
                 case Boxnumber.Box3:
-                    ret = Boxnumber.Box4;
+                    retBn = Boxnumber.Box4;
                     break;
                 case Boxnumber.Box4:
-                    ret = Boxnumber.Box5;
+                    retBn = Boxnumber.Box5;
                     break;
                 default:
-                    ret = Boxnumber.Box5;
+                    retBn = Boxnumber.Box5;
                     break;
             }
-            return ret;
+            return retBn;
         }
 
         /*
          * This Method receives a Boxnumber and give, if necessary, the
          * next lower Boxnumber back.
          */
-        private static Boxnumber PrevBox(Boxnumber bn)
+        private static Boxnumber PrevBox(Boxnumber boxNumber)
         {
-            Boxnumber ret;
+            Boxnumber retBn;
 
-            switch (bn)
+            switch (boxNumber)
             {
                 case Boxnumber.Box5:
-                    ret = Boxnumber.Box4;
+                    retBn = Boxnumber.Box4;
                     break;
                 case Boxnumber.Box4:
-                    ret = Boxnumber.Box3;
+                    retBn = Boxnumber.Box3;
                     break;
                 case Boxnumber.Box3:
-                    ret = Boxnumber.Box2;
+                    retBn = Boxnumber.Box2;
                     break;
                 case Boxnumber.Box2:
-                    ret = Boxnumber.Box1;
+                    retBn = Boxnumber.Box1;
                     break;
                 default:
-                    ret = Boxnumber.Box1;
+                    retBn = Boxnumber.Box1;
                     break;
             }
-            return ret;
+            return retBn;
         }
 
         /*
@@ -221,38 +218,44 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
          */
         private static Boxnumber CheckCardBoxnumber(CardViewModel card)
         {
-            Boxnumber bn;
-            StatisticViewModel svm = card.StatisticCollection.LastOrDefault();
+            Boxnumber retBn;
+            StatisticViewModel statVM = 
+                card.StatisticCollection.LastOrDefault();
            
-            if (svm != null)
+            if (statVM != null)
             {
-                if (svm.SuccessfulAnswer)
+                if (statVM.SuccessfulAnswer)
                 {
-                    bn = NextBox(svm.CurrentBoxNumber);
+                    retBn = NextBox(statVM.CurrentBoxNumber);
                 }
                 else
                 {
-                    bn = PrevBox(svm.CurrentBoxNumber);
+                    retBn = PrevBox(statVM.CurrentBoxNumber);
                 }
             }
             else
             {
-                bn = Boxnumber.Box1;
+                retBn = Boxnumber.Box1;
             }
-            return bn;
+            return retBn;
         }
 
         /*
-         * This Method is from stadckoverflow
-         * https://stackoverflow.com/questions/249760/how-can-i-convert-a-unix-timestamp-to-datetime-and-vice-versa
+         * This Method gets a unixTimeStamp and convert it to a DateTime
+         * Object, which fits to the actual System DateTime Format.
+         * Source:https://stackoverflow.com/questions/249760/how-can-i-convert-a-unix-timestamp-to-datetime-and-vice-versa
          * Author: user6269864
          * 11.02.2021
          */
         public static DateTime UnixTimeStampToDateTime(double unixTimeStamp)
         {
             // Unix timestamp is seconds past epoch
-            System.DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
+            Console.WriteLine(unixTimeStamp);
+            System.DateTime dtDateTime = new DateTime(
+                1970, 1, 1, 0, 0, 0, 0,
+                System.DateTimeKind.Utc);
             dtDateTime = dtDateTime.AddSeconds(unixTimeStamp).ToLocalTime();
+            Console.WriteLine(dtDateTime);
             return dtDateTime;
         }
 
