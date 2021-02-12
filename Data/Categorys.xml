@@ -1,12 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <CategoryList>
-  <Category>AnwendungsProgr</Category>
-  <Category>WebProgr</Category>
-  <Category>PrejektManagement</Category>
-  <Category>Algorithmen</Category>
   <Category>AWP</Category>
   <Category>Netzwerkadministration</Category>
-  <Category>Test</Category>
-  <Category>default</Category>
   <Category>Projektmanagement</Category>
+  <Category>default</Category>
 </CategoryList>

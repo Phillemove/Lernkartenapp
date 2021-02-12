@@ -9,7 +9,7 @@
         mc:Ignorable="d"
         Title="Export" Height="200" Width="700" 
         x:Name="ThisWindow"
-        DataContext="{Binding ExportViewModel, 
+        DataContext="{Binding ExportVM, 
             Source={StaticResource VMLocator}}">
     <Grid>
         <Grid>

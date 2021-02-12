@@ -12,7 +12,7 @@
     <Window.DataContext>
         <Binding 
             Source="{StaticResource VMLocator}" 
-            Path="ImportViewModel"></Binding>
+            Path="ImportVM"></Binding>
     </Window.DataContext>
     <Grid>
         <Grid>

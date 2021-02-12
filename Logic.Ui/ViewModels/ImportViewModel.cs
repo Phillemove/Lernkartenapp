@@ -2,12 +2,9 @@
 using De.HsFlensburg.ClientApp101.Logic.Ui.Support;
 using De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 using System.Xml;
@@ -114,11 +111,11 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                 }
                 if (RadioButtonNewCatIsChecked) 
                 {
-                    SaveCardsWithNewCategory();
+                    SaveCardsWithNewCategory(MyModelViewModel);
                 }
                 else 
                 {
-                    SaveCardsToExistCategory();
+                    SaveCardsToExistCategory(MyModelViewModel);
                 };
                 NewClassName = "Keine Datei ausgewählt";
             }
@@ -132,7 +129,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
          * CategoryCollectionViewModel and saves the Cards to the Filesystem
          * with the help of the SaveCards Class.
          */
-        private void SaveCardsWithNewCategory()
+        private void SaveCardsWithNewCategory(CategoryCollectionViewModel ccvm)
         {
             string catName = System.IO.Path.GetFileNameWithoutExtension(
                     ofd.FileName);
@@ -148,7 +145,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             {
                 card.Category = savedCat;
             }
-            SaveCards.SaveBoxToFileSystem(this.bvm);
+            SaveCards.SaveBoxToFileSystem(this.bvm, ccvm);
         }
 
         /*
@@ -157,7 +154,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
          * add the Cards to the existing Cards of the Category and saves them 
          * to the FileSystem.
          */
-        private void SaveCardsToExistCategory()
+        private void SaveCardsToExistCategory(CategoryCollectionViewModel ccvm)
         {
             foreach (CategoryViewModel catVM in MyModelViewModel)
             {
@@ -168,7 +165,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                     {
                         card.Category = catVM;
                     }
-                    SaveCards.SaveAdditionalCardBox(catVM, this.bvm);
+                    SaveCards.SaveAdditionalCardBox(catVM, this.bvm, ccvm);
                 }
             }
         }

@@ -1,5 +1,4 @@
-﻿using De.HsFlensburg.ClientApp101.Business.Model.BusinessObjects;
-using De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper;
+﻿using De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper;
 using System;
 using System.IO;
 using System.Windows;
@@ -10,10 +9,8 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
 {
     public class ExportViewModel
     {
-        public readonly string saveDirectory = 
-            @"..\..\..\Lernkarten";
-        public readonly string savePicDirectory = 
-            @"..\..\..\Lernkarten\content\";
+        public readonly string saveDirectory = ModelViewModel.saveDirectory;
+        public readonly string savePicDirectory = ModelViewModel.savePicDirectory; 
 
         public CategoryCollectionViewModel MyModelViewModel { get; set; }
         // The CheckBoxStatus to choose betwen export 
@@ -144,13 +141,11 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             if(card.QuestionPic != null && card.QuestionPic != "")
             {
                 String test = CopyPic(filename, fbd, card.QuestionPic, xmlWriter);
-                System.Windows.MessageBox.Show(test);
                 xmlWriter.WriteElementString("QuestionPic", test);
             }
             if (card.AnswerPic != null && card.AnswerPic != "")
             {
                 String test = CopyPic(filename, fbd, card.AnswerPic, xmlWriter);
-                System.Windows.MessageBox.Show(test);
                 xmlWriter.WriteElementString("AnswerPic", test);
             }
 
@@ -166,6 +161,10 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             picCount++;
             string pathSavePicture = fbd.SelectedPath.ToString() +
                 @"\Export\content\" + picNew;
+            if (File.Exists(pathSavePicture))
+            {
+                File.Delete(pathSavePicture);
+            }
             File.Copy(savePicDirectory + file, pathSavePicture);
             return picNew;
         }
@@ -204,7 +203,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             BoxViewModel currentBox = new BoxViewModel();
             XmlDocument doc = new XmlDocument();
             // load the nodes from the categoryname.xml file
-            doc.Load(saveDirectory + @"\" + filename + ".xml");
+            doc.Load(saveDirectory + filename + ".xml");
             // Every node is going to be a Card 
             foreach (XmlNode node in doc.DocumentElement)
             {

@@ -17,7 +17,7 @@
     <Window.DataContext>
         <Binding Source="{
             StaticResource VMLocator
-            }" Path="MainWindowViewModel"></Binding>
+            }" Path="MainWindowVM"></Binding>
     </Window.DataContext>
     <Grid>
         <UniformGrid>

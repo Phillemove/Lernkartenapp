@@ -11,7 +11,7 @@ namespace De.HsFlensburg.ClientApp101.Ui.Desktop.MessageBusLogic
    
    public class MessageListener
     {
-         public bool BindableProperty => true;
+        public bool BindableProperty => true;
             
         public MessageListener()
         {

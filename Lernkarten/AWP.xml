@@ -2,31 +2,24 @@
 <!--AWP-->
 <Cards>
   <Card>
-    <Question>In welcher Sprache müssen wir die Lernkartenapp schreiben?</Question>
-    <Answer>c#</Answer>
-    <QuestionPic>rTAABvvY5Y.jpg</QuestionPic>
-    <AnswerPic>FiO1h05NJE.jpg</AnswerPic>
+    <Question>Bis wann muss die Hausarbeit abgegeben sein?</Question>
+    <Answer>15. Februar 2021</Answer>
     <StatisticCollection>
       <Statistic>
-        <Timestamp>1613049159,22226</Timestamp>
-        <SuccessfullAnswer>True</SuccessfullAnswer>
+        <Timestamp>1613077084,31716</Timestamp>
+        <SuccessfullAnswer>False</SuccessfullAnswer>
+        <CurrentBoxNumber>Box1</CurrentBoxNumber>
+      </Statistic>
+      <Statistic>
+        <Timestamp>1613077084,31716</Timestamp>
+        <SuccessfullAnswer>False</SuccessfullAnswer>
         <CurrentBoxNumber>Box2</CurrentBoxNumber>
       </Statistic>
       <Statistic>
-        <Timestamp>1613049159,22226</Timestamp>
+        <Timestamp>1613077084,31716</Timestamp>
         <SuccessfullAnswer>False</SuccessfullAnswer>
         <CurrentBoxNumber>Box3</CurrentBoxNumber>
       </Statistic>
-      <Statistic>
-        <Timestamp>1613049159,22226</Timestamp>
-        <SuccessfullAnswer>True</SuccessfullAnswer>
-        <CurrentBoxNumber>Box2</CurrentBoxNumber>
-      </Statistic>
     </StatisticCollection>
-  </Card>
-  <Card>
-    <Question>Bis wann muss die Hausarbeit abgegeben sein?</Question>
-    <Answer>15. Februar 2021</Answer>
-    <StatisticCollection />
   </Card>
 </Cards>

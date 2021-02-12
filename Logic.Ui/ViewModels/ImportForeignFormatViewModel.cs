@@ -68,7 +68,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             {
                 BoxCollection.StoreCard(card,ImportBox);
             }
-            Support.SaveCards.SaveBoxToFileSystem(TempBox);
+            Support.SaveCards.SaveBoxToFileSystem(TempBox, MyCategoryCollection);
             ClearCards();
         }
 

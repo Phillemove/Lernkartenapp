@@ -2,12 +2,8 @@
 using De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels;
 using De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Xml;
 
 namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
@@ -15,9 +11,16 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
     class LoadCards
     {
         private static readonly string saveDirectory =
-            @"..\..\..\Lernkarten\";
+            ModelViewModel.saveDirectory;
 
-        public static void LoadCategoryFromFileSystem(BoxCollectionViewModel bcvm, CategoryViewModel cvm)
+        /*
+         * This Method gets a BoxCollectionViewModel and the Category,
+         * which should be loaded to the System. Every Card will be putted
+         * in the correct Box.
+         */
+        public static void LoadCategoryFromFileSystem(
+            BoxCollectionViewModel bcvm,
+            CategoryViewModel cvm)
         {
             XmlDocument doc = new XmlDocument();
             var fileName = saveDirectory + cvm.Name + ".xml";
@@ -28,18 +31,27 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
                 {
                     CardViewModel card = ReadOwnFormatNode(node);
                     Boxnumber bn = CheckCardBoxnumber(card);
-                    foreach (BoxViewModel boxi in bcvm)
+                    card.Category = cvm;
+                    foreach (BoxViewModel box in bcvm)
                     {
-                        if (boxi.Bn.Equals(bn))
+                        if (box.Bn.Equals(bn))
                         {
-                            boxi.Enqueue(card);
+                            box.Enqueue(card);
                         }
                     }
                 }
             }
         }
 
-        public static void LoadAllCategorysFromFileSystem(BoxCollectionViewModel bcvm, CategoryCollectionViewModel ccvm)
+
+        /*
+         * This Method gets the BoxCollectionViewModel and the 
+         * CategoryCollectionViewModel and load all possible Categorys,
+         * which contains Cards.
+         */
+        public static void LoadAllCategorysFromFileSystem(
+            BoxCollectionViewModel bcvm,
+            CategoryCollectionViewModel ccvm)
         {
             XmlDocument doc = new XmlDocument();
             foreach(CategoryViewModel cat in ccvm)
@@ -78,7 +90,8 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
                         card.AnswerPic = child.InnerText;
                         break;
                     case "StatisticCollection":
-                        card.StatisticCollection = new StatisticCollectionViewModel();
+                        card.StatisticCollection = 
+                            new StatisticCollectionViewModel();
                         /*
                          * loop to go throug every Statistic
                          */
@@ -111,8 +124,8 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
                 switch (statDet.Name)
                 {
                     case "Timestamp":
-                        //stat.Timestamp = Convert.ToDateTime(statDet.InnerText);
-                        stat.Timestamp = UnixTimeStampToDateTime(Convert.ToDouble(statDet.InnerText));
+                        stat.Timestamp = UnixTimeStampToDateTime(
+                            Convert.ToDouble(statDet.InnerText));
                         break;
                     case "SuccessfullAnswer":
                         stat.SuccessfulAnswer =
@@ -143,6 +156,10 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
             return stat;
         }
 
+        /*
+         * This Method receives a Boxnumber and give, if necessary, the 
+         * next higher Boxnumber back. 
+         */
         private static Boxnumber NextBox(Boxnumber bn)
         {
             Boxnumber ret;
@@ -168,6 +185,10 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
             return ret;
         }
 
+        /*
+         * This Method receives a Boxnumber and give, if necessary, the
+         * next lower Boxnumber back.
+         */
         private static Boxnumber PrevBox(Boxnumber bn)
         {
             Boxnumber ret;
@@ -193,6 +214,11 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
             return ret;
         }
 
+        /*
+         * This Method gets a CardViewModel and give the Boxnumber back, which
+         * is needed. If the CardViewModel doesn't contain a 
+         * StatisticViewModel, the Boxnumber is Box1.
+         */
         private static Boxnumber CheckCardBoxnumber(CardViewModel card)
         {
             Boxnumber bn;

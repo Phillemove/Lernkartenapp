@@ -16,44 +16,44 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui
     public class ViewModelLocator
     {
 
-        public StatisticWindowViewModel StatisticWindowViewModel { get; }
-        public ExportViewModel ExportViewModel { get; }
-        public ImportViewModel ImportViewModel { get; }
-        public MainWindowViewModel MainWindowViewModel { get; }
-        public CardLearningViewModel CardLearningViewModel { get; }
-        public CategoryManageViewModel CategoryManageViewModel { get; }
-        public ImportForeignFormatViewModel ImportForeignFormatViewModel {
+        public StatisticWindowViewModel StatWindowVM { get; }
+        public ExportViewModel ExportVM { get; }
+        public ImportViewModel ImportVM { get; }
+        public MainWindowViewModel MainWindowVM { get; }
+        public CardLearningViewModel CardLearningVM { get; }
+        public CategoryManageViewModel CategoryManageVM { get; }
+        public ImportForeignFormatViewModel ImportFFVM {
             get; }
-        public CardWindowViewModel CardWindowViewModel { get; }
-        public ModelViewModel MyModelViewModel { get; }
+        public CardWindowViewModel CardWindowVM { get; }
+        public ModelViewModel ModelVM { get; }
 
         public ViewModelLocator()
         {
-            MyModelViewModel = new ModelViewModel();
+            ModelVM = new ModelViewModel();
+            Support.LoadCards.LoadAllCategorysFromFileSystem(
+                ModelVM.BoxCollectionVM,
+                ModelVM.myCatCollection);
 
-            StatisticWindowViewModel = new StatisticWindowViewModel();
-            MainWindowViewModel = new MainWindowViewModel(MyModelViewModel);
-            CategoryManageViewModel = new CategoryManageViewModel(
-                MyModelViewModel.myCategoryCollection);
-            ImportViewModel = new ImportViewModel(
-                MyModelViewModel.myCategoryCollection);
-            ExportViewModel = new ExportViewModel(
-                MyModelViewModel.myCategoryCollection);
-            CardWindowViewModel = new CardWindowViewModel(
-                MyModelViewModel.BoxCollectionVM, 
-                MyModelViewModel.myCategoryCollection);
-            ImportForeignFormatViewModel = new ImportForeignFormatViewModel(
-                MyModelViewModel.myCategoryCollection, 
+            StatWindowVM = new StatisticWindowViewModel();
+            MainWindowVM = new MainWindowViewModel();
+            CategoryManageVM = new CategoryManageViewModel(
+                ModelVM.myCatCollection);
+            ImportVM = new ImportViewModel(
+                ModelVM.myCatCollection);
+            ExportVM = new ExportViewModel(
+                ModelVM.myCatCollection);
+            CardWindowVM = new CardWindowViewModel(
+                ModelVM.BoxCollectionVM, 
+                ModelVM.myCatCollection);
+            ImportFFVM = new ImportForeignFormatViewModel(
+                ModelVM.myCatCollection, 
                 Boxnumber.Box1, 
-                MyModelViewModel.BoxCollectionVM);
+                ModelVM.BoxCollectionVM);
 
-            CardLearningViewModel = new CardLearningViewModel(
-            MyModelViewModel.BoxCollectionVM,
-            MyModelViewModel.myCategoryCollection,
-            StatisticWindowViewModel);
-
-            Support.LoadCards.LoadAllCategorysFromFileSystem(MyModelViewModel.BoxCollectionVM, MyModelViewModel.myCategoryCollection);
-           
+            CardLearningVM = new CardLearningViewModel(
+            ModelVM.BoxCollectionVM,
+            ModelVM.myCatCollection,
+            StatWindowVM); 
         }
     }
 }

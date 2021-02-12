@@ -1,4 +1,5 @@
 ﻿using De.HsFlensburg.ClientApp101.Business.Model.BusinessObjects;
+using De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,8 +17,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
     {
         public CategoryCollection categoryCollection;
         private bool syncDisabled;
-        // Path to Category File - where to look for it/ save it
-        private const string CategoryFile = @"..\..\..\Data\Categorys.xml";
+        
 
 
         public CategoryCollectionViewModel()
@@ -31,10 +31,10 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         // Loads Categorys from CategoryFile if it exists
         private void LoadCategorys()
         {
-            if (File.Exists(CategoryFile))
+            if (File.Exists(ModelViewModel.categoryFile))
             {
                 // File exists - load Category Names 
-                var reader = System.Xml.XmlReader.Create(CategoryFile);
+                var reader = System.Xml.XmlReader.Create(ModelViewModel.categoryFile);
                 while (reader.ReadToFollowing("Category"))
                 {
                     // Read Caegorys and create Category 
@@ -51,7 +51,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             XmlWriterSettings settings = new XmlWriterSettings();
             settings.Indent = true;
             //settings.IndentChars = "\n";
-            XmlWriter writer = XmlWriter.Create(CategoryFile,settings);
+            XmlWriter writer = XmlWriter.Create(ModelViewModel.categoryFile, settings);
             writer.WriteStartDocument();
             writer.WriteStartElement("CategoryList");
             foreach (var category in this)

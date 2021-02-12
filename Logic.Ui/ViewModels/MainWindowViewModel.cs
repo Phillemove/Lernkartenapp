@@ -12,16 +12,11 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         public RelayCommand OpenImportWindow { get; }
         public RelayCommand OpenExportWindow { get; }
         public RelayCommand OpenCategoryWindow { get; }
-        public RelayCommand OpenCategoryAddWindow { get; }
         public RelayCommand OpenImportForeignFormatWindow { get; }
         public RelayCommand OpenManageCardsWindow { get; }
         public RelayCommand SaveAndCloseAll { get; }
 
-        private BoxCollectionViewModel MyBoxCollectionViewModel { get; set; }
-        private ModelViewModel MyModelViewModel { get; set; }
-
-
-        public MainWindowViewModel(ModelViewModel mvm)
+        public MainWindowViewModel()
         {
             OpenCardAddWindow = new RelayCommand(() => 
             ServiceBus.Instance.Send(new OpenCardAddMessage()));
@@ -37,14 +32,9 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             ServiceBus.Instance.Send(new OpenImportForeignFormatMessage()));
             OpenManageCardsWindow = new RelayCommand(() => 
             ServiceBus.Instance.Send(new OpenManageCardMessage()));
-            SaveAndCloseAll = new RelayCommand(param => Save(param));
-
-            MyBoxCollectionViewModel = mvm.BoxCollectionVM; 
-            MyModelViewModel = mvm;
+            SaveAndCloseAll = new RelayCommand(param => Close(param));
         }
-
-
-        private void Save(object param)
+        private void Close(object param)
         {
             Window window = (Window)param;
             window.Close();

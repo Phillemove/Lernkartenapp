@@ -14,8 +14,15 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper
     public class ModelViewModel
     {
         public Model model;
-        public CategoryCollectionViewModel myCategoryCollection;
+        public CategoryCollectionViewModel myCatCollection;
         public BoxCollectionViewModel BoxCollectionVM { get; set; }
+
+        public static readonly string saveDirectory =
+            @"..\..\..\Lernkarten\";
+        public static readonly string savePicDirectory =
+            @"..\..\..\Lernkarten\content\";
+        public static readonly string categoryFile =
+            @"..\..\..\Data\Categorys.xml";
 
         public ModelViewModel()
         {
@@ -28,7 +35,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper
             BoxCollectionVM.Add(new BoxViewModel(new Box(Boxnumber.Box4)));
             BoxCollectionVM.Add(new BoxViewModel(new Box(Boxnumber.Box5)));
 
-            myCategoryCollection = new CategoryCollectionViewModel();
+            myCatCollection = new CategoryCollectionViewModel();
         }
     }
 }

@@ -1,14 +1,9 @@
 ﻿using De.HsFlensburg.ClientApp101.Business.Model.BusinessObjects;
 using De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels;
 using De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper;
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Xml;
 
 namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
@@ -22,22 +17,29 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
      */
     class SaveCards
     {
-        private static readonly string saveDirectory =
-            @"..\..\..\Lernkarten\";
-        private static readonly string pictureDirectory =
-            @"..\..\..\Lernkarten\content\";
+        private static readonly string saveDirectory = ModelViewModel.saveDirectory;
+        private static readonly string pictureDirectory = ModelViewModel.savePicDirectory;
 
         /*
          * This Method gets a BoxViewModel and Save this to the Filesystem. 
          * It creates a .xml File with the naming of the category.  
          */
-        public static void SaveBoxToFileSystem(BoxViewModel box)
+        public static void SaveBoxToFileSystem(BoxViewModel box, CategoryCollectionViewModel ccvm)
         {
             System.IO.Directory.CreateDirectory(saveDirectory);
             System.IO.Directory.CreateDirectory(pictureDirectory);
-            string filename = box.Peek().Category.Name;
+            CardViewModel interrimsCard = box.Peek();
+            string filename;
+            if(interrimsCard.Category != null)
+            {
+                filename = interrimsCard.Category.Name;
+            } else
+            {
+                filename = PickDefaultCat(ccvm).Name;
+            }
+            
             XmlTextWriter writer = new XmlTextWriter(
-                saveDirectory + @"\" + filename + ".xml",
+                saveDirectory + filename + ".xml",
                 System.Text.Encoding.UTF8);
             // So the .xml File is more readable and every
             //  Element get an own Line and is intended
@@ -71,27 +73,8 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
                 }
                 writer.WriteStartElement("StatisticCollection");
                 if (card.StatisticCollection != null)
-                {
-                    
+                { 
                     ExportViewModel.WriteStatistic(card, writer);
-                    /*writer.WriteStartElement("StatisticCollection");
-                    if (card.StatisticCollection != null)
-                    {
-                        foreach (StatisticViewModel stat in card.StatisticCollection)
-                        {
-                            writer.WriteStartElement("Statistic");
-                            writer.WriteElementString("Timestamp",
-                                stat.Timestamp.ToString());
-                            writer.WriteElementString("SuccessfullAnswer",
-                                stat.SuccessfulAnswer.ToString());
-                            writer.WriteElementString("CurrentBoxNumber",
-                                stat.CurrentBoxNumber.ToString());
-                            writer.WriteEndElement();
-                            writer.Flush();
-                        }
-                    }
-                    writer.WriteEndElement();*/
-                    
                 }
                 writer.WriteEndElement();
                 writer.WriteEndElement();
@@ -113,30 +96,15 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
         public static BoxCollectionViewModel SortCardsFromBoxCollection(
             BoxCollectionViewModel bcvm, CategoryCollectionViewModel ccvm)
         {
-
             ArrayList categorys = new ArrayList();
             BoxCollectionViewModel bc = new BoxCollectionViewModel();
-            /* 
-            * defaultCat is for this moment, where the correct Categorys
-            * doesn't work correctly in every classes. If everything works 
-            * correctly, the defaultCat isn't necessary
-            */
-            CategoryViewModel defaultCat = ccvm.Where(
-                cat => cat.Name == "default").FirstOrDefault();
-            if (defaultCat == null)
-            {
-                defaultCat = new CategoryViewModel(new Category("default"));
-                ccvm.Add(defaultCat);
-                ccvm.SaveCategorys();
-            }
-
             foreach (BoxViewModel box in bcvm)
             {
                 foreach (CardViewModel card in box)
                 {
                     if (card.Category == null)
                     {
-                        card.Category = defaultCat;
+                        card.Category = PickDefaultCat(ccvm);
                     }
                     PicCheck(card);
                     if (categorys.Contains(card.Category))
@@ -175,12 +143,12 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
          * SaveBoxToFileSystem() to Save the Cards to the FileSystem.
          */
         public static void SaveAdditionalCard(
-            CategoryViewModel cat, CardViewModel card)
+            CategoryViewModel cat, CardViewModel card, CategoryCollectionViewModel ccvm)
         {
             PicCheck(card);
             BoxViewModel bvm = LoadExistingCards(cat);
             bvm.Enqueue(card);
-            SaveBoxToFileSystem(bvm);
+            SaveBoxToFileSystem(bvm, ccvm);
         }
 
         /*
@@ -192,14 +160,14 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
          * Save the Cards to the FileSystem.
          */
         public static void SaveAdditionalCardBox(
-            CategoryViewModel cat, BoxViewModel box)
+            CategoryViewModel cat, BoxViewModel box, CategoryCollectionViewModel ccvm)
         {
             BoxViewModel bvm = LoadExistingCards(cat);
             foreach (CardViewModel card in box)
             {
                 bvm.Enqueue(card);
             }
-            SaveBoxToFileSystem(bvm);
+            SaveBoxToFileSystem(bvm, ccvm);
 
         }
 
@@ -217,7 +185,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
                 SortCardsFromBoxCollection(bcvm, ccvm);
             foreach (BoxViewModel box in newBCVM)
             {
-                SaveBoxToFileSystem(box);
+                SaveBoxToFileSystem(box, ccvm);
             }
         }
 
@@ -231,30 +199,25 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
         public static BoxViewModel LoadExistingCards(CategoryViewModel cat)
         {
             BoxViewModel bvm = new BoxViewModel();
-            try
+
+            XmlDocument doc = new XmlDocument();
+            // This is possible, because the name of the
+            // File is the name of the category
+            if(cat != null)
             {
-                XmlDocument doc = new XmlDocument();
-                // This is possible, because the name of the
-                // File is the name of the category
-                doc.Load(saveDirectory + cat.Name + ".xml");
-                foreach (XmlNode node in doc.DocumentElement)
+                if(File.Exists(saveDirectory + cat.Name + ".xml"))
                 {
-                    CardViewModel card =
-                        Support.LoadCards.ReadOwnFormatNode(node);
-                    card.Category = cat;
-                    bvm.Enqueue(card);
+                    doc.Load(saveDirectory + cat.Name + ".xml");
+                    foreach (XmlNode node in doc.DocumentElement)
+                    {
+                        CardViewModel card =
+                            Support.LoadCards.ReadOwnFormatNode(node);
+                        card.Category = cat;
+                        bvm.Enqueue(card);
+                    }
                 }
             }
-            catch
-            {
-                MessageBox.Show(
-                    "Es konnten keine Karten aus " +
-                    "dem Dateisystem geladen werden. Es handelt" +
-                    "sich hierbei um die erste Karte dieser" +
-                    "Kategorie.");
-            }
             return bvm;
-
         }
 
         /*
@@ -289,6 +252,26 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Support
             {
                 card.AnswerPic = CopyPic(card.AnswerPic);
             }
+        }
+
+        /* 
+        * defaultCat is for this moment, where the correct Categorys
+        * doesn't work correctly in every classes. If everything works 
+        * correctly, the defaultCat isn't necessary
+        */
+        private static CategoryViewModel PickDefaultCat(
+            CategoryCollectionViewModel ccvm)
+        {
+            
+            CategoryViewModel defaultCat = ccvm.Where(
+                cat => cat.Name == "default").FirstOrDefault();
+            if (defaultCat == null)
+            {
+                defaultCat = new CategoryViewModel(new Category("default"));
+                ccvm.Add(defaultCat);
+                ccvm.SaveCategorys();
+            }
+            return defaultCat;
         }
     }
 }

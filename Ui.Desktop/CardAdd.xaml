@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="CardAdd" Height="458.75" Width="698.75">
     <Window.DataContext>
-        <Binding Source="{StaticResource VMLocator}" Path="CardWindowViewModel"></Binding>
+        <Binding Source="{StaticResource VMLocator}" Path="CardWindowVM"></Binding>
     </Window.DataContext>
 
     <Grid Background="#ffffff" Margin="0,0,22.4,10.8">

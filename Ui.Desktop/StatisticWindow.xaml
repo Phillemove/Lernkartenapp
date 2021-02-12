@@ -12,7 +12,7 @@
     </Window.IsEnabled>
     <Window.DataContext>
         <Binding Source ="{StaticResource VMLocator}" 
-                 Path ="StatisticWindowViewModel"></Binding >
+                 Path ="StatWindowVM"></Binding >
     </Window.DataContext>
     <Grid>
         <DataGrid ItemsSource="{Binding Path=StatisticCollectionVM}"

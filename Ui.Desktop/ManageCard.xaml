@@ -8,7 +8,7 @@
         Title="ManageCard" Height="669.95" Width="1015.5"
         x:Name="ThisWindow">
     <Window.DataContext>
-        <Binding Source="{StaticResource VMLocator}" Path="CardWindowViewModel"></Binding>
+        <Binding Source="{StaticResource VMLocator}" Path="CardWindowVM"></Binding>
     </Window.DataContext>
     <Grid Margin="0,0,2.8,5">
         <DataGrid ItemsSource="{Binding Path=MyBoxCollectionViewModel,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"

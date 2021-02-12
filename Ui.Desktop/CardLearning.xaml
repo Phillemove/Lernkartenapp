@@ -10,7 +10,7 @@
         <Binding Source="{StaticResource MessageListener}" Path="BindableProperty"></Binding>
     </Window.IsEnabled>
     <Window.DataContext>
-        <Binding Source="{StaticResource VMLocator}" Path="CardLearningViewModel"></Binding>
+        <Binding Source="{StaticResource VMLocator}" Path="CardLearningVM"></Binding>
     </Window.DataContext>
     <Grid Margin="0,0,3.4,0">
         <Label Grid.Column="0" x:Name="Question" Content="Question" HorizontalAlignment="Left"

@@ -8,7 +8,7 @@
         Title="Kategorien verwalten" Height="417" Width="533"
         x:Name="ThisWindow">
     <Window.DataContext>
-        <Binding Source="{StaticResource VMLocator}" Path="CategoryManageViewModel" />
+        <Binding Source="{StaticResource VMLocator}" Path="CategoryManageVM" />
     </Window.DataContext>
     <Grid>
         <Button Command="{Binding CloseWindow}" 
