@@ -15,7 +15,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
 {
     public class ImportForeignFormatViewModel : INotifyPropertyChanged
     {
-        public CategoryCollectionViewModel MyCategoryCollection { get; set; }
+        public CategoryCollectionViewModel MyCatCollection { get; set; }
         public Boxnumber ImportBox { get; }
         public BoxCollectionViewModel BoxCollection { get; }
 
@@ -44,7 +44,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             CardImport = new RelayCommand(() => ImportCards());
             CardClear = new RelayCommand(() => ClearCards());
             this.BoxCollection = bcvm;
-            this.MyCategoryCollection = ccvm;
+            this.MyCatCollection = ccvm;
             this.ImportBox = importbox;
             this.TempBox = new BoxViewModel();
 
@@ -68,7 +68,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             {
                 BoxCollection.StoreCard(card,ImportBox);
             }
-            Support.SaveCards.SaveBoxToFileSystem(TempBox, MyCategoryCollection);
+            Support.SaveCards.SaveBoxToFileSystem(TempBox, MyCatCollection);
             ClearCards();
         }
 

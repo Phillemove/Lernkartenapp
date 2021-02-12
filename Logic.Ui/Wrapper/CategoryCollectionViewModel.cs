@@ -15,16 +15,16 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
     public class CategoryCollectionViewModel : 
         ObservableCollection<CategoryViewModel>
     {
-        public CategoryCollection categoryCollection;
+        public CategoryCollection catCollection;
         private bool syncDisabled;
         
 
 
         public CategoryCollectionViewModel()
         {
-            categoryCollection = new CategoryCollection();
+            catCollection = new CategoryCollection();
             this.CollectionChanged += ViewModelCollectionChanged;
-            categoryCollection.CollectionChanged += ModelCollectionChanged;
+            catCollection.CollectionChanged += ModelCollectionChanged;
             LoadCategorys();
         }
 
@@ -78,16 +78,16 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                     foreach (var category in e.NewItems.OfType
                         <CategoryViewModel>
                         ().Select(v => v.category).OfType<Category>())
-                        categoryCollection.Add(category);
+                        catCollection.Add(category);
                     break;
                 case NotifyCollectionChangedAction.Remove:
                     foreach (var category in e.OldItems.OfType
                         <CategoryViewModel>().Select
                         (v => v.category).OfType<Category>())
-                        categoryCollection.Remove(category);
+                        catCollection.Remove(category);
                     break;
                 case NotifyCollectionChangedAction.Reset:
-                    categoryCollection.Clear();
+                    catCollection.Clear();
                     break;
             }
             syncDisabled = false;
