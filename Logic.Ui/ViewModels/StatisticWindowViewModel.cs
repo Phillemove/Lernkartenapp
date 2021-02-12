@@ -46,15 +46,15 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             }
         }
 
-        private String lastSucessfullAnswer;
-        public String LastSucessfullAnswer {
+        private String lastRightAnswer;
+        public String LastRightAnswer {
             get
             {
-                return lastSucessfullAnswer;
+                return lastRightAnswer;
             }
             set
             {
-                lastSucessfullAnswer = value;
+                lastRightAnswer = value;
                 OnPropertyChanged();
             }
         }
@@ -176,15 +176,15 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             }
         }
 
-        private String dropintoCurrentBox;
-        public String DropintoCurrentBox {
+        private String dropinCurrentBox;
+        public String DropinCurrentBox {
             get
             {
-                return dropintoCurrentBox;
+                return dropinCurrentBox;
             }
             set
             {
-                dropintoCurrentBox = value;
+                dropinCurrentBox = value;
                 OnPropertyChanged();
             }
         }
@@ -210,7 +210,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                 StatisticCollectionVM);
             RightAnswer = StatisticAlgorithms.RightAnswer(
                 StatisticCollectionVM);
-            LastSucessfullAnswer = StatisticAlgorithms.LastSucessfullAnswer(
+            LastRightAnswer = StatisticAlgorithms.LastSucessfullAnswer(
                 StatisticCollectionVM);
             LearningSucess = StatisticAlgorithms.LearningSucess(
                 StatisticCollectionVM);
@@ -230,7 +230,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                 StatisticCollectionVM,CurrentBoxNumber);
             BoxShift = StatisticAlgorithms.BoxShift(
                 StatisticCollectionVM, CurrentBoxNumber);
-            DropintoCurrentBox = StatisticAlgorithms.DropintoCurrentBox(
+            DropinCurrentBox = StatisticAlgorithms.DropintoCurrentBox(
                 StatisticCollectionVM, CurrentBoxNumber,
                 DateTime.Parse(LastLearned));
         }

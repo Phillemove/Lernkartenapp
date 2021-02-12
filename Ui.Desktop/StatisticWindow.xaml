@@ -37,7 +37,7 @@
             <Run Text="In welcher Box befindet sich die Karte gerade:"/>
             <Run Text="{Binding Path=CurrentBoxNumber}"/><LineBreak/>
             <Run Text="Wann wurde die Karte in die aktuelle Box verschoben:"/>
-            <Run Text="{Binding Path=DropintoCurrentBox}"/><LineBreak/>
+            <Run Text="{Binding Path=DropinCurrentBox}"/><LineBreak/>
             <Run Text="Wie oft war die Karte in dieser Box:"/>
             <Run Text="{Binding Path=ActualBoxPassed}"/>
             <Run Text="mal"/><LineBreak/>
@@ -45,7 +45,7 @@
             <Run Text="{Binding Path=RightAnswer}"/>
             <Run Text="mal"/><LineBreak/>
             <Run Text="Wann wurde die Karte zuletzt richtig beantwortet:"/>
-            <Run Text="{Binding Path=LastSucessfullAnswer}"/><LineBreak/>
+            <Run Text="{Binding Path=LastRightAnswer}"/><LineBreak/>
             <Run Text="Wie oft wurde die Karte hintereinander richtig beantwortet:"/>
             <Run Text="{Binding Path=LearningSucess}"/>
             <Run Text="mal"/><LineBreak/>
