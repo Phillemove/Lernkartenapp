@@ -10,10 +10,9 @@ using System.Threading.Tasks;
 namespace De.HsFlensburg.ClientApp101.Business.Model.BusinessObjects
 {
 
-    public class Box : Queue<Card> //, INotifyCollectionChanged
+    public class Box : Queue<Card> 
     {
         Boxnumber bn;
-        //public event NotifyCollectionChangedEventHandler CollectionChanged;
         public Box()
         {
             this.bn = Boxnumber.Box1;
@@ -36,83 +35,23 @@ namespace De.HsFlensburg.ClientApp101.Business.Model.BusinessObjects
         public void Add(Card card)
         {
             base.Enqueue(card);
-            //this.OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, c));
         }
         public Card Remove()
         {
             if (this.Any())
             {
                 Card c = this.Dequeue();
-                //this.OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, c));
                 return c;
             }
             else
             {
-                //this.OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove));
                 return null;
             }
         }
         public new void Clear()
         {
             base.Clear();
-            //if (this.CollectionChanged != null)
-            //   CollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
         }
-        //private void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        //{
-        //    if (syncDisabled) return;
-        //    syncDisabled = true;
-        //    switch (e.Action)
-        //    {
-        //        case NotifyCollectionChangedAction.Add:
-        //            foreach (var card in e.NewItems.OfType<Card>())
-        //                this.Add(card);
-        //            break;
-        //        case NotifyCollectionChangedAction.Remove:
-        //            foreach (var card in e.NewItems.OfType<Card>())
-        //                this.Remove();
-        //            break;
-        //        case NotifyCollectionChangedAction.Reset:
-        //            this.Clear();
-        //            break;
-        //    }
-        //    syncDisabled = false;
-        //}
-        //public virtual event NotifyCollectionChangedEventHandler CollectionChanged;
-
-
-        //protected virtual void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
-        //{
-        //    this.RaiseCollectionChanged(e);
-        //}
-
-        //protected virtual void OnPropertyChanged(PropertyChangedEventArgs e)
-        //{
-        //    this.RaisePropertyChanged(e);
-        //}
-
-
-        //protected virtual event PropertyChangedEventHandler PropertyChanged;
-
-
-        //private void RaiseCollectionChanged(NotifyCollectionChangedEventArgs e)
-        //{
-        //    if (this.CollectionChanged != null)
-        //        this.CollectionChanged(this, e);
-        //}
-
-        //private void RaisePropertyChanged(PropertyChangedEventArgs e)
-        //{
-        //    if (this.PropertyChanged != null)
-        //        this.PropertyChanged(this, e);
-        //}
-
-
-        //event PropertyChangedEventHandler INotifyPropertyChanged.PropertyChanged
-        //{
-        //    add { this.PropertyChanged += value; }
-        //    remove { this.PropertyChanged -= value; }
-        //}
     }
 }
 

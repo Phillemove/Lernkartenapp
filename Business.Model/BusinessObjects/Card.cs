@@ -24,33 +24,5 @@ namespace De.HsFlensburg.ClientApp101.Business.Model.BusinessObjects
             Category = new Category("");
             StatisticCollection = new StatisticCollection();
         }
-        public Card(String question, String answer, String questionPic)
-        {
-            Question = question;
-            Answer = answer;
-            QuestionPic = questionPic;
-            AnswerPic = null;
-            Category = null;
-            StatisticCollection = new StatisticCollection();
-        }
-        public Card(String question, String answer, String questionPic, String answerPic,
-                                     Category category,StatisticCollection statisticCollectio)
-        {
-            Question = question;
-            Answer=answer;
-            QuestionPic = questionPic;
-            AnswerPic = answerPic;
-            this.Category = category;
-            StatisticCollection = statisticCollectio;
-        }
-        public Card(Category category)
-        {
-            Question = null;
-            Answer = null;
-            QuestionPic = null;
-            AnswerPic = null;
-            this.Category = category;
-            StatisticCollection = null;
-        }
     }
 }

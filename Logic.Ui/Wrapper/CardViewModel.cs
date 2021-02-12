@@ -12,11 +12,8 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper
 {
     public class CardViewModel 
     {
-
         private CategoryViewModel category;
         private StatisticCollectionViewModel statisticCollection;
-
-
         public Card card;
         public CardViewModel()
         {
