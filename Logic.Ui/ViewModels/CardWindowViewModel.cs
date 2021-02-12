@@ -102,7 +102,7 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             cardVM.Category = Catvm;
             cardVM.StatisticCollection = null;
             MyBoxCollectionViewModel.StoreCard(cardVM, BoxVM.Bn);
-            Support.SaveCards.SaveAdditionalCard(cardVM.Category, cardVM);
+            Support.SaveCards.SaveAdditionalCard(cardVM.Category, cardVM, MyCatCollectionViewModel);
         }
         private void AddQuestionPicMethod()
         {

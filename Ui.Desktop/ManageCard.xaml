@@ -9,7 +9,7 @@
         x:Name="ThisWindow">
     <Window.DataContext>
         <Binding Source="{StaticResource VMLocator}"
-                 Path="CardWindowViewModel"/>
+                 Path="CardWindowVM"/>
     </Window.DataContext>
     <Grid Margin="0,0,2.8,5">
         <DataGrid ItemsSource="{Binding Path=MyBoxCollectionViewModel,
