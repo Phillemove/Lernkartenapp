@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,8 +21,10 @@ namespace De.HsFlensburg.ClientApp101.Business.Model.BusinessObjects
         {
             Question = null;
             Answer = null;
-            QuestionPic = null;
-            AnswerPic = null;
+            QuestionPic = Path.GetDirectoryName(Assembly.GetEntryAssembly()
+                .Location) + "\\..\\..\\..\\Lernkarten\\content\\default.jpg"; 
+            AnswerPic = Path.GetDirectoryName(Assembly.GetEntryAssembly()
+                .Location) + "\\..\\..\\..\\Lernkarten\\content\\default.jpg";
             Category = new Category("");
             StatisticCollection = new StatisticCollection();
         }

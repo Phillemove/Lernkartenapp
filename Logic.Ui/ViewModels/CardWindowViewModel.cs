@@ -1,12 +1,9 @@
-﻿using De.HsFlensburg.ClientApp101.Business.Model.BusinessObjects;
-using De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper;
+﻿using De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Forms;
 using MessageBox = System.Windows.Forms.MessageBox;
@@ -21,7 +18,6 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         public String Answer { get; set; }
         public String QuestionPic { get; set; }
         public String AnswerPic { get; set; }
-
         public CategoryViewModel Catvm { get; set; }
         public RelayCommand AddCard { get; }
         public RelayCommand AddQuestionPic { get; }
@@ -51,6 +47,22 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             set
             {
                 this.selectedCard = value;
+                if (selectedCard != null && selectedCard.QuestionPic != null &&
+                !selectedCard.QuestionPic.Contains(@"\"))
+                {
+                    selectedCard.QuestionPic = Path.GetDirectoryName(
+                        Assembly.GetEntryAssembly().Location)
+                        + "\\..\\..\\..\\Lernkarten\\content\\"
+                        + selectedCard.QuestionPic;
+                }
+                if (selectedCard != null && selectedCard.AnswerPic != null &&
+                !selectedCard.AnswerPic.Contains(@"\")) 
+                {
+                    selectedCard.AnswerPic = Path.GetDirectoryName(
+                        Assembly.GetEntryAssembly().Location)
+                        + "\\..\\..\\..\\Lernkarten\\content\\"
+                        + selectedCard.AnswerPic;
+                }
                 OnPropertyChanged("SelectedCard");
             }
         }
@@ -66,20 +78,16 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             AddQuestionPicMethod());
             AddAnswerPic = new RelayCommand(() =>
             AddAnswerPicMethod());
-
             UpdateQuestionPic = new RelayCommand(() =>
             UpdateQuestionPicMethod());
             UpdateAnswerPic = new RelayCommand(() =>
             UpdateAnswerPicMethod());
-
             EditQuestionPic = new RelayCommand(() =>
             EditQuestionPicMethod());
             EditAnswerPic = new RelayCommand(() =>
             EditAnswerPicMethod());
-
             DeleteCard = new RelayCommand(() =>
             DeleteCardMethod());
-
             CloseManageWindow = new RelayCommand((param) =>
             CloseManage(param));
             MyBoxCollectionViewModel = bcvm;
@@ -102,7 +110,8 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             cardVM.Category = Catvm;
             cardVM.StatisticCollection = null;
             MyBoxCollectionViewModel.StoreCard(cardVM, BoxVM.Bn);
-            Support.SaveCards.SaveAdditionalCard(cardVM.Category, cardVM, MyCatCollectionViewModel);
+            Support.SaveCards.SaveAdditionalCard(cardVM.Category, cardVM,
+                MyCatCollectionViewModel);
         }
         private void AddQuestionPicMethod()
         {

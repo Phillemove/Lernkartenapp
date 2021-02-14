@@ -79,7 +79,7 @@
         <Button Grid.Column="0" HorizontalAlignment="Left" 
                 Margin="17,370,0,9.667" Width="111"
                 Command="{Binding AddCard,Mode=OneWay}" 
-                Click="Button_Click">Karte hinzufügen</Button>
+                >Karte hinzufügen</Button>
         <Label Grid.Column="0" BorderBrush="#dab3ff" x:Name="BoxNumber"
                Content="BoxNumber"
             HorizontalAlignment="Left" VerticalAlignment="Top"

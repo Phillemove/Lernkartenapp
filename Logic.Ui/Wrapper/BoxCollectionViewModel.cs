@@ -3,7 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,14 +22,30 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper
             this.CollectionChanged += ViewModelCollectionChanged;
             boxCollection.CollectionChanged += ModelCollectionChanged;
         }
-
         public CardViewModel GiveCard(Boxnumber bn)
         {
             foreach (BoxViewModel boxvm in this)
             {
                 if (boxvm.Bn == bn)
                 {
-                    return boxvm.Remove();
+                    CardViewModel card= boxvm.Remove();
+                    if (card!= null && card.QuestionPic != null &&
+                     !card.QuestionPic.Contains(@"\"))
+                    {
+                        card.QuestionPic = Path.GetDirectoryName(
+                            Assembly.GetEntryAssembly().Location)
+                            + "\\..\\..\\..\\Lernkarten\\content\\"
+                            + card.QuestionPic;
+                    }
+                    if (card != null && card.AnswerPic != null &&
+                     !card.AnswerPic.Contains(@"\"))
+                    {
+                        card.AnswerPic = Path.GetDirectoryName(
+                            Assembly.GetEntryAssembly().Location)
+                            + "\\..\\..\\..\\Lernkarten\\content\\"
+                            + card.AnswerPic;
+                    }
+                    return card;
                 }
             }
             return null;

@@ -16,12 +16,12 @@
             UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                   SelectedItem="{Binding SelectedBox}"
                   Margin="36,19,563.2,460" />
-        <DataGrid ItemsSource="{Binding Path=SelectedBox,
+        <DataGrid AutoGenerateColumns="True" ItemsSource="{Binding Path=SelectedBox,
                 UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                 SelectedItem="{Binding SelectedCard}"
                 HorizontalAlignment="Left"
                 Height="250" Margin="482,10,0,0"
-                VerticalAlignment="Top" Width="487"/>
+                VerticalAlignment="Top" Width="487" />
         <TextBox  Text="{Binding Path=SelectedCard.Question}"
                 HorizontalAlignment="Left" Height="55"
                 Margin="154,276,0,0" TextWrapping="Wrap"

@@ -13,15 +13,21 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper
     {
         public Box box;
         public BoxViewModel()
-            {
+        {
                 this.box = new Box();
-            }
-            public BoxViewModel(Box box)
-            {
+         }
+        public BoxViewModel(Boxnumber Bn)
+        {
+            this.box = new Box();
+            this.Bn = Bn;
+
+        }
+        public BoxViewModel(Box box)
+        {
                 this.box = box;
-            }
-            public Boxnumber Bn
-            {
+        }
+        public Boxnumber Bn
+        {
                 get
                 {
                     return box.Bn;
@@ -30,14 +36,14 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper
                 {
                     box.Bn = value;
                 }
-            }
-            public void Add(CardViewModel cardvm)
-            {
+        }
+        public void Add(CardViewModel cardvm)
+        {
                 box.Add(cardvm.card);
                 base.Enqueue(cardvm);
-            }
-            public CardViewModel Remove()
-            {
+        }
+        public CardViewModel Remove()
+        {
             box.Remove();
             if (this.Any())
             {

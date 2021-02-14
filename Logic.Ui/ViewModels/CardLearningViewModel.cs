@@ -1,32 +1,24 @@
 ﻿using De.HsFlensburg.ClientApp101.Logic.Ui.Wrapper;
 using De.HsFlensburg.ClientApp101.Business.Model.BusinessObjects;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-//using System.Windows.Forms;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Timers;
-using System.Windows;
 using De.HsFlensburg.ClientApp101.Services.MessageBus;
 using De.HsFlensburg.ClientApp101.Logic.Ui.MessageBusMessages;
-using System.Xml;
 using System.IO;
 using System.Reflection;
+using System.Windows.Forms;
 
 namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
 {
     public class CardLearningViewModel : INotifyPropertyChanged
     {
-        public StatisticWindowViewModel StatisticWindowVM { get; set; }
+        public StatisticWindowViewModel StatisticWindowVM { get; set; }        
         public event PropertyChangedEventHandler PropertyChanged;
-
         public RelayCommand OpenStatisticsWindow { get; }
         public RelayCommand CloseWindow { get; }
-
         private String ans;
+        private String ansPic;
         private Boxnumber curBoxNumber { get; set; }
         private int currentProgressBarValue;
         private int maximumProgressBarValue;
@@ -59,89 +51,173 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                 OnPropertyChanged("Answer");
             }
         }
+        public String AnswerPic
+        {
+            get { return this.ansPic; }
+            set
+            {
+                this.ansPic = value;
+                OnPropertyChanged("AnswerPic");
+            }
+        }
         private CardViewModel cvm;
         public CardViewModel CardVM
-        { 
-            get { return this.cvm; } 
-            set { this.cvm = value;
-                OnPropertyChanged("CardVM"); } 
-        }        
+        {
+            get { return this.cvm; }
+            set
+            {
+                this.cvm = value;
+                OnPropertyChanged("CardVM");
+            }
+        }
         public RelayCommand TrueAnswer { get; }
         public RelayCommand FalseAnswer { get; }
-        public BoxCollectionViewModel myBoxCollectionViewModel { get; set; }
+        public BoxCollectionViewModel BoxCollectionViewModel { get; set; }
 
-       
-
-        public CardLearningViewModel(BoxCollectionViewModel bcvm, CategoryCollectionViewModel ccvm, StatisticWindowViewModel swvm)
+        public BoxCollectionViewModel tempBoxCollectionViewModel { get; set; }
+        public CardLearningViewModel(BoxCollectionViewModel bcvm,
+            CategoryCollectionViewModel ccvm,
+            StatisticWindowViewModel swvm)
         {
-            myBoxCollectionViewModel = bcvm;
-            // load cards from xml file
-            //LoadCards();
-
-            //-----------------------------------
+            BoxCollectionViewModel = new BoxCollectionViewModel();
+            copyBoxCollectionViewModels(bcvm, BoxCollectionViewModel);
+            tempBoxCollectionViewModel = new BoxCollectionViewModel();
+            copyBoxCollectionViewModels(BoxCollectionViewModel,
+                                        tempBoxCollectionViewModel);
             aTimer = new System.Timers.Timer();
             aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
-            aTimer.Interval = 2000;
-            //-----------------------------------
-
+            aTimer.Interval = 10000;
             this.StatisticWindowVM = swvm;
-
-
             CurrentProgressBarValue = 0;
             MaximumProgressBarValue = GetCardsCount();
-
-
-            CardVM = myBoxCollectionViewModel.GiveCard(Boxnumber.Box1);
+            CardVM = BoxCollectionViewModel.GiveCard(Boxnumber.Box1);
+            curBoxNumber = Boxnumber.Box1;
+            if (CardVM == null)
+            {
+                getNextCard();
+            }
             TrueAnswer = new RelayCommand(() => TrueAnswerMethod());
             FalseAnswer = new RelayCommand(() => FalseAnswerMethod());
-
-            OpenStatisticsWindow = new RelayCommand(() => {
+            OpenStatisticsWindow = new RelayCommand(() =>
+            {
                 this.StatisticWindowVM.MakeStatistic();
                 ServiceBus.Instance.Send(new OpenStatisticMessage());
-                });
+            });
             CloseWindow = new RelayCommand(param => Close(param));
             this.ccvm = ccvm;
-            
+            Answer = "";
+            AnswerPic = Path.GetDirectoryName(
+                        Assembly.GetEntryAssembly().Location)
+                        + "\\..\\..\\..\\Lernkarten\\content\\wait.jpg";
         }
 
         private void Close(object param)
         {
-            Support.SaveCards.SaveBoxCollectionsToFilesystem(myBoxCollectionViewModel, ccvm);   //Saves the learned Cards to the Filesystem
-            Window window = (Window)param;
+            Support.SaveCards.SaveBoxCollectionsToFilesystem(
+                BoxCollectionViewModel, ccvm);   
+            System.Windows.Window window = (System.Windows.Window)param;
             window.Close();
         }
-
+        public void copyBoxCollectionViewModels(BoxCollectionViewModel from
+            , BoxCollectionViewModel to)
+        {
+            to.Clear();
+            to.Add(new BoxViewModel(Boxnumber.Box1));
+            to.Add(new BoxViewModel(Boxnumber.Box2));
+            to.Add(new BoxViewModel(Boxnumber.Box3));
+            to.Add(new BoxViewModel(Boxnumber.Box4));
+            to.Add(new BoxViewModel(Boxnumber.Box5));
+            for (int boxnum = 0; boxnum < 5; boxnum++)
+            {
+                CardViewModel[] array = new CardViewModel[from[boxnum].Count];
+                for (int i = 0; i < from[boxnum].Count; i++)
+                {
+                    array[i] = from[boxnum].Remove();
+                    from[boxnum].Add(array[i]);
+                }
+                for (int i = 0; i < from[boxnum].Count; i++)
+                {
+                    to[boxnum].Add(array[i]);
+                }
+            }
+        }
+        public void addStaticsToCardVM(BoxCollectionViewModel from,
+            CardViewModel cardvm, StatisticViewModel svm)
+        {
+            BoxCollectionViewModel to = new BoxCollectionViewModel();
+            to.Add(new BoxViewModel(Boxnumber.Box1));
+            to.Add(new BoxViewModel(Boxnumber.Box2));
+            to.Add(new BoxViewModel(Boxnumber.Box3));
+            to.Add(new BoxViewModel(Boxnumber.Box4));
+            to.Add(new BoxViewModel(Boxnumber.Box5));
+            for (int boxnum = 0; boxnum < 5; boxnum++)
+            {
+                CardViewModel[] array = new CardViewModel[from[boxnum].Count];
+                for (int i = 0; i < from[boxnum].Count; i++)
+                {
+                    array[i] = from[boxnum].Remove();
+                    if (array[i].Equals(cardvm))
+                    {
+                        array[i].StatisticCollection.Add(svm);
+                    }
+                    from[boxnum].Add(array[i]);
+                }
+                for (int i = 0; i < from[boxnum].Count; i++)
+                {
+                    to[boxnum].Add(array[i]);
+                }
+            }
+            copyBoxCollectionViewModels(to, from);
+        }
         private void OnTimedEvent(Object source, ElapsedEventArgs e)
         {
-            //Console.WriteLine("The Elapsed event was raised at {0:HH:mm:ss.fff}",e.SignalTime);
-
             aTimer.Enabled = false;
-            //MessageBox.Show("Time finished");
-            //aTimer.Enabled = true;
-            // go to next card
             if (CardVM != null)
             {
                 Answer = CardVM.Answer;
+                AnswerPic = CardVM.AnswerPic;
             }
-            else {
+            else
+            {
                 CurrentProgressBarValue += 100;
+                var confirmResult = MessageBox.Show(
+                    "Do you want to start again ?",
+                    "Confirm start again!!",
+                     MessageBoxButtons.YesNo);
+                if (confirmResult == DialogResult.Yes)
+                {
+                    CurrentProgressBarValue = 0;
+                    copyBoxCollectionViewModels(tempBoxCollectionViewModel,
+                                                BoxCollectionViewModel);
+                    getNextCard();
+                    aTimer.Enabled = true;
+                }
+                else
+                {
+                    copyBoxCollectionViewModels(tempBoxCollectionViewModel,
+                                                BoxCollectionViewModel);
+                }
             }
-            //getNextCard();
-            //CurrentProgressBarValue += 1;
         }
         public void TrueAnswerMethod()
-         {
+        {
             if (CardVM != null)
             {
                 Answer = "";
-                CardVM.StatisticCollection.Add(new StatisticViewModel(new Statistic(DateTime.Now, true, curBoxNumber)));
-                this.StatisticWindowVM.StatisticCollectionVM = CardVM.StatisticCollection;
-                //StatisticWindowVM = new StatisticWindowViewModel(CardVM.StatisticCollection);
+                AnswerPic = Path.GetDirectoryName(
+                            Assembly.GetEntryAssembly().Location)
+                            + "\\..\\..\\..\\Lernkarten\\content\\wait.jpg";
+                addStaticsToCardVM(tempBoxCollectionViewModel, CardVM,
+                                    new StatisticViewModel(new Statistic(
+                                        DateTime.Now, true, curBoxNumber)));
+                this.StatisticWindowVM.StatisticCollectionVM = 
+                                CardVM.StatisticCollection;
                 getNextCard();
                 aTimer.Enabled = true;
                 CurrentProgressBarValue += 1;
             }
-            else {
+            else
+            {
                 CurrentProgressBarValue += 100;
             }
         }
@@ -150,9 +226,14 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
             if (CardVM != null)
             {
                 Answer = "";
-                CardVM.StatisticCollection.Add(new StatisticViewModel(new Statistic(DateTime.Now, false, curBoxNumber)));
-                this.StatisticWindowVM.StatisticCollectionVM = CardVM.StatisticCollection;
-                //StatisticWindowVM = new StatisticWindowViewModel(CardVM.StatisticCollection);
+                AnswerPic = Path.GetDirectoryName(
+                            Assembly.GetEntryAssembly().Location)
+                            + "\\..\\..\\..\\Lernkarten\\content\\wait.jpg";
+                addStaticsToCardVM(tempBoxCollectionViewModel, CardVM,
+                new StatisticViewModel(
+                    new Statistic(DateTime.Now, false, curBoxNumber)));
+                this.StatisticWindowVM.StatisticCollectionVM = 
+                                CardVM.StatisticCollection;
                 moveCard();
                 getNextCard();
                 aTimer.Enabled = true;
@@ -164,216 +245,67 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
         }
         public void getNextCard()
         {
-            //--------------------
-            CardVM = myBoxCollectionViewModel.GiveCard(Boxnumber.Box1);
-            curBoxNumber = Boxnumber.Box1;
-            if (CardVM == null)
-            {
-                CardVM = myBoxCollectionViewModel.GiveCard(Boxnumber.Box2);
-                curBoxNumber = Boxnumber.Box2;
-            }
-            if (CardVM == null)
-            {
-                CardVM = myBoxCollectionViewModel.GiveCard(Boxnumber.Box3);
-                curBoxNumber = Boxnumber.Box3;
-            }
-            if (CardVM == null)
-            {
-                CardVM = myBoxCollectionViewModel.GiveCard(Boxnumber.Box4);
-                curBoxNumber = Boxnumber.Box4;
-            }
-            if (CardVM == null)
-            {
-                CardVM = myBoxCollectionViewModel.GiveCard(Boxnumber.Box5);
-                curBoxNumber = Boxnumber.Box5;
-            }
+                if (curBoxNumber == Boxnumber.Box1)
+                {
+                    CardVM = BoxCollectionViewModel.GiveCard(Boxnumber.Box2);
+                    curBoxNumber = Boxnumber.Box2;
+                }else if (curBoxNumber == Boxnumber.Box2)
+                {
+                    CardVM = BoxCollectionViewModel.GiveCard(Boxnumber.Box3);
+                    curBoxNumber = Boxnumber.Box3;
+                }else if (curBoxNumber == Boxnumber.Box3)
+                {
+                    CardVM = BoxCollectionViewModel.GiveCard(Boxnumber.Box4);
+                    curBoxNumber = Boxnumber.Box4;
+                }
+                else if (curBoxNumber == Boxnumber.Box4)
+                {
+                    CardVM = BoxCollectionViewModel.GiveCard(Boxnumber.Box5);
+                    curBoxNumber = Boxnumber.Box5;
+                }
+                else if (curBoxNumber == Boxnumber.Box5)
+                {
+                    CardVM = BoxCollectionViewModel.GiveCard(Boxnumber.Box1);
+                    curBoxNumber = Boxnumber.Box1;
+                }
         }
         public void moveCard()
         {
             if (curBoxNumber == Boxnumber.Box1)
             {
-                myBoxCollectionViewModel.StoreCard(CardVM, Boxnumber.Box2);
+                BoxCollectionViewModel.StoreCard(CardVM, Boxnumber.Box5);
             }
             else if (curBoxNumber == Boxnumber.Box2)
             {
-                myBoxCollectionViewModel.StoreCard(CardVM, Boxnumber.Box3);
+                BoxCollectionViewModel.StoreCard(CardVM, Boxnumber.Box1);
             }
             else if (curBoxNumber == Boxnumber.Box3)
             {
-                myBoxCollectionViewModel.StoreCard(CardVM, Boxnumber.Box4);
+                BoxCollectionViewModel.StoreCard(CardVM, Boxnumber.Box2);
             }
             else if (curBoxNumber == Boxnumber.Box4)
             {
-                myBoxCollectionViewModel.StoreCard(CardVM, Boxnumber.Box5);
+                BoxCollectionViewModel.StoreCard(CardVM, Boxnumber.Box3);
             }
             else if (curBoxNumber == Boxnumber.Box5)
             {
-                myBoxCollectionViewModel.StoreCard(CardVM, Boxnumber.Box1);
+                BoxCollectionViewModel.StoreCard(CardVM, Boxnumber.Box4);
             }
         }
         public int GetCardsCount()
         {
-            int count =0;
+            int count = 0;
             for (int i = 0; i < 5; i++)
-            { 
-               count += myBoxCollectionViewModel[i].Count;
+            {
+                count += BoxCollectionViewModel[i].Count;
             }
-            //--------------------
-            //MessageBox.Show("Cards Count = "+count);
             return count;
         }
         private void OnPropertyChanged(string propertyName)
         {
             if (this.PropertyChanged != null)
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+                this.PropertyChanged(this, new PropertyChangedEventArgs
+                                     (propertyName));
         }
-        //-------------------------------------------------------------------------------------
-        /*public void LoadCards()
-        {
-            XmlDocument doc1 = new XmlDocument();
-            doc1.Load(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)+ 
-                                            "\\..\\..\\..\\Lernkarten\\AWP.xml");
-            foreach (XmlNode node in doc1.DocumentElement)
-            {
-                CardViewModel cardvm = LoadCardViewModel(node);
-                cardvm.QuestionPic= Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)+
-                                    "\\..\\..\\..\\Lernkarten\\content\\" + cardvm.QuestionPic;
-                cardvm.AnswerPic = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) +
-                                    "\\..\\..\\..\\Lernkarten\\content\\" + cardvm.AnswerPic;
-                if (cardvm.StatisticCollection != null)
-                {
-                    this.myBoxCollectionViewModel.StoreCard(cardvm,
-                         cardvm.StatisticCollection[0].CurrentBoxNumber);
-                    //MessageBox.Show(cardvm.StatisticCollection[0].CurrentBoxNumber+" ");
-
-                }
-                else
-                {
-                    this.myBoxCollectionViewModel.StoreCard(cardvm,Boxnumber.Box1);
-                }
-            }
-            //-----------------------------------------------------------------------------------------------------
-            XmlDocument doc2 = new XmlDocument();
-            doc2.Load(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) +
-                                           "\\..\\..\\..\\Lernkarten\\Netzwerkadministration.xml");
-            foreach (XmlNode node in doc2.DocumentElement)
-            {
-                CardViewModel cardvm = LoadCardViewModel(node);
-                cardvm.QuestionPic = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) +
-                                    "\\..\\..\\..\\Lernkarten\\content\\" + cardvm.QuestionPic;
-                cardvm.AnswerPic = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) +
-                                    "\\..\\..\\..\\Lernkarten\\content\\" + cardvm.AnswerPic;
-                if (cardvm.StatisticCollection != null)
-                {
-                    this.myBoxCollectionViewModel.StoreCard(cardvm,
-                         cardvm.StatisticCollection[0].CurrentBoxNumber);
-                    //MessageBox.Show(cardvm.StatisticCollection[0].CurrentBoxNumber + " ");
-
-                }
-                else
-                {
-                    this.myBoxCollectionViewModel.StoreCard(cardvm, Boxnumber.Box1);
-                }
-            }
-            //-----------------------------------------------------------------------------------------------------
-            XmlDocument doc3 = new XmlDocument();
-            doc3.Load(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) +
-                                           "\\..\\..\\..\\Lernkarten\\Projektmanagement.xml");
-            foreach (XmlNode node in doc3.DocumentElement)
-            {
-                CardViewModel cardvm = LoadCardViewModel(node);
-                cardvm.QuestionPic = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) +
-                                    "\\..\\..\\..\\Lernkarten\\content\\" + cardvm.QuestionPic;
-                cardvm.AnswerPic = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) +
-                                    "\\..\\..\\..\\Lernkarten\\content\\" + cardvm.AnswerPic;
-                if (cardvm.StatisticCollection != null)
-                {
-                    this.myBoxCollectionViewModel.StoreCard(cardvm,
-                         cardvm.StatisticCollection[0].CurrentBoxNumber);
-                    //MessageBox.Show(cardvm.StatisticCollection[0].CurrentBoxNumber + " ");
-
-                }
-                else
-                {
-                    this.myBoxCollectionViewModel.StoreCard(cardvm, Boxnumber.Box1);
-                }
-            }
-            //-----------------------------------------------------------------------------------------------------
-        }
-        public static CardViewModel LoadCardViewModel(XmlNode node)
-        {
-            CardViewModel card = new CardViewModel();
-            foreach (XmlNode child in node)
-            {
-                switch (child.Name)
-                {
-                    case "Question":
-                        //MessageBox.Show(child.InnerText);
-                        card.Question = child.InnerText;
-                        break;
-                    case "Answer":
-                        card.Answer = child.InnerText;
-                        break;
-                    case "QuestionPic":
-                        card.QuestionPic = child.InnerText;
-                        break;
-                    case "AnswerPic":
-                        card.AnswerPic = child.InnerText;
-                        break;
-                    case "StatisticCollection":
-                        card.StatisticCollection = new StatisticCollectionViewModel();
-                        foreach (XmlNode statNode in child)
-                        {
-                            StatisticViewModel stat = LoadStatisticViewModel(statNode);
-                            card.StatisticCollection.Add(stat);
-                        }
-                        break;
-                }
-            };
-            return card;
-
-        } // end CardViewModel ReadOwnFormatNode(XmlNode node)
-        private static StatisticViewModel LoadStatisticViewModel(XmlNode statNode)
-        {
-            StatisticViewModel stat = new StatisticViewModel();
-            foreach (XmlNode statDet in statNode)
-            {
-                switch (statDet.Name)
-                {
-                    case "Timestamp":
-                        //MessageBox.Show(statDet.InnerText);
-                        stat.Timestamp = Convert.ToDateTime(statDet.InnerText);
-                        break;
-                    case "SuccessfullAnswer":
-                        stat.SuccessfulAnswer =
-                            Convert.ToBoolean(statDet.InnerText);
-                        break;
-                    case "CurrentBoxNumber":
-                        switch (statDet.InnerText)
-                        {
-                            case "Box1":
-                                stat.CurrentBoxNumber = Boxnumber.Box1;
-                                break;
-                            case "Box2":
-                                stat.CurrentBoxNumber = Boxnumber.Box2;
-                                break;
-                            case "Box3":
-                                stat.CurrentBoxNumber = Boxnumber.Box3;
-                                break;
-                            case "Box4":
-                                stat.CurrentBoxNumber = Boxnumber.Box4;
-                                break;
-                            case "Box5":
-                                stat.CurrentBoxNumber = Boxnumber.Box5;
-                                break;
-                        }
-                        break;
-                }
-            }
-            return stat;
-        }*/
-        //-------------------------------------------------------------------------
-
     }
-
 }
