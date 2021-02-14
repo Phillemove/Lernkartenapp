@@ -88,17 +88,42 @@ namespace De.HsFlensburg.ClientApp101.Logic.Ui.ViewModels
                 {
                     if (card.AnswerPic != null)
                     {
-                        card.AnswerPic = SaveCards.CopyPic(
-                            filepath + 
-                            @"\content\" +
-                            card.AnswerPic);
+                        if (card.AnswerPic.Contains("default.jpg"))
+                        {
+                            /*
+                             * Because on 14.02.2021 there comes a change 
+                             * which needs this step to fix it for the first
+                             * time
+                             */
+                            card.AnswerPic = null;
+                        }
+                        else
+                        {
+                            card.AnswerPic = SaveCards.CopyPic(
+                                filepath +
+                                @"\content\" +
+                                card.AnswerPic);
+                        }
                     }
                     if (card.QuestionPic != null)
                     {
-                        card.QuestionPic = SaveCards.CopyPic(
+                        if (card.QuestionPic.Contains("default.jpg"))
+                        {
+                            /*
+                             * Because on 14.02.2021 there comes a change 
+                             * which needs this step to fix it for the first
+                             * time
+                             */
+                            card.QuestionPic = null;
+                        }
+                        else
+                        {
+                            card.QuestionPic = SaveCards.CopyPic(
                             filepath +
                             @"\content\" +
                             card.QuestionPic);
+                        }
+                        
                     }
                 }
                 if (NewCatCheck) 

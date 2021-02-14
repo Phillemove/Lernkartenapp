@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--Anwendungsprogrammierung-->
+<Cards>
+    <Card>
+        <Question>In welcher Sprache müssen wir die Lernkartenapp schreiben?</Question>
+        <Answer>c#</Answer>
+        <QuestionPic>AWP1Question.jpg</QuestionPic>
+        <AnswerPic>AWP1Answer.jpg</AnswerPic>
+        <StatisticCollection />
+    </Card>
+    <Card>
+        <Question>Bis wann muss die Hausarbeit abgegeben sein?</Question>
+        <Answer>15. Februar 2021</Answer>
+        <StatisticCollection />
+  </Card>
+</Cards>
